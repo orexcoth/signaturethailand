@@ -25,6 +25,18 @@ class SideMenu
                 'params' => [],
                 'title' => 'blur'
             ],
+            'watermark' => [
+                'icon' => 'home',
+                'route_name' => 'bn_watermark',
+                'params' => [],
+                'title' => 'watermark'
+            ],
+            'mosaic' => [
+                'icon' => 'home',
+                'route_name' => 'bn_mosaic',
+                'params' => [],
+                'title' => 'mosaic'
+            ],
             
             // 'customers' => [
             //     'icon' => 'Users',

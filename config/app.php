@@ -171,6 +171,7 @@ return [
         App\Providers\ViewServiceProvider::class,
         SimpleSoftwareIO\QrCode\QrCodeServiceProvider::class,
         Yajra\DataTables\DataTablesServiceProvider::class,
+        Intervention\Image\ImageServiceProvider::class,
     ])->toArray(),
 
     /*
@@ -188,6 +189,7 @@ return [
         // 'Example' => App\Facades\Example::class,
         'QrCode' => SimpleSoftwareIO\QrCode\Facades\QrCode::class,
         'Datatables' => Yajra\Datatables\Datatables::class,
+        'Image' => Intervention\Image\Facades\Image::class,
     ])->toArray(),
 
 ];

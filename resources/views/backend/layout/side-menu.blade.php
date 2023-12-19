@@ -7,11 +7,7 @@
 @section('content')
 <?php
 $arr = [];
-// $arr['admin'] = array('devider','dashboard','customers','posts','car','cat','tag','news','users','contacts','setting','logs','dev',);
-// $arr['manager'] = array('devider','dashboard','customers','posts','car','cat','tag','news','contacts','logs',);
-// $arr['assistance'] = array('devider','dashboard','customers','posts','car','cat','tag',);
-// $arr['editor'] = array('devider','dashboard','news',);
-// $arr['marketing'] = array('devider','dashboard','customers',);
+
 
 // echo "<pre>";
 // print_r($page_name);

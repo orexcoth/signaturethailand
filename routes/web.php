@@ -172,8 +172,15 @@ Route::middleware('auth')->group(function() {
 
 
     Route::get('/backend', [BackendPageController::class, 'backendDashboard'])->name('backendDashboard');
-    Route::get('/backend/blur', [testImageController::class, 'bn_blur'])->name('bn_blur');
-    Route::post('/backend/blur-upload', [testImageController::class, 'bn_blur_upload'])->name('bn_blur_upload');
+
+    Route::get('/backend/blur', [BackendPageController::class, 'bn_blur'])->name('bn_blur');
+    Route::post('/backend/blur-upload', [BackendPageController::class, 'bn_blur_upload'])->name('bn_blur_upload');
+    
+    Route::get('/backend/watermark', [BackendPageController::class, 'bn_watermark'])->name('bn_watermark');
+    Route::post('/backend/watermark-upload', [BackendPageController::class, 'bn_watermark_upload'])->name('bn_watermark_upload');
+
+    Route::get('/backend/mosaic', [BackendPageController::class, 'bn_mosaic'])->name('bn_mosaic');
+    Route::post('/backend/mosaic-upload', [BackendPageController::class, 'bn_mosaic_upload'])->name('bn_mosaic_upload');
 
 
 

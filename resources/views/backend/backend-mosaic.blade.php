@@ -15,7 +15,7 @@
         <h2 class="mr-auto text-lg font-medium">{{$default_pagename}}</h2>
     </div>
 
-    <form method="post" action="{{route('bn_blur_upload')}}" enctype="multipart/form-data" >
+    <form method="post" action="{{route('bn_mosaic_upload')}}" enctype="multipart/form-data" >
         @csrf
         <div class="grid grid-cols-12 gap-6 mt-5">
             <!-- <div class="intro-y col-span-12 lg:col-span-3"></div> -->
@@ -28,7 +28,7 @@
                         
 
                         <div class="grid grid-cols-12 gap-x-5">
-                            <div class="col-span-12 xl:col-span-12">
+                            <div class="col-span-12 xl:col-span-6">
                                 
                                 <div class="mt-3 ">
                                     <label for="" class="form-label">รูป</label>
@@ -36,6 +36,7 @@
                                 </div>
 
                             </div>
+
 
                         </div>
 
@@ -61,15 +62,15 @@
                     <tr>
                         <th class="whitespace-nowrap">ปกติ</th>
                         <!-- <th class="whitespace-nowrap">blur10</th> -->
-                        <th class="whitespace-nowrap">blur20</th>
-                        <!-- <th class="whitespace-nowrap">blur40</th> -->
-                        <th class="whitespace-nowrap">blur60</th>
-                        <th class="whitespace-nowrap">blur90</th>
+                        <!-- <th class="whitespace-nowrap">ซ้อน</th> -->
+                        <th class="whitespace-nowrap">mosaic</th>
+                        <!-- <th class="whitespace-nowrap">blur60</th>
+                        <th class="whitespace-nowrap">blur90</th> -->
                     </tr>
                 </thead>
                 <tbody>
                     
-                    @foreach($image_blur as $keyres => $res)
+                    @foreach($image_mosaic as $keyres => $res)
 
                         <tr class="intro-x">
                             <td class="w-40">
@@ -80,18 +81,11 @@
                                 </div>
                             </td>
 
-                            <!-- <td class="w-40">
-                                <div class="flex">
-                                    <div class="w-10 h-10 image-fit zoom-in -ml-5">
-                                        <img class="tooltip" data-action="zoom" src="{{asset($res->blur10)}}" >
-                                    </div>
-                                </div>
-                            </td> -->
 
                             <td class="w-40">
                                 <div class="flex">
                                     <div class="w-10 h-10 image-fit zoom-in -ml-5">
-                                        <img class="tooltip" data-action="zoom" src="{{asset($res->blur20)}}" >
+                                        <img class="tooltip" data-action="zoom" src="{{asset($res->result)}}" >
                                     </div>
                                 </div>
                             </td>
@@ -104,7 +98,7 @@
                                 </div>
                             </td> -->
 
-                            <td class="w-40">
+                            <!-- <td class="w-40">
                                 <div class="flex">
                                     <div class="w-10 h-10 image-fit zoom-in -ml-5">
                                         <img class="tooltip" data-action="zoom" src="{{asset($res->blur60)}}" >
@@ -118,7 +112,7 @@
                                         <img class="tooltip" data-action="zoom" src="{{asset($res->blur80)}}" >
                                     </div>
                                 </div>
-                            </td>
+                            </td> -->
 
                         </tr>
                     @endforeach
@@ -127,7 +121,7 @@
         </div>
         <!-- END: Data List -->
         <div class="d-flex">
-            {!! $image_blur->links() !!}
+            {!! $image_mosaic->links() !!}
         </div>
 
         
