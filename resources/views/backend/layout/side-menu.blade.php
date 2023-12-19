@@ -22,7 +22,7 @@ $arr = [];
         <!-- BEGIN: Side Menu -->
         <nav class="side-nav">
             <a href="{{route('backendDashboard')}}" class="intro-x flex items-center pl-5 pt-4 mt-3">
-                <img alt="รถพร้อมขาย" class="" src="{{asset('frontend/images/logo.svg')}}">
+                <img alt="รถพร้อมขาย" class="" src="{{asset('myassets/images/logo.svg')}}">
                 <!-- <span class="hidden xl:block text-white text-lg ml-3">
                     รถพร้อมขาย
                 </span> -->

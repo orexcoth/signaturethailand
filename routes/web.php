@@ -12,6 +12,11 @@ use App\Http\Controllers\Backend\BackendPageController;
 use App\Http\Controllers\Frontend\FrontendPageController;
 
 
+
+
+use App\Http\Controllers\Backend\testImageController;
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -167,6 +172,16 @@ Route::middleware('auth')->group(function() {
 
 
     Route::get('/backend', [BackendPageController::class, 'backendDashboard'])->name('backendDashboard');
+    Route::get('/backend/blur', [testImageController::class, 'bn_blur'])->name('bn_blur');
+    Route::post('/backend/blur-upload', [testImageController::class, 'bn_blur_upload'])->name('bn_blur_upload');
+
+
+
+
+
+
+
+
     // Route::get('/backend/profile', [UsersController::class, 'BN_profile'])->name('BN_profile');
     // Route::get('/backend/profile-edit', [UsersController::class, 'BN_profile_edit'])->name('BN_profile_edit');
     // Route::post('/backend/profile-edit-action', [UsersController::class, 'BN_profile_edit_action'])->name('BN_profile_edit_action');

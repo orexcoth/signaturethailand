@@ -19,6 +19,12 @@ class SideMenu
                 'params' => [],
                 'title' => 'แดชบอร์ด'
             ],
+            'blur' => [
+                'icon' => 'home',
+                'route_name' => 'bn_blur',
+                'params' => [],
+                'title' => 'blur'
+            ],
             
             // 'customers' => [
             //     'icon' => 'Users',
