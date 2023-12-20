@@ -105,12 +105,12 @@ class SideMenu
             //     'params' => [],
             //     'title' => 'ข่าว'
             // ],
-            // 'users' => [
-            //     'icon' => 'Users',
-            //     'route_name' => 'BN_user',
-            //     'params' => [],
-            //     'title' => 'ยูสเซอร์'
-            // ],
+            'users' => [
+                'icon' => 'Users',
+                'route_name' => 'BN_user',
+                'params' => [],
+                'title' => 'ยูสเซอร์'
+            ],
             // 'contacts' => [
             //     'icon' => 'Phone Forwarded',
             //     'route_name' => 'BN_contacts',

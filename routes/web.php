@@ -8,6 +8,7 @@ use App\Http\Controllers\Backend\DarkModeController;
 use App\Http\Controllers\Backend\ColorSchemeController;
 
 use App\Http\Controllers\Backend\BackendPageController;
+use App\Http\Controllers\Backend\UsersController;
 
 use App\Http\Controllers\Frontend\FrontendPageController;
 
@@ -184,10 +185,19 @@ Route::middleware('auth')->group(function() {
 
 
 
+    Route::prefix('backend')->group(function () {
 
+        Route::prefix('users')->group(function () {
 
+            Route::get('', [UsersController::class, 'BN_user'])->name('BN_user');
+            Route::get('fetch', [UsersController::class, 'BN_usersFetch'])->name('BN_usersFetch');
+            Route::get('add', [UsersController::class, 'BN_user_add'])->name('BN_user_add');
+            Route::post('action', [UsersController::class, 'BN_user_add_action'])->name('BN_user_add_action');
+            Route::get('edit/{id}', [UsersController::class, 'BN_user_edit'])->name('BN_user_edit');
+            Route::post('edit-action', [UsersController::class, 'BN_user_edit_action'])->name('BN_user_edit_action');
 
-
+        });
+    });
 
     // Route::get('/backend/profile', [UsersController::class, 'BN_profile'])->name('BN_profile');
     // Route::get('/backend/profile-edit', [UsersController::class, 'BN_profile_edit'])->name('BN_profile_edit');
