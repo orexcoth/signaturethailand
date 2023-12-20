@@ -101,7 +101,7 @@
     <!-- BEGIN: Account Menu -->
     <div class="intro-x dropdown w-8 h-8">
         <div class="dropdown-toggle w-8 h-8 rounded-full overflow-hidden shadow-lg image-fit zoom-in" role="button" aria-expanded="false" data-tw-toggle="dropdown">
-            <img alt="profile{{ auth()->user()->name }}" src="#">
+            <img alt="profile{{ auth()->user()->name }}" src="{{ asset(auth()->user()->photo) }}">
         </div>
         <div class="dropdown-menu w-56">
             <ul class="dropdown-content bg-primary text-white">

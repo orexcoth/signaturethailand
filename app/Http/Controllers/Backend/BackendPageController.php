@@ -62,16 +62,33 @@ class BackendPageController extends Controller
             $height = $image->height();
             $blockSize = 10;
 
+            $path_bs10 = '';
+            $path_bs30 = '';
+            $path_bs50 = '';
+            $path_bs70 = '';
+
+            // for($bs=10;$bs<=15;$bs+5){
+                
+                
+
+                // $path_bs10 = ($bs==10)?$filepath_mosaic:$path_bs10;
+                // $path_bs30 = ($bs==15)?$filepath_mosaic:$path_bs30;
+                // $path_bs50 = ($bs==20)?$filepath_mosaic:$path_bs50;
+                // $path_bs70 = ($bs==70)?$filepath_mosaic:$path_bs70;
+            // }
+
 
             $croppedImage = $image->crop($width, $height, $x, $y);
-            $mosaicImage = $croppedImage->resize($width / $blockSize, $height / $blockSize);
-            $mosaicImage = $mosaicImage->resize($width, $height, function ($constraint) {
-                $constraint->aspectRatio();
-            });
-            $image->insert($mosaicImage, 'top-left', $x, $y);
-            $name_mosaic = uniqid().time().'-result-mosaic'.'.' .$ext;
-            $image->save(public_path('/uploads/mosaic/'.$name_mosaic)); 
-            $filepath_mosaic = 'uploads/mosaic/'.$name_mosaic;
+                $mosaicImage = $croppedImage->resize($width / $blockSize, $height / $blockSize);
+                $mosaicImage = $mosaicImage->resize($width, $height, function ($constraint) {
+                    $constraint->aspectRatio();
+                });
+                $image->insert($mosaicImage, 'top-left', $x, $y);
+                $name_mosaic = uniqid().time().'-result-mosaic'.'.' .$ext;
+                $image->save(public_path('/uploads/mosaic/'.$name_mosaic)); 
+                $filepath_mosaic = 'uploads/mosaic/'.$name_mosaic;
+
+            
 
 
             
@@ -82,6 +99,9 @@ class BackendPageController extends Controller
 
             $image_mosaic->path = $filepath;
             $image_mosaic->result = $filepath_mosaic;
+            // $image_mosaic->bs30 = $path_bs30;
+            // $image_mosaic->bs50 = $path_bs50;
+            // $image_mosaic->bs70 = $path_bs70;
 
             $image_mosaic->save();
 

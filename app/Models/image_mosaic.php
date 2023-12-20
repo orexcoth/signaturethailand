@@ -14,5 +14,8 @@ class image_mosaic extends Model
     protected $fillable = [
         'path',
         'result',
+        'bs30',
+        'bs50',
+        'bs70',
     ];
 }
