@@ -1,6 +1,6 @@
 <p>test</p>
 
 @php
-    header("Location: http://127.0.0.1:8000/backend");
+    header("Location: ".route('indexPage'));
     exit;
 @endphp
