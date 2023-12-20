@@ -1,6 +1,3 @@
 <p>test</p>
 
-@php
-    header("Location: ".route('indexPage'));
-    exit;
-@endphp
+<a href="{{route('backendLogin')}}">backend</a>
