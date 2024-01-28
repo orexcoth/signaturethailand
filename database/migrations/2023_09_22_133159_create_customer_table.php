@@ -13,25 +13,28 @@ return new class extends Migration
     {
         Schema::create('customer', function (Blueprint $table) {
             $table->id();
-
-            $table->string('phone')->unique()->index()->nullable();
-            $table->longText('messages')->nullable();
-            $table->longText('browserFingerprint');
-            $table->enum('sp_role', array('default', 'dealer', 'lady'));
+            $table->enum('role', ['admin', 'creator', 'other']);
             $table->string('username')->unique()->nullable();
-            $table->string('email')->nullable();
-            $table->longText('remember')->nullable();
-            $table->longText('image')->nullable();
+            $table->string('password'); // Make sure to hash the password in your application
             $table->string('firstname')->nullable();
             $table->string('lastname')->nullable();
-            $table->longText('place')->nullable();
-            $table->longText('province')->nullable();
-            $table->longText('map')->nullable();
-            $table->longText('google_map')->nullable();
-            $table->longText('facebook')->nullable();
-            $table->longText('line')->nullable();
-            $table->timestamp('last_action')->nullable();
-            $table->longText('history')->nullable();
+            $table->string('email')->nullable();
+            $table->string('phone')->nullable();
+            $table->string('line')->nullable();
+            $table->enum('status', ['active', 'inactive'])->default('active');
+
+            // Remove unnecessary columns
+            $table->dropColumn('messages');
+            $table->dropColumn('browserFingerprint');
+            $table->dropColumn('remember');
+            $table->dropColumn('image');
+            $table->dropColumn('place');
+            $table->dropColumn('province');
+            $table->dropColumn('map');
+            $table->dropColumn('google_map');
+            $table->dropColumn('facebook');
+            $table->dropColumn('last_action');
+            $table->dropColumn('history');
 
             $table->timestamps();
         });
