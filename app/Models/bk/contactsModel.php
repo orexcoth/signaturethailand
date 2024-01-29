@@ -12,11 +12,10 @@ class contactsModel extends Model
     protected $table = 'contacts';
 
     protected $fillable = [
-        'contact_firstname',
-        'contact_lastname',
-        'contact_email',
-        'contact_phone',
-        'contact_heading',
-        'contact_message',
+        'customer_id',
+        'name',
+        'tel',
+        'line',
+        'messages'
     ];
 }

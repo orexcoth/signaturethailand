@@ -11,7 +11,7 @@
         <div class="h-full flex items-center">
             <!-- BEGIN: Logo -->
             <a href="" class="-intro-x hidden md:flex">
-                <img alt="Midone - HTML Admin Template" class="w-6" src="{{ asset('dist/images/logo.svg') }}">
+                <img alt="Midone - HTML Admin Template" class="w-6" src="{{ asset('dist/images/logo-black.svg') }}">
                 <span class="text-white text-lg ml-3">
                     Tinker
                 </span>

@@ -38,13 +38,13 @@
                                     <label for="" class="form-label">อีเมล</label>
                                     <input type="text" class="form-control w-full" value="" name="email"  autocomplete="off" />
                                 </div>
-                                <div class="mt-3">
+                                <!-- <div class="mt-3">
                                     <label for="" class="form-label">แอคทีฟ</label>
                                     <select class="form-control w-full" name="active" required >
                                         <option value="1" selected >แอคทีฟ</option>
                                         <option value="2" >ไม่แอคทีฟ</option>
                                     </select>
-                                </div>
+                                </div> -->
 
 
                             </div>
@@ -53,11 +53,8 @@
                                 <div class="mt-3">
                                     <label for="" class="form-label">หน้าที่</label>
                                     <select name="role" class="form-control w-full" name="role" required >
-                                        <option value="admin" selected >Admin</option>
-                                        <option value="manager" >Manager</option>
-                                        <option value="assistance" >Assistance</option>
-                                        <option value="editor" >Editor</option>
-                                        <option value="marketing" >Marketing</option>
+                                        <option value="admin" selected >แอดมิน</option>
+                                        <option value="creator" >พนักงาน</option>
                                     </select>
                                 </div>
                                 <div class="mt-3 ">

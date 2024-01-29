@@ -10,6 +10,16 @@ use App\Http\Controllers\Backend\ColorSchemeController;
 use App\Http\Controllers\Backend\BackendPageController;
 use App\Http\Controllers\Backend\UsersController;
 
+use App\Http\Controllers\Backend\CustomersController;
+use App\Http\Controllers\Backend\NamesController;
+use App\Http\Controllers\Backend\SignsController;
+use App\Http\Controllers\Backend\WorksController;
+use App\Http\Controllers\Backend\CommissionsController;
+use App\Http\Controllers\Backend\ArticlesController;
+use App\Http\Controllers\Backend\ContactsController;
+use App\Http\Controllers\Backend\ReportsController;
+use App\Http\Controllers\Backend\SettingsController;
+
 use App\Http\Controllers\Frontend\FrontendPageController;
 
 
@@ -172,14 +182,12 @@ Route::middleware('auth')->group(function() {
     Route::get('logout', [AuthController::class, 'logout'])->name('logout');        
 
 
-    Route::get('/backend', [BackendPageController::class, 'backendDashboard'])->name('backendDashboard');
+    
 
     Route::get('/backend/blur', [BackendPageController::class, 'bn_blur'])->name('bn_blur');
     Route::post('/backend/blur-upload', [BackendPageController::class, 'bn_blur_upload'])->name('bn_blur_upload');
-    
     Route::get('/backend/watermark', [BackendPageController::class, 'bn_watermark'])->name('bn_watermark');
     Route::post('/backend/watermark-upload', [BackendPageController::class, 'bn_watermark_upload'])->name('bn_watermark_upload');
-
     Route::get('/backend/mosaic', [BackendPageController::class, 'bn_mosaic'])->name('bn_mosaic');
     Route::post('/backend/mosaic-upload', [BackendPageController::class, 'bn_mosaic_upload'])->name('bn_mosaic_upload');
 
@@ -187,16 +195,49 @@ Route::middleware('auth')->group(function() {
 
     Route::prefix('backend')->group(function () {
 
+        Route::get('/', [BackendPageController::class, 'backendDashboard'])->name('backendDashboard');
+
+        Route::prefix('customers')->group(function () {
+            Route::get('', [CustomersController::class, 'BN_customers'])->name('BN_customers');
+            Route::get('add', [CustomersController::class, 'BN_customers_add'])->name('BN_customers_add');
+            Route::post('add-action', [CustomersController::class, 'BN_customers_add_action'])->name('BN_customers_add_action');
+            Route::get('edit/{id}', [CustomersController::class, 'BN_customers_edit'])->name('BN_customers_edit');
+            Route::post('edit-action', [CustomersController::class, 'BN_customers_edit_action'])->name('BN_customers_edit_action');
+        });
+        Route::prefix('names')->group(function () {
+            Route::get('', [BackendPageController::class, 'BN_names'])->name('BN_names');
+        });
+        Route::prefix('signs')->group(function () {
+            Route::get('', [BackendPageController::class, 'BN_signs'])->name('BN_signs');
+        });
+        Route::prefix('works')->group(function () {
+            Route::get('', [BackendPageController::class, 'BN_works'])->name('BN_works');
+        });
+        Route::prefix('commissions')->group(function () {
+            Route::get('', [BackendPageController::class, 'BN_commissions'])->name('BN_commissions');
+        });
+        Route::prefix('articles')->group(function () {
+            Route::get('', [BackendPageController::class, 'BN_articles'])->name('BN_articles');
+        });
+        Route::prefix('contacts')->group(function () {
+            Route::get('', [BackendPageController::class, 'BN_contacts'])->name('BN_contacts');
+        });
+        Route::prefix('reports')->group(function () {
+            Route::get('', [BackendPageController::class, 'BN_reports'])->name('BN_reports');
+        });
         Route::prefix('users')->group(function () {
 
             Route::get('', [UsersController::class, 'BN_user'])->name('BN_user');
-            Route::get('fetch', [UsersController::class, 'BN_usersFetch'])->name('BN_usersFetch');
             Route::get('add', [UsersController::class, 'BN_user_add'])->name('BN_user_add');
-            Route::post('action', [UsersController::class, 'BN_user_add_action'])->name('BN_user_add_action');
+            Route::post('add-action', [UsersController::class, 'BN_user_add_action'])->name('BN_user_add_action');
             Route::get('edit/{id}', [UsersController::class, 'BN_user_edit'])->name('BN_user_edit');
             Route::post('edit-action', [UsersController::class, 'BN_user_edit_action'])->name('BN_user_edit_action');
 
         });
+        Route::prefix('settings')->group(function () {
+            Route::get('', [BackendPageController::class, 'BN_settings'])->name('BN_settings');
+        });
+
     });
 
     // Route::get('/backend/profile', [UsersController::class, 'BN_profile'])->name('BN_profile');

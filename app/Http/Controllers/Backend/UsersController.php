@@ -18,6 +18,7 @@ use Illuminate\Validation\Rules;
 
 
 use App\Models\User;
+use App\Models\usersModel;
 
 class UsersController extends Controller
 {
@@ -30,68 +31,40 @@ class UsersController extends Controller
     }
     public function BN_user_edit(Request $request, $id)
     {
-        $user = User::find($id);
+        $user = usersModel::find($id);
         return view('backend/users-edit', [ 
             'default_pagename' => 'แก้ไขยูสเซอร์',
             'user' => $user,
         ]);
     }
 
-    public function BN_user()
+    public function BN_user(Request $request)
     {
-        $User = User::query()
+        $User = usersModel::query()
         // ->where('phone',$request->s)
         ->orderBy('id', 'desc')
         ->paginate(16);
 
+        $query = usersModel::query()
+            ->orderBy('id', 'desc');
+
+        if ($request->filled('keyword')) {
+            $keyword = $request->input('keyword');
+            $query->where(function ($query) use ($keyword) {
+                $query->where('name', 'LIKE', '%' . $keyword . '%')
+                    ->orWhere('email', 'LIKE', '%' . $keyword . '%');
+            });
+        }
+
+        $resultPerPage = 24;
+        $query = $query->paginate($resultPerPage);
+
         return view('backend/users', [ 
             'default_pagename' => 'ยูสเซอร์',
             'User' => $User,
+            'query' => $query,
         ]);
     }
-
-    public function BN_usersFetch()
-    {
-        $queryy = User::all()->sortDesc();
-        $output = '';
-        if($queryy->count() > 0){
-            ?>
-                <div class="grid gap-6 mt-5 p-5 box">
-                    <div class="overflow-x-auto">
-                        <table class="w-full text-left">
-                            <thead class="">
-                                <tr class="">
-                                    <td class="font-medium px-5 py-3 border-b-2 dark:border-darkmode-300 whitespace-nowrap">#</td>
-                                    <td class="font-medium px-5 py-3 border-b-2 dark:border-darkmode-300 whitespace-nowrap">ชื่อ</td>
-                                    <td class="font-medium px-5 py-3 border-b-2 dark:border-darkmode-300 whitespace-nowrap">อีเมล</td>
-                                    <td class="font-medium px-5 py-3 border-b-2 dark:border-darkmode-300 whitespace-nowrap">**</td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php
-                                $count = 0;
-                                foreach($queryy as $key => $res){
-                                $count++;
-                                ?>
-                                <tr class="">
-                                    <td class="px-5 py-3 border-b dark:border-darkmode-300 whitespace-nowrap"><?php echo $count ?></td>
-                                    <td class="px-5 py-3 border-b dark:border-darkmode-300 whitespace-nowrap"><?php echo $res->name ?></td>
-                                    <td class="px-5 py-3 border-b dark:border-darkmode-300 whitespace-nowrap"><?php echo $res->email ?></td>
-                                    <td class="px-5 py-3 border-b dark:border-darkmode-300 whitespace-nowrap"><a href="#">แก้ไข</a></td>
-                                </tr>
-                                <?php
-                                }
-                                ?>                                
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            <?php
-        }else{
-            echo "Not Found!!!";
-        }
-    }
-
 
     /**
      * Handle an incoming registration request.
@@ -105,11 +78,11 @@ class UsersController extends Controller
         
         $request->validate([
             // 'name' => ['required', 'string', 'max:255'],
-            // 'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
+            // 'email' => ['required', 'string', 'email', 'max:255', 'unique:'.usersModel::class],
             // 'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
         
-        // $user = User::create([
+        // $user = usersModel::create([
         //     'name' => $request->name,
         //     'email' => $request->email,
         //     'password' => Hash::make($request->password),
@@ -170,7 +143,7 @@ class UsersController extends Controller
             
         ]);
 
-        $User = User::find($request->user);
+        $User = usersModel::find($request->user);
 
         if($request->hasFile('photo')){
 
@@ -229,7 +202,7 @@ class UsersController extends Controller
     {
         $userlogin = auth()->user();
         $userloginid = auth()->user()->id; 
-        $myuser = User::find($userloginid);
+        $myuser = usersModel::find($userloginid);
         return view('backend/profile-edit', [ 
             'default_pagename' => 'แก้ไขโปรไฟล์',
             'myuser' => $myuser,
@@ -239,7 +212,7 @@ class UsersController extends Controller
     {
         $userlogin = auth()->user();
         $userloginid = auth()->user()->id;
-        $userupdate = User::find($userloginid);
+        $userupdate = usersModel::find($userloginid);
         if($request->hasFile('photo')){
 
             $oldPath = public_path($userupdate->photo);

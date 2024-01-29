@@ -48,20 +48,17 @@
                                 <div class="mt-3">
                                     <label for="" class="form-label">หน้าที่</label>
                                     <select name="role" class="form-control w-full" name="role" required >
-                                        <option value="admin" {{($user->role=='admin')?'selected':''}} >Admin</option>
-                                        <option value="manager" {{($user->role=='manager')?'selected':''}} >Manager</option>
-                                        <option value="assistance" {{($user->role=='assistance')?'selected':''}} >Assistance</option>
-                                        <option value="editor" {{($user->role=='editor')?'selected':''}} >Editor</option>
-                                        <option value="marketing" {{($user->role=='marketing')?'selected':''}} >Marketing</option>
+                                        <option value="admin" {{($user->role=='admin')?'selected':''}} >แอดมิน</option>
+                                        <option value="creator" {{($user->role=='creator')?'selected':''}} >พนักงาน</option>
                                     </select>
                                 </div>
-                                <div class="mt-3">
+                                <!-- <div class="mt-3">
                                     <label for="" class="form-label">แอคทีฟ</label>
                                     <select class="form-control w-full" name="active" required >
                                         <option value="1" selected >แอคทีฟ</option>
                                         <option value="2" >ไม่แอคทีฟ</option>
                                     </select>
-                                </div>
+                                </div> -->
                                 <!-- <div class="mt-3 ">
                                     <label for="" class="form-label">พาสเวิร์ด</label>
                                     <input type="password" class="form-control w-full" id="" name="password" >

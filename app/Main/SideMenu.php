@@ -19,24 +19,137 @@ class SideMenu
                 'params' => [],
                 'title' => 'แดชบอร์ด'
             ],
-            'blur' => [
-                'icon' => 'home',
-                'route_name' => 'bn_blur',
+            'customers' => [
+                'icon' => 'Users',
+                'route_name' => 'BN_customers',
                 'params' => [],
-                'title' => 'blur'
+                'title' => 'ลูกค้า'
             ],
-            'watermark' => [
-                'icon' => 'home',
-                'route_name' => 'bn_watermark',
+            'names' => [
+                'icon' => 'Hard Drive',
+                'title' => 'คลังชื่อ',
+                'sub_menu' => [
+                    'names-all' => [
+                        'icon' => 'Folder',
+                        'route_name' => 'BN_names',
+                        'params' => [],
+                        'title' => 'ชื่อทั้งหมด'
+                    ],
+                    'names-suggest' => [
+                        'icon' => 'Folder Plus',
+                        'route_name' => 'BN_names',
+                        'params' => [],
+                        'title' => 'ชื่อแนะนำ'
+                    ]
+                ]
+            ],
+            'signs' => [
+                'icon' => 'Edit3',
+                'route_name' => 'BN_signs',
                 'params' => [],
-                'title' => 'watermark'
+                'title' => 'ลายเซ็นต์'
             ],
-            'mosaic' => [
-                'icon' => 'home',
-                'route_name' => 'bn_mosaic',
+            'works' => [
+                'icon' => 'Briefcase',
+                'route_name' => 'BN_works',
                 'params' => [],
-                'title' => 'mosaic'
+                'title' => 'งาน'
             ],
+            'commissions' => [
+                'icon' => 'Dollar Sign',
+                'route_name' => 'BN_commissions',
+                'params' => [],
+                'title' => 'ค่าคอมมิทชั่น'
+            ],
+            'articles' => [
+                'icon' => 'Image',
+                'route_name' => 'BN_articles',
+                'params' => [],
+                'title' => 'บทความ'
+            ],
+            'contacts' => [
+                'icon' => 'Mail',
+                'route_name' => 'BN_contacts',
+                'params' => [],
+                'title' => 'ข้อความติดต่อ'
+            ],
+            'reports' => [
+                'icon' => 'Book Open',
+                'title' => 'รายงาน',
+                'sub_menu' => [
+                    'reports-sell' => [
+                        'icon' => 'Dollar Sign',
+                        'route_name' => 'BN_reports',
+                        'params' => [],
+                        'title' => 'การขาย'
+                    ],
+                    'reports-order' => [
+                        'icon' => 'EditI',
+                        'route_name' => 'BN_reports',
+                        'params' => [],
+                        'title' => 'รายการสั่งทำ'
+                    ],
+                    'reports-overall' => [
+                        'icon' => 'BarChart2',
+                        'route_name' => 'BN_reports',
+                        'params' => [],
+                        'title' => 'ภาพรวม'
+                    ]
+                ]
+            ],
+            'users' => [
+                'icon' => 'User',
+                'route_name' => 'BN_user',
+                'params' => [],
+                'title' => 'ยูสเซอร์'
+            ],
+            'settings' => [
+                'icon' => 'Settings',
+                'title' => 'ตั้งค่า',
+                'sub_menu' => [
+                    'settings-system' => [
+                        'icon' => 'Monitor',
+                        'route_name' => 'BN_settings',
+                        'params' => [],
+                        'title' => 'ตั้งค่าระบบ'
+                    ],
+                    'settings-logs' => [
+                        'icon' => 'List',
+                        'route_name' => 'BN_settings',
+                        'params' => [],
+                        'title' => 'ประวัติการใช้งาน'
+                    ]
+                ]
+            ],
+
+
+
+
+
+
+
+
+
+
+
+            // 'blur' => [
+            //     'icon' => 'home',
+            //     'route_name' => 'bn_blur',
+            //     'params' => [],
+            //     'title' => 'blur'
+            // ],
+            // 'watermark' => [
+            //     'icon' => 'home',
+            //     'route_name' => 'bn_watermark',
+            //     'params' => [],
+            //     'title' => 'watermark'
+            // ],
+            // 'mosaic' => [
+            //     'icon' => 'home',
+            //     'route_name' => 'bn_mosaic',
+            //     'params' => [],
+            //     'title' => 'mosaic'
+            // ],
             
             // 'customers' => [
             //     'icon' => 'Users',
@@ -105,12 +218,7 @@ class SideMenu
             //     'params' => [],
             //     'title' => 'ข่าว'
             // ],
-            'users' => [
-                'icon' => 'Users',
-                'route_name' => 'BN_user',
-                'params' => [],
-                'title' => 'ยูสเซอร์'
-            ],
+            
             // 'contacts' => [
             //     'icon' => 'Phone Forwarded',
             //     'route_name' => 'BN_contacts',
