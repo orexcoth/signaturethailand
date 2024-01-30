@@ -49,30 +49,6 @@ class SideMenu
                 'params' => [],
                 'title' => 'ลายเซ็นต์'
             ],
-            'works' => [
-                'icon' => 'Briefcase',
-                'route_name' => 'BN_works',
-                'params' => [],
-                'title' => 'งาน'
-            ],
-            'commissions' => [
-                'icon' => 'Dollar Sign',
-                'route_name' => 'BN_commissions',
-                'params' => [],
-                'title' => 'ค่าคอมมิทชั่น'
-            ],
-            'articles' => [
-                'icon' => 'Image',
-                'route_name' => 'BN_articles',
-                'params' => [],
-                'title' => 'บทความ'
-            ],
-            'contacts' => [
-                'icon' => 'Mail',
-                'route_name' => 'BN_contacts',
-                'params' => [],
-                'title' => 'ข้อความติดต่อ'
-            ],
             'reports' => [
                 'icon' => 'Book Open',
                 'title' => 'รายงาน',
@@ -97,9 +73,34 @@ class SideMenu
                     ]
                 ]
             ],
+            'works' => [
+                'icon' => 'Briefcase',
+                'route_name' => 'BN_works',
+                'params' => [],
+                'title' => 'งาน'
+            ],
+            'commissions' => [
+                'icon' => 'Dollar Sign',
+                'route_name' => 'BN_commissions',
+                'params' => [],
+                'title' => 'ค่าคอมมิทชั่น'
+            ],
+            'articles' => [
+                'icon' => 'Image',
+                'route_name' => 'BN_articles',
+                'params' => [],
+                'title' => 'บทความ'
+            ],
+            'contacts' => [
+                'icon' => 'Mail',
+                'route_name' => 'BN_contacts',
+                'params' => [],
+                'title' => 'ข้อความติดต่อ'
+            ],
+            
             'users' => [
                 'icon' => 'User',
-                'route_name' => 'BN_user',
+                'route_name' => 'BN_users',
                 'params' => [],
                 'title' => 'ยูสเซอร์'
             ],

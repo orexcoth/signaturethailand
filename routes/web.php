@@ -217,21 +217,26 @@ Route::middleware('auth')->group(function() {
             Route::get('', [BackendPageController::class, 'BN_commissions'])->name('BN_commissions');
         });
         Route::prefix('articles')->group(function () {
-            Route::get('', [BackendPageController::class, 'BN_articles'])->name('BN_articles');
+            Route::get('', [ArticlesController::class, 'BN_articles'])->name('BN_articles');
+            Route::get('add', [ArticlesController::class, 'BN_articles_add'])->name('BN_articles_add');
+            Route::post('add-action', [ArticlesController::class, 'BN_articles_add_action'])->name('BN_articles_add_action');
+            Route::get('edit/{id}', [ArticlesController::class, 'BN_articles_edit'])->name('BN_articles_edit');
+            Route::post('edit-action', [ArticlesController::class, 'BN_articles_edit_action'])->name('BN_articles_edit_action');
         });
         Route::prefix('contacts')->group(function () {
-            Route::get('', [BackendPageController::class, 'BN_contacts'])->name('BN_contacts');
+            Route::get('', [ContactsController::class, 'BN_contacts'])->name('BN_contacts');
+            Route::get('detail', [ContactsController::class, 'BN_contacts_detail'])->name('BN_contacts_detail');
         });
         Route::prefix('reports')->group(function () {
             Route::get('', [BackendPageController::class, 'BN_reports'])->name('BN_reports');
         });
         Route::prefix('users')->group(function () {
 
-            Route::get('', [UsersController::class, 'BN_user'])->name('BN_user');
-            Route::get('add', [UsersController::class, 'BN_user_add'])->name('BN_user_add');
-            Route::post('add-action', [UsersController::class, 'BN_user_add_action'])->name('BN_user_add_action');
-            Route::get('edit/{id}', [UsersController::class, 'BN_user_edit'])->name('BN_user_edit');
-            Route::post('edit-action', [UsersController::class, 'BN_user_edit_action'])->name('BN_user_edit_action');
+            Route::get('', [UsersController::class, 'BN_users'])->name('BN_users');
+            Route::get('add', [UsersController::class, 'BN_users_add'])->name('BN_users_add');
+            Route::post('add-action', [UsersController::class, 'BN_users_add_action'])->name('BN_users_add_action');
+            Route::get('edit/{id}', [UsersController::class, 'BN_users_edit'])->name('BN_users_edit');
+            Route::post('edit-action', [UsersController::class, 'BN_users_edit_action'])->name('BN_users_edit_action');
 
         });
         Route::prefix('settings')->group(function () {

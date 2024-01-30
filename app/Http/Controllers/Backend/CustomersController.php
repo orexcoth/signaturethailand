@@ -22,13 +22,16 @@ class CustomersController extends Controller
         $query = customersModel::query()
             ->orderBy('id', 'desc');
 
-        // if ($request->filled('keyword')) {
-        //     $keyword = $request->input('keyword');
-        //     $query->where(function ($query) use ($keyword) {
-        //         $query->where('name', 'LIKE', '%' . $keyword . '%')
-        //             ->orWhere('email', 'LIKE', '%' . $keyword . '%');
-        //     });
-        // }
+        if ($request->filled('keyword')) {
+            $keyword = $request->input('keyword');
+            $query->where(function ($query) use ($keyword) {
+                $query->where('firstname', 'LIKE', '%' . $keyword . '%')
+                    ->orWhere('lastname', 'LIKE', '%' . $keyword . '%')
+                    ->orWhere('line', 'LIKE', '%' . $keyword . '%')
+                    ->orWhere('email', 'LIKE', '%' . $keyword . '%')
+                    ->orWhere('phone', 'LIKE', '%' . $keyword . '%');
+            });
+        }
 
         $resultPerPage = 24;
         $query = $query->paginate($resultPerPage);
@@ -63,6 +66,33 @@ class CustomersController extends Controller
 
         $Customer->save();
 
+
+        return redirect(route('BN_customers'))->with('success', 'บันทึกข้อมูลสำเร็จ !!!');
+
+    }
+    public function BN_customers_edit(Request $request, $id)
+    {
+        $query = customersModel::find($id);
+        return view('backend/customers-edit', [ 
+            'default_pagename' => 'แก้ไขรายชื่อลูกค้า',
+            'query' => $query,
+        ]);
+    }
+
+    public function BN_customers_edit_action(Request $request)
+    {
+        // dd($request);
+        $Customer = customersModel::find($request->id);
+
+        $Customer->firstname = $request->firstname;
+        $Customer->lastname = $request->lastname;
+        $Customer->email = $request->email;
+        // $Customer->password = Hash::make($request->password);
+        $Customer->role = $request->role;
+        $Customer->phone = $request->phone;
+        $Customer->line = $request->line;
+        
+        $Customer->update();
 
         return redirect(route('BN_customers'))->with('success', 'บันทึกข้อมูลสำเร็จ !!!');
 

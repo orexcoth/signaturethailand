@@ -23,13 +23,13 @@ use App\Models\usersModel;
 class UsersController extends Controller
 {
 
-    public function BN_user_add()
+    public function BN_users_add()
     {
         return view('backend/users-add', [ 
             'default_pagename' => 'เพิ่มยูสเซอร์',
         ]);
     }
-    public function BN_user_edit(Request $request, $id)
+    public function BN_users_edit(Request $request, $id)
     {
         $user = usersModel::find($id);
         return view('backend/users-edit', [ 
@@ -38,7 +38,7 @@ class UsersController extends Controller
         ]);
     }
 
-    public function BN_user(Request $request)
+    public function BN_users(Request $request)
     {
         $User = usersModel::query()
         // ->where('phone',$request->s)
@@ -71,7 +71,7 @@ class UsersController extends Controller
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function BN_user_add_action(Request $request)
+    public function BN_users_add_action(Request $request)
     {
 
         // dd($request);
@@ -133,9 +133,9 @@ class UsersController extends Controller
             $result = (new LogsSaveController)->create_log($para);
         }   
 
-        return redirect(route('BN_user'))->with('success', 'บันทึกข้อมูลสำเร็จ !!!');
+        return redirect(route('BN_users'))->with('success', 'บันทึกข้อมูลสำเร็จ !!!');
     }
-    public function BN_user_edit_action(Request $request)
+    public function BN_users_edit_action(Request $request)
     {
         // dd($request);
 

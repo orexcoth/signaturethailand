@@ -16,5 +16,6 @@ class articlesModel extends Model
         'article_name',
         'excerpt',
         'content',
+        'feature',
     ];
 }
