@@ -28,8 +28,9 @@
         </div>
 
     </div>
-    <div id="fetchUserss"></div>
+    <!-- <div id="fetchUserss"></div> -->
 
+    @if(isset($query) && count($query)>0)
     <!-- BEGIN: Data List -->
     <div class="intro-y col-span-12 overflow-auto lg:overflow-visible">
         <table class="table table-report -mt-2">
@@ -88,6 +89,9 @@
     <div class="d-flex">
     {!! $query->appends(request()->input())->links() !!}
     </div>
+
+    @endif
+    
 
 
 

@@ -80,66 +80,12 @@ Route::middleware('sessionlogin')->group(function() {
     //     Route::post('/carpost-delete', 'carpostdeleteactionPage')->name('carpostdeleteactionPage');
 
     //     Route::post('/carpost-select-brand', 'carpostSelectBrand')->name('carpostSelectBrand');
-    //     Route::post('/carpost-select-model', 'carpostSelectModel')->name('carpostSelectModel');
-    //     Route::post('/carpost-select-generations', 'carpostSelectGenerations')->name('carpostSelectGenerations');
-    //     Route::post('/carpost-select-generations-year', 'carpostSelectGenerationsYear')->name('carpostSelectGenerationsYear');
-    //     Route::post('/carpost-select-sub_models', 'carpostSelectSub_model')->name('carpostSelectSub_model');
 
-    //     Route::get('/carpost-step1', 'carpoststep1Page')->name('carpoststep1Page');
-    //     Route::post('/carpost-register', 'carpostregisterPage')->name('carpostregisterPage');
-    //     Route::get('/carpost-register-success', 'carpostregistersuccessPage')->name('carpostregistersuccessPage');
-    //     Route::post('/carpost-register-submit', 'carpostregisterSubmitPage')->name('carpostregisterSubmitPage');
     // });
 
     // Route::controller(FrontendPageController::class)->group(function() {
 
     //     Route::get('/profile', 'profilePage')->name('profilePage');
-    //     Route::post('/update-reserve', 'updatereservePage')->name('updatereservePage');
-
-    //     Route::get('/dev', 'DevelopPage')->name('DevelopPage');
-        
-        
-        
-    //     Route::get('/login-welcome', 'loginwelcomePage')->name('loginwelcomePage');
-    //     Route::get('/edit-profile-first', 'editprofilePage_afterregis')->name('editprofilePage_afterregis');
-    //     Route::get('/edit-profile', 'editprofilePage')->name('editprofilePage');
-    //     Route::post('/edit-profile-action', 'editprofileactionPage')->name('editprofileactionPage');
-
-    //     Route::get('/notification', 'notificationPage')->name('notificationPage');
-    //     Route::get('/termcondition', 'termconditionPage')->name('termconditionPage');
-    //     Route::get('/privacypolicy', 'privacypolicyPage')->name('privacypolicyPage');
-        
-    //     Route::get('/postcar-welcome', 'postcarwelcomePage')->name('postcarwelcomePage');
-    //     Route::get('/postcar-welcome-dealer', 'postcarwelcomedealerPage')->name('postcarwelcomedealerPage');
-    //     Route::get('/postcar-welcome-lady', 'postcarwelcomeladyPage')->name('postcarwelcomeladyPage');
-    //     Route::get('/postcar', 'postcarPage')->name('postcarPage');
-    //     Route::get('/carpost-step2', 'carpoststep2Page')->name('carpoststep2Page');
-    //     Route::get('/carpost-step3', 'carpoststep3Page')->name('carpoststep3Page');
-    //     Route::get('/carpost-step4', 'carpoststep4Page')->name('carpoststep4Page');
-        
-    //     Route::get('/profile-check', 'profilecheckPage')->name('profilecheckPage');
-    //     Route::get('/profile-editcarinfo', 'profileeditcarinfoPage')->name('profileeditcarinfoPage');
-    //     Route::get('/profile-expire', 'profileexpirePage')->name('profileexpirePage');
-    //     Route::get('/performance', 'performancePage')->name('performancePage');
-    //     Route::get('/performance-viewpost', 'performanceviewpostPage')->name('performanceviewpostPage');
-    //     Route::get('/performance-view', 'performanceviewPage')->name('performanceviewPage');
-    //     Route::get('/check-price', 'checkpricePage')->name('checkpricePage');
-    //     Route::get('/customer-contact', 'customercontactPage')->name('customercontactPage');
-    //     Route::get('/update-carprice', 'updatecarpricePage')->name('updatecarpricePage');
-
-    //     Route::get('/dealer-carpost-step1', 'dealercarpoststep1Page')->name('dealercarpoststep1Page');
-    //     Route::get('/dealer-carpost-step2', 'dealercarpoststep2Page')->name('dealercarpoststep2Page');
-    //     Route::get('/dealer-carpost-step3', 'dealercarpoststep3Page')->name('dealercarpoststep3Page');
-    //     Route::get('/dealer-carpost-step4', 'dealercarpoststep4Page')->name('dealercarpoststep4Page');
-    //     Route::get('/edit-carpost-step1', 'editcarpoststep1Page')->name('editcarpoststep1Page');
-    //     Route::get('/edit-carpost-step2', 'editcarpoststep2Page')->name('editcarpoststep2Page');
-    //     Route::get('/edit-carpost-step3', 'editcarpoststep3Page')->name('editcarpoststep3Page');
-    //     Route::get('/edit-carpost-step4', 'editcarpoststep4Page')->name('editcarpoststep4Page');
-    //     Route::get('/edit-dealer-carpost-step1', 'editdealercarpoststep1Page')->name('editdealercarpoststep1Page');
-    //     Route::get('/edit-dealer-carpost-step2', 'editdealercarpoststep2Page')->name('editdealercarpoststep2Page');
-    //     Route::get('/edit-dealer-carpost-step3', 'editdealercarpoststep3Page')->name('editdealercarpoststep3Page');
-    //     Route::get('/edit-dealer-carpost-step4', 'editdealercarpoststep4Page')->name('editdealercarpoststep4Page');
-
         
     // });
 });
@@ -205,7 +151,15 @@ Route::middleware('auth')->group(function() {
             Route::post('edit-action', [CustomersController::class, 'BN_customers_edit_action'])->name('BN_customers_edit_action');
         });
         Route::prefix('names')->group(function () {
-            Route::get('', [BackendPageController::class, 'BN_names'])->name('BN_names');
+            Route::get('', [NamesController::class, 'BN_names'])->name('BN_names');
+            Route::post('mock-suggest', [NamesController::class, 'BN_names_mock_suggest'])->name('BN_names_mock_suggest');
+            Route::get('suggest', [NamesController::class, 'BN_names_suggest'])->name('BN_names_suggest');
+            Route::get('store', [NamesController::class, 'BN_names_store'])->name('BN_names_store');
+            Route::get('add', [NamesController::class, 'BN_names_add'])->name('BN_names_add');
+            Route::post('add-action', [NamesController::class, 'BN_names_add_action'])->name('BN_names_add_action');
+            Route::get('edit/{id}', [NamesController::class, 'BN_names_edit'])->name('BN_names_edit');
+            Route::post('edit-action', [NamesController::class, 'BN_names_edit_action'])->name('BN_names_edit_action');
+            
         });
         Route::prefix('signs')->group(function () {
             Route::get('', [BackendPageController::class, 'BN_signs'])->name('BN_signs');
@@ -241,6 +195,7 @@ Route::middleware('auth')->group(function() {
         });
         Route::prefix('settings')->group(function () {
             Route::get('', [BackendPageController::class, 'BN_settings'])->name('BN_settings');
+            Route::get('defaultprice', [BackendPageController::class, 'BN_settings_defaultprice'])->name('BN_settings_defaultprice');
         });
 
     });
