@@ -31,13 +31,13 @@ class SideMenu
                 'sub_menu' => [
                     'names-all' => [
                         'icon' => 'Folder',
-                        'route_name' => 'BN_names',
+                        'route_name' => 'BN_names_store',
                         'params' => [],
                         'title' => 'ชื่อทั้งหมด'
                     ],
                     'names-suggest' => [
                         'icon' => 'Folder Plus',
-                        'route_name' => 'BN_names',
+                        'route_name' => 'BN_names_suggest',
                         'params' => [],
                         'title' => 'ชื่อแนะนำ'
                     ]
@@ -113,6 +113,12 @@ class SideMenu
                         'route_name' => 'BN_settings',
                         'params' => [],
                         'title' => 'ตั้งค่าระบบ'
+                    ],
+                    'settings-defaultprice' => [
+                        'icon' => 'Monitor',
+                        'route_name' => 'BN_settings_defaultprice',
+                        'params' => [],
+                        'title' => 'ราคาพื้นฐาน'
                     ],
                     'settings-logs' => [
                         'icon' => 'List',
