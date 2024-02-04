@@ -19,7 +19,7 @@
         </div>
     </div>
 
-    <div class="lg:flex intro-y mt-5 mb-5">
+    <!-- <div class="intro-y col-span-12 mt-5 mb-5 flex flex-wrap items-center sm:flex-nowrap">
 
         <div class="relative">
             <input type="text" name="keyword" id="keyword" class="form-control py-3 px-4 w-full lg:w-64 box pr-10" placeholder="เบอร์ / ชื่อ /นามสกุล ลูกค้า..." value="{{ request()->input('keyword') }}" onkeypress="handleEnter(event)" >
@@ -29,8 +29,62 @@
             </svg> 
         </div>
 
+        
+        <select id="language" name="language" class="form-select py-3 px-4 box w-full lg:w-auto mt-3 lg:mt-0 ml-auto"  onchange="updateAlphabetOptions()">
+            <option value="th" selected>อักษรไทย&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</option>
+            <option value="en">อักษรอังกฤษ&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</option>
+        </select>
 
+        <select id="alphabet" name="alphabet" class="form-select py-3 px-4 box w-full lg:w-auto mt-3 lg:mt-0 ml-auto" style="width:200px;">
+
+        </select>
+
+    </div> -->
+
+
+
+
+
+
+
+
+    <div class="intro-y col-span-12 mt-5 mb-5 flex flex-wrap items-center sm:flex-nowrap">
+        <div class="mt-3 w-full sm:ml-auto sm:mt-0 sm:w-auto md:ml-0">
+            <div class="relative text-slate-500">
+                <input type="text" name="keyword" id="keyword" class="form-control py-3 px-4 w-full lg:w-64 box pr-10" placeholder="เบอร์ / ชื่อ /นามสกุล ลูกค้า..." value="{{ request()->input('keyword') }}" onkeypress="handleEnter(event)" >
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" icon-name="search" class="lucide lucide-search w-4 h-4 absolute my-auto inset-y-0 mr-3 right-0 text-slate-500" data-lucide="search">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg> 
+            </div>
+        </div>
+        <div class="mx-auto hidden text-slate-500 md:block"></div>
+        <div class="mt-3 w-full sm:ml-auto sm:mt-0 sm:w-auto md:ml-0">
+            <div class="relative w-56 text-slate-500">
+                <select id="language" name="language" class="form-select py-3 px-4 box w-full lg:w-auto mt-3 lg:mt-0 ml-auto"  onchange="updateAlphabetOptions()">
+                    <option value="th" selected>อักษรไทย&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</option>
+                    <option value="en">อักษรอังกฤษ&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</option>
+                </select>
+            </div>
+        </div>
+        <div class="mt-3 w-full sm:ml-auto sm:mt-0 sm:w-auto md:ml-0">
+            <div class="relative text-slate-500">
+                <select id="alphabet" name="alphabet" class="form-select py-3 px-4 box w-full lg:w-auto mt-3 lg:mt-0 ml-auto" style="width:200px;">
+                    <!-- Options will be generated dynamically -->
+                </select>
+            </div>
+        </div>
     </div>
+
+
+
+
+
+
+
+
+
+
     <!-- <div id="fetchCustomerss"></div> -->
 
     @if(isset($query) && count($query)>0)
@@ -79,10 +133,10 @@
                             <div class="flex justify-center items-center">
                                 
                                 <a class="flex items-center text-success mr-3" href="#" >
-                                    <i data-lucide="check-square" class="w-4 h-4 mr-1"></i> อนุมัติ
-                                </a>
-                                <a class="flex items-center text-danger" href="#">
-                                    <i data-lucide="check-square" class="w-4 h-4 mr-1"></i> ลบ
+                                    <i data-lucide="eye" class="w-4 h-4 mr-1"></i> ดู
+                                </a>&emsp;
+                                <a class="flex items-center text-default" href="#">
+                                    <i data-lucide="Edit" class="w-4 h-4 mr-1"></i> แก้ไข
                                 </a>
                             </div>
                         </td>
@@ -114,7 +168,7 @@
 
     function applyFilters() {
         var keyword = document.getElementById('keyword').value;
-        var newUrl = `{{ route('BN_names_suggest') }}?keyword=${keyword}`;
+        var newUrl = `{{ route('BN_names_store') }}?keyword=${keyword}`;
         window.location.href = newUrl;
     }
     function handleEnter(event) {
@@ -123,6 +177,43 @@
         }
     }
     
+    
+
+
+    document.addEventListener("DOMContentLoaded", function() {
+        // Initially, generate options for the default language (Thai)
+        updateAlphabetOptions();
+    });
+
+    function updateAlphabetOptions() {
+        var languageDropdown = document.getElementById("language");
+        var alphabetDropdown = document.getElementById("alphabet");
+
+        // Clear existing options
+        alphabetDropdown.innerHTML = '<option value=""></option>';
+
+        // Generate options based on the selected language
+        if (languageDropdown.value === "th") {
+            for (var i = 0; i < 46; i++) {
+                var thaiAlphabet = String.fromCharCode(0xE01 + i); // Unicode for Thai alphabets ก-ฅ
+                var option = document.createElement("option");
+                option.value = thaiAlphabet;
+                option.text = thaiAlphabet;
+                alphabetDropdown.add(option);
+            }
+        } else if (languageDropdown.value === "en") {
+            for (var i = 0; i < 26; i++) {
+                var englishAlphabet = String.fromCharCode(97 + i); // Unicode for English alphabets a-z
+                var option = document.createElement("option");
+                option.value = englishAlphabet;
+                option.text = englishAlphabet;
+                alphabetDropdown.add(option);
+            }
+        }
+
+        // Set the width of the select box
+        // alphabetDropdown.style.width = "200px"; // Adjust the width as needed
+    }
 
 </script>
 

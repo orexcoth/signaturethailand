@@ -16,10 +16,42 @@ use App\Models\image_blur;
 use App\Models\image_watermark;
 use App\Models\image_mosaic;
 
+use App\Models\OptionsModel;
+
 use Intervention\Image\Facades\Image;
 
 class BackendPageController extends Controller
 {
+
+    public function BN_settings_defaultprice(Request $request)
+    {
+        $price_th = OptionsModel::where('option_key', 'price_th')->first();
+        $price_en = OptionsModel::where('option_key', 'price_en')->first();
+
+        return view('backend/setting-defaultprice', [
+            'default_pagename' => 'defaultprice',
+            'price_th' => $price_th ? $price_th->option_value : 0,
+            'price_en' => $price_en ? $price_en->option_value : 0,
+        ]);
+    }
+
+
+    public function BN_settings_defaultprice_action(Request $request)
+    {
+        if(isset($request->price_th)){
+            OptionsModel::where('option_key', 'price_th')->update(['option_value' => $request->price_th]);
+        }
+        if(isset($request->price_en)){
+            OptionsModel::where('option_key', 'price_en')->update(['option_value' => $request->price_en]);
+        }
+        return redirect()->back()->with('success', 'อัพเดทสำเร็จ !');
+    }
+
+
+
+
+
+
 
     public function bn_mosaic()
     {
@@ -34,7 +66,7 @@ class BackendPageController extends Controller
     }
     public function bn_mosaic_upload(Request $request)
     {
-        // dd($request);
+        
         if($request->hasFile('path')){
 
             

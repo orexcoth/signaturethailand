@@ -18,6 +18,7 @@ use App\Models\namesModel;
 use App\Models\signsModel;
 use App\Models\usersModel;
 use App\Models\suggestsModel;
+use App\Models\OptionsModel;
 
 class NamesController extends Controller
 {
@@ -45,8 +46,13 @@ class NamesController extends Controller
     }
     public function BN_names_add(Request $request)
     {
+        $price_th = OptionsModel::where('option_key', 'price_th')->first();
+        $price_en = OptionsModel::where('option_key', 'price_en')->first();
+
         return view('backend/names-add', [ 
             'default_pagename' => 'เพิ่มรายชื่อ',
+            'price_th' => $price_th ? $price_th->option_value : 0,
+            'price_en' => $price_en ? $price_en->option_value : 0,
         ]);
     }
     public function BN_names_add_action(Request $request)

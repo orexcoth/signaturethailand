@@ -40,14 +40,14 @@
                             <div class="col-span-12 xl:col-span-6" id="div1">
                                 <div class="mt-3">
                                     <label for="" class="form-label">ราคาชื่อ ไทย</label>
-                                    <input type="number" inputmode="numeric" pattern="[0-9]*" class="form-control w-full" value="" name="price_th" autocomplete="off"  />
+                                    <input type="number" inputmode="numeric" pattern="[0-9]*" class="form-control w-full" value="" name="price_th" />
                                 </div>
                             </div>
 
                             <div class="col-span-12 xl:col-span-6" id="div2">
                                 <div class="mt-3">
                                     <label for="" class="form-label">ราคาชื่อ อังกฤษ</label>
-                                    <input type="number" inputmode="numeric" pattern="[0-9]*" class="form-control w-full" value="" name="price_en" autocomplete="off"  />
+                                    <input type="number" inputmode="numeric" pattern="[0-9]*" class="form-control w-full" value="" name="price_en" />
                                 </div>
                             </div>
                         </div>
