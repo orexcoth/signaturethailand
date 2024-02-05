@@ -6,7 +6,7 @@
 
 @section('subcontent')
 <?php
-
+$selectedStatus = isset($_GET['status']) ? $_GET['status'] : '';
 
 // echo "<pre>";
 // print_r($page_name);
@@ -59,22 +59,31 @@
             </div>
         </div>
         <div class="mx-auto hidden text-slate-500 md:block"></div>
+
         <div class="mt-3 w-full sm:ml-auto sm:mt-0 sm:w-auto md:ml-0">
             <div class="relative w-56 text-slate-500">
-                <select id="language" name="language" class="form-select py-3 px-4 box w-full lg:w-auto mt-3 lg:mt-0 ml-auto"  onchange="updateAlphabetOptions()">
-                    <option value="th" selected>อักษรไทย&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</option>
-                    <option value="en">อักษรอังกฤษ&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</option>
+                <select id="language" name="language" class="form-select py-3 px-4 box w-full lg:w-auto mt-3 lg:mt-0 ml-auto" onchange="updateAlphabetOptions()">
+                    <option value="th" @if(request('language', 'th') == 'th') selected @endif>อักษรไทย&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</option>
+                    <option value="en" @if(request('language') == 'en') selected @endif>อักษรอังกฤษ&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</option>
                 </select>
             </div>
         </div>
+
         <div class="mt-3 w-full sm:ml-auto sm:mt-0 sm:w-auto md:ml-0">
             <div class="relative text-slate-500">
-                <select id="alphabet" name="alphabet" class="form-select py-3 px-4 box w-full lg:w-auto mt-3 lg:mt-0 ml-auto" style="width:200px;">
+                <select id="alphabet" name="alphabet" class="form-select py-3 px-4 box w-full lg:w-auto mt-3 lg:mt-0 ml-auto" style="width:200px;" onchange="applySelects()">
                     <!-- Options will be generated dynamically -->
                 </select>
             </div>
         </div>
     </div>
+
+    @if(empty($_GET))
+    <div class="intro-y col-span-12 mt-5 mb-5 flex flex-wrap items-center sm:flex-nowrap">
+        <div class="mx-auto hidden text-slate-500 md:block mr-auto text-lg font-medium">ค้นหารายชื่อ</div>
+    </div>
+    @endif
+    
 
 
 
@@ -176,21 +185,29 @@
             applyFilters();
         }
     }
+
+    function applySelects() {
+        var language = document.getElementById('language').value;
+        var alphabet = document.getElementById('alphabet').value;
+        var newUrl2 = `{{ route('BN_names_store') }}?language=${language}&alphabet=${alphabet}`;
+        window.location.href = newUrl2;
+    }
     
     
 
 
-    document.addEventListener("DOMContentLoaded", function() {
+    document.addEventListener("DOMContentLoaded", function () {
         // Initially, generate options for the default language (Thai)
         updateAlphabetOptions();
     });
+
 
     function updateAlphabetOptions() {
         var languageDropdown = document.getElementById("language");
         var alphabetDropdown = document.getElementById("alphabet");
 
         // Clear existing options
-        alphabetDropdown.innerHTML = '<option value=""></option>';
+        alphabetDropdown.innerHTML = ''; // Remove the line that adds the empty option
 
         // Generate options based on the selected language
         if (languageDropdown.value === "th") {
@@ -213,7 +230,71 @@
 
         // Set the width of the select box
         // alphabetDropdown.style.width = "200px"; // Adjust the width as needed
+
+        // Set selected option based on URL parameter
+        var urlParams = new URLSearchParams(window.location.search);
+        var alphabetParam = urlParams.get('alphabet');
+        if (alphabetParam) {
+            // Convert both the dropdown values and the URL parameter to lowercase
+            var lowercaseAlphabetParam = alphabetParam.toLowerCase();
+
+            // Set the selected option in the alphabet dropdown
+            for (var i = 0; i < alphabetDropdown.options.length; i++) {
+                if (alphabetDropdown.options[i].value.toLowerCase() === lowercaseAlphabetParam) {
+                    alphabetDropdown.value = alphabetDropdown.options[i].value;
+                    break;
+                }
+            }
+        }
     }
+
+
+    // function updateAlphabetOptions() {
+    //     var languageDropdown = document.getElementById("language");
+    //     var alphabetDropdown = document.getElementById("alphabet");
+
+    //     // Clear existing options
+    //     alphabetDropdown.innerHTML = '<option value=""></option>';
+
+    //     // Generate options based on the selected language
+    //     if (languageDropdown.value === "th") {
+    //         for (var i = 0; i < 46; i++) {
+    //             var thaiAlphabet = String.fromCharCode(0xE01 + i); // Unicode for Thai alphabets ก-ฅ
+    //             var option = document.createElement("option");
+    //             option.value = thaiAlphabet;
+    //             option.text = thaiAlphabet;
+    //             alphabetDropdown.add(option);
+    //         }
+    //     } else if (languageDropdown.value === "en") {
+    //         for (var i = 0; i < 26; i++) {
+    //             var englishAlphabet = String.fromCharCode(97 + i); // Unicode for English alphabets a-z
+    //             var option = document.createElement("option");
+    //             option.value = englishAlphabet;
+    //             option.text = englishAlphabet;
+    //             alphabetDropdown.add(option);
+    //         }
+    //     }
+
+    //     // Set the width of the select box
+    //     // alphabetDropdown.style.width = "200px"; // Adjust the width as needed
+
+        
+    //     // Set selected option based on URL parameter
+    //     var urlParams = new URLSearchParams(window.location.search);
+    //     var alphabetParam = urlParams.get('alphabet');
+    //     if (alphabetParam) {
+    //         // Convert both the dropdown values and the URL parameter to lowercase
+    //         var lowercaseAlphabetParam = alphabetParam.toLowerCase();
+
+    //         // Set the selected option in the alphabet dropdown
+    //         for (var i = 0; i < alphabetDropdown.options.length; i++) {
+    //             if (alphabetDropdown.options[i].value.toLowerCase() === lowercaseAlphabetParam) {
+    //                 alphabetDropdown.value = alphabetDropdown.options[i].value;
+    //                 break;
+    //             }
+    //         }
+    //     }
+    // }
 
 </script>
 

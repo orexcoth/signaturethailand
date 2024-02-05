@@ -153,7 +153,8 @@ Route::middleware('auth')->group(function() {
         Route::prefix('names')->group(function () {
             Route::get('', [NamesController::class, 'BN_names'])->name('BN_names');
             Route::post('mock-suggest', [NamesController::class, 'BN_names_mock_suggest'])->name('BN_names_mock_suggest');
-            Route::get('suggest', [NamesController::class, 'BN_names_suggest'])->name('BN_names_suggest');
+            Route::get('suggest', [NamesController::class, 'BN_names_suggest'])->name('BN_names_suggest')->defaults('suggest_status', 'suggested');
+            Route::get('suggest-delete/{id}', [NamesController::class, 'BN_names_suggest_delete'])->name('BN_names_suggest_delete');
             Route::get('store', [NamesController::class, 'BN_names_store'])->name('BN_names_store');
             Route::get('add', [NamesController::class, 'BN_names_add'])->name('BN_names_add');
             Route::post('add-action', [NamesController::class, 'BN_names_add_action'])->name('BN_names_add_action');

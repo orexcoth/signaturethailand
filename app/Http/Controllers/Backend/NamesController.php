@@ -27,16 +27,35 @@ class NamesController extends Controller
         $query = namesModel::query()
             ->orderBy('id', 'desc');
 
-        // if ($request->filled('keyword')) {
-        //     $keyword = $request->input('keyword');
-        //     $query->where(function ($query) use ($keyword) {
-        //         $query->where('article_name', 'LIKE', '%' . $keyword . '%')
-        //             ->orWhere('excerpt', 'LIKE', '%' . $keyword . '%')
-        //             ->orWhere('content', 'LIKE', '%' . $keyword . '%');
-        //     });
-        // }
+        if ($request->filled('keyword')) {
+            $keyword = $request->input('keyword');
+            $query->where(function ($query) use ($keyword) {
+                $query->where('name_th', 'LIKE', '%' . $keyword . '%')
+                    ->orWhere('name_en', 'LIKE', '%' . $keyword . '%');
+            });
+        }
 
-        $resultPerPage = 12;
+        if ($request->filled('language') && $request->filled('alphabet')) {
+            $language = $request->input('language');
+            $alphabet = $request->input('alphabet');
+
+            if($language == 'th'){
+                $query->where(function ($query) use ($alphabet) {
+                    $query->where('name_th', 'LIKE', $alphabet . '%');
+                });
+            }
+            elseif($language == 'en'){
+                $query->where(function ($query) use ($alphabet) {
+                    $query->where('name_en', 'LIKE', $alphabet . '%');
+                });
+            }
+        }
+        if (!$request->filled('keyword') && !($request->filled('language') && $request->filled('alphabet'))) {
+            $query->where('id', '=', -1);
+        }
+        
+
+        $resultPerPage = 36;
         $query = $query->paginate($resultPerPage);
 
         return view('backend/names-store', [ 
@@ -82,28 +101,98 @@ class NamesController extends Controller
 
 
 
-    
     public function BN_names_suggest(Request $request)
     {
-        $query = suggestsModel::query()
-            ->orderBy('id', 'desc');
+        $query = suggestsModel::query()->orderBy('id', 'desc');
 
-        // if ($request->filled('keyword')) {
-        //     $keyword = $request->input('keyword');
-        //     $query->where(function ($query) use ($keyword) {
-        //         $query->where('article_name', 'LIKE', '%' . $keyword . '%')
-        //             ->orWhere('excerpt', 'LIKE', '%' . $keyword . '%')
-        //             ->orWhere('content', 'LIKE', '%' . $keyword . '%');
-        //     });
-        // }
+        if ($request->filled('status') && $request->filled('keyword')) {
+            $status = $request->input('status');
+            $keyword = $request->input('keyword');
+
+            $query->where('status', '=', $status)
+                ->where(function ($query) use ($keyword) {
+                    $query->where('name_th', 'LIKE', '%' . $keyword . '%')
+                        ->orWhere('name_en', 'LIKE', '%' . $keyword . '%')
+                        ->orWhere('email', 'LIKE', '%' . $keyword . '%')
+                        ->orWhere('phone', 'LIKE', '%' . $keyword . '%');
+                });
+        } else {
+            // If only one of them is provided or none
+            if ($request->filled('status')) {
+                $status = $request->input('status');
+                $query->where('status', '=', $status);
+            } else {
+                // Default to 'suggested' status if none is provided
+                $query->where('status', '=', 'suggested');
+            }
+
+            if ($request->filled('keyword')) {
+                $keyword = $request->input('keyword');
+                $query->where(function ($query) use ($keyword) {
+                    $query->where('name_th', 'LIKE', '%' . $keyword . '%')
+                        ->orWhere('name_en', 'LIKE', '%' . $keyword . '%')
+                        ->orWhere('email', 'LIKE', '%' . $keyword . '%')
+                        ->orWhere('phone', 'LIKE', '%' . $keyword . '%');
+                });
+            }
+        }
 
         $resultPerPage = 12;
         $query = $query->paginate($resultPerPage);
 
-        return view('backend/names-suggest', [ 
+        return view('backend/names-suggest', [
             'default_pagename' => 'แนะนำชื่อ',
             'query' => $query,
         ]);
+    }
+
+    // public function BN_names_suggest(Request $request)
+    // {
+    //     $query = suggestsModel::query()
+    //         ->where('status', '=', 'suggested')
+    //         ->orderBy('id', 'desc');
+
+
+    //     if ($request->filled('keyword')) {
+    //         $keyword = $request->input('keyword');
+    //         $query->where(function ($query) use ($keyword) {
+    //             $query->where('name_th', 'LIKE', '%' . $keyword . '%')
+    //                 ->orWhere('name_en', 'LIKE', '%' . $keyword . '%')
+    //                 ->orWhere('email', 'LIKE', '%' . $keyword . '%')
+    //                 ->orWhere('phone', 'LIKE', '%' . $keyword . '%');
+    //         });
+    //     }
+    //     if ($request->filled('status')) {
+    //         $status = $request->input('status');
+    //         $query->where('status', '=', $status);
+    //     }
+
+    //     $resultPerPage = 12;
+    //     $query = $query->paginate($resultPerPage);
+
+    //     return view('backend/names-suggest', [ 
+    //         'default_pagename' => 'แนะนำชื่อ',
+    //         'query' => $query,
+    //     ]);
+    // }
+    public function BN_names_suggest_delete(Request $request, $id)
+    {
+        // dd($request);
+        
+        $suggestion = suggestsModel::find($id);
+
+        if ($suggestion) {
+            // Update the status to 'deleted' or any desired status
+            $suggestion->update(['status' => 'deleted']);
+
+            // Optionally, you can also delete the record from the database
+            // $suggestion->delete();
+
+            return redirect()->back()->with('success', 'ลบข้อมูลเรียบร้อยแล้ว');
+        } else {
+            return redirect()->back()->with('error', 'ไม่พบข้อมูลที่ต้องการลบ');
+        }
+
     }
 
     public function BN_names_mock_suggest(Request $request)
