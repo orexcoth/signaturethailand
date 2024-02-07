@@ -160,6 +160,10 @@ Route::middleware('auth')->group(function() {
             Route::post('add-action', [NamesController::class, 'BN_names_add_action'])->name('BN_names_add_action');
             Route::get('edit/{id}', [NamesController::class, 'BN_names_edit'])->name('BN_names_edit');
             Route::post('edit-action', [NamesController::class, 'BN_names_edit_action'])->name('BN_names_edit_action');
+
+            Route::get('import', [NamesController::class, 'BN_names_import'])->name('BN_names_import');
+            Route::post('import-action', [NamesController::class, 'BN_names_import_action'])->name('BN_names_import_action');
+            Route::get('import-result', [NamesController::class, 'BN_names_import_result'])->name('BN_names_import_result');
             
         });
         Route::prefix('signs')->group(function () {

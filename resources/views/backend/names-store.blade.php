@@ -51,7 +51,7 @@ $selectedStatus = isset($_GET['status']) ? $_GET['status'] : '';
     <div class="intro-y col-span-12 mt-5 mb-5 flex flex-wrap items-center sm:flex-nowrap">
         <div class="mt-3 w-full sm:ml-auto sm:mt-0 sm:w-auto md:ml-0">
             <div class="relative text-slate-500">
-                <input type="text" name="keyword" id="keyword" class="form-control py-3 px-4 w-full lg:w-64 box pr-10" placeholder="เบอร์ / ชื่อ /นามสกุล ลูกค้า..." value="{{ request()->input('keyword') }}" onkeypress="handleEnter(event)" >
+                <input type="text" name="keyword" id="keyword" class="form-control py-3 px-4 w-full lg:w-64 box pr-10" placeholder="ค้นหา.." value="{{ request()->input('keyword') }}" onkeypress="handleEnter(event)" >
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" icon-name="search" class="lucide lucide-search w-4 h-4 absolute my-auto inset-y-0 mr-3 right-0 text-slate-500" data-lucide="search">
                     <circle cx="11" cy="11" r="8"></circle>
                     <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
@@ -80,7 +80,7 @@ $selectedStatus = isset($_GET['status']) ? $_GET['status'] : '';
 
     @if(empty($_GET))
     <div class="intro-y col-span-12 mt-5 mb-5 flex flex-wrap items-center sm:flex-nowrap">
-        <div class="mx-auto hidden text-slate-500 md:block mr-auto text-lg font-medium">ค้นหารายชื่อ</div>
+        <div class="mx-auto hidden text-slate-500 md:block mr-auto text-lg font-medium">มีรายชื่อในระบบทั้งหมด {{$alldata}} รายการ</div>
     </div>
     @endif
     
@@ -203,50 +203,56 @@ $selectedStatus = isset($_GET['status']) ? $_GET['status'] : '';
 
 
     function updateAlphabetOptions() {
-        var languageDropdown = document.getElementById("language");
-        var alphabetDropdown = document.getElementById("alphabet");
+    var languageDropdown = document.getElementById("language");
+    var alphabetDropdown = document.getElementById("alphabet");
 
-        // Clear existing options
-        alphabetDropdown.innerHTML = ''; // Remove the line that adds the empty option
+    // Clear existing options
+    alphabetDropdown.innerHTML = '';
 
-        // Generate options based on the selected language
-        if (languageDropdown.value === "th") {
-            for (var i = 0; i < 46; i++) {
-                var thaiAlphabet = String.fromCharCode(0xE01 + i); // Unicode for Thai alphabets ก-ฅ
-                var option = document.createElement("option");
-                option.value = thaiAlphabet;
-                option.text = thaiAlphabet;
-                alphabetDropdown.add(option);
-            }
-        } else if (languageDropdown.value === "en") {
-            for (var i = 0; i < 26; i++) {
-                var englishAlphabet = String.fromCharCode(97 + i); // Unicode for English alphabets a-z
-                var option = document.createElement("option");
-                option.value = englishAlphabet;
-                option.text = englishAlphabet;
-                alphabetDropdown.add(option);
-            }
+    // Generate options based on the selected language
+    if (languageDropdown.value === "th") {
+        // Add empty option with specific text
+        var emptyOption = document.createElement("option");
+        emptyOption.value = "";
+        emptyOption.text = "เลือกตัวอักษร";
+        alphabetDropdown.add(emptyOption);
+
+        for (var i = 0; i < 46; i++) {
+            var thaiAlphabet = String.fromCharCode(0xE01 + i);
+            var option = document.createElement("option");
+            option.value = thaiAlphabet;
+            option.text = thaiAlphabet;
+            alphabetDropdown.add(option);
         }
+    } else if (languageDropdown.value === "en") {
+        // Add empty option with specific text
+        var emptyOption = document.createElement("option");
+        emptyOption.value = "";
+        emptyOption.text = "Select alphabet";
+        alphabetDropdown.add(emptyOption);
 
-        // Set the width of the select box
-        // alphabetDropdown.style.width = "200px"; // Adjust the width as needed
+        for (var i = 0; i < 26; i++) {
+            var englishAlphabet = String.fromCharCode(97 + i);
+            var option = document.createElement("option");
+            option.value = englishAlphabet;
+            option.text = englishAlphabet;
+            alphabetDropdown.add(option);
+        }
+    }
 
-        // Set selected option based on URL parameter
-        var urlParams = new URLSearchParams(window.location.search);
-        var alphabetParam = urlParams.get('alphabet');
-        if (alphabetParam) {
-            // Convert both the dropdown values and the URL parameter to lowercase
-            var lowercaseAlphabetParam = alphabetParam.toLowerCase();
-
-            // Set the selected option in the alphabet dropdown
-            for (var i = 0; i < alphabetDropdown.options.length; i++) {
-                if (alphabetDropdown.options[i].value.toLowerCase() === lowercaseAlphabetParam) {
-                    alphabetDropdown.value = alphabetDropdown.options[i].value;
-                    break;
-                }
+    // Set selected option based on URL parameter
+    var urlParams = new URLSearchParams(window.location.search);
+    var alphabetParam = urlParams.get('alphabet');
+    if (alphabetParam) {
+        var lowercaseAlphabetParam = alphabetParam.toLowerCase();
+        for (var i = 0; i < alphabetDropdown.options.length; i++) {
+            if (alphabetDropdown.options[i].value.toLowerCase() === lowercaseAlphabetParam) {
+                alphabetDropdown.value = alphabetDropdown.options[i].value;
+                break;
             }
         }
     }
+}
 
 
     // function updateAlphabetOptions() {
