@@ -24,6 +24,13 @@ use App\Models\OptionsModel;
 
 class NamesController extends Controller
 {
+    public function BN_names_detail(Request $request)
+    {
+
+        return view('backend/names-detail', [ 
+            'default_pagename' => 'รายละเอียด',
+        ]);
+    }
     public function BN_names_store(Request $request)
     {
         $alldata = namesModel::count();
@@ -40,11 +47,11 @@ class NamesController extends Controller
         if ($request->filled('language') && $request->filled('alphabet')) {
             $language = $request->input('language');
             $alphabet = $request->input('alphabet');
-
+        
             if ($language == 'th') {
-                $query->where('name_th', 'LIKE', '%' . $alphabet . '%');
+                $query->where('name_th', 'REGEXP', '^[ก-๙เแัะำิีืึุูเแ]?' . $alphabet);
             } elseif ($language == 'en') {
-                $query->where('name_en', 'LIKE', '%' . $alphabet . '%');
+                $query->where('name_en', 'LIKE', $alphabet . '%');
             }
         }
 

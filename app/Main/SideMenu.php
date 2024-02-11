@@ -43,12 +43,12 @@ class SideMenu
                     ]
                 ]
             ],
-            'signs' => [
-                'icon' => 'Edit3',
-                'route_name' => 'BN_signs',
-                'params' => [],
-                'title' => 'ลายเซ็นต์'
-            ],
+            // 'signs' => [
+            //     'icon' => 'Edit3',
+            //     'route_name' => 'BN_signs',
+            //     'params' => [],
+            //     'title' => 'ลายเซ็นต์'
+            // ],
             'reports' => [
                 'icon' => 'Book Open',
                 'title' => 'รายงาน',
@@ -73,11 +73,24 @@ class SideMenu
                     ]
                 ]
             ],
+
             'works' => [
                 'icon' => 'Briefcase',
-                'route_name' => 'BN_works',
-                'params' => [],
-                'title' => 'งาน'
+                'title' => 'งาน',
+                'sub_menu' => [
+                    'names-all' => [
+                        'icon' => 'Folder',
+                        'route_name' => 'BN_works',
+                        'params' => [],
+                        'title' => 'มอบหมายงาน'
+                    ],
+                    'names-suggest' => [
+                        'icon' => 'Folder Plus',
+                        'route_name' => 'BN_works',
+                        'params' => [],
+                        'title' => 'ตารางงาน'
+                    ]
+                ]
             ],
             'commissions' => [
                 'icon' => 'Dollar Sign',

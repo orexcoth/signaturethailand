@@ -49,7 +49,7 @@ $selectedStatus = isset($_GET['status']) ? $_GET['status'] : '';
 
 
     <div class="intro-y col-span-12 mt-5 mb-5 flex flex-wrap items-center sm:flex-nowrap">
-        <div class="mt-3 w-full sm:ml-auto sm:mt-0 sm:w-auto md:ml-0">
+        <div class="mt-3 w-full sm:ml-auto sm:mt-0 sm:w-auto md:ml-0 mr-5">
             <div class="relative text-slate-500">
                 <input type="text" name="keyword" id="keyword" class="form-control py-3 px-4 w-full lg:w-64 box pr-10" placeholder="ค้นหา.." value="{{ request()->input('keyword') }}" onkeypress="handleEnter(event)" >
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" icon-name="search" class="lucide lucide-search w-4 h-4 absolute my-auto inset-y-0 mr-3 right-0 text-slate-500" data-lucide="search">
@@ -58,8 +58,16 @@ $selectedStatus = isset($_GET['status']) ? $_GET['status'] : '';
                 </svg> 
             </div>
         </div>
+        
         <div class="mx-auto hidden text-slate-500 md:block"></div>
-
+        <div class="mt-3 w-full sm:ml-auto sm:mt-0 sm:w-auto md:ml-0">
+            <div class="relative w-56 text-slate-500">
+                <select id="sign" name="sign" class="form-select py-3 px-4 box w-full lg:w-auto mt-3 lg:mt-0 ml-auto"  onchange="applySelects()">
+                    <option value="all" @if(empty(request('sign')) || request('sign') == 'all') selected @endif>ทั้งหมด&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</option>
+                    <option value="no" @if(request('sign') == 'no') selected @endif>ยังไม่มีลายเซ็นต์&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</option>
+                </select>
+            </div>
+        </div>
         <div class="mt-3 w-full sm:ml-auto sm:mt-0 sm:w-auto md:ml-0">
             <div class="relative w-56 text-slate-500">
                 <select id="language" name="language" class="form-select py-3 px-4 box w-full lg:w-auto mt-3 lg:mt-0 ml-auto" onchange="updateAlphabetOptions()">
@@ -133,20 +141,21 @@ $selectedStatus = isset($_GET['status']) ? $_GET['status'] : '';
                             <div class="font-medium whitespace-nowrap">{{$res->price_en}}</div>
                         </td>
                         <td>
-                            <div class="font-medium whitespace-nowrap">no</div>
+                            <div class="font-medium whitespace-nowrap">0</div>
                         </td>
                         <td>
-                            <div class="font-medium whitespace-nowrap">no</div>
+                            <div class="font-medium whitespace-nowrap">0</div>
                         </td>
                         <td class="table-report__action w-56">
                             <div class="flex justify-center items-center">
                                 
-                                <a class="flex items-center text-success mr-3" href="#" >
-                                    <i data-lucide="eye" class="w-4 h-4 mr-1"></i> ดู
-                                </a>&emsp;
+                                <a class="flex items-center text-success mr-3" href="{{route('BN_names_detail', ['id' => $res->id])}}" >
+                                    <i data-lucide="eye" class="w-4 h-4 mr-1"></i> รายละเอียด
+                                </a>
+                                <!-- &emsp;
                                 <a class="flex items-center text-default" href="#">
                                     <i data-lucide="Edit" class="w-4 h-4 mr-1"></i> แก้ไข
-                                </a>
+                                </a> -->
                             </div>
                         </td>
                     </tr>
@@ -189,9 +198,15 @@ $selectedStatus = isset($_GET['status']) ? $_GET['status'] : '';
     function applySelects() {
         var language = document.getElementById('language').value;
         var alphabet = document.getElementById('alphabet').value;
-        var newUrl2 = `{{ route('BN_names_store') }}?language=${language}&alphabet=${alphabet}`;
+        var sign = document.getElementById('sign').value;
+        var newUrl2 = `{{ route('BN_names_store') }}?sign=${sign}&language=${language}&alphabet=${alphabet}`;
         window.location.href = newUrl2;
     }
+    // function applySelectsSign() {
+    //     var sign = document.getElementById('sign').value;
+    //     var newUrl3 = `{{ route('BN_names_store') }}?sign=${sign}`;
+    //     window.location.href = newUrl3;
+    // }
     
     
 
