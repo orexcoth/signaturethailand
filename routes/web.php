@@ -155,17 +155,21 @@ Route::middleware('auth')->group(function() {
             Route::post('mock-suggest', [NamesController::class, 'BN_names_mock_suggest'])->name('BN_names_mock_suggest');
             Route::get('suggest', [NamesController::class, 'BN_names_suggest'])->name('BN_names_suggest')->defaults('suggest_status', 'suggested');
             Route::get('suggest-delete/{id}', [NamesController::class, 'BN_names_suggest_delete'])->name('BN_names_suggest_delete');
+
             Route::get('store', [NamesController::class, 'BN_names_store'])->name('BN_names_store');
             Route::get('add', [NamesController::class, 'BN_names_add'])->name('BN_names_add');
             Route::post('add-action', [NamesController::class, 'BN_names_add_action'])->name('BN_names_add_action');
             Route::get('edit/{id}', [NamesController::class, 'BN_names_edit'])->name('BN_names_edit');
             Route::post('edit-action', [NamesController::class, 'BN_names_edit_action'])->name('BN_names_edit_action');
-
-            Route::get('detail', [NamesController::class, 'BN_names_detail'])->name('BN_names_detail');
+            Route::get('detail/{id}', [NamesController::class, 'BN_names_detail'])->name('BN_names_detail');
 
             Route::get('import', [NamesController::class, 'BN_names_import'])->name('BN_names_import');
             Route::post('import-action', [NamesController::class, 'BN_names_import_action'])->name('BN_names_import_action');
             Route::get('import-result', [NamesController::class, 'BN_names_import_result'])->name('BN_names_import_result');
+
+            Route::get('sign/add/{lang}/{id}', [NamesController::class, 'BN_names_sign_add'])->name('BN_names_sign_add');
+            Route::post('sign/add-action', [NamesController::class, 'BN_names_sign_add_action'])->name('BN_names_sign_add_action');
+
             
         });
         Route::prefix('signs')->group(function () {

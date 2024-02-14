@@ -9,7 +9,7 @@
 $selectedStatus = isset($_GET['status']) ? $_GET['status'] : '';
 
 // echo "<pre>";
-// print_r($page_name);
+// print_r($query);
 // echo "</pre>";
 ?>
     <div class="intro-y mt-5 flex flex-col items-center sm:flex-row">
@@ -149,7 +149,7 @@ $selectedStatus = isset($_GET['status']) ? $_GET['status'] : '';
                         <td class="table-report__action w-56">
                             <div class="flex justify-center items-center">
                                 
-                                <a class="flex items-center text-success mr-3" href="{{route('BN_names_detail', ['id' => $res->id])}}" >
+                                <a class="flex items-center text-success mr-3" href="{{ route('BN_names_detail', ['id' => $res->id]) }}" >
                                     <i data-lucide="eye" class="w-4 h-4 mr-1"></i> รายละเอียด
                                 </a>
                                 <!-- &emsp;

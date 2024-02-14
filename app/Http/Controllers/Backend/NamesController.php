@@ -6,6 +6,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use PhpOffice\PhpSpreadsheet\IOFactory;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\DB;
+
 
 // use Illuminate\Http\RedirectResponse;
 // use Illuminate\Support\Facades\File;
@@ -24,13 +27,126 @@ use App\Models\OptionsModel;
 
 class NamesController extends Controller
 {
-    public function BN_names_detail(Request $request)
-    {
 
-        return view('backend/names-detail', [ 
-            'default_pagename' => 'รายละเอียด',
+    public function BN_names_sign_add_action(Request $request) {
+        // Validate sign and video uploads
+        $request->validate([
+            'sign' => 'required|image',
+            'video' => 'required|mimetypes:video/mp4,video/avi,video/quicktime,video/x-ms-wmv',
+        ]);
+    
+        // Retrieve data from namesModel
+        $name = namesModel::findOrFail($request->names_id);
+    
+        // Determine default name based on language
+        $defaultName = ($request->lang == 'th') ? $name->name_th : $name->name_en;
+    
+        // Generate unique file names
+        $userId = $request->users_id;
+        $currentDate = date('Ymd');
+        $randomString = uniqid();
+        $langFolder = ($request->lang == 'th') ? 'th' : 'en';
+        $signExtension = $request->file('sign')->getClientOriginalExtension();
+        $videoExtension = $request->file('video')->getClientOriginalExtension();
+    
+        // Handle sign upload
+        $signFile = $request->file('sign');
+        $signNewFileName = $currentDate . '-' . $userId . '-' . $request->names_id . '-' . $defaultName . '-' . $randomString . '.' . $signExtension;
+        $signDestinationPath = 'uploads/sign/' . $langFolder;
+        $signPath = $signFile->move($signDestinationPath, $signNewFileName);
+        if ($signPath === false) {
+            // Sign upload failed
+            Log::error('Sign upload failed.');
+            return redirect()->back()->with('error', 'Sign upload failed.');
+        }
+    
+        // Handle video upload
+        $videoFile = $request->file('video');
+        $videoNewFileName = $currentDate . '-' . $userId . '-' . $request->names_id . '-' . $defaultName . '-' . $randomString . '.' . $videoExtension;
+        $videoDestinationPath = 'uploads/video/' . $langFolder;
+        $videoPath = $videoFile->move($videoDestinationPath, $videoNewFileName);
+        if ($videoPath === false) {
+            // Video upload failed
+            // You may need to handle cleanup of the sign file uploaded earlier
+            Log::error('Video upload failed.');
+            return redirect()->back()->with('error', 'Video upload failed.');
+        }
+    
+        // Create a new sign entry
+        $sign = new signsModel();
+        $sign->names_id = $request->names_id;
+        $sign->users_id = $request->users_id; // Change to users_id
+        $sign->work = $request->work;
+        $sign->finance = $request->finance;
+        $sign->love = $request->love;
+        $sign->health = $request->health;
+        $sign->fortune = $request->fortune;
+        $sign->description = $request->description;
+        $sign->lang = $request->lang;
+        $sign->sign = $signPath->getPathname();
+        $sign->video = $videoPath->getPathname();
+        $sign->save();
+    
+        // Redirect or return response
+        Log::info('Sign added successfully.');
+        return redirect()->back()->with('success', 'Sign added successfully.');
+    }
+    
+    
+    
+
+    
+
+
+
+
+
+
+
+    
+
+    public function BN_names_sign_add(Request $request, $lang, $id)
+    {
+        $name = namesModel::find($id);
+        return view('backend/names-sign-add', [
+            'default_pagename' => 'เพิ่มลายเซ็นต์',
+            'name' => $name,
+            'lang' => $lang, // Pass the lang parameter to the view
         ]);
     }
+
+
+
+    public function BN_names_edit_action(Request $request)
+    {
+        // dd($request);
+        $name = namesModel::find($request->id);
+        $name->name_th = $request->name_th;
+        $name->name_en = $request->name_en;
+        $name->price_th = $request->price_th;
+        $name->price_en = $request->price_en;
+        $name->save();
+
+        return redirect()->back()->with('success', 'บันทึกสำเร็จ !!!');
+
+    }
+    public function BN_names_detail(Request $request, $id)
+    {
+        $name = namesModel::find($id);
+        return view('backend/names-detail', [ 
+            'default_pagename' => 'รายละเอียด',
+            'name' => $name,
+        ]);
+    }
+    public function BN_names_edit(Request $request, $id)
+    {
+        $name = namesModel::find($id);
+        return view('backend.names-edit', [
+            'default_pagename' => 'แก้ไขชื่อ',
+            'name' => $name,
+        ]);
+    }
+    
     public function BN_names_store(Request $request)
     {
         $alldata = namesModel::count();
@@ -54,6 +170,11 @@ class NamesController extends Controller
                 $query->where('name_en', 'LIKE', $alphabet . '%');
             }
         }
+
+        // Join with signsModel and count rows based on names_id and lang
+        // $query->leftJoin('signsModel', 'namesModel.id', '=', 'signsModel.names_id')
+        // ->select('namesModel.*', DB::raw('COUNT(signsModel.lang) as lang_count'), 'signsModel.lang')
+        // ->groupBy('namesModel.id', 'signsModel.lang');
 
         // Add sorting based on presence of name_th or name_en
         $query->orderByRaw("IF(name_th IS NOT NULL AND name_en IS NULL, 1, 0) ASC")
