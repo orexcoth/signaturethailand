@@ -89,7 +89,7 @@ class NamesController extends Controller
     
         // Redirect or return response
         Log::info('Sign added successfully.');
-        return redirect()->back()->with('success', 'Sign added successfully.');
+        return redirect()->back()->with('success', 'เพิ่มลายเซ็นต์เรียบร้อย !');
     }
     
     
@@ -133,9 +133,45 @@ class NamesController extends Controller
     public function BN_names_detail(Request $request, $id)
     {
         $name = namesModel::find($id);
+
+        $data = NamesModel::leftJoin('signs', 'names.id', '=', 'signs.names_id')
+            ->where('names.id', $id) // Adding where condition for the specific id
+            ->select('signs.lang', DB::raw('COUNT(signs.lang) as count'))
+            ->groupBy('signs.lang')
+            ->get();
+
+        $count = [];
+        foreach ($data as $item) {
+            $lang = $item->lang ?: ''; // Handle NULL lang values
+            $count[$lang] = $item->count;
+        }
+        $languages = ['en', 'th']; // Assuming these are the languages you want to include
+        foreach ($languages as $lang) {
+            if (!isset($count[$lang])) {
+                $count[$lang] = 0;
+            }
+        }
+        ksort($count); // Sort languages alphabetically
+
+        // Fetch signs with English language
+        $signsen = SignsModel::where('names_id', $id)
+        ->where('lang', 'en')
+        ->with('user') // Load the relationship with user
+        ->get();
+
+        // Fetch signs with Thai language
+        $signsth = SignsModel::where('names_id', $id)
+        ->where('lang', 'th')
+        ->with('user') // Load the relationship with user
+        ->get();
+
+
         return view('backend/names-detail', [ 
             'default_pagename' => 'รายละเอียด',
             'name' => $name,
+            'count' => $count,
+            'signsen' => $signsen,
+            'signsth' => $signsth,
         ]);
     }
     public function BN_names_edit(Request $request, $id)
@@ -149,7 +185,38 @@ class NamesController extends Controller
     
     public function BN_names_store(Request $request)
     {
+        $data = NamesModel::leftJoin('signs', 'names.id', '=', 'signs.names_id')
+        ->select('names.id', 'signs.lang', DB::raw('COUNT(signs.lang) as count'))
+        ->groupBy('names.id', 'signs.lang')
+        ->get();
+        $count = [];
+        foreach ($data as $item) {
+            $lang = $item->lang ?: ''; // Handle NULL lang values
+            $nameId = $item->id;
+            if ($lang !== '') {
+                $count[$nameId][$lang] = $item->count;
+            }
+        }
+        foreach ($count as &$item) {
+        $languages = array_unique(array_merge(array_keys($item), ['en', 'th'])); // Include empty string
+        foreach ($languages as $lang) {
+            if (!isset($item[$lang])) {
+                $item[$lang] = 0;
+            }
+        }
+        ksort($item); 
+        }
+        ksort($count);
+        print_r($count);
+
+
+
+
+
+
+
         $alldata = namesModel::count();
+        
         $query = namesModel::query();
 
         if ($request->filled('keyword')) {
@@ -163,7 +230,7 @@ class NamesController extends Controller
         if ($request->filled('language') && $request->filled('alphabet')) {
             $language = $request->input('language');
             $alphabet = $request->input('alphabet');
-        
+
             if ($language == 'th') {
                 $query->where('name_th', 'REGEXP', '^[ก-๙เแัะำิีืึุูเแ]?' . $alphabet);
             } elseif ($language == 'en') {
@@ -171,10 +238,18 @@ class NamesController extends Controller
             }
         }
 
-        // Join with signsModel and count rows based on names_id and lang
-        // $query->leftJoin('signsModel', 'namesModel.id', '=', 'signsModel.names_id')
-        // ->select('namesModel.*', DB::raw('COUNT(signsModel.lang) as lang_count'), 'signsModel.lang')
-        // ->groupBy('namesModel.id', 'signsModel.lang');
+        if ($request->filled('sign') && $request->input('sign') === 'no') {
+            $query->whereNotExists(function ($query) {
+                $query->select(DB::raw(1))
+                    ->from('signs')
+                    ->whereColumn('names.id', 'signs.names_id')
+                    ->whereIn('signs.lang', ['en', 'th'])
+                    ->groupBy('signs.names_id')
+                    ->havingRaw('SUM(CASE WHEN signs.lang = "en" THEN 1 ELSE 0 END) > 0')
+                    ->havingRaw('SUM(CASE WHEN signs.lang = "th" THEN 1 ELSE 0 END) > 0');
+            });
+        }
+
 
         // Add sorting based on presence of name_th or name_en
         $query->orderByRaw("IF(name_th IS NOT NULL AND name_en IS NULL, 1, 0) ASC")
@@ -183,17 +258,32 @@ class NamesController extends Controller
             ->orderBy('name_en', 'asc');
 
         // If no filters applied, return no results
-        if (!$request->filled('keyword') && !($request->filled('language') && $request->filled('alphabet'))) {
+        if (!$request->filled('keyword') && !($request->filled('language') && $request->filled('alphabet')) && !($request->filled('sign') && $request->input('sign') === 'no')) {
             $query->where('id', '=', -1);
         }
 
-        $resultPerPage = 36;
+        $resultPerPage = 50;
         $query = $query->paginate($resultPerPage);
+
+
+
+        
+
+
+
+
+
+
+
+
+
+        
 
         return view('backend/names-store', [
             'default_pagename' => 'คลังรายชื่อ',
             'query' => $query,
             'alldata' => $alldata,
+            'count' => $count,
         ]);
     }
 

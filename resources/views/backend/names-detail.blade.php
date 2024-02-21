@@ -7,7 +7,10 @@
 @section('subcontent')
 <?php
 // echo "<pre>";
-// print_r($page_name);
+// print_r($signsth);
+// echo "</pre>";
+// echo "<pre>";
+// print_r($signsen);
 // echo "</pre>";
 ?>
     <div class="intro-y mt-8 flex flex-col items-center sm:flex-row">
@@ -32,7 +35,7 @@
                                         ลายเซ็นต์ภาษาไทย
                                         <div class="ml-auto">
                                             <div class=" cursor-pointer flex items-center rounded-full bg-success py-[3px] px-4 py-1 text-xs font-medium text-white">
-                                                0  ลายเซ็นต์
+                                            {{($count['th'] ?? 0)}}  ลายเซ็นต์
                                             </div>
 
                                         </div>
@@ -55,6 +58,48 @@
                                 
                         </div>
 
+
+
+
+                        @foreach($signsth as $keysignsth => $th)
+                        <div class="intro-y col-span-12 sm:col-span-12 xl:col-span-12">
+                            <div class="relative before:box before:absolute before:inset-x-3 before:mt-3 before:h-full before:bg-slate-50 before:content-['']">
+                                <div class="box p-5">
+
+                                    <div class="mt-1 text-3xl font-medium leading-8">{{ $th->user->name }}</div>
+
+                                    <div class="mt-5 grid grid-cols-12 gap-6">
+                        
+                                        <div class="intro-y col-span-12 sm:col-span-12 xl:col-span-4">
+                                            <div class="relative before:box before:absolute before:inset-x-3 before:mt-3 before:h-full before:bg-slate-50 before:content-['']">
+                                                <div class="">
+                                                    <div class="mt-1 text-base text-slate-500">work  {{$th->work}}</div>
+                                                    <div class="mt-1 text-base text-slate-500">finance  {{$th->finance}}</div>
+                                                    <div class="mt-1 text-base text-slate-500">love  {{$th->love}}</div>
+                                                    <div class="mt-1 text-base text-slate-500">health  {{$th->health}}</div>
+                                                    <div class="mt-1 text-base text-slate-500">fortune  {{$th->fortune}}</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="intro-y col-span-12 sm:col-span-12 xl:col-span-8">
+                                            <a href="#">
+                                                <div class="relative before:box before:absolute before:inset-x-3 before:mt-3 before:h-full before:bg-slate-50 before:content-['']">
+                                                    <div class="">
+                                                        <div class="mt-1 text-base text-slate-500">{{$th->description}}</div>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                                
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @endforeach
+                        
+
+
+
                     </div>
                 </div>
             </div>
@@ -73,7 +118,7 @@
                                         ลายเซ็นต์ภาษาอังกฤษ
                                         <div class="ml-auto">
                                             <div class=" cursor-pointer flex items-center rounded-full bg-success py-[3px] px-4 py-1 text-xs font-medium text-white">
-                                                0  ลายเซ็นต์
+                                            {{($count['en'] ?? 0)}}  ลายเซ็นต์
                                             </div>
 
                                         </div>
@@ -95,6 +140,42 @@
                             </a>
                                 
                         </div>
+
+                        @foreach($signsen as $keysignsen => $en)
+                        <div class="intro-y col-span-12 sm:col-span-12 xl:col-span-12">
+                            <div class="relative before:box before:absolute before:inset-x-3 before:mt-3 before:h-full before:bg-slate-50 before:content-['']">
+                                <div class="box p-5">
+
+                                    <div class="mt-1 text-3xl font-medium leading-8">{{ $en->user->name }}</div>
+
+                                    <div class="mt-5 grid grid-cols-12 gap-6">
+                        
+                                        <div class="intro-y col-span-12 sm:col-span-12 xl:col-span-4">
+                                            <div class="relative before:box before:absolute before:inset-x-3 before:mt-3 before:h-full before:bg-slate-50 before:content-['']">
+                                                <div class="">
+                                                    <div class="mt-1 text-base text-slate-500">work  {{$en->work}}</div>
+                                                    <div class="mt-1 text-base text-slate-500">finance  {{$en->finance}}</div>
+                                                    <div class="mt-1 text-base text-slate-500">love  {{$en->love}}</div>
+                                                    <div class="mt-1 text-base text-slate-500">health  {{$en->health}}</div>
+                                                    <div class="mt-1 text-base text-slate-500">fortune  {{$en->fortune}}</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="intro-y col-span-12 sm:col-span-12 xl:col-span-8">
+                                            <a href="#">
+                                                <div class="relative before:box before:absolute before:inset-x-3 before:mt-3 before:h-full before:bg-slate-50 before:content-['']">
+                                                    <div class="">
+                                                        <div class="mt-1 text-base text-slate-500">{{$en->description}}</div>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                                
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @endforeach
 
 
 

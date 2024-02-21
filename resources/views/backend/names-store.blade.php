@@ -127,7 +127,7 @@ $selectedStatus = isset($_GET['status']) ? $_GET['status'] : '';
                 $profile_img = ($res->image)?asset($res->image):asset('frontend/images/avatar.jpeg');
                 @endphp
                     <tr class="intro-x">
-                        <td class="text-center">{{(($query->currentPage()-1)*24)+$keyres+1}}</td>
+                        <td class="text-center">{{(($query->currentPage()-1)*50)+$keyres+1}}</td>
                         <td>
                             <div class="font-medium whitespace-nowrap">{{$res->name_th}}</div>
                         </td>
@@ -141,10 +141,10 @@ $selectedStatus = isset($_GET['status']) ? $_GET['status'] : '';
                             <div class="font-medium whitespace-nowrap">{{$res->price_en}}</div>
                         </td>
                         <td>
-                            <div class="font-medium whitespace-nowrap">0</div>
+                            <div class="font-medium whitespace-nowrap">{{($count[$res->id]['th'] ?? 0)}}</div>
                         </td>
                         <td>
-                            <div class="font-medium whitespace-nowrap">0</div>
+                            <div class="font-medium whitespace-nowrap">{{($count[$res->id]['en'] ?? 0)}}</div>
                         </td>
                         <td class="table-report__action w-56">
                             <div class="flex justify-center items-center">
