@@ -184,6 +184,7 @@ class NamesController extends Controller
     }
     
     public function BN_names_store(Request $request)
+<<<<<<< Updated upstream
     {
         $data = NamesModel::leftJoin('signs', 'names.id', '=', 'signs.names_id')
         ->select('names.id', 'signs.lang', DB::raw('COUNT(signs.lang) as count'))
@@ -285,7 +286,85 @@ class NamesController extends Controller
             'alldata' => $alldata,
             'count' => $count,
         ]);
+=======
+{
+    $alldata = namesModel::count();
+    $query = namesModel::query();
+
+    if ($request->filled('keyword')) {
+        $keyword = $request->input('keyword');
+        $query->where(function ($query) use ($keyword) {
+            $query->where('name_th', 'LIKE', '%' . $keyword . '%')
+                ->orWhere('name_en', 'LIKE', '%' . $keyword . '%');
+        });
+>>>>>>> Stashed changes
     }
+
+    if ($request->filled('language') && $request->filled('alphabet')) {
+        $language = $request->input('language');
+        $alphabet = $request->input('alphabet');
+
+        if ($language == 'th') {
+            $query->where('name_th', 'REGEXP', '^[ก-๙เแัะำิีืึุูเแ]?' . $alphabet);
+        } elseif ($language == 'en') {
+            $query->where('name_en', 'LIKE', $alphabet . '%');
+        }
+    }
+
+    // Join and count signs related to each name
+    $query->leftJoin('signs', 'names.id', '=', 'signs.names_id')
+          ->selectRaw('names.*, COUNT(signs.id) as sign_count')
+          ->groupBy('names.id', 'names.name_th', 'names.name_en', 'names.price_th', 'names.price_en', 'names.created_at', 'names.updated_at'); // Include necessary columns in the GROUP BY clause
+
+    // Add sorting based on presence of name_th or name_en
+    $query->orderByRaw("IF(name_th IS NOT NULL AND name_en IS NULL, 1, 0) ASC")
+          ->orderByRaw("IF(name_en IS NOT NULL AND name_th IS NULL, 1, 0) ASC")
+          ->orderBy('name_th', 'asc')
+          ->orderBy('name_en', 'asc');
+
+    // If no filters applied, return no results
+    if (!$request->filled('keyword') && !($request->filled('language') && $request->filled('alphabet'))) {
+        $query->where('signs.id', '=', -1);
+    }
+
+    $resultPerPage = 36;
+    $query = $query->paginate($resultPerPage);
+
+    $getcount = namesModel::join('signs', 'names.id', '=', 'signs.names_id')
+                ->select('names.*', 'signs.lang')
+                ->get();
+
+$rescount = [];
+
+foreach ($getcount as $name) {
+    $lang = $name->lang;
+    $nameStr = $name->name; // Assuming name is the field in your Names model
+
+    // Initialize count for the language if not already set
+    if (!isset($rescount[$lang])) {
+        $rescount[$lang] = [];
+    }
+
+    // Increment count for the name in the language
+    if (!isset($rescount[$lang][$nameStr])) {
+        $rescount[$lang][$nameStr] = 1;
+    } else {
+        $rescount[$lang][$nameStr]++;
+    }
+}
+
+// Now $rescount contains the count of rows for each name in each language
+
+
+    return view('backend/names-store', [
+        'default_pagename' => 'คลังรายชื่อ',
+        'query' => $query,
+        'alldata' => $alldata,
+        'rescount' => $rescount,
+    ]);
+}
+
+
 
     public function BN_names_add(Request $request)
     {
