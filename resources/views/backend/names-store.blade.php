@@ -9,7 +9,7 @@
 $selectedStatus = isset($_GET['status']) ? $_GET['status'] : '';
 
 // echo "<pre>";
-// print_r($rescount);
+// print_r($query);
 // echo "</pre>";
 ?>
     <div class="intro-y mt-5 flex flex-col items-center sm:flex-row">
@@ -117,8 +117,6 @@ $selectedStatus = isset($_GET['status']) ? $_GET['status'] : '';
                     <th class="whitespace-nowrap">price_en</th>
                     <th class="whitespace-nowrap">sign_th</th>
                     <th class="whitespace-nowrap">sign_en</th>
-                    <th class="whitespace-nowrap">ตัวเอง_th</th>
-                    <th class="whitespace-nowrap">ตัวเอง_en</th>
                     <th class="text-center whitespace-nowrap"></th>
                 </tr>
             </thead>
@@ -147,12 +145,6 @@ $selectedStatus = isset($_GET['status']) ? $_GET['status'] : '';
                         </td>
                         <td>
                             <div class="font-medium whitespace-nowrap">{{($count[$res->id]['en'] ?? 0)}}</div>
-                        </td>
-                        <td>
-                            <div class="font-medium whitespace-nowrap">ก้องภพ<br>ทศพล<br>วิกรม</div>
-                        </td>
-                        <td>
-                            <div class="font-medium whitespace-nowrap">0</div>
                         </td>
                         <td class="table-report__action w-56">
                             <div class="flex justify-center items-center">

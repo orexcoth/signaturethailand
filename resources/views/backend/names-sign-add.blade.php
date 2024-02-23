@@ -12,9 +12,6 @@
     ?>
     <div class="intro-y mt-8 flex flex-col items-center sm:flex-row">
         <h2 class="mr-auto text-lg font-medium">{{$default_pagename}}</h2>
-        <div class="mt-4 flex w-full sm:mt-0 sm:w-auto">
-            <a href="{{ route('BN_names_detail', ['id' => $name->id]) }}" class="transition duration-200 border inline-flex items-center justify-center py-2 px-3 rounded-md font-medium cursor-pointer focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus-visible:outline-none dark:focus:ring-slate-700 dark:focus:ring-opacity-50 [&amp;:hover:not(:disabled)]:bg-opacity-90 [&amp;:hover:not(:disabled)]:border-opacity-90 [&amp;:not(button)]:text-center disabled:opacity-70 disabled:cursor-not-allowed bg-primary border-primary text-white dark:border-primary mr-2 shadow-md" >กลับ</a>    
-        </div>
     </div>
     <form method="post" action="{{route('BN_names_sign_add_action')}}" enctype="multipart/form-data">
         @csrf
@@ -28,13 +25,6 @@
                     <div class="p-5">
                         <div class="grid grid-cols-12 gap-x-5">
 
-                            <!--  Input -->
-                            <div class="col-span-12 xl:col-span-12">
-                                <div class="mt-3">
-                                    <label for="lang" class="form-label">ผู้ลง</label>
-                                    <input type="text" class="form-control w-full" value="{{ auth()->user()->name }}" name="user_name" readonly>
-                                </div>
-                            </div>
 
                             <!-- Language Input -->
                             <div class="col-span-12 xl:col-span-6">
@@ -122,7 +112,7 @@
                                 </div>
                             </div>
 
-                            
+
                             
                         </div>
                     </div>
