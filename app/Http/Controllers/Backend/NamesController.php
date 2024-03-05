@@ -207,13 +207,6 @@ class NamesController extends Controller
         ksort($item); 
         }
         ksort($count);
-        print_r($count);
-
-
-
-
-
-
 
         $alldata = namesModel::count();
         
