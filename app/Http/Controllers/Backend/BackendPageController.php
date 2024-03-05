@@ -39,10 +39,10 @@ class BackendPageController extends Controller
 
         $imageWidth = $image->width();
         $imageHeight = $image->height();
-        $watermark = Image::make($watermarkPath)->resize(125, null, function ($constraint) {
+        $watermark = Image::make($watermarkPath)->resize(250, null, function ($constraint) {
             $constraint->aspectRatio();
         });
-        $watermark->opacity(75);
+        $watermark->opacity(100);
         // $watermark->rotate(45);
         $stepSizeX = $watermark->width();
         $stepSizeY = 40;
