@@ -1,6 +1,7 @@
-<p>test</p>
-
+<p>U^U</p>
+<a href="{{route('homePage')}}">เว็บไซต์หลัก</a><br><br><br>
 <a href="{{route('backendLogin')}}">backend</a>
+
 
 
 

@@ -29,6 +29,13 @@ use File;
 class FrontendPageController extends Controller
 {
 
+    public function homePage(Request $request)
+    {
+        
+        return view('frontend/index', [
+            'default_pagename' => 'homePage',
+        ]);
+    }
     public function indexPage(Request $request)
     {
         // $categories = categoriesModel::all();

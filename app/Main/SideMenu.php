@@ -57,7 +57,7 @@ class SideMenu
                         'icon' => 'Dollar Sign',
                         'route_name' => 'BN_reports_sells',
                         'params' => [],
-                        'title' => 'ขาย'
+                        'title' => 'รายการขาย'
                     ],
                     'reports-order' => [
                         'icon' => 'EditI',

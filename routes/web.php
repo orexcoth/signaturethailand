@@ -97,6 +97,7 @@ Route::get('login-system', [AuthController::class, 'backendLogin'])->name('backe
 // Route::get("/clearsessioncustomer", [FrontendPageController::class, 'clearsessioncustomer']);
 Route::get('/login', [FrontendPageController::class, 'loginPage'])->name('loginPage');
 Route::get('/', [FrontendPageController::class, 'indexPage'])->name('indexPage');
+Route::get('home', [FrontendPageController::class, 'homePage'])->name('homePage');
 // Route::post('helpcaraction', [FrontendPageController::class, 'helpcaractionPage'])->name('helpcaractionPage');
 // Route::post('contactcaraction', [FrontendPageController::class, 'contactcaractionPage'])->name('contactcaractionPage');
 Route::get('/phpinfo', function () {

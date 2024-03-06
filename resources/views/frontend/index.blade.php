@@ -1,52 +1,15 @@
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
+@extends('../frontend/layouts/layout')
 
-<head>
-    <?php require('inc_header.php');
-    $pageName = "index"; ?>
-</head>
+@section('subhead')
+    <!-- <title>Signature Thailand - หน้าหลัก</title> -->
+@endsection
 
-<body>
-
-    <?php require('inc_topmenu.php'); ?>
-
-    <section class="BannerIndex">
-        <div class="container">
-            <div class="BoxText-Banner">
-                <p class="TextHeadBanner-Green">
-                    Signature
-                    <span class="TextHeadBanner-Gold">
-                        Thailand
-                    </span>
-                </p>
-                <br />
-                <h1 class="TextBanner">
-                    ออกแบบลายเซ็น ตัวอย่างลายเซ็น
-                    ดาวน์โหลดลายเซ็น คลังลายเซ็น
-                    สั่งซื้อลายเซ็น
-                </h1>
-                <br />
-                <a class="btn ButtonSeemore" href="product.php">
-                    คลังลายเซ็น
-                    <span>
-                        <img class="ms-1" src="./images/index/ic_pen.svg" alt="">
-                    </span>
-                </a>
-                <!-- <form role="search">
-                    <div class="search BoxSearch">
-                        <input type="text" class="InputSearchBanner" placeholder="พิมพ์ชื่อเพื่อค้นหาลายเซ็น">
-                        <button type="submit" class="searchButtonBanner">
-                            ค้นหาลายเซ็น
-                        </button>
-                    </div>
-                </form> -->
-            </div>
-        </div>
-    </section>
-
-    <?php require('inc_menusignature.php'); ?>
-
-    <?php require('inc_searchsignature.php'); ?>
+@section('content')
+<?php
+// echo "<pre>";
+// print_r($slide);
+// echo "</pre>";
+?>
 
     <section class="Section-AboutIndex">
         <div class="container">
@@ -107,18 +70,18 @@
             <br>
             <div>
                 <div class="row Row-Product">
-                    <?php require('inc_productfree1.php'); ?>
-                    <?php require('inc_productfree1.php'); ?>
-                    <?php require('inc_productfree1.php'); ?>
-                    <?php require('inc_productfree1.php'); ?>
-                    <?php require('inc_productfree1.php'); ?>
-                    <?php require('inc_productfree1.php'); ?>
-                    <?php require('inc_productfree1.php'); ?>
-                    <?php require('inc_productfree1.php'); ?>
-                    <?php require('inc_productfree1.php'); ?>
-                    <?php require('inc_productfree1.php'); ?>
-                    <?php require('inc_productfree1.php'); ?>
-                    <?php require('inc_productfree1.php'); ?>
+                    @include('frontend.layouts.inc_productfree1')
+                    @include('frontend.layouts.inc_productfree1')
+                    @include('frontend.layouts.inc_productfree1')
+                    @include('frontend.layouts.inc_productfree1')
+                    @include('frontend.layouts.inc_productfree1')
+                    @include('frontend.layouts.inc_productfree1')
+                    @include('frontend.layouts.inc_productfree1')
+                    @include('frontend.layouts.inc_productfree1')
+                    @include('frontend.layouts.inc_productfree1')
+                    @include('frontend.layouts.inc_productfree1')
+                    @include('frontend.layouts.inc_productfree1')
+                    @include('frontend.layouts.inc_productfree1')
                 </div>
             </div>
             <div class="d-flex justify-content-center">
@@ -132,10 +95,14 @@
         </div>
     </section>
 
-    <?php require('inc_menupreorder.php'); ?>
 
-    <?php require('inc_footer.php'); ?>
+<script>
 
-</body>
+</script>
+@endsection
 
-</html>
+@section('script')
+
+@endsection
+
+
