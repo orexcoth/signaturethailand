@@ -9,7 +9,7 @@
 $selectedStatus = isset($_GET['status']) ? $_GET['status'] : '';
 
 // echo "<pre>";
-// print_r($query);
+// print_r($count);
 // echo "</pre>";
 ?>
     <div class="intro-y mt-5 flex flex-col items-center sm:flex-row">

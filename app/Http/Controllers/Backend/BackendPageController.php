@@ -23,6 +23,62 @@ use Intervention\Image\Facades\Image;
 class BackendPageController extends Controller
 {
 
+
+
+    public function backendDashboard()
+    {
+        $imagesource = asset('uploads/sign.jpg');
+        $watermarksource = asset('uploads/logo-text-black.png');
+        $imagePath = public_path('uploads/sign.jpg');
+        $watermarkPath = public_path('uploads/logo-text-black.png');
+
+
+        $image = Image::make($imagePath);
+        
+        
+
+        $imageWidth = $image->width();
+        $imageHeight = $image->height();
+        $watermark = Image::make($watermarkPath)->resize(250, null, function ($constraint) {
+            $constraint->aspectRatio();
+        });
+        $watermark->opacity(100);
+        // $watermark->rotate(45);
+        $stepSizeX = $watermark->width();
+        $stepSizeY = 40;
+        for ($x = 0; $x < $imageWidth; $x += $stepSizeX) {
+            for ($y = 0; $y < $imageHeight; $y += $stepSizeY) {
+                $image->insert($watermark, 'top-left', $x, $y);
+            }
+        }
+
+
+
+        $image->save(public_path('uploads/watermarked.jpg'));
+        $watermarked = asset('uploads/watermarked.jpg');
+
+        return view('backend/backend-dashboard', [
+            'default_pagename' => 'แดชบอร์ด',
+            'imagesource' => $imagesource,
+            'watermarksource' => $watermarksource,
+            'imagePath' => $imagePath,
+            'watermarkPath' => $watermarkPath,
+            'watermarked' => $watermarked,
+        ]);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
     public function BN_settings_defaultprice(Request $request)
     {
         $price_th = OptionsModel::where('option_key', 'price_th')->first();
@@ -283,13 +339,7 @@ class BackendPageController extends Controller
     }
 
 
-    public function backendDashboard()
-    {
-        return view('backend/backend-dashboard', [
-            // 'layout' => 'side-menu',
-            'default_pagename' => 'แดชบอร์ด',
-        ]);
-    }
+    
     
 
 

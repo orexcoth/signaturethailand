@@ -55,13 +55,13 @@ class SideMenu
                 'sub_menu' => [
                     'reports-sell' => [
                         'icon' => 'Dollar Sign',
-                        'route_name' => 'BN_reports',
+                        'route_name' => 'BN_reports_sells',
                         'params' => [],
-                        'title' => 'การขาย'
+                        'title' => 'ขาย'
                     ],
                     'reports-order' => [
                         'icon' => 'EditI',
-                        'route_name' => 'BN_reports',
+                        'route_name' => 'BN_reports_orders',
                         'params' => [],
                         'title' => 'รายการสั่งทำ'
                     ],
@@ -80,13 +80,13 @@ class SideMenu
                 'sub_menu' => [
                     'names-all' => [
                         'icon' => 'Folder',
-                        'route_name' => 'BN_works',
+                        'route_name' => 'BN_works_assign',
                         'params' => [],
                         'title' => 'มอบหมายงาน'
                     ],
                     'names-suggest' => [
                         'icon' => 'Folder Plus',
-                        'route_name' => 'BN_works',
+                        'route_name' => 'BN_works_assign',
                         'params' => [],
                         'title' => 'ตารางงาน'
                     ]

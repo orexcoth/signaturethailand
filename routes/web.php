@@ -176,7 +176,8 @@ Route::middleware('auth')->group(function() {
             Route::get('', [BackendPageController::class, 'BN_signs'])->name('BN_signs');
         });
         Route::prefix('works')->group(function () {
-            Route::get('', [BackendPageController::class, 'BN_works'])->name('BN_works');
+            Route::get('', [WorksController::class, 'BN_works'])->name('BN_works');
+            Route::get('assign', [WorksController::class, 'BN_works_assign'])->name('BN_works_assign');
         });
         Route::prefix('commissions')->group(function () {
             Route::get('', [BackendPageController::class, 'BN_commissions'])->name('BN_commissions');
@@ -193,7 +194,9 @@ Route::middleware('auth')->group(function() {
             Route::get('detail', [ContactsController::class, 'BN_contacts_detail'])->name('BN_contacts_detail');
         });
         Route::prefix('reports')->group(function () {
-            Route::get('', [BackendPageController::class, 'BN_reports'])->name('BN_reports');
+            Route::get('', [ReportsController::class, 'BN_reports'])->name('BN_reports');
+            Route::get('sells', [ReportsController::class, 'BN_reports_sells'])->name('BN_reports_sells');
+            Route::get('orders', [ReportsController::class, 'BN_reports_orders'])->name('BN_reports_orders');
         });
         Route::prefix('users')->group(function () {
 

@@ -1,0 +1,1928 @@
+@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@100;200;300;400;500&family=Poppins:wght@100;200;300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@200;300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lobster&family=Pattaya&display=swap');
+
+
+body {
+    font-size: 1em;
+    font: 100% "Poppins", "IBM Plex Sans Thai", sans-serif;
+}
+
+/*---TEXT---*/
+
+.Text-18 {
+    font-size: 18px;
+}
+
+.Text-20 {
+    font-size: 20px;
+}
+
+.Text-24 {
+    font-size: 24px;
+}
+
+.Text-48 {
+    font-size: 48px;
+}
+
+.Text-60 {
+    font-size: 60px;
+}
+
+.Text-W300 {
+    font-weight: 300;
+}
+
+.Text-W400 {
+    font-weight: 400;
+}
+
+.Text-W500 {
+    font-weight: 500;
+}
+
+.Text-W600 {
+    font-weight: 600;
+}
+
+.Text-LineHeight-50 {
+    line-height: 50px;
+}
+
+.TextHead-Gold {
+    background: linear-gradient(90deg, #CCA359 -8.41%, #F4CB83 51.44%, #9F7326 102.37%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    /* text-align: center; */
+    font-size: 38px;
+    font-weight: 600;
+    line-height: normal;
+    margin: 0;
+}
+
+.TextBox-Image-SelectOrder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.TextHeadBanner-Green {
+    font-family: Lobster;
+    font-size: 70px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    background: var(--Main-Linear-Green, linear-gradient(90deg, #388C47 2.07%, #6AE36F 29.67%, #3EC256 54.75%));
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.TextHeadBanner-Gold {
+    background: linear-gradient(90deg, #CCA359 59.72%, #F4CB83 85.72%, #9F7326 102.77%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-family: Lobster;
+    font-size: 70px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.TextBanner {
+    color: #fff;
+    font-family: Pattaya;
+    font-size: 44px;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.TextSecon-Black {
+    color: #000;
+    text-align: center;
+    font-size: 32px;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.TextDetail-Black {
+    color: #000;
+    text-align: center;
+    font-size: 20px;
+    font-weight: 300;
+    line-height: normal;
+}
+
+.text-nav {
+    padding: 20px 22.5px;
+    color: #000000;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: normal;
+    /* transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out; */
+}
+
+.text-nav:hover {
+    background: linear-gradient(90deg, #CCA359 3.08%, #F4CB83 55.53%, #9F7326 102.84%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    /* transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out; */
+}
+
+.text-nav-end {
+    padding: 0px 0 0px 45px !important;
+}
+
+.TextName-PD {
+    color: #000;
+    text-align: center;
+    font-size: 20px;
+    font-weight: 500;
+    margin-bottom: 0;
+    line-height: normal;
+}
+
+.TextPrice-PD {
+    color: #5B5B5B;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: normal;
+    margin-bottom: 10px;
+}
+
+.Text-SocialFooter {
+    color: #FFF;
+    font-size: 18px;
+    font-weight: 400;
+    text-decoration: none;
+    line-height: normal;
+}
+
+.text-nav {
+    padding: 20px 12.5px;
+    color: #000000;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: normal;
+    /* transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out; */
+}
+
+.text-nav-Footer {
+    padding: 0;
+    color: #000000;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: normal;
+    /* transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out; */
+}
+
+.text-nav-end {
+    padding: 2px 0 2px 25px !important;
+}
+
+.w-55 {
+    width: 55%;
+}
+
+.w-60 {
+    width: 60%;
+}
+
+.w-65 {
+    width: 65%;
+}
+
+.w-70 {
+    width: 70%;
+}
+
+
+/*---TEXT---*/
+
+
+/*---Color---*/
+
+.Color-Grey-HR {
+    border: 1px solid #EAEBEC;
+    opacity: 1 !important;
+}
+
+.Text-Green-Gardien {
+    background: linear-gradient(90deg, #388C47 2.07%, #6AE36F 29.67%, #3EC256 54.75%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.Text-Gold-Gardien {
+    background: linear-gradient(90deg, #CCA359 59.72%, #F4CB83 85.72%, #9F7326 102.77%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.Text-Gray-Label {
+    color: #7D8388;
+}
+
+/*---Color---*/
+
+
+/*---Modal---*/
+
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  }
+  
+  /* Modal Content/Box */
+  .modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 10px 40px 40px 40px;
+    border: 1px solid #888;
+    width: 45%;
+}
+  
+  /* The Close Button */
+  .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  /* .modal-content-AddSurname {
+    width: 50%;
+  } */
+
+/*---Modal---*/
+
+
+/*---Product---*/
+
+.WarpColProfile-TeamSNG {
+    padding-left: 20px;
+}
+
+.BoxStar-Deatail {
+    padding-right: 50%;
+}
+
+.BoxStar-Deatail .fa {
+    margin-right: 20px;
+}
+
+.IMG-BigSignature {
+    width: 100%;
+    height: 580px;
+    object-fit: contain;
+    border: 1px solid #9F7326;
+    border-radius: 20px;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    -ms-border-radius: 20px;
+    -o-border-radius: 20px;
+}
+
+.BoxProductFree {
+    border-radius: 10px;
+    border: 1px solid var(--Main-Linear-Gold, #CCA359);
+    background-color: #FFF;
+    width: 100%;
+    padding: 0 30px 20px 30px;
+}
+
+.WarperDetail-ProductFree {
+    /* padding: 10px; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.Row-Product {
+    display: flex;
+    --bs-gutter-x: 1.5rem;
+    --bs-gutter-y: 1.5rem;
+}
+
+.IMG-PD {
+    width: 100%;
+    height: 170px;
+    object-fit: cover;
+    border-bottom: 1px solid #EAEBEC;
+    margin-bottom: 10px;
+}
+
+.checked {
+
+    color: #F4CB83 !important;
+}
+
+.fa {
+    color: #EAEBEC;
+    margin-left: 8px;
+}
+
+.Box-Maim-Star {
+    padding: 5px 0;
+}
+
+.Box-Title-Star {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.Box-Title-Star-Detail {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.Text-TitleStar {
+    font-size: 16px;
+    font-weight: 400;
+    margin: 0;
+}
+
+/*---Product---*/
+
+
+/*---INPUT---*/
+
+
+
+.ColSelect-Input {
+    display: flex;
+    flex-direction: column;
+}
+
+.OptionSelect {
+    color: #7D8388;
+}
+
+.OptionSelect: {
+    color: #001322;
+}
+
+.ColTargetPreorder {
+    width: 100%;
+    height: 150px;
+    padding: 10px 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #fff;
+    border: 1px solid #EAEBEC;
+    color: #A8ACAF;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+}
+
+.DropdownBox-SelectPreorder {
+    padding-left: 10px;
+    width: 100%;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #fff;
+    border: 1px solid #EAEBEC;
+    color: #A8ACAF;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+}
+
+
+.DropdownBox-SelectPreorder {
+    width: 100%;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #fff;
+    border: 1px solid #EAEBEC;
+    color: #A8ACAF;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+}
+
+.DropdownBox-SelectPreorder:focus {
+    background-color: #fff !important;
+    border: 1px solid #EAEBEC !important;
+    color: #A8ACAF !important;
+    box-shadow: none !important;
+}
+
+.DropdownBox-SelectPreorder:active, .btn.show {
+    background-color: #fff !important;
+    border: 1px solid #EAEBEC !important;
+    color: #A8ACAF !important;
+}
+
+.DropdownBox-SelectPreorder:hover {
+    background-color: #fff !important;
+    border: 1px solid #EAEBEC !important;
+    color: #A8ACAF !important;
+}
+
+.Dropdown-PreorderList {
+    position: absolute;
+    inset: auto auto 0px 0px;
+    margin: 0px;
+    transform: translate3d(0px, -40px, 0px);
+    width: 100%;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+}
+
+/* .ListDropDown:active {
+    color: var(--bs-dropdown-link-active-color);
+    text-decoration: none;
+    background-color: #F4CB83 !important;
+    color: #000;
+} */
+
+
+.DropdownPackage {
+    display: flex;
+    align-items: center;
+}
+
+.DropdownBox-SelectPackage {
+    width: 380px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #fff;
+    border: 1px solid #EAEBEC;
+    color: #A8ACAF;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+}
+
+.DropdownBox-SelectPackage:focus {
+    background-color: #fff !important;
+    border: 1px solid #EAEBEC !important;
+    color: #A8ACAF !important;
+    box-shadow: none !important;
+}
+
+.DropdownBox-SelectPackage:active, .btn.show {
+    background-color: #fff !important;
+    border: 1px solid #EAEBEC !important;
+    color: #A8ACAF !important;
+}
+
+.DropdownBox-SelectPackage:hover {
+    background-color: #fff !important;
+    border: 1px solid #EAEBEC !important;
+    color: #A8ACAF !important;
+}
+
+.DropdownBoxList {
+    position: absolute;
+    inset: auto auto 0px 0px;
+    margin: 0px;
+    transform: translate3d(0px, -40px, 0px);
+    width: 380px;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+}
+
+.ListDropDown:active {
+    color: var(--bs-dropdown-link-active-color);
+    text-decoration: none;
+    background-color: #F4CB83 !important;
+    color: #000;
+}
+
+.PaginationProduct a {
+    color: #7D8388;
+    float: left;
+    padding: 8px 16px;
+    text-decoration: none;
+    transition: background-color .3s;
+}
+
+.PaginationProduct a:active {
+    color: #000;
+}
+
+.PaginationProduct a:hover {
+    color: #000;
+}
+
+.ButtonSeemore-NoBG {
+    font-size: 20px;
+    font-weight: 500;
+    padding: 0;
+}
+
+.ButtonSeemore-NoBG:hover {
+    color: #CCA359;
+}
+
+.InputSearchBanner {
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.20);
+    box-shadow: 0px 0px 30px 10px rgba(48, 48, 48, 0.60);
+    border: none !important;
+    padding: 10px 20px;
+    width: 540px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+    color: var(--neutral-40, #A8ACAF);
+    font-size: 20px;
+    font-weight: 400;
+}
+
+.InputSearchFooter {
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.20);
+    box-shadow: 0px 0px 30px 10px rgba(48, 48, 48, 0.60);
+    border: none !important;
+    padding: 10px 20px;
+    width: 100%;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+    color: var(--neutral-40, #A8ACAF);
+    font-size: 20px;
+    font-weight: 400;
+}
+
+.InputSearchBG-White {
+    border-radius: 10px;
+    background-color: #fff;
+    box-shadow: 0px 0px 30px 10px rgba(48, 48, 48, 0.60);
+    border: none !important;
+    padding: 10px 20px;
+    width: 540px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+    color: var(--neutral-40, #A8ACAF);
+    font-size: 20px;
+    font-weight: 400;
+}
+
+.InputSearchBG-grey {
+    border-radius: 10px;
+    background: var(--neutral-70, #F8F8F9);
+    /* box-shadow: 0px 0px 30px 10px rgba(48, 48, 48, 0.60); */
+    border: none !important;
+    padding: 10px 20px;
+    width: 540px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+    color: var(--neutral-40, #A8ACAF);
+    font-size: 20px;
+    font-weight: 400;
+}
+
+.InputRecommender {
+    border-radius: 10px;
+    background: #FFF;
+    border: none;
+    padding: 6px 12px;
+    width: 360px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+    color: #000;
+    font-size: 18px;
+    font-weight: 400;
+    margin-right: 15px;
+}
+
+.InputRecommender:focus {
+    border: 1px solid #CCA359;
+}
+
+.searchButtonBanner {
+    border-radius: 0px 10px 10px 0px;
+    background: linear-gradient(90deg, #CCA359 8.19%, #F4CB83 65.47%, #9F7326 104.81%);
+    width: 150px;
+    margin-left: -150px;
+    border: none !important;
+    color: #000;
+    text-align: center;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.searchButton {
+    border-radius: 0px 10px 10px 0px;
+    background: linear-gradient(90deg, #CCA359 8.19%, #F4CB83 65.47%, #9F7326 104.81%);
+    width: 200px;
+    margin-left: -200px;
+    border: none !important;
+    color: #000;
+    text-align: center;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.BoxSearch {
+    display: flex;
+    margin-top: 20px;
+}
+
+.ColBG-Image-SelectOrder1 {
+    background-image: url(../images/index/imagesearch.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 240px;
+}
+
+.ColBG-Image-SelectOrder2 {
+    background-image: url(../images/index/imagepreorder.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 240px;
+}
+
+.ColBG-Image-SelectOrder3 {
+    background-image: url(../images/index/imagestock.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 240px;
+}
+
+.ButtonSeemore {
+    border-radius: 10px;
+    background: linear-gradient(90deg, #CCA359 8.19%, #F4CB83 65.47%, #9F7326 104.81%);
+    width: 240px;
+    border: none !important;
+    color: #000;
+    text-align: center;
+    font-size: 20px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ButtonSeemore-PD {
+    border-radius: 6px;
+    background: linear-gradient(90deg, #CCA359 8.19%, #F4CB83 65.47%, #9F7326 104.81%);
+    width: 100%;
+    border: none !important;
+    color: #000;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 600;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    -ms-border-radius: 6px;
+    -o-border-radius: 6px;
+}
+
+.ButtonModal {
+    border-radius: 10px;
+    background: linear-gradient(90deg, #CCA359 8.19%, #F4CB83 65.47%, #9F7326 104.81%);
+    width: 240px;
+    border: none !important;
+    color: #000;
+    text-align: center;
+    font-size: 20px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 12px;
+    height: 42px;
+}
+
+.ButtonAddSurname {
+    border-radius: 10px;
+    background: linear-gradient(90deg, #388C47 2.07%, #6AE36F 29.67%, #3EC256 54.75%);
+    width: 240px;
+    border: none !important;
+    color: #000;
+    text-align: center;
+    font-size: 20px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+/*---INPUT---*/
+
+
+/*---TABS---*/
+
+/* Style the tab */
+.ColTab-SelectMenuPreorder {
+    overflow: hidden;
+    background-color: #fff;
+    box-shadow: 0px 2px 20px 0px rgba(0, 0, 0, 0.08);
+    padding: 15px;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+    margin: 30px 0;
+}
+
+/* Style the buttons that are used to open the tab content */
+.LinkTab-SelectMenuPreorder {
+    font-size: 18px;
+    font-weight: 500;
+    color: #7D8388;
+    width: 100%;
+    background-color: inherit;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 5px 10px;
+    transition: 0.3s;
+    border-radius: 8px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    -ms-border-radius: 8px;
+    -o-border-radius: 8px;
+}
+
+/* Change background color of buttons on hover */
+.LinkTab-SelectMenuPreorder:hover {
+    color: #9F7326;
+    background-color: #f4cb837c;
+    border-radius: 8px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    -ms-border-radius: 8px;
+    -o-border-radius: 8px;
+}
+
+/* Create an active/current tablink class */
+.LinkTab-SelectMenuPreorder.active {
+    color: #9F7326;
+    background-color: #f4cb837c;
+    border-radius: 8px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    -ms-border-radius: 8px;
+    -o-border-radius: 8px;
+}
+
+/* Style the tab content */
+.TabContent-SelectMenuPreorder {
+    display: none;
+    padding-bottom: 30px;
+
+}
+
+/*---TABS---*/
+
+
+/*---NAVBAR---*/
+
+.navbar-main {
+    background-color: #fff;
+    box-shadow: 0px 2px 20px 0px rgba(0, 0, 0, 0.10);
+}
+
+.LogoNav {
+    width: 260px;
+}
+
+.BoxNav-TextEnd {
+    border-left: 1px solid #000;
+    margin-left: 22.5px;
+}
+
+.IC-Home {
+    width: 18px;
+    margin-bottom: 3px;
+}
+
+
+/*---NAVBAR---*/
+
+
+/*---FOOTER---*/
+
+.Section-Footer {
+    background-image: url(../images/footer/bg-footer.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding: 80px 0;
+}
+
+.WarperFooter {
+    width: 100%;
+    display: flex !important;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.BoxContactFooter {
+    display: flex;
+    justify-content: center;
+}
+
+.BoxSocialFooter {
+    display: flex;
+    justify-content: center;
+
+}
+
+/*---FOOTER---*/
+
+
+/*---INDEX---*/
+
+.BannerIndex {
+    background-image: url(../images/index/Banner3.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    width: 100%;
+    height: 650px;
+    display: flex;
+    align-items: center;
+}
+
+.BoxText-Banner {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 540px;
+}
+
+.SectionImage-SelectOrder {
+    overflow: hidden;
+}
+
+.Section-Bigsearch {
+    background-image: url(../images/index/sectionbigsearch.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 240px;
+    display: flex;
+    align-items: center;
+}
+
+.Section-AboutIndex {
+    background-image: url(../images/index/bg-ab-index.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding: 80px 0;
+    position: relative;
+}
+
+.DivPen {
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+}
+
+.WarperAboutIndex {
+    padding: 60px 65px 80px 65px;
+    border: 1px solid #CCA359;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* .Section-Bigpreorder {
+    background-image: url(../images/index/bg-sec-preorder.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding: 80px 0;
+    position: relative;
+} */
+
+.BoxLeftBig-Preorder {
+    background-image: url(../images/index/bg-sec-preorder.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding: 80px 30px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.BoxRightBig-Preorder {
+    background-image: url(../images/index/bg-sec-preorder2.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding: 80px 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+.WarperDiv-Bigpreorder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.Section-ProductIndex {
+    padding: 80px 0;
+}
+
+.BoxInput-Reccom {
+    display: flex;
+}
+
+.BoxIconWeb {
+    display: flex;
+    margin-bottom: 40px;
+}
+
+.IconWeb {
+    width: 20px;
+    margin: 0 20px;
+}
+
+.Section-Bigpreorder {
+    overflow: hidden;
+}
+
+/*---INDEX---*/
+
+
+/*---PRODUCT PAGE---*/
+
+.BoxJustify-HeaderText {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/*---PRODUCT PAGE---*/
+
+
+/*---SEARCH PAGE---*/
+
+.Section-SelectPackage {
+    padding: 80px 0 30px 0;
+}
+
+.BoxSelectPackage {
+    padding: 30px;
+    border: 1px solid #EAEBEC;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.Col-BoxName-Signature {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+}
+
+.BoxnameSignature {
+    display: flex;
+    padding: 30px 0;
+}
+
+.IC-PenLine {
+    margin-bottom: 6px;
+}
+
+.Box-Text-Search-Left {
+    padding: 0 30px 0 0;
+    border-right: 1px solid #A8ACAF;
+}
+
+.Box-Text-Search-Right {
+    padding: 0 0 0 30px;
+}
+
+.Col-DD-SelectPackage {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    padding: 0 100px 30px 100px;
+}
+
+.BoxPricePackage {
+    display: flex;
+margin-left: 20px;
+}
+
+.Section-Product {
+    padding-bottom: 80px;
+}
+
+/*---SEARCH PAGE---*/
+
+
+
+/*---PREORDER PAGE---*/
+
+.Section-Preorder {
+    padding: 80px 0;
+}
+
+.ColPreorder {
+    border: 1px solid #CCA359;
+    padding: 50px;
+}
+
+.Col-Margin-TopBottom {
+    margin: 10px 0;
+}
+
+/*---PREORDER PAGE---*/
+
+
+/*---DETAIL SIGNATURE PAGE---*/
+
+.Section-Detail-Signature {
+    padding: 20px 0 80px 0;
+}
+
+.ColProfile-TeamSNG {
+    padding: 15px 0;
+    border-bottom: 1px solid #EAEBEC;
+}
+
+.IMG-Profile-TeamSNG {
+    object-fit: cover;
+    margin-right: 10px;
+    width: 44px;
+    height: 44px;
+    border-radius: 500px;
+    -webkit-border-radius: 500px;
+    -moz-border-radius: 500px;
+    -ms-border-radius: 500px;
+    -o-border-radius: 500px;
+}
+
+.BoxButton-Group1 {
+    display: flex;
+}
+
+.ColButton-DownloadSignature {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.ColDetail-Signature {
+    padding: 60px 0;
+    border-bottom: 1px solid #EAEBEC;
+}
+
+/*---DETAIL SIGNATURE PAGE---*/
+
+
+
+
+
+
+/*----------- RESPONSIVE --------------*/
+
+@media (max-width: 1299px) {}
+
+@media (max-width: 1199px) {}
+
+@media (max-width: 1024px) {
+
+    .BoxLeftBig-Preorder {
+        background-image: url(../images/index/bg-sec-preorder.jpg);
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        padding: 40px 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .BoxInput-Reccom {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .InputRecommender {
+        border-radius: 10px;
+        background: #FFF;
+        border: none;
+        padding: 6px 12px;
+        width: 375px;
+        -webkit-border-radius: 10px;
+        -moz-border-radius: 10px;
+        -ms-border-radius: 10px;
+        -o-border-radius: 10px;
+        color: #000;
+        font-size: 16px;
+        font-weight: 400;
+        margin-right: 0;
+        margin-bottom: 15px;
+    }
+
+    .TextHeadBanner-Green {
+        font-family: Lobster;
+        font-size: 50px;
+        font-style: normal;
+        font-weight: 400;
+        background: var(--Main-Linear-Green, linear-gradient(90deg, #388C47 2.07%, #6AE36F 29.67%, #3EC256 54.75%));
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .TextHeadBanner-Gold {
+        background: linear-gradient(90deg, #CCA359 59.72%, #F4CB83 85.72%, #9F7326 102.77%);
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        font-family: Lobster;
+        font-size: 50px;
+        font-style: normal;
+        font-weight: 400;
+    }
+
+    .TextBanner {
+        color: #fff;
+        font-family: Pattaya;
+        font-size: 34px;
+        font-style: normal;
+        font-weight: 400;
+    }
+
+    .searchButtonBanner {
+        border-radius: 0px 10px 10px 0px;
+        background: linear-gradient(90deg, #CCA359 8.19%, #F4CB83 65.47%, #9F7326 104.81%);
+        width: 150px;
+        margin-left: -150px;
+        border: none !important;
+        color: #000;
+        text-align: center;
+        font-size: 16px;
+        font-weight: 600;
+    }
+
+    .text-nav {
+        padding: 10px;
+        color: #000000;
+        text-decoration: none;
+        font-size: 16px;
+        font-weight: 500;
+        /* transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out; */
+    }
+
+    .text-nav-end {
+        padding: 2px 0 2px 20px !important;
+    }
+
+    .BoxNav-TextEnd {
+        border-left: 1px solid #000;
+        margin-left: 10px;
+    }
+
+    .BannerIndex {
+        background-image: url(../images/index/Banner3.jpg);
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+        width: 100%;
+        height: 500px;
+        display: flex;
+        align-items: center;
+    }
+
+    .BoxText-Banner {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        width: 420px;
+    }
+
+    .LogoNav {
+        width: 200px;
+    }
+
+    .InputSearchBanner {
+        border-radius: 10px;
+        background: rgba(255, 255, 255, 0.20);
+        box-shadow: 0px 0px 30px 10px rgba(48, 48, 48, 0.60);
+        border: none !important;
+        padding: 10px 20px;
+        width: 380px;
+        -webkit-border-radius: 10px;
+        -moz-border-radius: 10px;
+        -ms-border-radius: 10px;
+        -o-border-radius: 10px;
+        color: var(--neutral-40, #A8ACAF);
+        font-size: 16px;
+        font-weight: 400;
+    }
+
+    .searchButtonBanner {
+        border-radius: 0px 10px 10px 0px;
+        background: linear-gradient(90deg, #CCA359 8.19%, #F4CB83 65.47%, #9F7326 104.81%);
+        width: 130px;
+        margin-left: -130px;
+        border: none !important;
+        color: #000;
+        text-align: center;
+        font-size: 16px;
+        font-weight: 600;
+    }
+
+    .IC-Home {
+        width: 16px;
+        margin-bottom: 2px;
+    }
+
+    .ColBG-Image-SelectOrder1 {
+        height: 160px;
+    }
+
+    .ColBG-Image-SelectOrder2 {
+        height: 160px;
+    }
+
+    .ColBG-Image-SelectOrder3 {
+        height: 160px;
+    }
+
+    .TextHead-Gold {
+        background: linear-gradient(90deg, #CCA359 -8.41%, #F4CB83 51.44%, #9F7326 102.37%);
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-align: center;
+        font-size: 24px;
+        font-weight: 600;
+        margin: 0;
+    }
+
+    .searchButton {
+        border-radius: 0px 10px 10px 0px;
+        background: linear-gradient(90deg, #CCA359 8.19%, #F4CB83 65.47%, #9F7326 104.81%);
+        width: 200px;
+        margin-left: -200px;
+        border: none !important;
+        color: #000;
+        text-align: center;
+        font-size: 16px;
+        font-weight: 600;
+    }
+
+    .InputSearchBG-White {
+        border-radius: 10px;
+        background-color: #fff;
+        box-shadow: 0px 0px 30px 10px rgba(48, 48, 48, 0.60);
+        border: none !important;
+        padding: 10px 20px;
+        width: 540px;
+        -webkit-border-radius: 10px;
+        -moz-border-radius: 10px;
+        -ms-border-radius: 10px;
+        -o-border-radius: 10px;
+        color: var(--neutral-40, #A8ACAF);
+        font-size: 16px;
+        font-weight: 400;
+    }
+
+    .TextSecon-Black {
+        color: #000;
+        text-align: center;
+        font-size: 20px;
+        font-weight: 500;
+        margin: 0;
+    }
+
+    .TextDetail-Black {
+        color: #000;
+        text-align: center;
+        font-size: 16px;
+        font-weight: 300;
+    }
+
+    .ButtonSeemore {
+        border-radius: 10px;
+        background: linear-gradient(90deg, #CCA359 8.19%, #F4CB83 65.47%, #9F7326 104.81%);
+        width: 240px;
+        border: none !important;
+        color: #000;
+        text-align: center;
+        font-size: 16px;
+        font-weight: 600;
+    }
+
+
+    .InputSearchBG-grey {
+        border-radius: 10px;
+        background: var(--neutral-70, #F8F8F9);
+        /* box-shadow: 0px 0px 30px 10px rgba(48, 48, 48, 0.60); */
+        border: none !important;
+        padding: 10px 20px;
+        width: 540px;
+        -webkit-border-radius: 10px;
+        -moz-border-radius: 10px;
+        -ms-border-radius: 10px;
+        -o-border-radius: 10px;
+        color: var(--neutral-40, #A8ACAF);
+        font-size: 16px;
+        font-weight: 400;
+    }
+
+    .TextName-PD {
+        color: #000;
+        text-align: center;
+        font-size: 18px;
+        font-weight: 500;
+        margin-bottom: 0;
+    }
+
+    .TextPrice-PD {
+        color: #5B5B5B;
+        font-size: 14px;
+        font-weight: 500;
+    }
+
+    .ButtonSeemore-PD {
+        border-radius: 6px;
+        background: linear-gradient(90deg, #CCA359 8.19%, #F4CB83 65.47%, #9F7326 104.81%);
+        width: 100%;
+        border: none !important;
+        color: #000;
+        text-align: center;
+        font-size: 14px;
+        font-weight: 600;
+        -webkit-border-radius: 6px;
+        -moz-border-radius: 6px;
+        -ms-border-radius: 6px;
+        -o-border-radius: 6px;
+    }
+
+    .IMG-PD {
+        width: 100%;
+        height: 160px;
+        object-fit: cover;
+    }
+
+
+
+    .InputSearchFooter {
+        border-radius: 10px;
+        background: rgba(255, 255, 255, 0.20);
+        box-shadow: 0px 0px 30px 10px rgba(48, 48, 48, 0.60);
+        border: none !important;
+        padding: 10px 20px;
+        width: 100%;
+        -webkit-border-radius: 10px;
+        -moz-border-radius: 10px;
+        -ms-border-radius: 10px;
+        -o-border-radius: 10px;
+        color: var(--neutral-40, #A8ACAF);
+        font-size: 16px;
+        font-weight: 400;
+    }
+
+    .Text-SocialFooter {
+        color: #FFF;
+        font-size: 16px;
+        font-weight: 400;
+        text-decoration: none;
+    }
+
+    .Section-Footer {
+        background-image: url(../images/footer/bg-footer.png);
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        padding: 40px 0;
+    }
+
+    /* .Section-Bigpreorder {
+        background-image: url(../images/index/bg-sec-preorder.jpg);
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        padding: 40px 0;
+        position: relative;
+    } */
+
+    .Row-Product {
+        display: flex;
+        --bs-gutter-x: 1rem;
+        --bs-gutter-y: 1rem;
+    }
+
+    .Section-ProductIndex {
+        padding: 40px 0;
+    }
+
+
+    .Color-Grey-HR {
+        border: 1px solid #EAEBEC;
+        margin-top: 10px;
+    }
+
+    .Section-AboutIndex {
+        background-image: url(../images/index/bg-ab-index.jpg);
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        padding: 40px 0;
+        position: relative;
+    }
+
+    .WarperAboutIndex {
+        padding: 30px 30px 70px 30px;
+        border: 1px solid #CCA359;
+        text-align: center;
+    }
+
+    .IMG-Pen {
+        width: 260px;
+    }
+
+    .Section-Bigsearch {
+        background-image: url(../images/index/sectionbigsearch.jpg);
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        height: 180px;
+        display: flex;
+        align-items: center;
+    }
+
+    .BoxProductFree {
+        border-radius: 10px;
+        border: 1px solid var(--Main-Linear-Gold, #CCA359);
+        background-color: #FFF;
+        width: 100%;
+        padding: 0 15px 10px 15px;
+    }
+
+    .fa {
+        color: #EAEBEC;
+        margin-left: 4px;
+    }
+
+}
+
+@media (max-width: 768px) {
+
+    .BoxIconWeb {
+        display: flex;
+        margin-bottom: 30px;
+    }
+
+    .BannerIndex {
+        background-image: url(../images/index/Banner3.jpg);
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+        width: 100%;
+        height: 360px;
+        display: flex;
+        align-items: center;
+    }
+
+    .TextHeadBanner-Gold {
+        background: linear-gradient(90deg, #CCA359 59.72%, #F4CB83 85.72%, #9F7326 102.77%);
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        font-family: Lobster;
+        font-size: 38px;
+        font-style: normal;
+        font-weight: 400;
+    }
+
+    .TextHeadBanner-Green {
+        font-family: Lobster;
+        font-size: 38px;
+        font-style: normal;
+        font-weight: 400;
+        background: var(--Main-Linear-Green, linear-gradient(90deg, #388C47 2.07%, #6AE36F 29.67%, #3EC256 54.75%));
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .TextBanner {
+        color: #fff;
+        font-family: Pattaya;
+        font-size: 26px;
+        font-style: normal;
+        font-weight: 400;
+    }
+
+    .BoxText-Banner {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        width: 320px;
+    }
+
+    .InputSearchBanner {
+        border-radius: 10px;
+        background: rgba(255, 255, 255, 0.20);
+        box-shadow: 0px 0px 30px 10px rgba(48, 48, 48, 0.60);
+        border: none !important;
+        padding: 10px 20px;
+        width: 305px;
+        -webkit-border-radius: 10px;
+        -moz-border-radius: 10px;
+        -ms-border-radius: 10px;
+        -o-border-radius: 10px;
+        color: var(--neutral-40, #A8ACAF);
+        font-size: 14px;
+        font-weight: 400;
+    }
+
+    .searchButtonBanner {
+        border-radius: 0px 10px 10px 0px;
+        background: linear-gradient(90deg, #CCA359 8.19%, #F4CB83 65.47%, #9F7326 104.81%);
+        width: 130px;
+        margin-left: -130px;
+        border: none !important;
+        color: #000;
+        text-align: center;
+        font-size: 14px;
+        font-weight: 600;
+    }
+
+    .ColBG-Image-SelectOrder1 {
+        height: 120px;
+    }
+
+    .ColBG-Image-SelectOrder2 {
+        height: 120px;
+    }
+
+    .ColBG-Image-SelectOrder3 {
+        height: 120px;
+    }
+
+    .TextSecon-Black {
+        color: #000;
+        text-align: center;
+        font-size: 18px;
+        font-weight: 500;
+        margin: 0;
+    }
+
+    .IMG-PD {
+        width: 100%;
+        height: 130px;
+        object-fit: cover;
+    }
+
+    .ICMenu {
+        width: 36px;
+    }
+
+    .ICMenu:focus+.btn, .btn:focus {
+        outline: 0;
+        box-shadow: none !important;
+    }
+
+    .InputRecommender {
+        border-radius: 10px;
+        background: #FFF;
+        border: none;
+        padding: 6px 12px;
+        width: 100%;
+        -webkit-border-radius: 10px;
+        -moz-border-radius: 10px;
+        -ms-border-radius: 10px;
+        -o-border-radius: 10px;
+        color: #000;
+        font-size: 16px;
+        font-weight: 400;
+        margin-right: 0;
+        margin-bottom: 15px;
+    }
+
+    .BoxRightBig-Preorder {
+        background-image: url(../images/index/bg-sec-preorder2.jpg);
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        padding: 40px 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .BoxLeftBig-Preorder {
+        background-image: url(../images/index/bg-sec-preorder.jpg);
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        padding: 40px 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+
+    .InputRecommender {
+        border-radius: 10px;
+        background: #FFF;
+        border: none;
+        padding: 6px 12px;
+        width: 100%;
+        -webkit-border-radius: 10px;
+        -moz-border-radius: 10px;
+        -ms-border-radius: 10px;
+        -o-border-radius: 10px;
+        color: #000;
+        font-size: 16px;
+        font-weight: 400;
+        margin-right: 0;
+        margin-bottom: 15px;
+    }
+
+    .Text-TitleStar {
+        font-size: 14px;
+        font-weight: 400;
+        margin: 0;
+    }
+
+    .BoxProductFree {
+        border-radius: 10px;
+        border: 1px solid var(--Main-Linear-Gold, #CCA359);
+        background-color: #FFF;
+        width: 100%;
+        padding: 0 20px 15px 20px;
+    }
+
+}
+
+@media (max-width: 440px) {
+
+    .TextDetail-Black {
+        color: #000;
+        text-align: center;
+        font-size: 16px;
+        font-weight: 300;
+        margin-top: 0 !important;
+    }
+
+    .BoxRightBig-Preorder {
+        background-image: url(../images/index/bg-sec-preorder2.jpg);
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        padding: 40px 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .BannerIndex {
+        background-image: url(../images/index/Banner3.jpg);
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: left;
+        width: 100%;
+        height: 410px;
+        display: flex;
+        align-items: center;
+    }
+
+    .BoxText-Banner {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        width: 100%;
+    }
+
+    .BoxText-Banner {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        padding: 0 15px;
+    }
+
+    .TextBanner {
+        color: #fff;
+        font-family: Pattaya;
+        font-size: 26px;
+        font-style: normal;
+        font-weight: 400;
+        text-align: center;
+    }
+
+    .InputSearchBanner {
+        border-radius: 10px;
+        background: rgba(255, 255, 255, 0.20);
+        box-shadow: 0px 0px 30px 10px rgba(48, 48, 48, 0.60);
+        border: none !important;
+        padding: 10px 20px;
+        width: 340px;
+        -webkit-border-radius: 10px;
+        -moz-border-radius: 10px;
+        -ms-border-radius: 10px;
+        -o-border-radius: 10px;
+        color: var(--neutral-40, #A8ACAF);
+        font-size: 14px;
+        font-weight: 400;
+    }
+
+    .ColBG-Image-SelectOrder2 {
+        background-position: bottom;
+    }
+
+    .searchButton {
+        border-radius: 0px 10px 10px 0px;
+        background: linear-gradient(90deg, #CCA359 8.19%, #F4CB83 65.47%, #9F7326 104.81%);
+        width: 150px;
+        margin-left: -150px;
+        border: none !important;
+        color: #000;
+        text-align: center;
+        font-size: 16px;
+        font-weight: 600;
+    }
+
+    .ButtonSeemore {
+        border-radius: 10px;
+        background: linear-gradient(90deg, #CCA359 8.19%, #F4CB83 65.47%, #9F7326 104.81%);
+        width: 200px;
+        border: none !important;
+        color: #000;
+        text-align: center;
+        font-size: 16px;
+        font-weight: 600;
+    }
+
+    .WarperDiv-Bigpreorder {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+    }
+
+    .TextHead-Gold {
+        background: linear-gradient(90deg, #CCA359 -8.41%, #F4CB83 51.44%, #9F7326 102.37%);
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-align: center;
+        font-size: 22px;
+        font-weight: 600;
+        margin-bottom: 20px;
+    }
+
+    .BoxContactFooter {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .InputSearchFooter {
+        border-radius: 10px;
+        background: rgb(255 255 255);
+        box-shadow: 0px 0px 30px 10px rgba(48, 48, 48, 0.60);
+        border: none !important;
+        padding: 10px 20px;
+        width: 100%;
+        -webkit-border-radius: 10px;
+        -moz-border-radius: 10px;
+        -ms-border-radius: 10px;
+        -o-border-radius: 10px;
+        color: var(--neutral-40, #A8ACAF);
+        font-size: 16px;
+        font-weight: 400;
+    }
+
+    .InputRecommender {
+        border-radius: 10px;
+        background: #FFF;
+        border: none;
+        padding: 6px 12px;
+        width: 340px;
+        -webkit-border-radius: 10px;
+        -moz-border-radius: 10px;
+        -ms-border-radius: 10px;
+        -o-border-radius: 10px;
+        color: #000;
+        font-size: 16px;
+        font-weight: 400;
+        margin-right: 0;
+        margin-bottom: 20px;
+    }
+
+    .BoxProductFree {
+        border-radius: 10px;
+        border: 1px solid var(--Main-Linear-Gold, #CCA359);
+        background-color: #FFF;
+        width: 100%;
+        padding: 0 10px 10px 10px;
+    }
+
+    .fa {
+        margin-left: 2px;
+    }
+
+}
+
+@media (max-width: 375px) {
+
+    .InputSearchBanner {
+        border-radius: 10px;
+        background: rgba(255, 255, 255, 0.20);
+        box-shadow: 0px 0px 30px 10px rgba(48, 48, 48, 0.60);
+        border: none !important;
+        padding: 10px 20px;
+        width: 310px;
+        -webkit-border-radius: 10px;
+        -moz-border-radius: 10px;
+        -ms-border-radius: 10px;
+        -o-border-radius: 10px;
+        color: var(--neutral-40, #A8ACAF);
+        font-size: 14px;
+        font-weight: 400;
+    }
+
+    .Text-TitleStar {
+        font-size: 12px;
+        font-weight: 400;
+        margin: 0;
+    }
+
+    .fa {
+        margin-left: 2px !important;
+    }
+}
