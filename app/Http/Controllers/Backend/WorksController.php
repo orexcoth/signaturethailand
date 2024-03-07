@@ -14,4 +14,12 @@ class WorksController extends Controller
             'default_pagename' => 'มอบหมายงาน',
         ]);
     }
+
+    public function BN_works_list(Request $request)
+    {
+
+        return view('backend/works-list', [
+            'default_pagename' => 'ตารางงาน',
+        ]);
+    }
 }

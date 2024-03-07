@@ -29,43 +29,67 @@ class ReportsController extends Controller
 
 
         
-        $query = SellsModel::query();
-        // Check if the combo parameter is provided and not empty
-        // Check if the combo parameter is provided and not empty
-        if ($request->filled('combo')) {
-            $combo = $request->input('combo');
+        // $query = SellsModel::query();
+        // if ($request->filled('combo')) {
+        //     $combo = $request->input('combo');
             
-            switch ($combo) {
-                case 'all':
-                case '':
-                    $query->join('sells_names', 'sells.id', '=', 'sells_names.sells_id');
-                    break;
-                case 'yes':
-                    $query->join('sells_names', function ($join) {
-                        $join->on('sells.id', '=', 'sells_names.sells_id')
-                             ->where('sells_names.combo', '=', 1);
-                    });
-                    $query->leftJoin('sells_combos', function ($join) {
-                        $join->on('sells_names.id', '=', 'sells_combos.sells_names_id');
-                    });
-                    break;
-                case 'no':
-                    $query->join('sells_names', function ($join) {
-                        $join->on('sells.id', '=', 'sells_names.sells_id')
-                             ->where('sells_names.combo', '=', 0);
-                    });
-                    break;
-                default:
-                    $query->whereRaw('1 = 0');
-                    break;
-            }
-        }
+        //     switch ($combo) {
+        //         case 'all':
+        //         case '':
+        //             $query->join('sells_names', 'sells.id', '=', 'sells_names.sells_id');
+        //             break;
+        //         case 'yes':
+        //             $query->join('sells_names', function ($join) {
+        //                 $join->on('sells.id', '=', 'sells_names.sells_id')
+        //                      ->where('sells_names.combo', '=', 1);
+        //             });
+        //             $query->leftJoin('sells_combos', function ($join) {
+        //                 $join->on('sells_names.id', '=', 'sells_combos.sells_names_id');
+        //             });
+        //             break;
+        //         case 'no':
+        //             $query->join('sells_names', function ($join) {
+        //                 $join->on('sells.id', '=', 'sells_names.sells_id')
+        //                      ->where('sells_names.combo', '=', 0);
+        //             });
+        //             break;
+        //         default:
+        //             $query->whereRaw('1 = 0');
+        //             break;
+        //     }
+        // }
 
-        $resultPerPage = 10;
-        $query = $query->paginate($resultPerPage);
+        // $resultPerPage = 10;
+        // $query = $query->paginate($resultPerPage);
 
 
 
+        $query = DB::table('sells')
+            ->select(
+                'sells.*',
+                'sells_names.*',
+                'sells_combos.*',
+                'names.*',
+                'sells.id as sell_id',
+                'sells_names.id as sells_names_id',
+                'sells_combos.id as sells_combos_id',
+                'names.id as names_id'
+            )
+            ->leftJoin('sells_names', 'sells.id', '=', 'sells_names.sells_id')
+            ->leftJoin('sells_combos', 'sells_names.id', '=', 'sells_combos.sells_names_id')
+            ->leftJoin('names', 'sells_names.names_id', '=', 'names.id')
+            ->when($request->input('combo'), function ($query, $combo) {
+                if ($combo === 'yes') {
+                    return $query->where('sells_names.combo', 1);
+                } elseif ($combo === 'no') {
+                    return $query->where('sells_names.combo', 0);
+                }
+                return $query;
+            })
+            ->when($request->input('combo') !== 'all', function ($query) {
+                return $query->whereNotNull('sells_names.id');
+            })
+            ->paginate(10);
 
         return view('backend/reports-sells', [
             'default_pagename' => 'การขายทั้งหมด',

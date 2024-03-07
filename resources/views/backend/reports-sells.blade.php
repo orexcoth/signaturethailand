@@ -6,9 +6,9 @@
 
 @section('subcontent')
 <?php
-echo "<pre>";
-print_r($query);
-echo "</pre>";
+// echo "<pre>";
+// print_r($query);
+// echo "</pre>";
 ?>
     <div class="intro-y mt-5 flex flex-col items-center sm:flex-row">
         <h2 class="mr-auto text-lg font-medium">{{$default_pagename}}</h2>
@@ -39,19 +39,20 @@ echo "</pre>";
                 </select>
             </div>
         </div> -->
-        <div class="mt-3 w-full sm:ml-auto sm:mt-0 sm:w-auto md:ml-0">
-            <div class="relative w-56 text-slate-500">
-                <select id="sign" name="sign" class="form-select py-3 px-4 box w-full lg:w-auto mt-3 lg:mt-0 ml-auto" >
+        <div class="mt-3 w-full sm:ml-auto sm:mt-0 sm:w-auto md:ml-0 mr-5">
+            <div class="relative  text-slate-500">
+                <select id="combo" name="combo" class="form-select py-3 px-4 box w-full lg:w-auto mt-3 lg:mt-0 ml-auto" onchange="applySelects()" >
                     <option value="all" @if(empty(request('combo')) || request('combo') == 'all') selected @endif>รายการทั้งหมด&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</option>
-                    <!-- <option value="no" @if(request('sign') == 'no') selected @endif>ยังไม่มีลายเซ็นต์&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</option> -->
+                    <option value="yes" @if(request('combo') == 'yes') selected @endif>เฉพาะรายการที่เพิ่มนามสกุล&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</option>
+                    <option value="no" @if(request('combo') == 'no') selected @endif>เฉพาะรายการที่ไม่มีการเพิ่มนามสกุล&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</option>
                 </select>
             </div>
         </div>
         <div class="mt-3 w-full sm:ml-auto sm:mt-0 sm:w-auto md:ml-0">
             <div class="relative w-56 text-slate-500">
-                <select id="sign" name="sign" class="form-select py-3 px-4 box w-full lg:w-auto mt-3 lg:mt-0 ml-auto" >
+                <select id="status" name="status" class="form-select py-3 px-4 box w-full lg:w-auto mt-3 lg:mt-0 ml-auto" onchange="applySelects()" >
                     <option value="all" @if(empty(request('status')) || request('status') == 'all') selected @endif>สถานะทั้งหมด&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</option>
-                    <!-- <option value="no" @if(request('sign') == 'no') selected @endif>ยังไม่มีลายเซ็นต์&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</option> -->
+                    <option value="paid" @if(request('status') == 'paid') selected @endif>ชำระเงินแล้ว&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</option>
                 </select>
             </div>
         </div>
@@ -69,38 +70,38 @@ echo "</pre>";
                 </tr>
             </thead>
             <tbody>
-    @if($query->count() > 0)
-        @foreach($query as $keyres => $res)
-            <tr class="intro-x">
-                <td>
-                    <div class="text-slate-500 text-sm whitespace-nowrap mt-0.5">sells.id = {{$res->id}}</div>
-                    <div class="text-slate-500 text-sm whitespace-nowrap mt-0.5">sells_names.id = {{$res->id}}</div>
-                    <div class="text-slate-500 text-sm whitespace-nowrap mt-0.5">sells_combos.id = {{$res->id}}</div>
-                    <div class="text-slate-500 text-sm whitespace-nowrap mt-0.5">sells.firstname = {{$res->firstname}}</div>
-                    <div class="text-slate-500 text-sm whitespace-nowrap mt-0.5">sells_names.remark = {{$res->remark}}</div>
-                    <div class="text-slate-500 text-sm whitespace-nowrap mt-0.5">names.name_th = {{$res->name_th}}</div>
-                    <div class="text-slate-500 text-sm whitespace-nowrap mt-0.5">names.name_en = {{$res->name_en}}</div>
-                    <div class="text-slate-500 text-sm whitespace-nowrap mt-0.5">sells_names.combo = {{$res->combo}}</div>
-                    <div class="text-slate-500 text-sm whitespace-nowrap mt-0.5">sells_combos.combo = {{$res->text}}</div>
-                </td>
-                <td class="table-report__action w-56">
-                    <div class="flex justify-center items-center">
-                        <!-- <a class="flex items-center mr-3" href="#">
-                            <i data-lucide="check-square" class="w-4 h-4 mr-1"></i> แก้ไข
-                        </a> -->
-                        <a class="flex items-center mr-3" href="#">
-                            <i data-lucide="check-square" class="w-4 h-4 mr-1"></i> ดูโพสท์
-                        </a>
-                    </div>
-                </td>
-            </tr>
-        @endforeach
-    @else
-        <tr>
-            <td colspan="2">No records found</td>
-        </tr>
-    @endif
-</tbody>
+            @if($query->count() > 0)
+                @foreach($query as $keyres => $res)
+                    <tr class="intro-x">
+                        <td>
+                            <div class="text-slate-500 text-sm whitespace-nowrap mt-0.5">sells.id = {{$res->sells_id}}</div>
+                            <div class="text-slate-500 text-sm whitespace-nowrap mt-0.5">sells_names.id = {{$res->sells_names_id}}</div>
+                            <div class="text-slate-500 text-sm whitespace-nowrap mt-0.5">sells_combos.id = {{$res->sells_combos_id}}</div>
+                            <div class="text-slate-500 text-sm whitespace-nowrap mt-0.5">sells.firstname = {{$res->firstname}}</div>
+                            <div class="text-slate-500 text-sm whitespace-nowrap mt-0.5">sells_names.remark = {{$res->remark}}</div>
+                            <div class="text-slate-500 text-sm whitespace-nowrap mt-0.5">names.name_th = {{$res->name_th}}</div>
+                            <div class="text-slate-500 text-sm whitespace-nowrap mt-0.5">names.name_en = {{$res->name_en}}</div>
+                            <div class="text-slate-500 text-sm whitespace-nowrap mt-0.5">sells_names.combo = {{$res->combo}}</div>
+                            <div class="text-slate-500 text-sm whitespace-nowrap mt-0.5">sells_combos.combo = {{$res->text}}</div>
+                        </td>
+                        <td class="table-report__action w-56">
+                            <div class="flex justify-center items-center">
+                                <!-- <a class="flex items-center mr-3" href="#">
+                                    <i data-lucide="check-square" class="w-4 h-4 mr-1"></i> แก้ไข
+                                </a> -->
+                                <a class="flex items-center mr-3" href="#">
+                                    <i data-lucide="check-square" class="w-4 h-4 mr-1"></i> ดูโพสท์
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                @endforeach
+            @else
+                <tr>
+                    <td colspan="2">No records found</td>
+                </tr>
+            @endif
+        </tbody>
 
             <!-- <tbody id="fetchPosts">
                 
@@ -119,7 +120,23 @@ echo "</pre>";
 
 @section('script')
 <script>
+    function applyFilters() {
+        var keyword = document.getElementById('keyword').value;
+        var newUrl = `{{ route('BN_reports_sells') }}?keyword=${keyword}`;
+        window.location.href = newUrl;
+    }
+    function handleEnter(event) {
+        if (event.key === 'Enter') {
+            applyFilters();
+        }
+    }
 
+    function applySelects() {
+        var status = document.getElementById('status').value;
+        var combo = document.getElementById('combo').value;
+        var newUrl2 = `{{ route('BN_reports_sells') }}?status=${status}&combo=${combo}`;
+        window.location.href = newUrl2;
+    }
 
 </script>
 

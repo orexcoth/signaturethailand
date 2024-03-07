@@ -86,7 +86,7 @@ class SideMenu
                     ],
                     'names-suggest' => [
                         'icon' => 'Folder Plus',
-                        'route_name' => 'BN_works_assign',
+                        'route_name' => 'BN_works_list',
                         'params' => [],
                         'title' => 'ตารางงาน'
                     ]

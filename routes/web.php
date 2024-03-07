@@ -179,6 +179,7 @@ Route::middleware('auth')->group(function() {
         Route::prefix('works')->group(function () {
             Route::get('', [WorksController::class, 'BN_works'])->name('BN_works');
             Route::get('assign', [WorksController::class, 'BN_works_assign'])->name('BN_works_assign');
+            Route::get('list', [WorksController::class, 'BN_works_list'])->name('BN_works_list');
         });
         Route::prefix('commissions')->group(function () {
             Route::get('', [BackendPageController::class, 'BN_commissions'])->name('BN_commissions');
