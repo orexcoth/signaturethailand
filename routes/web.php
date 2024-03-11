@@ -1,7 +1,8 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
-use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Route; 
+use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\Backend\AuthController;
 use App\Http\Controllers\Backend\PageController;
 use App\Http\Controllers\Backend\DarkModeController;
@@ -40,6 +41,8 @@ use App\Http\Controllers\Backend\testImageController;
 */
 Route::get('dark-mode-switcher', [DarkModeController::class, 'switch'])->name('dark-mode-switcher');
 Route::get('color-scheme-switcher/{color_scheme}', [ColorSchemeController::class, 'switch'])->name('color-scheme-switcher');
+
+Route::get('change-language/{locale}',[LanguageController::class, 'changeLanguage'])->name('change.language');
 
 // Route::get('/', function () {
 //     return view('welcome');

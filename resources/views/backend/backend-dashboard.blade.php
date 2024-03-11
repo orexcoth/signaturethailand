@@ -7,6 +7,11 @@
 @section('subcontent')
 <?php
 
+$sessionall = session()->all();
+echo "<pre>";
+print_r($sessionall);
+echo "</pre>";
+
 echo "<pre>";
 print_r($imagesource);
 echo "</pre>";
@@ -24,6 +29,13 @@ echo "</pre>";
         <h2 class="mr-auto text-lg font-medium">{{$default_pagename}}</h2>
     </div>
 
+    <a href="{{ route('change.language', ['locale' => 'en']) }}">English</a>
+    <a href="{{ route('change.language', ['locale' => 'th']) }}">Thailand</a>
+<br>
+    {{ __('messages.login') }}
+
+    <br>
+    {{(app()->getLocale())}}
     <div class="">
     <br>
         <br>

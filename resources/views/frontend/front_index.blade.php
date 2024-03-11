@@ -15,3 +15,22 @@
 
     <button type="submit" class="">OK</button>
 </form>
+
+<a href="{{ route('change.language', ['locale' => 'en']) }}">English</a>
+    <a href="{{ route('change.language', ['locale' => 'th']) }}">Thailand</a>
+<br>
+    {{ __('messages.login') }}
+
+    <br>
+    {{(app()->getLocale())}}
+
+
+<?php
+
+// $sessionall = session()->all();
+// echo "<pre>";
+// print_r($sessionall);
+// echo "</pre>";
+
+
+?>
