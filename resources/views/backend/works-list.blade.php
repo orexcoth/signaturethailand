@@ -58,6 +58,55 @@
     </div>
 
 
+    @if(isset($query) && count($query)>0)
+    <!-- BEGIN: Data List -->
+    <div class="intro-y col-span-12 overflow-auto lg:overflow-visible">
+        <table class="table table-report -mt-2">
+            <thead>
+                <tr>
+                    <th class="text-center whitespace-nowrap">#</th>
+                    <th class="whitespace-nowrap">type</th>
+                    <th class="whitespace-nowrap">id</th>
+                    <th class="text-center whitespace-nowrap"></th>
+                </tr>
+            </thead>
+            <tbody>
+                
+                @foreach($query as $keyres => $res)
+   
+                    <tr class="intro-x">
+                        <td class="text-center">{{(($query->currentPage()-1)*24)+$keyres+1}}</td>
+
+                        
+                        <td>
+                            <div class="font-medium whitespace-nowrap">{{$res->type}}</div>
+                        </td>
+                        <td>
+                            <div class="font-medium whitespace-nowrap">{{$res->make}}</div>
+                        </td>
+
+                        <td class="table-report__action w-56">
+                            <div class="flex justify-center items-center">
+                                
+                                <a class="flex items-center text-success mr-3" href="#" >
+                                    <i data-lucide="check-square" class="w-4 h-4 mr-1"></i> ดูข้อมูล
+                                </a>
+
+                            </div>
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
+    <!-- END: Data List -->
+    <div class="d-flex">
+    {!! $query->appends(request()->input())->links() !!}
+    </div>
+
+    @endif
+
+
 
     
     

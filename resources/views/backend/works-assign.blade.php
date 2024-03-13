@@ -4,10 +4,66 @@
     <title>Backend - {{$default_pagename}}</title>
 @endsection
 
+@section('pagestyle')
+<style>
+
+
+
+
+
+.checkbox-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-start; /* Change justify-content */
+    }
+
+    .checkbox-item {
+        flex: 0 0 calc(33.33% - 10px); /* Adjusted to fit 3 checkboxes per row */
+        margin-bottom: 10px;
+        position: relative;
+        cursor: pointer;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        background-color: #f0f0f0;
+        padding: 10px;
+        text-align: center;
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .checkbox-item:hover {
+        background-color: #e0e0e0;
+    }
+
+    .styled-checkbox {
+        display: inline-block;
+        font-size: 16px;
+    }
+
+    .hidden-checkbox {
+        position: absolute;
+        opacity: 0;
+    }
+
+    .checkbox-item.checked {
+        background-color: #2196F3;
+        color: #fff;
+    }
+
+
+
+
+
+
+
+
+
+</style>
+@endsection
+
 @section('subcontent')
 <?php
 // echo "<pre>";
-// print_r($page_name);
+// print_r($user);
 // echo "</pre>";
 ?>
     <div class="intro-y mt-5 flex flex-col items-center sm:flex-row">
@@ -17,7 +73,7 @@
         </div> -->
     </div>
     <!-- <div id="fetchUserss"></div> -->
-    <form method="post" action="#" enctype="multipart/form-data" >
+    <form method="post" action="{{route('BN_works_assign_action')}}" enctype="multipart/form-data" >
     @csrf
         <div class="grid grid-cols-12 gap-6 mt-5">
             <div class="intro-y col-span-12 lg:col-span-12">
@@ -27,85 +83,71 @@
 
 
                             <div class="col-span-12 xl:col-span-12">
-                                <div class="mt-3">
-                                    <label for="" class="form-label">ประเภท</label>
-                                    <select name="" id=""  class=" w-full" >
-                                        <option value="" >ลายเซ็นต์ที่มี</option>
-                                        <option value="" >รายการขายที่มีการเพิ่มนามสกุล</option>
-                                        <option value="" >รายการสั่งออกแบบ</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-span-12 xl:col-span-12">
                                 <div class="mt-5">
                                     <label>ผู้รับมอบหมาย</label>
-                                    <div class="mt-2 flex flex-col sm:flex-row">
-                                        <div data-tw-merge class="flex items-center mr-2 mr-2"><input data-tw-merge type="checkbox" class="transition-all duration-100 ease-in-out shadow-sm border-slate-200 cursor-pointer rounded focus:ring-4 focus:ring-offset-0 focus:ring-primary focus:ring-opacity-20 dark:bg-darkmode-800 dark:border-transparent dark:focus:ring-slate-700 dark:focus:ring-opacity-50 [&[type='radio']]:checked:bg-primary [&[type='radio']]:checked:border-primary [&[type='radio']]:checked:border-opacity-10 [&[type='checkbox']]:checked:bg-primary [&[type='checkbox']]:checked:border-primary [&[type='checkbox']]:checked:border-opacity-10 [&:disabled:not(:checked)]:bg-slate-100 [&:disabled:not(:checked)]:cursor-not-allowed [&:disabled:not(:checked)]:dark:bg-darkmode-800/50 [&:disabled:checked]:opacity-70 [&:disabled:checked]:cursor-not-allowed [&:disabled:checked]:dark:bg-darkmode-800/50" id="checkbox-switch-777" value="" />
-                                            <label data-tw-merge for="checkbox-switch-777" class="cursor-pointer ml-2">ทุกคน</label>
+                                    <div class="mt-2 checkbox-container">
+                                        <!-- Check All checkbox -->
+                                        <div class="checkbox-item" onclick="toggleCheckAll()">
+                                            <input type="checkbox" id="check_all" class="hidden-checkbox" />
+                                            <label for="check_all" class="styled-checkbox">เลือกทุกคน</label>
                                         </div>
-                                        <div data-tw-merge class="flex items-center mr-2 mr-2"><input data-tw-merge type="checkbox" class="transition-all duration-100 ease-in-out shadow-sm border-slate-200 cursor-pointer rounded focus:ring-4 focus:ring-offset-0 focus:ring-primary focus:ring-opacity-20 dark:bg-darkmode-800 dark:border-transparent dark:focus:ring-slate-700 dark:focus:ring-opacity-50 [&[type='radio']]:checked:bg-primary [&[type='radio']]:checked:border-primary [&[type='radio']]:checked:border-opacity-10 [&[type='checkbox']]:checked:bg-primary [&[type='checkbox']]:checked:border-primary [&[type='checkbox']]:checked:border-opacity-10 [&:disabled:not(:checked)]:bg-slate-100 [&:disabled:not(:checked)]:cursor-not-allowed [&:disabled:not(:checked)]:dark:bg-darkmode-800/50 [&:disabled:checked]:opacity-70 [&:disabled:checked]:cursor-not-allowed [&:disabled:checked]:dark:bg-darkmode-800/50" id="checkbox-switch-4" value="" />
-                                            <label data-tw-merge for="checkbox-switch-4" class="cursor-pointer ml-2">Chris Evans</label>
+                                        <!-- Other checkboxes -->
+                                        @foreach($users as $key_user => $res)
+                                        <div class="checkbox-item" onclick="toggleCheckbox(this)">
+                                            <input type="checkbox" name="users[]" id="users_{{$res->id}}" value="{{$res->id}}" class="hidden-checkbox" />
+                                            <label for="users_{{$res->id}}" class="styled-checkbox">{{$res->name}}</label>
                                         </div>
-                                        <div data-tw-merge class="flex items-center mr-2 mt-2 sm:mt-0 mr-2 mt-2 sm:mt-0"><input data-tw-merge type="checkbox" class="transition-all duration-100 ease-in-out shadow-sm border-slate-200 cursor-pointer rounded focus:ring-4 focus:ring-offset-0 focus:ring-primary focus:ring-opacity-20 dark:bg-darkmode-800 dark:border-transparent dark:focus:ring-slate-700 dark:focus:ring-opacity-50 [&[type='radio']]:checked:bg-primary [&[type='radio']]:checked:border-primary [&[type='radio']]:checked:border-opacity-10 [&[type='checkbox']]:checked:bg-primary [&[type='checkbox']]:checked:border-primary [&[type='checkbox']]:checked:border-opacity-10 [&:disabled:not(:checked)]:bg-slate-100 [&:disabled:not(:checked)]:cursor-not-allowed [&:disabled:not(:checked)]:dark:bg-darkmode-800/50 [&:disabled:checked]:opacity-70 [&:disabled:checked]:cursor-not-allowed [&:disabled:checked]:dark:bg-darkmode-800/50" id="checkbox-switch-5" value="" />
-                                            <label data-tw-merge for="checkbox-switch-5" class="cursor-pointer ml-2">Liam Neeson</label>
-                                        </div>
-                                        <div data-tw-merge class="flex items-center mr-2 mt-2 sm:mt-0 mr-2 mt-2 sm:mt-0"><input data-tw-merge type="checkbox" class="transition-all duration-100 ease-in-out shadow-sm border-slate-200 cursor-pointer rounded focus:ring-4 focus:ring-offset-0 focus:ring-primary focus:ring-opacity-20 dark:bg-darkmode-800 dark:border-transparent dark:focus:ring-slate-700 dark:focus:ring-opacity-50 [&[type='radio']]:checked:bg-primary [&[type='radio']]:checked:border-primary [&[type='radio']]:checked:border-opacity-10 [&[type='checkbox']]:checked:bg-primary [&[type='checkbox']]:checked:border-primary [&[type='checkbox']]:checked:border-opacity-10 [&:disabled:not(:checked)]:bg-slate-100 [&:disabled:not(:checked)]:cursor-not-allowed [&:disabled:not(:checked)]:dark:bg-darkmode-800/50 [&:disabled:checked]:opacity-70 [&:disabled:checked]:cursor-not-allowed [&:disabled:checked]:dark:bg-darkmode-800/50" id="checkbox-switch-6" value="" />
-                                            <label data-tw-merge for="checkbox-switch-6" class="cursor-pointer ml-2">Daniel Craig</label>
-                                        </div>
-                                        <div data-tw-merge class="flex items-center mr-2 mr-2"><input data-tw-merge type="checkbox" class="transition-all duration-100 ease-in-out shadow-sm border-slate-200 cursor-pointer rounded focus:ring-4 focus:ring-offset-0 focus:ring-primary focus:ring-opacity-20 dark:bg-darkmode-800 dark:border-transparent dark:focus:ring-slate-700 dark:focus:ring-opacity-50 [&[type='radio']]:checked:bg-primary [&[type='radio']]:checked:border-primary [&[type='radio']]:checked:border-opacity-10 [&[type='checkbox']]:checked:bg-primary [&[type='checkbox']]:checked:border-primary [&[type='checkbox']]:checked:border-opacity-10 [&:disabled:not(:checked)]:bg-slate-100 [&:disabled:not(:checked)]:cursor-not-allowed [&:disabled:not(:checked)]:dark:bg-darkmode-800/50 [&:disabled:checked]:opacity-70 [&:disabled:checked]:cursor-not-allowed [&:disabled:checked]:dark:bg-darkmode-800/50" id="checkbox-switch-4" value="" />
-                                            <label data-tw-merge for="checkbox-switch-4" class="cursor-pointer ml-2">Chris Evans</label>
-                                        </div>
-                                        <div data-tw-merge class="flex items-center mr-2 mt-2 sm:mt-0 mr-2 mt-2 sm:mt-0"><input data-tw-merge type="checkbox" class="transition-all duration-100 ease-in-out shadow-sm border-slate-200 cursor-pointer rounded focus:ring-4 focus:ring-offset-0 focus:ring-primary focus:ring-opacity-20 dark:bg-darkmode-800 dark:border-transparent dark:focus:ring-slate-700 dark:focus:ring-opacity-50 [&[type='radio']]:checked:bg-primary [&[type='radio']]:checked:border-primary [&[type='radio']]:checked:border-opacity-10 [&[type='checkbox']]:checked:bg-primary [&[type='checkbox']]:checked:border-primary [&[type='checkbox']]:checked:border-opacity-10 [&:disabled:not(:checked)]:bg-slate-100 [&:disabled:not(:checked)]:cursor-not-allowed [&:disabled:not(:checked)]:dark:bg-darkmode-800/50 [&:disabled:checked]:opacity-70 [&:disabled:checked]:cursor-not-allowed [&:disabled:checked]:dark:bg-darkmode-800/50" id="checkbox-switch-5" value="" />
-                                            <label data-tw-merge for="checkbox-switch-5" class="cursor-pointer ml-2">Liam Neeson</label>
-                                        </div>
-                                        <div data-tw-merge class="flex items-center mr-2 mt-2 sm:mt-0 mr-2 mt-2 sm:mt-0"><input data-tw-merge type="checkbox" class="transition-all duration-100 ease-in-out shadow-sm border-slate-200 cursor-pointer rounded focus:ring-4 focus:ring-offset-0 focus:ring-primary focus:ring-opacity-20 dark:bg-darkmode-800 dark:border-transparent dark:focus:ring-slate-700 dark:focus:ring-opacity-50 [&[type='radio']]:checked:bg-primary [&[type='radio']]:checked:border-primary [&[type='radio']]:checked:border-opacity-10 [&[type='checkbox']]:checked:bg-primary [&[type='checkbox']]:checked:border-primary [&[type='checkbox']]:checked:border-opacity-10 [&:disabled:not(:checked)]:bg-slate-100 [&:disabled:not(:checked)]:cursor-not-allowed [&:disabled:not(:checked)]:dark:bg-darkmode-800/50 [&:disabled:checked]:opacity-70 [&:disabled:checked]:cursor-not-allowed [&:disabled:checked]:dark:bg-darkmode-800/50" id="checkbox-switch-6" value="" />
-                                            <label data-tw-merge for="checkbox-switch-6" class="cursor-pointer ml-2">Daniel Craig</label>
-                                        </div>
-                                        <div data-tw-merge class="flex items-center mr-2 mr-2"><input data-tw-merge type="checkbox" class="transition-all duration-100 ease-in-out shadow-sm border-slate-200 cursor-pointer rounded focus:ring-4 focus:ring-offset-0 focus:ring-primary focus:ring-opacity-20 dark:bg-darkmode-800 dark:border-transparent dark:focus:ring-slate-700 dark:focus:ring-opacity-50 [&[type='radio']]:checked:bg-primary [&[type='radio']]:checked:border-primary [&[type='radio']]:checked:border-opacity-10 [&[type='checkbox']]:checked:bg-primary [&[type='checkbox']]:checked:border-primary [&[type='checkbox']]:checked:border-opacity-10 [&:disabled:not(:checked)]:bg-slate-100 [&:disabled:not(:checked)]:cursor-not-allowed [&:disabled:not(:checked)]:dark:bg-darkmode-800/50 [&:disabled:checked]:opacity-70 [&:disabled:checked]:cursor-not-allowed [&:disabled:checked]:dark:bg-darkmode-800/50" id="checkbox-switch-4" value="" />
-                                            <label data-tw-merge for="checkbox-switch-4" class="cursor-pointer ml-2">Chris Evans</label>
-                                        </div>
-                                        <div data-tw-merge class="flex items-center mr-2 mt-2 sm:mt-0 mr-2 mt-2 sm:mt-0"><input data-tw-merge type="checkbox" class="transition-all duration-100 ease-in-out shadow-sm border-slate-200 cursor-pointer rounded focus:ring-4 focus:ring-offset-0 focus:ring-primary focus:ring-opacity-20 dark:bg-darkmode-800 dark:border-transparent dark:focus:ring-slate-700 dark:focus:ring-opacity-50 [&[type='radio']]:checked:bg-primary [&[type='radio']]:checked:border-primary [&[type='radio']]:checked:border-opacity-10 [&[type='checkbox']]:checked:bg-primary [&[type='checkbox']]:checked:border-primary [&[type='checkbox']]:checked:border-opacity-10 [&:disabled:not(:checked)]:bg-slate-100 [&:disabled:not(:checked)]:cursor-not-allowed [&:disabled:not(:checked)]:dark:bg-darkmode-800/50 [&:disabled:checked]:opacity-70 [&:disabled:checked]:cursor-not-allowed [&:disabled:checked]:dark:bg-darkmode-800/50" id="checkbox-switch-5" value="" />
-                                            <label data-tw-merge for="checkbox-switch-5" class="cursor-pointer ml-2">Liam Neeson</label>
-                                        </div>
-                                        <div data-tw-merge class="flex items-center mr-2 mt-2 sm:mt-0 mr-2 mt-2 sm:mt-0"><input data-tw-merge type="checkbox" class="transition-all duration-100 ease-in-out shadow-sm border-slate-200 cursor-pointer rounded focus:ring-4 focus:ring-offset-0 focus:ring-primary focus:ring-opacity-20 dark:bg-darkmode-800 dark:border-transparent dark:focus:ring-slate-700 dark:focus:ring-opacity-50 [&[type='radio']]:checked:bg-primary [&[type='radio']]:checked:border-primary [&[type='radio']]:checked:border-opacity-10 [&[type='checkbox']]:checked:bg-primary [&[type='checkbox']]:checked:border-primary [&[type='checkbox']]:checked:border-opacity-10 [&:disabled:not(:checked)]:bg-slate-100 [&:disabled:not(:checked)]:cursor-not-allowed [&:disabled:not(:checked)]:dark:bg-darkmode-800/50 [&:disabled:checked]:opacity-70 [&:disabled:checked]:cursor-not-allowed [&:disabled:checked]:dark:bg-darkmode-800/50" id="checkbox-switch-6" value="" />
-                                            <label data-tw-merge for="checkbox-switch-6" class="cursor-pointer ml-2">Daniel Craig</label>
-                                        </div>
+                                        @endforeach
                                     </div>
                                 </div>
                             </div>
+
+
+
+
+
                             <div class="col-span-12 xl:col-span-12">
+                                <div class="mt-3">
+                                    <label for="" class="form-label">ประเภท</label>
+                                    <select name="type" id="type-select" class="w-full">
+                                        <option value="">เลือกประเภท</option>
+                                        <option value="names">ลายเซ็นต์ที่มี</option>
+                                        <option value="combos">รายการขายที่มีการเพิ่มนามสกุล</option>
+                                        <option value="orders">รายการสั่งออกแบบ</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div id="names-input" class="col-span-12 xl:col-span-12" style="display: none;">
                                 <div class="mt-5">
                                     <label>ลายเซ็นต์ที่มี</label>
-                                    <select data-placeholder="Select your favorite actors" class="tom-select w-full mt-3">
+                                    <select name="names" data-placeholder="Select your favorite actors" class="tom-select w-full mt-3">
                                         <option value="1">ลายเซ็นต์ 1</option>
-                                        <option value="2">ลายเซ็นต์ 2</option>
-                                        <option value="3">ลายเซ็นต์ 3</option>
-                                        <option value="4">ลายเซ็นต์ 4</option>
-                                        <option value="5">ลายเซ็นต์ 5</option>
+                                        @foreach($names as $key_names => $resnames)
+                                        <option value="{{$resnames->id}}">{{$resnames->name_th}} - {{$resnames->name_en}}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-span-12 xl:col-span-12">
+
+                            <div id="combos-input" class="col-span-12 xl:col-span-12" style="display: none;">
                                 <div class="mt-5">
                                     <label>รายการขายที่มีการเพิ่มนามสกุล</label>
-                                    <select data-placeholder="Select your favorite actors" class="tom-select w-full mt-3">
-                                        <option value="1">Sell 1</option>
-                                        <option value="2">Sell 2</option>
-                                        <option value="3">Sell 3</option>
-                                        <option value="4">Sell 4</option>
-                                        <option value="5">Sell 5</option>
+                                    <select name="combos" data-placeholder="Select your favorite actors" class="tom-select w-full mt-3">
+                                        @foreach($sells as $key_sells => $ressells)
+                                        <option value="{{$ressells->id}}">{{$ressells->sell_number}}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-span-12 xl:col-span-12">
+
+                            <div id="orders-input" class="col-span-12 xl:col-span-12" style="display: none;">
                                 <div class="mt-5">
                                     <label>รายการสั่งออกแบบ</label>
-                                    <select data-placeholder="Select your favorite actors" class="tom-select w-full mt-3">
-                                        <option value="1">Order 1</option>
-                                        <option value="2">Order 2</option>
-                                        <option value="3">Order 3</option>
-                                        <option value="4">Order 4</option>
-                                        <option value="5">Order 5</option>
+                                    <select name="orders" data-placeholder="Select your favorite actors" class="tom-select w-full mt-3">
+                                        @foreach($orders as $key_orders => $resorders)
+                                        <option value="{{$resorders->id}}">{{$resorders->sell_number}}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
@@ -133,6 +175,105 @@
 
 @section('script')
 <script>
+
+
+document.getElementById('type-select').addEventListener('change', function() {
+        var selectedType = this.value;
+        var namesInput = document.getElementById('names-input');
+        var combosInput = document.getElementById('combos-input');
+        var ordersInput = document.getElementById('orders-input');
+
+        namesInput.style.display = 'none';
+        combosInput.style.display = 'none';
+        ordersInput.style.display = 'none';
+
+        if (selectedType === 'names') {
+            namesInput.style.display = 'block';
+        } else if (selectedType === 'combos') {
+            combosInput.style.display = 'block';
+        } else if (selectedType === 'orders') {
+            ordersInput.style.display = 'block';
+        }
+    });
+
+
+
+
+
+
+
+
+function toggleCheckbox(item) {
+    var checkbox = item.querySelector('input[type="checkbox"]');
+    checkbox.checked = !checkbox.checked;
+    item.classList.toggle('checked', checkbox.checked);
+}
+
+function toggleCheckAll() {
+    var checkboxes = document.querySelectorAll('input[type="checkbox"][name="users[]"]');
+    var checkAllCheckbox = document.getElementById('check_all');
+    var allChecked = true;
+
+    checkboxes.forEach(function (checkbox) {
+        if (!checkbox.checked) {
+            allChecked = false;
+        }
+    });
+
+    if (allChecked) {
+        // If all are checked, uncheck all
+        checkboxes.forEach(function (checkbox) {
+            checkbox.checked = false;
+            checkbox.parentElement.classList.remove('checked');
+        });
+        checkAllCheckbox.checked = false;
+        checkAllCheckbox.parentElement.classList.remove('checked');
+    } else {
+        // If not all are checked, check all
+        checkboxes.forEach(function (checkbox) {
+            checkbox.checked = true;
+            checkbox.parentElement.classList.add('checked');
+        });
+        checkAllCheckbox.checked = true;
+        checkAllCheckbox.parentElement.classList.add('checked');
+    }
+
+    var checkboxContainer = document.querySelector('.checkbox-container');
+    checkboxContainer.classList.toggle('all-checked', !allChecked);
+}
+
+
+
+
+
+
+
+// function toggleCheckbox(item) {
+//     var checkbox = item.querySelector('input[type="checkbox"]');
+//     checkbox.checked = !checkbox.checked;
+//     item.classList.toggle('checked', checkbox.checked);
+// }
+
+// var isCheckedAll = false;
+
+// function toggleCheckAll() {
+//     var checkboxes = document.querySelectorAll('input[type="checkbox"][name="users[]"]');
+//     var checkAllCheckbox = document.getElementById('check_all');
+
+//     isCheckedAll = !isCheckedAll;
+
+//     checkboxes.forEach(function (checkbox) {
+//         checkbox.checked = isCheckedAll;
+//         checkbox.parentElement.classList.toggle('checked', isCheckedAll);
+//     });
+
+//     checkAllCheckbox.checked = isCheckedAll;
+//     checkAllCheckbox.parentElement.classList.toggle('checked', isCheckedAll);
+
+//     var checkboxContainer = document.querySelector('.checkbox-container');
+//     checkboxContainer.classList.toggle('all-checked', isCheckedAll);
+// }
+
 
 
 </script>

@@ -64,7 +64,11 @@
         <table class="table table-report -mt-2">
             <thead>
                 <tr>
-                    <th class="whitespace-nowrap">*</th>
+                    <th class="whitespace-nowrap">วันที่</th>
+                    <th class="whitespace-nowrap">ลูกค้า</th>
+                    <th class="whitespace-nowrap">ชื่อที่สั่ง</th>
+                    <th class="whitespace-nowrap">ยอดเงิน</th>
+                    <th class="whitespace-nowrap">สถานะ</th>
 
                     <th class="text-center whitespace-nowrap">แอคชั่น</th>
                 </tr>
@@ -73,17 +77,17 @@
             @if($query->count() > 0)
                 @foreach($query as $keyres => $res)
                     <tr class="intro-x">
+                        <td><div class="text-slate-500 text-sm whitespace-nowrap mt-0.5">{{date('d/m/Y H:i:s', strtotime($res->sells_created_at))}}</div></td>
                         <td>
-                            <div class="text-slate-500 text-sm whitespace-nowrap mt-0.5">sells.id = {{$res->sells_id}}</div>
-                            <div class="text-slate-500 text-sm whitespace-nowrap mt-0.5">sells_names.id = {{$res->sells_names_id}}</div>
-                            <div class="text-slate-500 text-sm whitespace-nowrap mt-0.5">sells_combos.id = {{$res->sells_combos_id}}</div>
-                            <div class="text-slate-500 text-sm whitespace-nowrap mt-0.5">sells.firstname = {{$res->firstname}}</div>
-                            <div class="text-slate-500 text-sm whitespace-nowrap mt-0.5">sells_names.remark = {{$res->remark}}</div>
-                            <div class="text-slate-500 text-sm whitespace-nowrap mt-0.5">names.name_th = {{$res->name_th}}</div>
-                            <div class="text-slate-500 text-sm whitespace-nowrap mt-0.5">names.name_en = {{$res->name_en}}</div>
-                            <div class="text-slate-500 text-sm whitespace-nowrap mt-0.5">sells_names.combo = {{$res->combo}}</div>
-                            <div class="text-slate-500 text-sm whitespace-nowrap mt-0.5">sells_combos.combo = {{$res->text}}</div>
+                            <div class="text-slate-500 text-sm whitespace-nowrap mt-0.5">{{$res->firstname}} {{$res->lastname}}</div>
+                            <div class="text-slate-500 text-sm whitespace-nowrap mt-0.5">{{$res->email}}</div>
                         </td>
+                        <td>
+                            <div class="text-slate-500 text-sm whitespace-nowrap mt-0.5">{{$res->name_th}} / {{$res->name_en}}</div>
+                            <div class="text-slate-500 text-sm whitespace-nowrap mt-0.5">เพิ่มนามสกุล {{$res->text}}</div>
+                        </td>
+                        <td><div class="text-slate-500 text-sm whitespace-nowrap mt-0.5">{{$res->total}}</div></td>
+                        <td><div class="text-slate-500 text-sm whitespace-nowrap mt-0.5">{{$res->sells_status}}</div></td>
                         <td class="table-report__action w-56">
                             <div class="flex justify-center items-center">
                                 <!-- <a class="flex items-center mr-3" href="#">

@@ -73,6 +73,8 @@ class ReportsController extends Controller
                 'sells.id as sell_id',
                 'sells_names.id as sells_names_id',
                 'sells_combos.id as sells_combos_id',
+                'sells.created_at as sells_created_at',
+                'sells.status as sells_status',
                 'names.id as names_id'
             )
             ->leftJoin('sells_names', 'sells.id', '=', 'sells_names.sells_id')
