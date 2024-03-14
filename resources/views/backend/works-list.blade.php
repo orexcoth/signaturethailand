@@ -6,6 +6,11 @@
 
 @section('subcontent')
 <?php
+$warklist = array(
+    'names' => 'ออกแบบลายเซ็นต์',
+    'combos' => 'ออเดอร์เพิ่มนามสกุล',
+    'orders' => 'ออกเดอร์สั่งออกแบบใหม่',
+);
 // echo "<pre>";
 // print_r($query);
 // echo "</pre>";
@@ -30,22 +35,6 @@
         
         <div class="mx-auto hidden text-slate-500 md:block"></div>
         
-        <!-- <div class="mt-3 w-full sm:ml-auto sm:mt-0 sm:w-auto md:ml-0">
-            <div class="relative w-56 text-slate-500">
-                <select id="language" name="language" class="form-select py-3 px-4 box w-full lg:w-auto mt-3 lg:mt-0 ml-auto" >
-                    <option value="th" @if(request('language', 'th') == 'th') selected @endif>ท&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</option>
-                    <option value="th" @if(request('language', 'th') == 'th') selected @endif>อักษรไทย&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</option>
-                    <option value="en" @if(request('language') == 'en') selected @endif>อักษรอังกฤษ&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</option>
-                </select>
-            </div>
-        </div> -->
-        <!-- <div class="mt-3 w-full sm:ml-auto sm:mt-0 sm:w-auto md:ml-0">
-            <div class="relative w-56 text-slate-500">
-                <select id="sign" name="sign" class="form-select py-3 px-4 box w-full lg:w-auto mt-3 lg:mt-0 ml-auto" >
-                    <option value="all" @if(empty(request('combo')) || request('combo') == 'all') selected @endif>'รายการทั้งหมด'&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</option>
-                </select>
-            </div>
-        </div> -->
         <div class="mt-3 w-full sm:ml-auto sm:mt-0 sm:w-auto md:ml-0">
             <div class="relative w-56 text-slate-500">
                 <select id="sign" name="sign" class="form-select py-3 px-4 box w-full lg:w-auto mt-3 lg:mt-0 ml-auto" >
@@ -65,8 +54,10 @@
             <thead>
                 <tr>
                     <th class="text-center whitespace-nowrap">#</th>
-                    <th class="whitespace-nowrap">type</th>
-                    <th class="whitespace-nowrap">id</th>
+                    <th class="whitespace-nowrap">วันที่มอบหมาย</th>
+                    <th class="whitespace-nowrap">ประเภทงาน</th>
+                    <th class="whitespace-nowrap">รายละเอียด</th>
+                    <th class="whitespace-nowrap">รายละเอียด</th>
                     <th class="text-center whitespace-nowrap"></th>
                 </tr>
             </thead>
@@ -77,19 +68,27 @@
                     <tr class="intro-x">
                         <td class="text-center">{{(($query->currentPage()-1)*24)+$keyres+1}}</td>
 
-                        
                         <td>
-                            <div class="font-medium whitespace-nowrap">{{$res->type}}</div>
+                            <div class="font-medium whitespace-nowrap">{{date('d/m/Y H:i:s', strtotime($res->created_at))}}</div>
+                        </td>
+                        <td>
+                            <div class="font-medium whitespace-nowrap">{{$warklist[$res->type]}}</div>
                         </td>
                         <td>
                             <div class="font-medium whitespace-nowrap">{{$res->make}}</div>
+                        </td>
+                        <td>
+                            <div class="font-medium whitespace-nowrap">{{$res->description}}</div>
                         </td>
 
                         <td class="table-report__action w-56">
                             <div class="flex justify-center items-center">
                                 
                                 <a class="flex items-center text-success mr-3" href="#" >
-                                    <i data-lucide="check-square" class="w-4 h-4 mr-1"></i> ดูข้อมูล
+                                    <i data-lucide="check-square" class="w-4 h-4 mr-1"></i> รับงาน
+                                </a>
+                                <a class="flex items-center text-danger mr-3" href="#" >
+                                    <i data-lucide="check-square" class="w-4 h-4 mr-1"></i> ปฎิเสธ
                                 </a>
 
                             </div>

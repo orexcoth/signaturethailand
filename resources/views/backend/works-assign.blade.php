@@ -63,7 +63,7 @@
 @section('subcontent')
 <?php
 // echo "<pre>";
-// print_r($user);
+// print_r($sells);
 // echo "</pre>";
 ?>
     <div class="intro-y mt-5 flex flex-col items-center sm:flex-row">
@@ -111,7 +111,7 @@
                                     <label for="" class="form-label">ประเภท</label>
                                     <select name="type" id="type-select" class="w-full">
                                         <option value="">เลือกประเภท</option>
-                                        <option value="names">ลายเซ็นต์ที่มี</option>
+                                        <option value="names">ชื่อที่มีในระบบ</option>
                                         <option value="combos">รายการขายที่มีการเพิ่มนามสกุล</option>
                                         <option value="orders">รายการสั่งออกแบบ</option>
                                     </select>
@@ -120,9 +120,8 @@
 
                             <div id="names-input" class="col-span-12 xl:col-span-12" style="display: none;">
                                 <div class="mt-5">
-                                    <label>ลายเซ็นต์ที่มี</label>
+                                    <label>ชื่อที่มีในระบบ</label>
                                     <select name="names" data-placeholder="Select your favorite actors" class="tom-select w-full mt-3">
-                                        <option value="1">ลายเซ็นต์ 1</option>
                                         @foreach($names as $key_names => $resnames)
                                         <option value="{{$resnames->id}}">{{$resnames->name_th}} - {{$resnames->name_en}}</option>
                                         @endforeach
@@ -135,7 +134,7 @@
                                     <label>รายการขายที่มีการเพิ่มนามสกุล</label>
                                     <select name="combos" data-placeholder="Select your favorite actors" class="tom-select w-full mt-3">
                                         @foreach($sells as $key_sells => $ressells)
-                                        <option value="{{$ressells->id}}">{{$ressells->sell_number}}</option>
+                                        <option value="{{$ressells->sell_id}}">{{$ressells->sell_number}}</option>
                                         @endforeach
                                     </select>
                                 </div>

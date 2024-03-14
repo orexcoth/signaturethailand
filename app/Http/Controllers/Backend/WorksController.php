@@ -26,7 +26,25 @@ class WorksController extends Controller
         $users = UsersModel::all();
         $names = namesModel::all();
         $orders = ordersModel::all();
-        $sells = sellsModel::all();
+
+        $sells = DB::table('sells')
+            ->select(
+                'sells.*',
+                'sells_names.*',
+                'sells_combos.*',
+                'names.*',
+                'sells.id as sell_id',
+                'sells_names.id as sells_names_id',
+                'sells_combos.id as sells_combos_id',
+                'sells.created_at as sells_created_at',
+                'sells.status as sells_status',
+                'names.id as names_id'
+            )
+            ->leftJoin('sells_names', 'sells.id', '=', 'sells_names.sells_id')
+            ->leftJoin('sells_combos', 'sells_names.id', '=', 'sells_combos.sells_names_id')
+            ->leftJoin('names', 'sells_names.names_id', '=', 'names.id')
+            ->where('sells_names.combo', 1)
+            ->get();
 
 
         return view('backend/works-assign', [
