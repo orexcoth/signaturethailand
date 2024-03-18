@@ -11,9 +11,9 @@ $warklist = array(
     'combos' => 'ออเดอร์เพิ่มนามสกุล',
     'orders' => 'ออกเดอร์สั่งออกแบบใหม่',
 );
-// echo "<pre>";
-// print_r($query);
-// echo "</pre>";
+echo "<pre>";
+print_r($query);
+echo "</pre>";
 ?>
     <div class="intro-y mt-5 flex flex-col items-center sm:flex-row">
         <h2 class="mr-auto text-lg font-medium">{{$default_pagename}}</h2>
@@ -56,9 +56,9 @@ $warklist = array(
                     <th class="text-center whitespace-nowrap">#</th>
                     <th class="whitespace-nowrap">วันที่มอบหมาย</th>
                     <th class="whitespace-nowrap">ประเภทงาน</th>
+                    <th class="whitespace-nowrap">รายการ</th>
                     <th class="whitespace-nowrap">รายละเอียด</th>
-                    <th class="whitespace-nowrap">รายละเอียด</th>
-                    <th class="text-center whitespace-nowrap"></th>
+                    <!-- <th class="text-center whitespace-nowrap"></th> -->
                 </tr>
             </thead>
             <tbody>
@@ -81,7 +81,7 @@ $warklist = array(
                             <div class="font-medium whitespace-nowrap">{{$res->description}}</div>
                         </td>
 
-                        <td class="table-report__action w-56">
+                        <!-- <td class="table-report__action w-56">
                             <div class="flex justify-center items-center">
                                 
                                 <a class="flex items-center text-success mr-3" href="#" >
@@ -92,7 +92,7 @@ $warklist = array(
                                 </a>
 
                             </div>
-                        </td>
+                        </td> -->
                     </tr>
                 @endforeach
             </tbody>

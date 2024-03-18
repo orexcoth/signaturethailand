@@ -76,7 +76,26 @@ class BackendPageController extends Controller
 
 
 
+    public function BN_settings(Request $request)
+    {
+        $options = OptionsModel::all();
+        $auto_assign = OptionsModel::where('option_key', 'auto_assign')->first();
 
+        return view('backend/setting', [
+            'default_pagename' => 'ตั้งค่าระบบ',
+            'options' => $options,
+            'auto_assign' => $auto_assign,
+        ]);
+    }
+    public function BN_settings_action(Request $request)
+    {
+        // dd($request);
+        $autoAssignValue = $request->auto_assign;
+
+        OptionsModel::where('option_key', 'auto_assign')->update(['option_value' => $autoAssignValue]);
+
+        return redirect(route('BN_settings'))->with('success', 'บันทึกข้อมูลสำเร็จ !!!');
+    }
 
 
     public function BN_settings_defaultprice(Request $request)

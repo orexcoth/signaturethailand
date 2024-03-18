@@ -215,6 +215,7 @@ Route::middleware('auth')->group(function() {
         });
         Route::prefix('settings')->group(function () {
             Route::get('', [BackendPageController::class, 'BN_settings'])->name('BN_settings');
+            Route::post('settings-action', [BackendPageController::class, 'BN_settings_action'])->name('BN_settings_action');
             Route::get('defaultprice', [BackendPageController::class, 'BN_settings_defaultprice'])->name('BN_settings_defaultprice');
             Route::post('defaultprice-action', [BackendPageController::class, 'BN_settings_defaultprice_action'])->name('BN_settings_defaultprice_action');
         });

@@ -61,9 +61,73 @@ class WorksController extends Controller
         $userlogin = auth()->user();
         $userloginid = auth()->user()->id; 
 
-        $query = worksModel::query()
-            ->where('users_id',$userloginid)
+        // $query = worksModel::query()
+        //     ->where('users_id',$userloginid)
+        //     ->orderBy('id', 'desc');
+
+        // $resultPerPage = 24;
+        // $query = $query->paginate($resultPerPage);
+
+
+
+
+
+
+        // Initialize $query variable
+$query = null;
+
+// Retrieve worksModel instance
+$worksModel = worksModel::query()->where('users_id', $userloginid)->orderBy('id', 'desc')->first();
+
+if ($worksModel) {
+    // Access 'type' property of the $worksModel instance
+    $type = $worksModel->type;
+
+    // Modify query based on the type
+    if ($type === 'combos') {
+        $query = worksModel::query()->where('users_id', $userloginid)
+            ->leftJoin('sells', 'sells.work_id', '=', 'works.id')
+            ->select('sells.sell_number as number')
             ->orderBy('id', 'desc');
+    } elseif ($type === 'orders') {
+        $query = worksModel::query()->where('users_id', $userloginid)
+            ->leftJoin('orders', 'orders.work_id', '=', 'works.id')
+            ->select('orders.order_number as number')
+            ->orderBy('id', 'desc');
+    } else {
+        // Handle other cases if needed
+    }
+}
+
+// Paginate the modified query if $query is set
+if ($query) {
+    $resultPerPage = 24;
+    $results = $query->paginate($resultPerPage);
+}
+
+// Pass $query to the view along with other necessary data
+return view('backend/works-list', [
+    'default_pagename' => 'ตารางงาน',
+    'query' => $query,
+]);
+
+
+
+
+
+
+
+
+
+
+
+        // if ($query->type === 'combos') {
+        //     $query->join('sells', 'sells.sell_number', '=', 'number');
+        //     $query->select('sells.sell_number as number');
+        // } elseif ($query->type === 'orders') {
+        //     $query->join('sells', 'sells.order_number', '=', 'number');
+        //     $query->select('sells.order_number as number');
+        // }
 
         // if ($request->filled('keyword')) {
         //     $keyword = $request->input('keyword');
@@ -73,13 +137,12 @@ class WorksController extends Controller
         //     });
         // }
 
-        $resultPerPage = 24;
-        $query = $query->paginate($resultPerPage);
+        
 
-        return view('backend/works-list', [
-            'default_pagename' => 'ตารางงาน',
-            'query' => $query,
-        ]);
+        // return view('backend/works-list', [
+        //     'default_pagename' => 'ตารางงาน',
+        //     'query' => $query,
+        // ]);
     }
 
     public function BN_works_assign_action(Request $request)
