@@ -12,7 +12,7 @@ $warklist = array(
     'orders' => 'ออกเดอร์สั่งออกแบบใหม่',
 );
 // echo "<pre>";
-// print_r($query);
+// print_r($users);
 // echo "</pre>";
 ?>
     <div class="intro-y mt-5 flex flex-col items-center sm:flex-row">
@@ -30,6 +30,11 @@ $warklist = array(
                     <circle cx="11" cy="11" r="8"></circle>
                     <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
                 </svg>  -->
+                <select id="user" name="user" class="form-select py-3 px-4 box w-full lg:w-auto mt-3 lg:mt-0 ml-auto" onchange="applySelects()" >
+                    @foreach($users as $keyusers => $user)
+                    <option value="{{$user->id}}" @if(request('user') == '{{$user->id}}') selected @endif>{{$user->name}} - {{$user->id}}&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</option>
+                    @endforeach
+                </select>
             </div>
         </div>
         
@@ -37,9 +42,11 @@ $warklist = array(
         
         <div class="mt-3 w-full sm:ml-auto sm:mt-0 sm:w-auto md:ml-0">
             <div class="relative w-56 text-slate-500">
-                <select id="sign" name="sign" class="form-select py-3 px-4 box w-full lg:w-auto mt-3 lg:mt-0 ml-auto" >
-                    <option value="all" @if(empty(request('status')) || request('status') == 'all') selected @endif>งานทั้งหมด&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</option>
-                    <!-- <option value="no" @if(request('sign') == 'no') selected @endif>ยังไม่มีลายเซ็นต์&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</option> -->
+                <select id="status" name="status" class="form-select py-3 px-4 box w-full lg:w-auto mt-3 lg:mt-0 ml-auto" onchange="applySelects()" >
+                    <option value="" @if(empty(request('status')) || request('status') == 'all') selected @endif>งานทั้งหมด&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</option>
+                    <option value="assign" @if(request('sign') == 'assign') selected @endif>Assigned&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</option>
+                    <option value="create" @if(request('sign') == 'create') selected @endif>Creating&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</option>
+                    <option value="finish" @if(request('sign') == 'finish') selected @endif>Finished&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</option>
                 </select>
             </div>
         </div>
@@ -117,7 +124,12 @@ $warklist = array(
 
 @section('script')
 <script>
-
+    function applySelects() {
+        var user = document.getElementById('user').value;
+        var status = document.getElementById('status').value;
+        var newUrl2 = `{{ route('BN_works_report') }}?user=${user}&status=${status}`;
+        window.location.href = newUrl2;
+    }
 
 </script>
 

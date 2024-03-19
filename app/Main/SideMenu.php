@@ -78,13 +78,19 @@ class SideMenu
                 'icon' => 'Briefcase',
                 'title' => 'งาน',
                 'sub_menu' => [
-                    'names-all' => [
+                    'works-assign' => [
                         'icon' => 'Folder',
                         'route_name' => 'BN_works_assign',
                         'params' => [],
                         'title' => 'มอบหมายงาน'
                     ],
-                    'names-suggest' => [
+                    'works-report' => [
+                        'icon' => 'Folder Plus',
+                        'route_name' => 'BN_works_report',
+                        'params' => [],
+                        'title' => 'รายงาน ตารางงาน'
+                    ],
+                    'works-list' => [
                         'icon' => 'Folder Plus',
                         'route_name' => 'BN_works_list',
                         'params' => [],

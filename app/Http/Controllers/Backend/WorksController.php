@@ -56,60 +56,114 @@ class WorksController extends Controller
         ]);
     }
 
+
+
+
+    public function BN_works_report(Request $request)
+{
+    // Fetch all users
+    $users = usersModel::orderBy('id', 'desc')->get();
+
+    // Check if user is provided
+    if ($request->has('user')) {
+        $query = worksModel::query()->where('users_id', $request->user);
+
+        // Check if status is provided
+        if ($request->filled('status')) {
+            $query->where('status', $request->status);
+        }
+
+        // Order the query by id in descending order
+        $query->orderBy('id', 'desc');
+
+        // Paginate the results
+        $resultPerPage = 24;
+        $query = $query->paginate($resultPerPage);
+
+        return view('backend/works-reports', [
+            'default_pagename' => 'ตารางงาน',
+            'query' => $query,
+            'users' => $users,
+        ]);
+    } else {
+        // If user is not provided, return empty array for query
+        return view('backend/works-reports', [
+            'default_pagename' => 'ตารางงาน',
+            'query' => [],
+            'users' => $users,
+        ]);
+    }
+}
+
+
+    // public function BN_works_report(Request $request)
+    // {
+    //     $query = worksModel::query()
+    //         ->where('users_id',$userloginid)
+    //         ->orderBy('id', 'desc');
+
+    //     $resultPerPage = 24;
+    //     $query = $query->paginate($resultPerPage);
+
+    //     $users = usersModel::query()
+    //     ->orderBy('id', 'desc')
+    //     ->get();
+
+    //     return view('backend/works-reports', [
+    //         'default_pagename' => 'ตารางงาน',
+    //         'query' => $query,
+    //         'users' => $users,
+    //     ]);
+    // }
+
+
     public function BN_works_list(Request $request)
     {
         $userlogin = auth()->user();
         $userloginid = auth()->user()->id; 
 
-        // $query = worksModel::query()
-        //     ->where('users_id',$userloginid)
-        //     ->orderBy('id', 'desc');
-
-        // $resultPerPage = 24;
-        // $query = $query->paginate($resultPerPage);
-
-
-
-
-
-
-        // Initialize $query variable
-$query = null;
-
-// Retrieve worksModel instance
-$worksModel = worksModel::query()->where('users_id', $userloginid)->orderBy('id', 'desc')->first();
-
-if ($worksModel) {
-    // Access 'type' property of the $worksModel instance
-    $type = $worksModel->type;
-
-    // Modify query based on the type
-    if ($type === 'combos') {
-        $query = worksModel::query()->where('users_id', $userloginid)
-            ->leftJoin('sells', 'sells.work_id', '=', 'works.id')
-            ->select('sells.sell_number as number')
+        $query = worksModel::query()
+            ->where('users_id',$userloginid)
             ->orderBy('id', 'desc');
-    } elseif ($type === 'orders') {
-        $query = worksModel::query()->where('users_id', $userloginid)
-            ->leftJoin('orders', 'orders.work_id', '=', 'works.id')
-            ->select('orders.order_number as number')
-            ->orderBy('id', 'desc');
-    } else {
-        // Handle other cases if needed
-    }
-}
 
-// Paginate the modified query if $query is set
-if ($query) {
-    $resultPerPage = 24;
-    $results = $query->paginate($resultPerPage);
-}
+        $resultPerPage = 24;
+        $query = $query->paginate($resultPerPage);
 
-// Pass $query to the view along with other necessary data
-return view('backend/works-list', [
-    'default_pagename' => 'ตารางงาน',
-    'query' => $query,
-]);
+
+
+
+
+
+        // $query = null;
+
+        // $worksModel = worksModel::query()->where('users_id', $userloginid)->orderBy('id', 'desc')->first();
+
+        // if ($worksModel) {
+        //     $type = $worksModel->type;
+
+        //     if ($type === 'combos') {
+        //         $query = worksModel::query()->where('users_id', $userloginid)
+        //             ->leftJoin('sells', 'sells.work_id', '=', 'works.id')
+        //             ->select('sells.sell_number as number')
+        //             ->orderBy('id', 'desc');
+        //     } elseif ($type === 'orders') {
+        //         $query = worksModel::query()->where('users_id', $userloginid)
+        //             ->leftJoin('orders', 'orders.work_id', '=', 'works.id')
+        //             ->select('orders.order_number as number')
+        //             ->orderBy('id', 'desc');
+        //     } else {
+        //     }
+        // }
+
+        // if ($query) {
+        //     $resultPerPage = 24;
+        //     $results = $query->paginate($resultPerPage);
+        // }
+
+        // return view('backend/works-list', [
+        //     'default_pagename' => 'ตารางงาน',
+        //     'query' => $query,
+        // ]);
 
 
 
@@ -139,10 +193,10 @@ return view('backend/works-list', [
 
         
 
-        // return view('backend/works-list', [
-        //     'default_pagename' => 'ตารางงาน',
-        //     'query' => $query,
-        // ]);
+        return view('backend/works-list', [
+            'default_pagename' => 'ตารางงาน',
+            'query' => $query,
+        ]);
     }
 
     public function BN_works_assign_action(Request $request)
