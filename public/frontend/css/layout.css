@@ -10,6 +10,10 @@ body {
 
 /*---TEXT---*/
 
+.Text-16 {
+    font-size: 16px;
+}
+
 .Text-18 {
     font-size: 18px;
 }
@@ -20,6 +24,10 @@ body {
 
 .Text-24 {
     font-size: 24px;
+}
+
+.Text-38 {
+    font-size: 38px;
 }
 
 .Text-48 {
@@ -234,50 +242,89 @@ body {
     color: #7D8388;
 }
 
+.Text-Black {
+    color: #000;
+}
+
 /*---Color---*/
+
+
+/*---SPACE---*/
+
+.Margin-bt--2 {
+    margin-bottom: -2px;
+}
+
+.Margin-bt-1 {
+    margin-bottom: 1px;
+}
+
+.Margin-bt-2 {
+    margin-bottom: 2px;
+}
+
+.Margin-bt-3 {
+    margin-bottom: 3px;
+}
+
+.Margin-bt-10 {
+    margin-bottom: 10px;
+}
+
+/*---SPACE---*/
+
+
 
 
 /*---Modal---*/
 
 /* The Modal (background) */
 .modal {
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
+    display: none;
+    /* Hidden by default */
+    position: fixed;
+    /* Stay in place */
+    z-index: 1;
+    /* Sit on top */
     left: 0;
     top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-  }
-  
-  /* Modal Content/Box */
-  .modal-content {
+    width: 100%;
+    /* Full width */
+    height: 100%;
+    /* Full height */
+    overflow: auto;
+    /* Enable scroll if needed */
+    background-color: rgb(0, 0, 0);
+    /* Fallback color */
+    background-color: rgba(0, 0, 0, 0.4);
+    /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-content {
     background-color: #fefefe;
     margin: 15% auto;
     padding: 10px 40px 40px 40px;
     border: 1px solid #888;
     width: 45%;
 }
-  
-  /* The Close Button */
-  .close {
+
+/* The Close Button */
+.close {
     color: #aaa;
     float: right;
     font-size: 28px;
     font-weight: bold;
-  }
-  
-  .close:hover,
-  .close:focus {
+}
+
+.close:hover,
+.close:focus {
     color: black;
     text-decoration: none;
     cursor: pointer;
-  }
+}
 
-  /* .modal-content-AddSurname {
+/* .modal-content-AddSurname {
     width: 50%;
   } */
 
@@ -372,6 +419,28 @@ body {
     margin: 0;
 }
 
+.BoxProfile-SignaturePD {
+    width: 100%;
+    padding: 10px 0;
+    display: flex;
+    border-top: 1px solid #EAEBEC;
+    justify-content: center;
+    align-items: center;
+}
+
+.Img-PDPF {
+    width: 24px;
+    height: 24px;
+    object-fit: cover;
+    object-position: top center;
+    border-radius: 500px;
+    -webkit-border-radius: 500px;
+    -moz-border-radius: 500px;
+    -ms-border-radius: 500px;
+    -o-border-radius: 500px;
+    margin-right: 10px;
+}
+
 /*---Product---*/
 
 
@@ -388,7 +457,7 @@ body {
     color: #7D8388;
 }
 
-.OptionSelect: {
+.OptionSelect {
     color: #001322;
 }
 
@@ -735,6 +804,56 @@ body {
     -o-border-radius: 6px;
 }
 
+.Button-NextCart {
+    border-radius: 6px;
+    background: linear-gradient(90deg, #CCA359 8.19%, #F4CB83 65.47%, #9F7326 104.81%);
+    width: 100%;
+    border: none !important;
+    color: #000;
+    text-align: center;
+    font-size: 20px;
+    font-weight: 600;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    -ms-border-radius: 6px;
+    -o-border-radius: 6px;
+}
+
+.Button-NextCart2 {
+    border-radius: 6px;
+    background: none;
+    width: 100%;
+    border: 1px solid #9F7326;
+    color: #000;
+    text-align: center;
+    font-size: 20px;
+    font-weight: 600;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    -ms-border-radius: 6px;
+    -o-border-radius: 6px;
+}
+
+.Button-NoBG {
+    background: none;
+    width: 100%;
+    border: none !important;
+    color: #388C47;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.Button-NoBG:hover {
+    background: none;
+    width: 100%;
+    border: none !important;
+    color: #48ad5a;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 600;
+}
+
 .ButtonModal {
     border-radius: 10px;
     background: linear-gradient(90deg, #CCA359 8.19%, #F4CB83 65.47%, #9F7326 104.81%);
@@ -763,6 +882,14 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.BTN-QR {
+    color: #000;
+    background: none;
+    font-size: 20px;
+    font-weight: 600;
+    margin-top: 30px;
 }
 
 
@@ -1049,7 +1176,7 @@ body {
 
 .BoxnameSignature {
     display: flex;
-    padding: 30px 0;
+    padding: 40px 0;
 }
 
 .IC-PenLine {
@@ -1059,23 +1186,27 @@ body {
 .Box-Text-Search-Left {
     padding: 0 30px 0 0;
     border-right: 1px solid #A8ACAF;
+    display: flex;
+    align-items: flex-end;
 }
 
 .Box-Text-Search-Right {
     padding: 0 0 0 30px;
+    display: flex;
+    align-items: flex-end;
 }
 
 .Col-DD-SelectPackage {
     width: 100%;
     display: flex;
     align-items: center;
-    justify-content: space-evenly;
+    justify-content: center;
     padding: 0 100px 30px 100px;
 }
 
 .BoxPricePackage {
     display: flex;
-margin-left: 20px;
+    margin-left: 20px;
 }
 
 .Section-Product {
@@ -1133,7 +1264,7 @@ margin-left: 20px;
 
 .ColButton-DownloadSignature {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: center;
 }
 
 .ColDetail-Signature {
@@ -1144,6 +1275,308 @@ margin-left: 20px;
 /*---DETAIL SIGNATURE PAGE---*/
 
 
+/*---CART PAGE---*/
+
+.SectionCart {
+    padding: 80px 0;
+}
+
+.BoxDetailCart {
+    padding: 30px 0;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #EAEBEC;
+}
+
+.IMGPen-CartPage {
+    background-color: #fff;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+    border: 1px solid #9F7326;
+    width: 240px;
+    height: 240px;
+    object-fit: cover;
+    margin-right: 25px;
+}
+
+.BoxName-DetailCart {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.ColDivBoxName {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding-bottom: 10px;
+    /* margin-bottom: 15px; */
+    /* border-bottom: 1px solid #ededed; */
+}
+
+.ColBoxName-Head {
+    background-color: #f5f5f5;
+    padding: 2px 5px;
+}
+
+.ColBoxName {
+    display: flex;
+    width: 100%;
+}
+
+.BoxName {
+    display: flex;
+    align-items: flex-end;
+    width: 40%;
+}
+
+.BoxSurName {
+    display: flex;
+    align-items: flex-end;
+    width: 60%;
+}
+
+.ColTrash-Cart {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    border-top: 1px solid #EAEBEC;
+    padding-top: 10px;
+}
+
+.ButtonTrash {
+    background: none !important;
+    border: 0;
+}
+
+.ColBoxAns {
+    padding: 40px 20px;
+    background-color: #F8F8F9;
+    border-radius: 15px;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    -ms-border-radius: 15px;
+    -o-border-radius: 15px;
+}
+
+.BoxAnsPrice {
+    display: flex;
+    justify-content: space-between;
+    /* padding: 10px 0 10px 0; */
+}
+
+.BorDer-bt-Grey {
+    border-bottom: 1px solid #EAEBEC;
+}
+
+
+/*---CART PAGE---*/
+
+
+/*---Fill-In-Information Page---*/
+
+.WarpCol-Fill-In-Information {
+    display: flex;
+}
+
+.IMG-Fill-In-Information {
+    width: 50%;
+    object-fit: cover;
+}
+
+.ColBig-Information {
+    width: 50%;
+    padding: 50px 8%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.Col-Information {
+    width: 100%;
+    margin-top: 30px;
+}
+
+/*---Fill-In-Information Page---*/
+
+
+/*---QR Page---*/
+
+.SectionQR {
+    padding: 80px 0;
+}
+
+.WarpColQR {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.IMG-QR {
+    width: 400px;
+    border: 1px solid #000;
+}
+
+/*---QR Page---*/
+
+
+/*---THANK Page---*/
+
+.Section-Thank {
+    background-image: url(../images/cart/bg-thank.png);
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    padding: 80px 0 100px 0;
+    position: relative;
+}
+
+.WarpCol-Thank {
+    border: 1px solid #CCA359;
+    padding: 80px 0 180px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.IMG-PenThank {
+    width: 20%;
+    object-fit: cover;
+    position: absolute;
+    bottom: 0;
+    left: 40%;
+}
+
+.Text-Thank {
+    font-size: 100px;
+    font-weight: 700;
+    font-family: "Frank Ruhl Libre", serif;
+    font-optical-sizing: auto;
+    font-weight: 700;
+    font-style: normal;
+}
+
+.BoxBTN-Thank {
+    width: 50%;
+    display: flex;
+}
+
+/*---THANK Page---*/
+
+
+/*---HISTORY Page---*/
+
+.SectionHistory {
+    padding-top: 80px;
+}
+
+.Section-Product-history {
+    padding: 40px 0 80px 0;
+}
+
+/*---HISTORY Page---*/
+
+
+/*---Team Page---*/
+
+.SectionTeam {
+    padding: 80px 0;
+}
+
+.ColTeam {
+    padding: 50px 0;
+}
+
+.BoxTeam {
+    height: 550px;
+    width: 100%;
+    position: relative;
+
+}
+
+.IMG-Team {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 15px;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    -ms-border-radius: 15px;
+    -o-border-radius: 15px;
+}
+
+.BoxDetail-Team {
+    position: absolute;
+    bottom: 0;
+    left: 5%;
+    width: 90%;
+    margin-bottom: 5%;
+    height: 200px;
+    background-color: #fff;
+    padding: 15px;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 15px;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    -ms-border-radius: 15px;
+    -o-border-radius: 15px;
+}
+
+.Text-box-DetailTeam {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.Section-DetailTeam {
+    padding: 80px 0;
+}
+
+.IMG-Profile-Team {
+    width: 320px;
+    height: 450px;
+    object-fit: cover;
+    border-radius: 15px;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    -ms-border-radius: 15px;
+    -o-border-radius: 15px;  
+}
+
+.Text-SocialTeam {
+    color: #FFF;
+    font-size: 16px;
+    font-weight: 400;
+    text-decoration: none;
+    display: flex;
+    /* line-height: 2; */
+    width: 44px;
+    height: 44px;
+    text-align: center;
+    border: 1px solid #CCA359;
+    border-radius: 500px;
+    -webkit-border-radius: 500px;
+    -moz-border-radius: 500px;
+    -ms-border-radius: 500px;
+    -o-border-radius: 500px;
+    justify-content: center;
+    align-items: center;
+}
+
+.BoxSocialTeam {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/*---Team Page---*/
 
 
 
@@ -1458,7 +1891,7 @@ margin-left: 20px;
         font-size: 16px;
         font-weight: 400;
         text-decoration: none;
-    }
+    }    
 
     .Section-Footer {
         background-image: url(../images/footer/bg-footer.png);
@@ -1535,9 +1968,61 @@ margin-left: 20px;
         margin-left: 4px;
     }
 
+    .nav-main-md {
+        background-color: #fff;
+        box-shadow: 0px 2px 20px 0px rgba(0, 0, 0, 0.10);
+    }
+
 }
 
 @media (max-width: 768px) {
+
+    .BoxTeam {
+        height: 480px;
+        width: 100%;
+        position: relative;
+        margin-bottom: 24px;
+    }
+
+    .BoxDetail-Team {
+        position: absolute;
+        bottom: 0;
+        left: 5%;
+        width: 90%;
+        margin-bottom: 5%;
+        height: 190px;
+        background-color: #fff;
+        padding: 10px;
+        z-index: 10;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        border-radius: 15px;
+        -webkit-border-radius: 15px;
+        -moz-border-radius: 15px;
+        -ms-border-radius: 15px;
+        -o-border-radius: 15px;
+    }
+
+
+    .WarpCol-Fill-In-Information {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .IMG-Fill-In-Information {
+        width: 100%;
+        height: 300px;
+        object-fit: cover;
+    }
+
+    .ColBig-Information {
+        width: 100%;
+        padding: 50px 8%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
 
     .BoxIconWeb {
         display: flex;

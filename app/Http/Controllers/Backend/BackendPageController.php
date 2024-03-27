@@ -28,7 +28,7 @@ class BackendPageController extends Controller
     public function backendDashboard()
     {
         $imagesource = asset('uploads/sign.jpg');
-        $watermarksource = asset('uploads/logo-text-black.png');
+        $watermarksource = asset('frontend/images/navbar/ic-logo-update.svg');
         $imagePath = public_path('uploads/sign.jpg');
         $watermarkPath = public_path('uploads/logo-text-black.png');
 

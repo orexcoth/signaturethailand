@@ -43,6 +43,9 @@ Route::get('dark-mode-switcher', [DarkModeController::class, 'switch'])->name('d
 Route::get('color-scheme-switcher/{color_scheme}', [ColorSchemeController::class, 'switch'])->name('color-scheme-switcher');
 
 Route::get('change-language/{locale}',[LanguageController::class, 'changeLanguage'])->name('change.language');
+Route::get('/phpinfo', function () {
+    return phpinfo();
+});
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -73,66 +76,35 @@ Route::controller(AuthController::class)->middleware('loggedin')->group(function
 
 Route::controller(FrontendPageController::class)->group(function() {
         
-
 });
-
 Route::middleware('sessionlogin')->group(function() {
 
-    // Route::controller(PostController::class)->group(function() {
-
-    //     Route::post('/carpost-delete', 'carpostdeleteactionPage')->name('carpostdeleteactionPage');
-
-    //     Route::post('/carpost-select-brand', 'carpostSelectBrand')->name('carpostSelectBrand');
-
-    // });
-
-    // Route::controller(FrontendPageController::class)->group(function() {
-
-    //     Route::get('/profile', 'profilePage')->name('profilePage');
-        
-    // });
 });
 
-
+// Frontend
+// Frontend
+// Frontend
 Route::get('login-system', [AuthController::class, 'backendLogin'])->name('backendLogin');
-// Route::get('loopidentity', [FrontendPageController::class, 'loopidentity'])->name('loopidentity');
-// Route::get('/generate-qrcode', [QrCodeController::class, 'index']);
-// Route::get("/clearsessioncustomer", [FrontendPageController::class, 'clearsessioncustomer']);
 Route::get('/login', [FrontendPageController::class, 'loginPage'])->name('loginPage');
 Route::get('/', [FrontendPageController::class, 'indexPage'])->name('indexPage');
 Route::get('home', [FrontendPageController::class, 'homePage'])->name('homePage');
-// Route::post('helpcaraction', [FrontendPageController::class, 'helpcaractionPage'])->name('helpcaractionPage');
-// Route::post('contactcaraction', [FrontendPageController::class, 'contactcaractionPage'])->name('contactcaractionPage');
-Route::get('/phpinfo', function () {
-    return phpinfo();
-});
 
-// Route::get('/news', [FrontendPageController::class, 'newsPage'])->name('newsPage');
-// Route::get('/news-detail/{news_id}', [FrontendPageController::class, 'newsdetailPage'])->name('newsdetailPage');
-// Route::get('/car', [FrontendPageController::class, 'carPage'])->name('carPage');
-// Route::get('/car-detail/{post}', [FrontendPageController::class, 'cardetailPage'])->name('cardetailPage');
-// Route::get('/popup-carsearch-model/{id}', [FrontendPageController::class, 'popupcarsearchmodel'])->name('popupcarsearchmodel');
-// Route::get('/popup-carsearch-generation/{id}', [FrontendPageController::class, 'popupcarsearchgeneration'])->name('popupcarsearchgeneration');
-// Route::get('/popup-carsearch-submodel/{id}', [FrontendPageController::class, 'popupcarsearchsubmodel'])->name('popupcarsearchsubmodel');
-// Route::get('/popup-carsearch-year/{id}', [FrontendPageController::class, 'popupcarsearchyear'])->name('popupcarsearchyear');
-// Route::get('/searchbrandtext/{brand_name}', [FrontendPageController::class, 'searchbrandtext'])->name('searchbrandtext');
-// Route::get('/searchmodeltext/{brand_id}/{model_name}', [FrontendPageController::class, 'searchmodeltext'])->name('searchmodeltext');
-// Route::get('/searchgenerationtext/{model_id}/{generation_name}', [FrontendPageController::class, 'searchgenerationtext'])->name('searchgenerationtext');
-// Route::get('/searchsubmodeltext/{generation_id}/{submodel_name}', [FrontendPageController::class, 'searchsubmodeltext'])->name('searchsubmodeltext');
-// Route::get('/search/{brand_id}/{model_id}/{generation_id}/{submodel_id}/{evtype}/{payment}/{pricelow}/{pricehigh}/{color}/{gear}/{power}/{province_id}/{yearlow}/{yearhigh}',  [FrontendPageController::class, 'search'])->name('search');
-// Route::get('/search2',  [FrontendPageController::class, 'search2']);
-// Route::get('/brandev', [FrontendPageController::class, 'brandev'])->name('brandev');
-// Route::get('/brandnotev', [FrontendPageController::class, 'brandnotev'])->name('brandnotev');
-// Route::get('/search-category/{id}', [FrontendPageController::class, 'searchcategory'])->name('searchcategory');
-// Route::get('/carpost-register', function(){
-//     return redirect('/');
-// });
+Route::get('about', [FrontendPageController::class, 'aboutPage'])->name('aboutPage');
+Route::get('product', [FrontendPageController::class, 'productPage'])->name('productPage');
+Route::get('article', [FrontendPageController::class, 'articlePage'])->name('articlePage');
+Route::get('team', [FrontendPageController::class, 'teamPage'])->name('teamPage');
+Route::get('contact', [FrontendPageController::class, 'contactPage'])->name('contactPage');
 
+
+
+
+
+// Backend
+// Backend
+// Backend
 Route::middleware('auth')->group(function() {
     Route::get('logout', [AuthController::class, 'logout'])->name('logout');        
 
-
-    
 
     Route::get('/backend/blur', [BackendPageController::class, 'bn_blur'])->name('bn_blur');
     Route::post('/backend/blur-upload', [BackendPageController::class, 'bn_blur_upload'])->name('bn_blur_upload');
@@ -226,173 +198,6 @@ Route::middleware('auth')->group(function() {
     // Route::get('/backend/profile', [UsersController::class, 'BN_profile'])->name('BN_profile');
     // Route::get('/backend/profile-edit', [UsersController::class, 'BN_profile_edit'])->name('BN_profile_edit');
     // Route::post('/backend/profile-edit-action', [UsersController::class, 'BN_profile_edit_action'])->name('BN_profile_edit_action');
-
-
-        
-    // Route::group(['middleware' => ['job_access']], function () {
-
-    //     Route::prefix('backend')->group(function () {
-
-
-    //         Route::prefix('customers')->group(function () {
-
-    //             Route::get('', [CustomersController::class, 'BN_customers'])->name('BN_customers');
-    //             Route::get('/fetch', [CustomersController::class, 'BN_customersFetch'])->name('BN_customersFetch');
-    //             Route::get('/add', [CustomersController::class, 'BN_customers_add'])->name('BN_customers_add');
-    //             Route::post('/add-action', [CustomersController::class, 'BN_customers_add_action'])->name('BN_customers_add_action');
-    //             Route::get('/edit/{id}', [CustomersController::class, 'BN_customers_edit'])->name('BN_customers_edit');
-    //             Route::post('/edit-action', [CustomersController::class, 'BN_customers_edit_action'])->name('BN_customers_edit_action');
-    //             Route::get('/detail/{id}', [CustomersController::class, 'BN_customers_detail'])->name('BN_customers_detail');
-
-    //         });
-
-    //         Route::prefix('posts')->group(function () {
-
-    //             Route::get('', [PostsController::class, 'BN_posts'])->name('BN_posts');
-    //             Route::get('add', [PostsController::class, 'BN_posts_add'])->name('BN_posts_add');
-    //             Route::get('excelpostsell', [PostsController::class, 'BN_posts_excelpostsell'])->name('BN_posts_excelpostsell');
-    //             Route::post('excelpostsell-store', [PostsController::class, 'BN_posts_excelpostsell_store'])->name('BN_posts_excelpostsell_store');
-    //             Route::get('fetch', [PostsController::class, 'BN_postsFetch'])->name('BN_postsFetch');
-    //             Route::post('add-action', [PostsController::class, 'BN_posts_add_action'])->name('BN_posts_add_action');
-    //             Route::get('detail/{id}', [PostsController::class, 'BN_posts_detail'])->name('BN_posts_detail');
-    //             Route::get('edit/{id}', [PostsController::class, 'BN_posts_edit'])->name('BN_posts_edit');
-    //             Route::post('edit-action', [PostsController::class, 'BN_posts_edit_action'])->name('BN_posts_edit_action');
-    //             Route::post('status-action', [PostsController::class, 'BN_posts_status_action'])->name('BN_posts_status_action');
-
-    //         });
-
-    //         Route::prefix('car')->group(function () {
-
-    //             Route::get('', [BackendPageController::class, 'BN_car'])->name('BN_car');
-
-    //             Route::get('excelcars-add', [BrandsController::class, 'BN_excelcars_add'])->name('BN_excelcars_add');
-    //             Route::post('excelcars-store', [BrandsController::class, 'BN_excelcars_store'])->name('BN_excelcars_store');
-
-    //             Route::get('brands', [BrandsController::class, 'BN_brands'])->name('BN_brands');
-    //             Route::get('brands-add', [BrandsController::class, 'BN_brands_add'])->name('BN_brands_add');
-    //             Route::get('brands-edit/{id}', [BrandsController::class, 'BN_brands_edit'])->name('BN_brands_edit');
-    //             Route::post('brands-add-action', [BrandsController::class, 'BN_brands_add_action'])->name('BN_brands_add_action');
-    //             Route::post('brands-edit-action', [BrandsController::class, 'BN_brands_edit_action'])->name('BN_brands_edit_action');
-    //             Route::get('brandsfetch', [BrandsController::class, 'BN_brandsFetch'])->name('BN_brandsFetch');
-    //             Route::get('brands-preview/{id}', [BrandsController::class, 'BN_brands_preview'])->name('BN_brands_preview');
-
-    //             Route::get('models', [ModelsController::class, 'BN_carmd'])->name('BN_carmd');
-    //             Route::get('models-add', [ModelsController::class, 'BN_carmd_add'])->name('BN_carmd_add');
-    //             Route::get('models-edit/{id}', [ModelsController::class, 'BN_carmd_edit'])->name('BN_carmd_edit');
-    //             Route::post('models-add-action', [ModelsController::class, 'BN_carmd_add_action'])->name('BN_carmd_add_action');
-    //             Route::post('models-edit-action', [ModelsController::class, 'BN_carmd_edit_action'])->name('BN_carmd_edit_action');
-    //             Route::get('modelsfetch', [ModelsController::class, 'BN_carmdFetch'])->name('BN_carmdFetch');
-
-    //             Route::get('generations', [GenerationsController::class, 'BN_generations'])->name('BN_generations');
-    //             Route::get('generations-add', [GenerationsController::class, 'BN_generations_add'])->name('BN_generations_add');
-    //             Route::post('generations-add-action', [GenerationsController::class, 'BN_generations_add_action'])->name('BN_generations_add_action');
-    //             Route::get('generationsfetch', [GenerationsController::class, 'BN_generationsFetch'])->name('BN_generationsFetch');
-
-    //             Route::get('sub_models', [Sub_modelsController::class, 'BN_sub_models'])->name('BN_sub_models');
-    //             Route::get('sub_models-add', [Sub_modelsController::class, 'BN_sub_models_add'])->name('BN_sub_models_add');
-    //             Route::post('sub_models-add-action', [Sub_modelsController::class, 'BN_sub_models_add_action'])->name('BN_sub_models_add_action');
-    //             Route::get('sub_modelsfetch', [Sub_modelsController::class, 'BN_sub_modelsFetch'])->name('BN_sub_modelsFetch');
-
-    //         });
-
-    //         Route::prefix('categories')->group(function () {
-
-    //             Route::get('', [CategoriesController::class, 'BN_categories'])->name('BN_categories');
-    //             Route::get('add', [CategoriesController::class, 'BN_categories_add'])->name('BN_categories_add');
-    //             Route::get('edit/{id}', [CategoriesController::class, 'BN_categories_edit'])->name('BN_categories_edit');
-    //             Route::post('add-action', [CategoriesController::class, 'BN_categories_add_action'])->name('BN_categories_add_action');
-    //             Route::post('edit-action', [CategoriesController::class, 'BN_categories_edit_action'])->name('BN_categories_edit_action');
-    //             Route::get('fetch', [CategoriesController::class, 'BN_categoriesFetch'])->name('BN_categoriesFetch');
-
-    //         });
-
-    //         Route::prefix('tags')->group(function () {
-
-    //             Route::get('', [BackendPageController::class, 'BN_tags'])->name('BN_tags');
-
-    //         });
-
-    //         Route::prefix('news')->group(function () {
-
-    //             Route::get('', [NewsController::class, 'BN_news'])->name('BN_news');
-    //             Route::get('add', [NewsController::class, 'BN_news_add'])->name('BN_news_add');
-    //             Route::get('edit/{id}', [NewsController::class, 'BN_news_edit'])->name('BN_news_edit');
-    //             Route::post('add-action', [NewsController::class, 'BN_news_add_action'])->name('BN_news_add_action');
-    //             Route::post('edit-action', [NewsController::class, 'BN_news_edit_action'])->name('BN_news_edit_action');
-    //             Route::get('fetch', [NewsController::class, 'BN_newsFetch'])->name('BN_newsFetch');
-    //             Route::get('index', [NewsController::class, 'BN_newsIndex'])->name('BN_newsIndex');
-    //             Route::post('store', [NewsController::class, 'BN_news_store'])->name('BN_news_store');
-
-    //         });
-
-    //         Route::prefix('users')->group(function () {
-
-    //             Route::get('', [UsersController::class, 'BN_user'])->name('BN_user');
-    //             Route::get('fetch', [UsersController::class, 'BN_usersFetch'])->name('BN_usersFetch');
-    //             Route::get('add', [UsersController::class, 'BN_user_add'])->name('BN_user_add');
-    //             Route::post('action', [UsersController::class, 'BN_user_add_action'])->name('BN_user_add_action');
-    //             Route::get('edit/{id}', [UsersController::class, 'BN_user_edit'])->name('BN_user_edit');
-    //             Route::post('edit-action', [UsersController::class, 'BN_user_edit_action'])->name('BN_user_edit_action');
-
-    //         });
-
-    //         Route::prefix('contacts')->group(function () {
-
-    //             Route::get('', [ContactsController::class, 'BN_contacts'])->name('BN_contacts');
-
-    //         });
-
-    //         Route::prefix('setting')->group(function () {
-
-    //             Route::get('main', [BackendPageController::class, 'BN_setting'])->name('BN_setting');
-    //             Route::get('slide', [BackendPageController::class, 'BN_slide'])->name('BN_slide');
-    //             Route::get('setfooter', [BackendPageController::class, 'BN_setfooter'])->name('BN_setfooter');
-    //             Route::get('termcondition', [BackendPageController::class, 'BN_termcondition'])->name('BN_termcondition');
-    //             Route::get('privacypolicy', [BackendPageController::class, 'BN_privacypolicy'])->name('BN_privacypolicy');
-    //             Route::post('slide-update', [BackendPageController::class, 'BN_slideupdate'])->name('BN_slideupdate');
-    //             Route::post('slide-delete', [BackendPageController::class, 'BN_slidedelete'])->name('BN_slidedelete');
-    //             Route::post('setfooter-update', [BackendPageController::class, 'BN_setfooterupdate'])->name('BN_setfooterupdate');
-    //             Route::post('termcondition-update', [BackendPageController::class, 'BN_termcondition_update'])->name('BN_termcondition_update');
-    //             Route::post('privacypolicy-update', [BackendPageController::class, 'BN_privacypolicy_update'])->name('BN_privacypolicy_update');
-
-
-    //         });
-
-    //         Route::prefix('logs')->group(function () {
-
-    //             Route::get('', [LogsController::class, 'BN_logs'])->name('BN_logs');
-    //             Route::get('fetch', [LogsController::class, 'BN_logsFetch'])->name('BN_logsFetch');
-
-    //         });
-
-    //         Route::prefix('dev')->group(function () {
-
-    //             Route::get('', [BackendPageController::class, 'BN_dev'])->name('BN_dev');
-
-    //         });
-
-            
-    //     });
-
-    // });
-
-    
-
-
-
-
-
-    
-    
-    
-
-    
-    
-
-    
-
-    
-
 
     
 

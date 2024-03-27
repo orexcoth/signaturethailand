@@ -4,7 +4,7 @@ if (empty($_keywords))         $_keywords = '';
 if (empty($_description))     $_description = '';
 ?>
 <title>
-    <?php echo $_title; ?>gg
+    <?php echo $_title; ?>
 </title>
 <meta name="keywords" content="<?php echo $_keywords; ?>" />
 <meta name="description" content="<?php echo $_description; ?>" />
@@ -13,7 +13,7 @@ if (empty($_description))     $_description = '';
 <meta name='copyright' content='Orange Technology Solution co.,ltd.'>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=Edge">
-<link rel="stylesheet" href="css/bootstrap.css">
+<link rel="stylesheet" href="{{asset('frontend/css/bootstrap.css')}}">
 <link type="text/css" rel="stylesheet" href="{{asset('frontend/css/layout.css')}}" />
 <link type="image/ico" rel="shortcut icon" href="images/favicon.ico">
 
