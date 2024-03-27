@@ -7,35 +7,43 @@
 @section('subcontent')
 <?php
 
-$sessionall = session()->all();
+// $sessionall = session()->all();
 // echo "<pre>";
 // print_r($sessionall);
 // echo "</pre>";
 
-// echo "<pre>";
-// print_r($imagesource);
-// echo "</pre>";
-// echo "<pre>";
-// print_r($watermarksource);
-// echo "</pre>";
-// echo "<pre>";
-// print_r($imagePath);
-// echo "</pre>";
-// echo "<pre>";
-// print_r($watermarkPath);
-// echo "</pre>";
+echo "<pre>";
+print_r($imagesource);
+echo "</pre>";
+echo "<pre>";
+print_r($logosource);
+echo "</pre>";
+echo "<pre>";
+print_r($imagePath);
+echo "</pre>";
+echo "<pre>";
+print_r($logoPath);
+echo "</pre>";
+echo "<pre>";
+print_r($testpath);
+echo "</pre>";
+echo "<pre>";
+print_r($testurl);
+echo "</pre>";
+echo "<pre>";
+print_r($watermarked);
+echo "</pre>";
+echo "<pre>";
+print_r("//////////////////////////");
+echo "</pre>";
+echo "<pre>";
+print_r($watermarkedPath);
+echo "</pre>";
 ?>
     <div class="intro-y mt-8 flex flex-col items-center sm:flex-row">
         <h2 class="mr-auto text-lg font-medium">{{$default_pagename}}</h2>
     </div>
 
-    <a href="{{ route('change.language', ['locale' => 'en']) }}">English</a>
-    <a href="{{ route('change.language', ['locale' => 'th']) }}">Thailand</a>
-<br>
-    {{ __('messages.login') }}
-
-    <br>
-    {{(app()->getLocale())}}
     <div class="">
     <br>
         <br>
@@ -49,7 +57,7 @@ $sessionall = session()->all();
         <h1>*********************************************</h1>
         <h1>*********************************************</h1>
         <img width="200" src="{{$imagesource}}" />
-        <img width="200" src="{{$watermarksource}}" />
+        <img width="200" src="{{$logosource}}" />
         <?php
 
         // echo "<pre>";

@@ -27,43 +27,51 @@ class BackendPageController extends Controller
 
     public function backendDashboard()
     {
-        $imagesource = asset('uploads/sign.jpg');
-        $watermarksource = asset('frontend/images/navbar/ic-logo-update.svg');
-        $imagePath = public_path('uploads/sign.jpg');
-        $watermarkPath = public_path('uploads/logo-text-black.png');
+        $imgpath = 'uploads/sign/th\20240327-4-2836-กก-660411ac6ead4.jpg';
 
+        $imagesource = asset($imgpath);
+        $logosource = asset('uploads/ic-logo-update-bg-w.png');
+        $imagePath = public_path($imgpath);
+        $logoPath = public_path('uploads/ic-logo-update-bg-w.png');
+        $image = imagecreatefromjpeg($imagePath);
+        $logo = imagecreatefrompng($logoPath);
+        $imageWidth = imagesx($image);
+        $imageHeight = imagesy($image);
+        $logoWidth = imagesx($logo);
+        $logoHeight = imagesy($logo);
+        $startX = 0;
+        $startY = 50;
+        $spacingX = 40; // ระยะห่างในแนวนอน
+        $spacingY = 30; // ระยะห่างในแนวตั้ง
+        $numCopiesX = floor(($imageWidth - $startX) / ($logoWidth + $spacingX)); // จำนวนโลโก้ในแนวนอน
+        $numCopiesY = floor(($imageHeight - $startY) / ($logoHeight + $spacingY)); // จำนวนโลโก้ในแนวตั้ง
 
-        $image = Image::make($imagePath);
-        
-        
-
-        $imageWidth = $image->width();
-        $imageHeight = $image->height();
-        $watermark = Image::make($watermarkPath)->resize(250, null, function ($constraint) {
-            $constraint->aspectRatio();
-        });
-        $watermark->opacity(100);
-        // $watermark->rotate(45);
-        $stepSizeX = $watermark->width();
-        $stepSizeY = 40;
-        for ($x = 0; $x < $imageWidth; $x += $stepSizeX) {
-            for ($y = 0; $y < $imageHeight; $y += $stepSizeY) {
-                $image->insert($watermark, 'top-left', $x, $y);
+        for ($i = 0; $i < $numCopiesY; $i++) {
+            for ($j = 0; $j < $numCopiesX; $j++) {
+                $x = $startX + ($logoWidth + $spacingX) * $j;
+                $y = $startY + ($logoHeight + $spacingY) * $i;
+                imagecopy($image, $logo, $x, $y, 0, 0, $logoWidth, $logoHeight);
             }
         }
-
-
-
-        $image->save(public_path('uploads/watermarked.jpg'));
+        imagejpeg($image, public_path('uploads/watermarked.jpg'));
+        imagedestroy($image);
+        imagedestroy($logo);
         $watermarked = asset('uploads/watermarked.jpg');
+        $watermarkedPath = 'uploads/feature/';
+
+        $testpath = public_path('uploads/sign/th\20240221-4-2836-กก-65d61d97bd5de.jpg');
+        $testurl = asset('uploads/sign/th\20240221-4-2836-กก-65d61d97bd5de.jpg');
 
         return view('backend/backend-dashboard', [
             'default_pagename' => 'แดชบอร์ด',
-            'imagesource' => $imagesource,
-            'watermarksource' => $watermarksource,
             'imagePath' => $imagePath,
-            'watermarkPath' => $watermarkPath,
+            'logoPath' => $logoPath,
+            'imagesource' => $imagesource,
+            'logosource' => $logosource,
             'watermarked' => $watermarked,
+            'watermarkedPath' => $watermarkedPath,
+            'testpath' => $testpath,
+            'testurl' => $testurl,
         ]);
     }
 

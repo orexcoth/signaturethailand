@@ -90,10 +90,18 @@ Route::get('/', [FrontendPageController::class, 'indexPage'])->name('indexPage')
 Route::get('home', [FrontendPageController::class, 'homePage'])->name('homePage');
 
 Route::get('about', [FrontendPageController::class, 'aboutPage'])->name('aboutPage');
-Route::get('product', [FrontendPageController::class, 'productPage'])->name('productPage');
 Route::get('article', [FrontendPageController::class, 'articlePage'])->name('articlePage');
 Route::get('team', [FrontendPageController::class, 'teamPage'])->name('teamPage');
 Route::get('contact', [FrontendPageController::class, 'contactPage'])->name('contactPage');
+Route::post('cart', [FrontendPageController::class, 'cartPage'])->name('cartPage');
+
+Route::get('history-login', [FrontendPageController::class, 'historyloginPage'])->name('historyloginPage');
+Route::get('history', [FrontendPageController::class, 'historyPage'])->name('historyPage');
+
+Route::get('product', [FrontendPageController::class, 'productPage'])->name('productPage');
+Route::get('product-detail/{name}', [FrontendPageController::class, 'productdetailPage'])->name('productdetailPage');
+Route::get('allproduct-th', [FrontendPageController::class, 'allproductTHPage'])->name('allproductTHPage');
+Route::get('allproduct-en', [FrontendPageController::class, 'allproductENPage'])->name('allproductENPage');
 
 
 

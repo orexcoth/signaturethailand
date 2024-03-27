@@ -6,21 +6,23 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\LogsSaveController;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
-use App\Models\Customer;
-use App\Models\Sms_session;
-use App\Models\provincesModel;
-use App\Models\brandsModel;
-use App\Models\modelsModel;
-use App\Models\generationsModel;
-use App\Models\sub_modelsModel;
-use App\Models\carsModel;
-use App\Models\categoriesModel;
-use App\Models\setFooterModel;
-use App\Models\setting_optionModel;
-use App\Models\contactsModel;
-use App\Models\contacts_backModel;
-use App\Models\newsModel;
-use App\Models\noticeModel;
+
+// use App\Models\Sms_session;
+// use App\Models\provincesModel;
+// use App\Models\brandsModel;
+// use App\Models\modelsModel;
+// use App\Models\generationsModel;
+// use App\Models\sub_modelsModel;
+// use App\Models\carsModel;
+// use App\Models\categoriesModel;
+// use App\Models\setFooterModel;
+// use App\Models\setting_optionModel;
+// use App\Models\contactsModel;
+// use App\Models\contacts_backModel;
+// use App\Models\newsModel;
+// use App\Models\noticeModel;
+use App\Models\namesModel;
+use App\Models\signsModel;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
 use File;
@@ -28,17 +30,102 @@ use File;
 
 class FrontendPageController extends Controller
 {
-
-    public function aboutPage(Request $request)
+    public function cartPage(Request $request)
     {
-        return view('frontend/about', [
+        // dd($request);
+        $name = namesModel::find($request->name_id);
+        return view('frontend/cart', [
             'default_pagename' => 'homePage',
+            'name_id' => $request->name_id,
+            'signsth' => $request->signsth,
+            'signsen' => $request->signsen,
+            'signsall' => $request->signsall,
+            'type' => $request->type,
+            'package' => $request->package,
+        ]);
+    }
+
+    public function productdetailPage(Request $request)
+    {
+        $name_id = $request->name;
+        $name = namesModel::find($name_id);
+
+        $nth = SignsModel::where('names_id', $name_id)
+            ->where('lang', 'th')
+            ->get();
+        $nen = SignsModel::where('names_id', $name_id)
+            ->where('lang', 'en')
+            ->get();
+
+        $nth_ids = SignsModel::where('names_id', $name_id)
+            ->where('lang', 'th')
+            ->pluck('id')->toArray();
+        $nen_ids = SignsModel::where('names_id', $name_id)
+            ->where('lang', 'en')
+            ->pluck('id')->toArray();
+        $combined_ids = array_merge($nth_ids, $nen_ids);
+
+        $signarrayTH = json_encode($nth_ids);
+        $signarrayEN = json_encode($nen_ids);
+        $signarrayALL = json_encode($combined_ids);
+
+        return view('frontend/product-detail', [
+            'default_pagename' => 'homePage',
+            'name' => $name,
+            'nth' => $nth,
+            'nen' => $nen,
+            'signarrayTH' => $signarrayTH,
+            'signarrayEN' => $signarrayEN,
+            'signarrayALL' => $signarrayALL,
+        ]);
+    }
+    public function allproductTHPage(Request $request)
+    {
+        $namesth = NamesModel::select('names.*', 'signs.*', 'signs.id as signs_id')
+            ->join('signs', 'names.id', '=', 'signs.names_id')
+            ->where('signs.lang', '=', 'th')
+            ->limit(16)
+            ->get();
+
+        return view('frontend/allproduct-th', [
+            'default_pagename' => 'allproduct-en',
+            'namesth' => $namesth,
+        ]);
+    }
+    public function allproductENPage(Request $request)
+    {
+        $namesen = NamesModel::select('names.*', 'signs.*', 'signs.id as signs_id')
+            ->join('signs', 'names.id', '=', 'signs.names_id')
+            ->where('signs.lang', '=', 'en')
+            ->limit(16)
+            ->get();
+
+        return view('frontend/allproduct-en', [
+            'default_pagename' => 'allproduct-th',
+            'namesen' => $namesen,
         ]);
     }
     public function productPage(Request $request)
     {
-        return view('frontend/performance', [
+
+        $namesth = NamesModel::select('names.*', 'signs.*', 'signs.id as signs_id')
+            ->join('signs', 'names.id', '=', 'signs.names_id')
+            ->where('signs.lang', '=', 'th')
+            ->limit(12)
+            ->get();
+        
+
+        $namesen = NamesModel::select('names.*', 'signs.*', 'signs.id as signs_id')
+            ->join('signs', 'names.id', '=', 'signs.names_id')
+            ->where('signs.lang', '=', 'en')
+            ->limit(12)
+            ->get();
+
+
+        return view('frontend/product', [
             'default_pagename' => 'homePage',
+            'namesth' => $namesth,
+            'namesen' => $namesen,
         ]);
     }
     public function articlePage(Request $request)
@@ -56,6 +143,12 @@ class FrontendPageController extends Controller
     public function contactPage(Request $request)
     {
         return view('frontend/performance', [
+            'default_pagename' => 'homePage',
+        ]);
+    }
+    public function aboutPage(Request $request)
+    {
+        return view('frontend/about', [
             'default_pagename' => 'homePage',
         ]);
     }

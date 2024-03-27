@@ -35,13 +35,9 @@ class NamesController extends Controller
             'video' => 'required|mimetypes:video/mp4,video/avi,video/quicktime,video/x-ms-wmv',
         ]);
     
-        // Retrieve data from namesModel
         $name = namesModel::findOrFail($request->names_id);
-    
-        // Determine default name based on language
         $defaultName = ($request->lang == 'th') ? $name->name_th : $name->name_en;
     
-        // Generate unique file names
         $userId = $request->users_id;
         $currentDate = date('Ymd');
         $randomString = uniqid();
@@ -49,30 +45,60 @@ class NamesController extends Controller
         $signExtension = $request->file('sign')->getClientOriginalExtension();
         $videoExtension = $request->file('video')->getClientOriginalExtension();
     
-        // Handle sign upload
         $signFile = $request->file('sign');
         $signNewFileName = $currentDate . '-' . $userId . '-' . $request->names_id . '-' . $defaultName . '-' . $randomString . '.' . $signExtension;
         $signDestinationPath = 'uploads/sign/' . $langFolder;
         $signPath = $signFile->move($signDestinationPath, $signNewFileName);
         if ($signPath === false) {
-            // Sign upload failed
             Log::error('Sign upload failed.');
             return redirect()->back()->with('error', 'Sign upload failed.');
         }
     
-        // Handle video upload
         $videoFile = $request->file('video');
         $videoNewFileName = $currentDate . '-' . $userId . '-' . $request->names_id . '-' . $defaultName . '-' . $randomString . '.' . $videoExtension;
         $videoDestinationPath = 'uploads/video/' . $langFolder;
         $videoPath = $videoFile->move($videoDestinationPath, $videoNewFileName);
+        /** gen feature */
+        /** gen feature */
+        $imgpath = $signPath->getPathname();
+        $imagesource = asset($imgpath);
+        $logosource = asset('uploads/ic-logo-update-bg-w.png');
+        $imagePath = public_path($imgpath);
+        $logoPath = public_path('uploads/ic-logo-update-bg-w.png');
+        $image = imagecreatefromjpeg($imagePath);
+        $logo = imagecreatefrompng($logoPath);
+        $imageWidth = imagesx($image);
+        $imageHeight = imagesy($image);
+        $logoWidth = imagesx($logo);
+        $logoHeight = imagesy($logo);
+        $startX = 0;
+        $startY = 50;
+        $spacingX = 40; // ระยะห่างในแนวนอน
+        $spacingY = 30; // ระยะห่างในแนวตั้ง
+        $numCopiesX = floor(($imageWidth - $startX) / ($logoWidth + $spacingX)); // จำนวนโลโก้ในแนวนอน
+        $numCopiesY = floor(($imageHeight - $startY) / ($logoHeight + $spacingY)); // จำนวนโลโก้ในแนวตั้ง
+
+        for ($i = 0; $i < $numCopiesY; $i++) {
+            for ($j = 0; $j < $numCopiesX; $j++) {
+                $x = $startX + ($logoWidth + $spacingX) * $j;
+                $y = $startY + ($logoHeight + $spacingY) * $i;
+                imagecopy($image, $logo, $x, $y, 0, 0, $logoWidth, $logoHeight);
+            }
+        }
+        imagejpeg($image, public_path('uploads/feature/' . $langFolder . '/' . $signNewFileName));
+        imagedestroy($image);
+        imagedestroy($logo);
+        $watermarked = asset('uploads/feature/' . $langFolder . '/' . $signNewFileName);
+        $watermarkedPath = 'uploads/feature/' . $langFolder . '/' . $signNewFileName;
+        
+        /** gen feature */
+        /** gen feature */
+
         if ($videoPath === false) {
-            // Video upload failed
-            // You may need to handle cleanup of the sign file uploaded earlier
             Log::error('Video upload failed.');
             return redirect()->back()->with('error', 'Video upload failed.');
         }
     
-        // Create a new sign entry
         $sign = new signsModel();
         $sign->names_id = $request->names_id;
         $sign->users_id = $request->users_id; // Change to users_id
@@ -85,12 +111,15 @@ class NamesController extends Controller
         $sign->lang = $request->lang;
         $sign->sign = $signPath->getPathname();
         $sign->video = $videoPath->getPathname();
+        $sign->feature = $watermarkedPath;
         $sign->save();
     
-        // Redirect or return response
         Log::info('Sign added successfully.');
         return redirect()->back()->with('success', 'เพิ่มลายเซ็นต์เรียบร้อย !');
     }
+
+
+    
     
     
     

@@ -10,7 +10,41 @@
 // print_r($slide);
 // echo "</pre>";
 ?>
-
+    <section class="BannerIndex">
+        <div class="container">
+            <div class="BoxText-Banner">
+                <p class="TextHeadBanner-Green">
+                    Signature
+                    <span class="TextHeadBanner-Gold">
+                        Thailand
+                    </span>
+                </p>
+                <br />
+                <h1 class="TextBanner">
+                    ออกแบบลายเซ็น ตัวอย่างลายเซ็น
+                    ดาวน์โหลดลายเซ็น คลังลายเซ็น
+                    สั่งซื้อลายเซ็น
+                </h1>
+                <br />
+                <a class="btn ButtonSeemore" href="product.php">
+                    คลังลายเซ็น
+                    <span>
+                        <img class="ms-1" src="{{asset('frontend/images/index/ic_pen.svg')}}" alt="">
+                    </span>
+                </a>
+                <!-- <form role="search">
+                    <div class="search BoxSearch">
+                        <input type="text" class="InputSearchBanner" placeholder="พิมพ์ชื่อเพื่อค้นหาลายเซ็น">
+                        <button type="submit" class="searchButtonBanner">
+                            ค้นหาลายเซ็น
+                        </button>
+                    </div>
+                </form> -->
+            </div>
+        </div>
+    </section>
+    @include('frontend.layouts.inc_menusignature')
+    @include('frontend.layouts.inc_searchsignature')
     <section class="Section-AboutIndex">
         <div class="container">
             <div class="WarperAboutIndex">
@@ -96,9 +130,10 @@
     </section>
 
 
-<script>
+    @include('frontend.layouts.inc_menupreorder')
+    
 
-</script>
+
 @endsection
 
 @section('script')
