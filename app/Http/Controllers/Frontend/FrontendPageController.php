@@ -30,12 +30,28 @@ use File;
 
 class FrontendPageController extends Controller
 {
+    public function fillininformationPage(Request $request)
+    {
+        // dd($request);
+        $name = namesModel::find($request->name_id);
+        return view('frontend/fill-in-information', [
+            'default_pagename' => 'fill-in-information',
+            'name' => $name,
+            'name_id' => $request->name_id,
+            'signs' => $request->signs,
+            'type' => $request->type,
+            'package' => $request->package,
+            'total' => $request->total,
+        ]);
+    }
+
     public function cartPage(Request $request)
     {
         // dd($request);
         $name = namesModel::find($request->name_id);
         return view('frontend/cart', [
             'default_pagename' => 'homePage',
+            'name' => $name,
             'name_id' => $request->name_id,
             'signsth' => $request->signsth,
             'signsen' => $request->signsen,

@@ -22,6 +22,8 @@ use App\Http\Controllers\Backend\ReportsController;
 use App\Http\Controllers\Backend\SettingsController;
 
 use App\Http\Controllers\Frontend\FrontendPageController;
+use App\Http\Controllers\Frontend\CheckoutCustomerController;
+use App\Http\Controllers\Frontend\NamesAndSignsCustomerController;
 
 
 
@@ -102,6 +104,11 @@ Route::get('product', [FrontendPageController::class, 'productPage'])->name('pro
 Route::get('product-detail/{name}', [FrontendPageController::class, 'productdetailPage'])->name('productdetailPage');
 Route::get('allproduct-th', [FrontendPageController::class, 'allproductTHPage'])->name('allproductTHPage');
 Route::get('allproduct-en', [FrontendPageController::class, 'allproductENPage'])->name('allproductENPage');
+
+Route::post('fill-in-information', [FrontendPageController::class, 'fillininformationPage'])->name('fillininformationPage');
+Route::post('sell-checkout', [CheckoutCustomerController::class, 'sell_checkout'])->name('sell_checkout');
+Route::get('thank/{sell_id}', [CheckoutCustomerController::class, 'thankPage'])->name('thankPage');
+
 
 
 

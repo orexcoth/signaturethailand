@@ -56,7 +56,7 @@
                             <p class="mb-0 Text-24 Text-W500">
                                 ราคา
                                 <span class="Text-W600 Text-Green-Gardien">
-                                {{$name->price_th}}
+                                {{$name->price_en}}
                                 </span>
                             </p>
                         </div>

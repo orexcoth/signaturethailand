@@ -39,7 +39,7 @@
                 </select>
             </div>
         </div> -->
-        <div class="mt-3 w-full sm:ml-auto sm:mt-0 sm:w-auto md:ml-0 mr-5">
+        <!-- <div class="mt-3 w-full sm:ml-auto sm:mt-0 sm:w-auto md:ml-0 mr-5">
             <div class="relative  text-slate-500">
                 <select id="combo" name="combo" class="form-select py-3 px-4 box w-full lg:w-auto mt-3 lg:mt-0 ml-auto" onchange="applySelects()" >
                     <option value="all" @if(empty(request('combo')) || request('combo') == 'all') selected @endif>รายการทั้งหมด&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</option>
@@ -47,7 +47,7 @@
                     <option value="no" @if(request('combo') == 'no') selected @endif>เฉพาะรายการที่ไม่มีการเพิ่มนามสกุล&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</option>
                 </select>
             </div>
-        </div>
+        </div> -->
         <div class="mt-3 w-full sm:ml-auto sm:mt-0 sm:w-auto md:ml-0">
             <div class="relative w-56 text-slate-500">
                 <select id="status" name="status" class="form-select py-3 px-4 box w-full lg:w-auto mt-3 lg:mt-0 ml-auto" onchange="applySelects()" >
@@ -137,8 +137,8 @@
 
     function applySelects() {
         var status = document.getElementById('status').value;
-        var combo = document.getElementById('combo').value;
-        var newUrl2 = `{{ route('BN_reports_sells') }}?status=${status}&combo=${combo}`;
+        // var combo = document.getElementById('combo').value;
+        var newUrl2 = `{{ route('BN_reports_sells') }}?status=${status}`;
         window.location.href = newUrl2;
     }
 

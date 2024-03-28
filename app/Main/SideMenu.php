@@ -57,13 +57,13 @@ class SideMenu
                         'icon' => 'Dollar Sign',
                         'route_name' => 'BN_reports_sells',
                         'params' => [],
-                        'title' => 'รายการขาย'
+                        'title' => 'รายงานการขาย'
                     ],
                     'reports-order' => [
                         'icon' => 'EditI',
                         'route_name' => 'BN_reports_orders',
                         'params' => [],
-                        'title' => 'รายการสั่งทำ'
+                        'title' => 'รายงานการสั่งออกแบบ'
                     ],
                     'reports-overall' => [
                         'icon' => 'BarChart2',

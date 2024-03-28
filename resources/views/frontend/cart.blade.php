@@ -14,6 +14,8 @@
 // print_r(count($namesen));
 // echo "</pre>";
 ?>
+<form method="post" action="{{route('fillininformationPage')}}">
+    @csrf
     <section class="SectionCart">
         <div class="container">
             <div class="WarpRowCart">
@@ -27,9 +29,10 @@
                                 <img class="IMGPen-CartPage d-none d-sm-none d-md-block d-lg-block d-xl-block" src="{{asset('frontend/images/cart/logo-cartpage.png')}}" alt="">
                                 
                                 
-                                @if($request->type == 'sell')
+                                @if($type == 'sell')
                                 <div class="BoxName-DetailCart">
                                     <div class="ColDivBoxName">
+                                        @if($package == 'all' || $package == 'th')
                                         <div class="ColBoxName-Head mb-2">
                                             <p class="Text-18 Text-W500 mb-0">
                                                 <span>
@@ -50,25 +53,30 @@
                                             </p>
                                         </div>
                                         <div class="ColBoxName">
+                                            
                                             <div class="BoxName">
                                                 <p class="Text-18 Text-W500 me-lg-2 me-md-2 me-1 Margin-bt-1">
                                                     ชื่อ
                                                 </p>
                                                 <p class="Text-20 Text-W600 mb-0">
-                                                    ธนกานต์
+                                                    {{$name->name_th}}
                                                 </p>
                                             </div>
-                                            <div class="BoxSurName">
+                                            
+                                            
+                                            <!-- <div class="BoxSurName">
                                                 <p class="Text-18 Text-W500 me-lg-2 me-md-2 me-1 Margin-bt-1">
                                                     นามสกุล
                                                 </p>
                                                 <p class="Text-20 Text-W600 mb-0">
                                                     ลักขณาศิริวัตร
                                                 </p>
-                                            </div>
+                                            </div> -->
                                         </div>
+                                        @endif
                                     </div>
                                     <div class="ColDivBoxName">
+                                        @if($package == 'all' || $package == 'en')
                                         <div class="ColBoxName-Head mb-2">
                                             <p class="Text-18 Text-W500 mb-0">
                                                 <span>
@@ -93,36 +101,47 @@
                                             </p>
                                         </div>
                                         <div class="ColBoxName">
+                                            
                                             <div class="BoxName">
                                                 <p class="Text-18 Text-W500 me-lg-2 me-md-2 me-1 Margin-bt--2">
                                                     ชื่อ
                                                 </p>
                                                 <p class="Text-20 Text-W600 mb-0">
-                                                    Tanakan
+                                                    {{$name->name_en}}
                                                 </p>
                                             </div>
-                                            <div class="BoxSurName">
+                                            
+                                            
+                                            <!-- <div class="BoxSurName">
                                                 <p class="Text-18 Text-W500 me-lg-2 me-md-2 me-1 Margin-bt--2">
                                                     นามสกุล
                                                 </p>
                                                 <p class="Text-20 Text-W600 mb-0">
                                                     Lakanasiriwat
                                                 </p>
-                                            </div>
+                                            </div> -->
                                         </div>
+                                        @endif
                                     </div>
                                     <div class="ColTrash-Cart">
+                                        
                                         <div class="BoxName">
                                             <p class="Text-18 Text-W500 me-lg-2 me-md-2 me-1 Margin-bt--2">
                                                 ราคา
                                             </p>
                                             <p class="Text-20 Text-W600 mb-0 Text-Green-Gardien">
-                                                200.00
+                                                @if($package == 'all')
+                                                {{ $name->price_th + $name->price_en }}
+                                                @elseif($package == 'th')
+                                                {{$name->price_th}}
+                                                @elseif($package == 'en')
+                                                {{$name->price_en}}
+                                                @endif
                                             </p>
                                         </div>
-                                        <button class="ButtonTrash">
+                                        <!-- <button class="ButtonTrash">
                                             <img src="{{asset('frontend/images/cart/icon_trash.svg')}}" alt="">
-                                        </button>
+                                        </button> -->
                                     </div>
                                 </div>
                                 @endif
@@ -150,7 +169,13 @@
                                     ราคา:
                                 </p>
                                 <p class="mb-0 Text-20 Text-W500">
-                                    200.00
+                                    @if($package == 'all')
+                                    {{ $name->price_th + $name->price_en }}
+                                    @elseif($package == 'th')
+                                    {{$name->price_th}}
+                                    @elseif($package == 'en')
+                                    {{$name->price_en}}
+                                    @endif
                                 </p>
                             </div>
                             <div class="BoxAnsPrice pb-lg-5">
@@ -158,18 +183,40 @@
                                     ราคารวมทั้งหมด:
                                 </p>
                                 <p class="mb-0 Text-24 Text-W500">
-                                    200.00
+                                    @if($package == 'all')
+                                    {{ $name->price_th + $name->price_en }}
+                                    @elseif($package == 'th')
+                                    {{$name->price_th}}
+                                    @elseif($package == 'en')
+                                    {{$name->price_en}}
+                                    @endif
                                 </p>
                             </div>
-                            <a class="btn Button-NextCart" href="fill-in-information.php">
+                            <input type="hidden" name="name_id" value="{{$name_id}}" />
+                            @if($package == 'all')
+                            <input type="hidden" name="signs" value="{{$signsall}}" />
+                            <input type="hidden" name="total" value="{{ $name->price_th + $name->price_en }}" />
+                            @elseif($package == 'th')
+                            <input type="hidden" name="signs" value="{{$signsth}}" />
+                            <input type="hidden" name="total" value="{{$name->price_th}}" />
+                            @elseif($package == 'en')
+                            <input type="hidden" name="signs" value="{{$signsen}}" />
+                            <input type="hidden" name="total" value="{{$name->price_en}}" />
+                            @endif
+                            <input type="hidden" name="type" value="{{$type}}" />
+                            <input type="hidden" name="package" value="{{$package}}" />
+
+                            <button type="submit" class="btn Button-NextCart" href="fill-in-information.php">
                                 ถัดไป
-                            </a>
+                            </button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
+</form>
+    
 
 
 
