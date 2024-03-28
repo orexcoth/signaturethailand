@@ -67,14 +67,17 @@ class NamesController extends Controller
         $logoPath = public_path('uploads/ic-logo-update-bg-w.png');
         $image = imagecreatefromjpeg($imagePath);
         $logo = imagecreatefrompng($logoPath);
+        $logo = imagerotate($logo, 30, 0);
+
         $imageWidth = imagesx($image);
         $imageHeight = imagesy($image);
         $logoWidth = imagesx($logo);
         $logoHeight = imagesy($logo);
-        $startX = 0;
+        $startX = 50;
         $startY = 50;
-        $spacingX = 40; // ระยะห่างในแนวนอน
-        $spacingY = 30; // ระยะห่างในแนวตั้ง
+        $spacingX = 20; // ระยะห่างในแนวนอน
+        $spacingY = 20; // ระยะห่างในแนวตั้ง
+        
         $numCopiesX = floor(($imageWidth - $startX) / ($logoWidth + $spacingX)); // จำนวนโลโก้ในแนวนอน
         $numCopiesY = floor(($imageHeight - $startY) / ($logoHeight + $spacingY)); // จำนวนโลโก้ในแนวตั้ง
 
