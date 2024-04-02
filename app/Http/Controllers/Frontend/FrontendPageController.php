@@ -30,6 +30,46 @@ use File;
 
 class FrontendPageController extends Controller
 {
+    public function preorderPage(Request $request)
+    {
+        
+        return view('frontend/preorder', [
+            'default_pagename' => 'preorder',
+        ]);
+    }
+
+
+
+    public function searchPage(Request $request)
+    {
+        $keyword = $request->input('keyword');
+
+        if (!empty($keyword)) {
+            // Perform the search query
+            $names = NamesModel::whereHas('signs', function ($query) use ($keyword) {
+                $query->where('name_th', 'like', '%' . $keyword . '%')
+                    ->orWhere('name_en', 'like', '%' . $keyword . '%');
+            })->distinct()->get();
+
+            // If at least one result found, return the results
+            if ($names->count() > 0) {
+                return view('frontend.search', [
+                    'default_pagename' => 'search',
+                    'query' => $names,
+                ]);
+            }
+        }
+
+        // If no keyword provided or no results found, return empty query
+        return view('frontend.search', [
+            'default_pagename' => 'search',
+            'query' => null,
+        ]);
+    }
+
+
+
+
     public function fillininformationPage(Request $request)
     {
         // dd($request);
@@ -97,11 +137,24 @@ class FrontendPageController extends Controller
     }
     public function allproductTHPage(Request $request)
     {
-        $namesth = NamesModel::select('names.*', 'signs.*', 'signs.id as signs_id')
-            ->join('signs', 'names.id', '=', 'signs.names_id')
-            ->where('signs.lang', '=', 'th')
-            ->limit(16)
-            ->get();
+        // $namesth = NamesModel::select('names.*', 'signs.*', 'signs.id as signs_id')
+        //     ->join('signs', 'names.id', '=', 'signs.names_id')
+        //     ->where('signs.lang', '=', 'th')
+        //     ->limit(16)
+        //     ->get();
+        $namesth = NamesModel::has('signs')
+            ->with(['signs' => function ($query) {
+                $query->where('lang', 'th'); // Only select signs with lang = 'th'
+            }])
+            ->get()
+            ->take(16) // Limit the result to 2
+            ->map(function ($name) {
+                if ($name->signs->isNotEmpty()) {
+                    $randomSign = $name->signs->random(); // Randomly select a sign from the collection
+                    $name->random_sign = $randomSign;
+                }
+                return $name;
+            });
 
         return view('frontend/allproduct-th', [
             'default_pagename' => 'allproduct-en',
@@ -110,11 +163,24 @@ class FrontendPageController extends Controller
     }
     public function allproductENPage(Request $request)
     {
-        $namesen = NamesModel::select('names.*', 'signs.*', 'signs.id as signs_id')
-            ->join('signs', 'names.id', '=', 'signs.names_id')
-            ->where('signs.lang', '=', 'en')
-            ->limit(16)
-            ->get();
+        // $namesen = NamesModel::select('names.*', 'signs.*', 'signs.id as signs_id')
+        //     ->join('signs', 'names.id', '=', 'signs.names_id')
+        //     ->where('signs.lang', '=', 'en')
+        //     ->limit(16)
+        //     ->get();
+        $namesen = NamesModel::has('signs')
+            ->with(['signs' => function ($query) {
+                $query->where('lang', 'en'); // Only select signs with lang = 'th'
+            }])
+            ->get()
+            ->take(12) // Limit the result to 2
+            ->map(function ($name) {
+                if ($name->signs->isNotEmpty()) {
+                    $randomSign = $name->signs->random(); // Randomly select a sign from the collection
+                    $name->random_sign = $randomSign;
+                }
+                return $name;
+            }); 
 
         return view('frontend/allproduct-en', [
             'default_pagename' => 'allproduct-th',
@@ -123,20 +189,32 @@ class FrontendPageController extends Controller
     }
     public function productPage(Request $request)
     {
-
-        $namesth = NamesModel::select('names.*', 'signs.*', 'signs.id as signs_id')
-            ->join('signs', 'names.id', '=', 'signs.names_id')
-            ->where('signs.lang', '=', 'th')
-            ->limit(12)
-            ->get();
-        
-
-        $namesen = NamesModel::select('names.*', 'signs.*', 'signs.id as signs_id')
-            ->join('signs', 'names.id', '=', 'signs.names_id')
-            ->where('signs.lang', '=', 'en')
-            ->limit(12)
-            ->get();
-
+        $namesth = NamesModel::has('signs')
+            ->with(['signs' => function ($query) {
+                $query->where('lang', 'th'); // Only select signs with lang = 'th'
+            }])
+            ->get()
+            ->take(12) // Limit the result to 2
+            ->map(function ($name) {
+                if ($name->signs->isNotEmpty()) {
+                    $randomSign = $name->signs->random(); // Randomly select a sign from the collection
+                    $name->random_sign = $randomSign;
+                }
+                return $name;
+            });
+        $namesen = NamesModel::has('signs')
+            ->with(['signs' => function ($query) {
+                $query->where('lang', 'en'); // Only select signs with lang = 'th'
+            }])
+            ->get()
+            ->take(12) // Limit the result to 2
+            ->map(function ($name) {
+                if ($name->signs->isNotEmpty()) {
+                    $randomSign = $name->signs->random(); // Randomly select a sign from the collection
+                    $name->random_sign = $randomSign;
+                }
+                return $name;
+            });    
 
         return view('frontend/product', [
             'default_pagename' => 'homePage',

@@ -1,17 +1,20 @@
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
+@extends('../frontend/layouts/layout')
 
-<head>
-    <?php require('inc_header.php');
-    $pageName = "index"; ?>
-</head>
+@section('subhead')
+    <!-- <title>Signature Thailand - หน้าหลัก</title> -->
+@endsection
 
-<body>
+@section('content')
+    @include('frontend.layouts.inc_menusignature')
+<?php
+// echo "<pre>";
+// print_r($namesth);
+// echo "</pre>";
 
-    <?php require('inc_topmenu.php'); ?>
-
-    <?php require('inc_menusignature.php'); ?>
-
+// echo "<pre>";
+// print_r(count($namesen));
+// echo "</pre>";
+?>
     <Section class="Section-Preorder">
         <div class="container">
             <div class="ColPreorder">
@@ -255,7 +258,7 @@
                         <a class="btn ButtonSeemore mt-4" href="product.php">
                             สั่งออกแบบลายเซ็น
                             <span>
-                                <img class="ms-1" src="./images/index/ic_pen.svg" alt="">
+                                <img class="ms-1" src="{{asset('frontend/images/index/ic_pen.svg')}}" alt="">
                             </span>
                         </a>
                     </div>
@@ -476,14 +479,14 @@
                         <a class="btn ButtonSeemore mt-4" href="product.php">
                             สั่งออกแบบลายเซ็น
                             <span>
-                                <img class="ms-1" src="./images/index/ic_pen.svg" alt="">
+                                <img class="ms-1" src="{{asset('frontend/images/index/ic_pen.svg')}}" alt="">
                             </span>
                         </a>
                     </div>
 
                 </div>
 
-                <div id="Signature-All" class="tabcontent TabContent-SelectMenuPreorder">
+                <div id="Signature-TH" class="tabcontent TabContent-SelectMenuPreorder">
 
                     <div class="WarpColInput-Preorder row">
                         <div class="col-lg-4 col-md-4 col-12 Col-Margin-TopBottom">
@@ -716,7 +719,7 @@
                         <a class="btn ButtonSeemore mt-4" href="product.php">
                             สั่งออกแบบลายเซ็น
                             <span>
-                                <img class="ms-1" src="./images/index/ic_pen.svg" alt="">
+                                <img class="ms-1" src="{{asset('frontend/images/index/ic_pen.svg')}}" alt="">
                             </span>
                         </a>
                     </div>
@@ -730,11 +733,10 @@
 
 
 
+@endsection
 
-    <?php require('inc_footer.php'); ?>
+@section('script')
 
-    <?php require('inc_script.php'); ?>
+@endsection
 
-</body>
 
-</html>

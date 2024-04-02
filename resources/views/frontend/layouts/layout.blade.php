@@ -15,6 +15,7 @@
 
 
 @include('frontend.layouts.inc_footer')
+@include('frontend.layouts.inc_script')
 
 @yield('script')
 

@@ -33,7 +33,7 @@
                     @foreach($namesth as $keyth => $th)
                     <div class="col-lg-3 col-md-4 col-6">
                         <div class="BoxProductFree">
-                            <img class="IMG-PD" src="{{asset($th->feature)}}" alt="">
+                            <img class="IMG-PD" src="{{asset($th->random_sign->sign)}}" alt="">
                             <div class="WarperDetail-ProductFree">
                                 <p class="TextName-PD">
                                     {{$th->name_th}}
@@ -45,10 +45,10 @@
                                         </p>
                                         
                                         <div>
-                                            @for ($i = 0; $i < $th->work; $i++)
+                                            @for ($i = 0; $i < $th->random_sign->work; $i++)
                                                 <span class="fa fa-star checked"></span>
                                             @endfor
-                                            @for ($i = $th->work; $i < 5; $i++)
+                                            @for ($i = $th->random_sign->work; $i < 5; $i++)
                                                 <span class="fa fa-star"></span>
                                             @endfor
                                         </div>
@@ -58,10 +58,10 @@
                                         เงิน
                                         </p>
                                         <div>
-                                            @for ($i = 0; $i < $th->finance; $i++)
+                                            @for ($i = 0; $i < $th->random_sign->finance; $i++)
                                                 <span class="fa fa-star checked"></span>
                                             @endfor
-                                            @for ($i = $th->finance; $i < 5; $i++)
+                                            @for ($i = $th->random_sign->finance; $i < 5; $i++)
                                                 <span class="fa fa-star"></span>
                                             @endfor
                                         </div>
@@ -71,10 +71,10 @@
                                             รัก
                                         </p>
                                         <div>
-                                            @for ($i = 0; $i < $th->love; $i++)
+                                            @for ($i = 0; $i < $th->random_sign->love; $i++)
                                                 <span class="fa fa-star checked"></span>
                                             @endfor
-                                            @for ($i = $th->love; $i < 5; $i++)
+                                            @for ($i = $th->random_sign->love; $i < 5; $i++)
                                                 <span class="fa fa-star"></span>
                                             @endfor
                                         </div>
@@ -84,10 +84,10 @@
                                             สุขภาพ
                                         </p>
                                         <div>
-                                            @for ($i = 0; $i < $th->health; $i++)
+                                            @for ($i = 0; $i < $th->random_sign->health; $i++)
                                                 <span class="fa fa-star checked"></span>
                                             @endfor
-                                            @for ($i = $th->health; $i < 5; $i++)
+                                            @for ($i = $th->random_sign->health; $i < 5; $i++)
                                                 <span class="fa fa-star"></span>
                                             @endfor
                                         </div>
@@ -97,10 +97,10 @@
                                             โชคลาภ
                                         </p>
                                         <div>
-                                            @for ($i = 0; $i < $th->fortune; $i++)
+                                            @for ($i = 0; $i < $th->random_sign->fortune; $i++)
                                                 <span class="fa fa-star checked"></span>
                                             @endfor
-                                            @for ($i = $th->fortune; $i < 5; $i++)
+                                            @for ($i = $th->random_sign->fortune; $i < 5; $i++)
                                                 <span class="fa fa-star"></span>
                                             @endfor
                                         </div>
@@ -112,7 +112,7 @@
                                     </span>
                                     Free
                                 </p>
-                                <a class="btn ButtonSeemore-PD" href="{{route('productdetailPage', ['name' => $th->names_id])}}">
+                                <a class="btn ButtonSeemore-PD" href="{{route('productdetailPage', ['name' => $th->id])}}">
                                     ดูเพิ่มเติม
                                 </a>
 

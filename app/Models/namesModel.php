@@ -17,4 +17,9 @@ class namesModel extends Model
         'price_th',
         'price_en',
     ];
+
+    public function signs()
+    {
+        return $this->hasMany(SignsModel::class, 'names_id');
+    }
 }

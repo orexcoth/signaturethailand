@@ -91,6 +91,9 @@ Route::get('/login', [FrontendPageController::class, 'loginPage'])->name('loginP
 Route::get('/', [FrontendPageController::class, 'indexPage'])->name('indexPage');
 Route::get('home', [FrontendPageController::class, 'homePage'])->name('homePage');
 
+Route::get('search', [FrontendPageController::class, 'searchPage'])->name('searchPage');
+Route::get('nameandsign/{name}', [NamesAndSignsCustomerController::class, 'nameandsignPage'])->name('nameandsignPage');
+
 Route::get('about', [FrontendPageController::class, 'aboutPage'])->name('aboutPage');
 Route::get('article', [FrontendPageController::class, 'articlePage'])->name('articlePage');
 Route::get('team', [FrontendPageController::class, 'teamPage'])->name('teamPage');
@@ -108,6 +111,8 @@ Route::get('allproduct-en', [FrontendPageController::class, 'allproductENPage'])
 Route::post('fill-in-information', [FrontendPageController::class, 'fillininformationPage'])->name('fillininformationPage');
 Route::post('sell-checkout', [CheckoutCustomerController::class, 'sell_checkout'])->name('sell_checkout');
 Route::get('thank/{sell_id}', [CheckoutCustomerController::class, 'thankPage'])->name('thankPage');
+
+Route::get('preorder', [FrontendPageController::class, 'preorderPage'])->name('preorderPage');
 
 
 
