@@ -14,7 +14,7 @@
 // print_r(count($namesen));
 // echo "</pre>";
 ?>
-<form method="post" action="{{route('sell_checkout')}}">
+<form method="post" action="{{route('preorder_checkout')}}">
     @csrf
     <section class="SectionFill-In-Information">
         <div class="WarpCol-Fill-In-Information">
@@ -58,11 +58,30 @@
                         <input name="passcode" type="text" class="w-100 DropdownBox-SelectPreorder">
                     </div> -->
 
-                    <input type="hidden" name="name_id" value="{{$name_id}}" />
-                    <input type="hidden" name="signs" value="{{$signs}}" />
-                    <input type="hidden" name="type" value="{{$type}}" />
                     <input type="hidden" name="package" value="{{$package}}" />
-                    <input type="hidden" name="total" value="{{$total}}" />
+                    <input type="hidden" name="preorder_type" value="{{$preorder_type}}" />
+                    <input type="hidden" name="firstname_th" value="{{$firstname_th}}" />
+                    <input type="hidden" name="lastname_th" value="{{$lastname_th}}" />
+                    <input type="hidden" name="firstname_en" value="{{$firstname_en}}" />
+                    <input type="hidden" name="lastname_en" value="{{$lastname_en}}" />
+                    <input type="hidden" name="work" value="{{$work}}" />
+                    <input type="hidden" name="finance" value="{{$finance}}" />
+                    <input type="hidden" name="love" value="{{$love}}" />
+                    <input type="hidden" name="health" value="{{$health}}" />
+                    <input type="hidden" name="fortune" value="{{$fortune}}" />
+                    <input type="hidden" name="TargetPreorder" value="{{$TargetPreorder}}" />
+                    <input type="hidden" name="name" value="{{$name}}" />
+                    <input type="hidden" name="dob" value="{{$dob}}" />
+                    <input type="hidden" name="telephone" value="{{$telephone}}" />
+                    <input type="hidden" name="SelectStatus" value="{{$SelectStatus}}" />
+                    <input type="hidden" name="occupation" value="{{$occupation}}" />
+                    <input type="hidden" name="EverSignature" value="{{$EverSignature}}" />
+                    <input type="hidden" name="mysignature" value="{{$mysignature}}" />
+                    <input type="hidden" name="ProblemPreorder" value="{{$ProblemPreorder}}" />
+                    <input type="hidden" name="DeliverSignature" value="{{$DeliverSignature}}" />
+
+                    <input type="hidden" name="preorder_price" value="255" />
+                    <input type="hidden" name="total" value="255" />
 
                     
                     

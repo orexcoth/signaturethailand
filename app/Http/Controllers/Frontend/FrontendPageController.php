@@ -30,6 +30,89 @@ use File;
 
 class FrontendPageController extends Controller
 {
+    public function fillininformationpreorderPage(Request $request)
+    {
+        // dd($request);
+        // $name = namesModel::find($request->name_id);
+        return view('frontend/fill-in-information-preorder', [
+            'default_pagename' => 'fill-in-information',
+            'package' => $request->package,
+            'preorder_type' => $request->preorder_type,
+            'firstname_th' => $request->firstname_th,
+            'lastname_th' => $request->lastname_th,
+            'firstname_en' => $request->firstname_en,
+            'lastname_en' => $request->lastname_en,
+            'work' => $request->work,
+            'finance' => $request->finance,
+            'love' => $request->love,
+            'health' => $request->health,
+            'fortune' => $request->fortune,
+            'TargetPreorder' => $request->TargetPreorder,
+            'name' => $request->name,
+            'dob' => $request->dob,
+            'telephone' => $request->telephone,
+            'SelectStatus' => $request->SelectStatus,
+            'occupation' => $request->occupation,
+            'EverSignature' => $request->EverSignature,
+            'mysignature' => $request->mysignature,
+            'ProblemPreorder' => $request->ProblemPreorder,
+            'DeliverSignature' => $request->DeliverSignature,
+            'preorder_price' => $request->preorder_price,
+        ]);
+    }
+
+    public function cartpreorderPage(Request $request)
+    {
+        // dd($request);
+        // $name = namesModel::find($request->name_id);
+        return view('frontend/cart-preorder', [
+            'default_pagename' => 'cart-preorder',
+            'package' => $request->package,
+            'preorder_type' => $request->preorder_type,
+            'firstname_th' => $request->firstname_th,
+            'lastname_th' => $request->lastname_th,
+            'firstname_en' => $request->firstname_en,
+            'lastname_en' => $request->lastname_en,
+            'work' => $request->work,
+            'finance' => $request->finance,
+            'love' => $request->love,
+            'health' => $request->health,
+            'fortune' => $request->fortune,
+            'TargetPreorder' => $request->TargetPreorder,
+            'name' => $request->name,
+            'dob' => $request->dob,
+            'telephone' => $request->telephone,
+            'SelectStatus' => $request->SelectStatus,
+            'occupation' => $request->occupation,
+            'EverSignature' => $request->EverSignature,
+            'mysignature' => $request->mysignature,
+            'ProblemPreorder' => $request->ProblemPreorder,
+            'DeliverSignature' => $request->DeliverSignature,
+            // 'name' => $name,
+            // 'name_id' => $request->name_id,
+            // 'signsth' => $request->signsth,
+            // 'signsen' => $request->signsen,
+            // 'signsall' => $request->signsall,
+            // 'type' => $request->type,
+            // 'package' => $request->package,
+        ]);
+    }
+
+    public function cartPage(Request $request)
+    {
+        // dd($request);
+        $name = namesModel::find($request->name_id);
+        return view('frontend/cart', [
+            'default_pagename' => 'homePage',
+            'name' => $name,
+            'name_id' => $request->name_id,
+            'signsth' => $request->signsth,
+            'signsen' => $request->signsen,
+            'signsall' => $request->signsall,
+            'type' => $request->type,
+            'package' => $request->package,
+        ]);
+    }
     public function preorderPage(Request $request)
     {
         
@@ -85,21 +168,7 @@ class FrontendPageController extends Controller
         ]);
     }
 
-    public function cartPage(Request $request)
-    {
-        // dd($request);
-        $name = namesModel::find($request->name_id);
-        return view('frontend/cart', [
-            'default_pagename' => 'homePage',
-            'name' => $name,
-            'name_id' => $request->name_id,
-            'signsth' => $request->signsth,
-            'signsen' => $request->signsen,
-            'signsall' => $request->signsall,
-            'type' => $request->type,
-            'package' => $request->package,
-        ]);
-    }
+    
 
     public function productdetailPage(Request $request)
     {

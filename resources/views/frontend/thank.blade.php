@@ -30,7 +30,7 @@
                         รหัสผ่านไว้ใช้สำหรับดาวน์โหลดลายเซ็นของคุณคือ
                     </p>
                     <p class="Text-38 Text-W500 text-center mb-2">
-                        {{$sell->passcode}}
+                        passcode
                     </p>
                     <p class="Text-24 Text-W400 Text-Gray-Label text-center mb-2">
                         กรุณาคัดลอกรหัสผ่านเก็บไว้
@@ -46,7 +46,7 @@
                 </div>
             </div>
         </div>
-        <img class="IMG-PenThank" src="./images/cart/penthank.png" alt="">
+        <img class="IMG-PenThank" src="{{asset('frontend/images/cart/penthank.png')}}" alt="">
     </section>
     
     
