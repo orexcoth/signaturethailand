@@ -144,6 +144,12 @@ class SideMenu
                         'route_name' => 'BN_settings',
                         'params' => [],
                         'title' => 'ประวัติการใช้งาน'
+                    ],
+                    'settings-dev' => [
+                        'icon' => 'List',
+                        'route_name' => 'BN_settings_dev',
+                        'params' => [],
+                        'title' => 'dev'
                     ]
                 ]
             ],

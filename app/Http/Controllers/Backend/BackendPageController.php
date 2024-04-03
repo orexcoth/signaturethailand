@@ -24,8 +24,7 @@ class BackendPageController extends Controller
 {
 
 
-
-    public function backendDashboard()
+    public function BN_settings_dev(Request $request)
     {
         $imgpath = 'uploads/sign/th\20240327-4-2836-กก-660411ac6ead4.jpg';
 
@@ -66,7 +65,7 @@ class BackendPageController extends Controller
         $testpath = public_path('uploads/sign/th\20240221-4-2836-กก-65d61d97bd5de.jpg');
         $testurl = asset('uploads/sign/th\20240221-4-2836-กก-65d61d97bd5de.jpg');
 
-        return view('backend/backend-dashboard', [
+        return view('backend/setting-dev', [
             'default_pagename' => 'แดชบอร์ด',
             'imagePath' => $imagePath,
             'logoPath' => $logoPath,
@@ -76,6 +75,17 @@ class BackendPageController extends Controller
             'watermarkedPath' => $watermarkedPath,
             'testpath' => $testpath,
             'testurl' => $testurl,
+        ]);
+
+    }
+
+    public function backendDashboard()
+    {
+        
+
+        return view('backend/backend-dashboard', [
+            'default_pagename' => 'แดชบอร์ด',
+
         ]);
     }
 
