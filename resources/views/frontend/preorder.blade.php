@@ -7,9 +7,9 @@
 @section('content')
     @include('frontend.layouts.inc_menusignature')
 <?php
-// echo "<pre>";
-// print_r($namesth);
-// echo "</pre>";
+echo "<pre>";
+print_r($firstname_th);
+echo "</pre>";
 
 // echo "<pre>";
 // print_r(count($namesen));
@@ -119,6 +119,7 @@
                         </div> -->
 
                         <input type="hidden" name="package" id="package" value="thai" />
+                        <input type="hidden" name="total" id="total" value="{{$firstname_th}}" />
                         <div class="WarpColInput-Preorder row">
                             <div class="col-lg-4 col-md-4 col-12 Col-Margin-TopBottom">
                                 <label class="me-3 Text-18 Text-W500 Text-Gold-Gardien" for="Select-OptionSignature">เลือกแบบลายเซ็น</label>

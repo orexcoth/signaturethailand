@@ -8,7 +8,7 @@
 
 <?php
 // echo "<pre>";
-// print_r($package);
+// print_r($shipping);
 // echo "</pre>";
 // echo "<pre>";
 // print_r($preorder_type);
@@ -175,6 +175,17 @@
                                     255.00
                                 </p>
                             </div>
+                            @if($shipping !== 0)
+                            <div class="BoxAnsPrice BorDer-bt-Grey pb-lg-3 mb-lg-3">
+                                <p class="mb-0 Text-20 Text-W500">
+                                    จัดส่งด่วน:
+                                </p>
+                                <p class="mb-0 Text-20 Text-W500">
+                                    {{$shipping}}
+                                </p>
+                            </div>
+                            @endif
+                            
                             <div class="BoxAnsPrice pb-lg-5">
                                 <p class="mb-0 Text-24 Text-W500">
                                     ราคารวมทั้งหมด:

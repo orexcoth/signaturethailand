@@ -21,6 +21,7 @@ use Illuminate\Http\Request;
 // use App\Models\contacts_backModel;
 // use App\Models\newsModel;
 // use App\Models\noticeModel;
+use App\Models\OptionsModel;
 use App\Models\namesModel;
 use App\Models\signsModel;
 use Illuminate\Support\Facades\Storage;
@@ -65,6 +66,7 @@ class FrontendPageController extends Controller
     {
         // dd($request);
         // $name = namesModel::find($request->name_id);
+        $shipping = ($request->DeliverSignature == 'express')?100:0;
         return view('frontend/cart-preorder', [
             'default_pagename' => 'cart-preorder',
             'package' => $request->package,
@@ -88,6 +90,7 @@ class FrontendPageController extends Controller
             'mysignature' => $request->mysignature,
             'ProblemPreorder' => $request->ProblemPreorder,
             'DeliverSignature' => $request->DeliverSignature,
+            'shipping' => $shipping,
             // 'name' => $name,
             // 'name_id' => $request->name_id,
             // 'signsth' => $request->signsth,
@@ -115,9 +118,18 @@ class FrontendPageController extends Controller
     }
     public function preorderPage(Request $request)
     {
-        
+        $firstname_th = OptionsModel::where('option_key', 'firstname_th')->first();
+        $lastname_th = OptionsModel::where('option_key', 'lastname_th')->first();
+        $firstname_en = OptionsModel::where('option_key', 'firstname_en')->first();
+        $lastname_en = OptionsModel::where('option_key', 'lastname_en')->first();
+
+
         return view('frontend/preorder', [
             'default_pagename' => 'preorder',
+            'firstname_th' => $firstname_th ? $firstname_th->option_value : 0,
+            'lastname_th' => $lastname_th ? $lastname_th->option_value : 0,
+            'firstname_en' => $firstname_en ? $firstname_en->option_value : 0,
+            'lastname_en' => $lastname_en ? $lastname_en->option_value : 0,
         ]);
     }
 

@@ -125,11 +125,37 @@ class BackendPageController extends Controller
         $price_th = OptionsModel::where('option_key', 'price_th')->first();
         $price_en = OptionsModel::where('option_key', 'price_en')->first();
 
+        $firstname_th = OptionsModel::where('option_key', 'firstname_th')->first();
+        $lastname_th = OptionsModel::where('option_key', 'lastname_th')->first();
+        $firstname_en = OptionsModel::where('option_key', 'firstname_en')->first();
+        $lastname_en = OptionsModel::where('option_key', 'lastname_en')->first();
+
         return view('backend/setting-defaultprice', [
             'default_pagename' => 'defaultprice',
             'price_th' => $price_th ? $price_th->option_value : 0,
             'price_en' => $price_en ? $price_en->option_value : 0,
+            'firstname_th' => $firstname_th ? $firstname_th->option_value : 0,
+            'lastname_th' => $lastname_th ? $lastname_th->option_value : 0,
+            'firstname_en' => $firstname_en ? $firstname_en->option_value : 0,
+            'lastname_en' => $lastname_en ? $lastname_en->option_value : 0,
         ]);
+    }
+
+    public function BN_settings_preorderprice_action(Request $request)
+    {
+        if(isset($request->firstname_th)){
+            OptionsModel::where('option_key', 'firstname_th')->update(['option_value' => $request->firstname_th]);
+        }
+        if(isset($request->lastname_th)){
+            OptionsModel::where('option_key', 'lastname_th')->update(['option_value' => $request->lastname_th]);
+        }
+        if(isset($request->firstname_en)){
+            OptionsModel::where('option_key', 'firstname_en')->update(['option_value' => $request->firstname_en]);
+        }
+        if(isset($request->lastname_en)){
+            OptionsModel::where('option_key', 'lastname_en')->update(['option_value' => $request->lastname_en]);
+        }
+        return redirect()->back()->with('success', 'อัพเดทสำเร็จ !');
     }
 
 
@@ -143,6 +169,8 @@ class BackendPageController extends Controller
         }
         return redirect()->back()->with('success', 'อัพเดทสำเร็จ !');
     }
+
+    
 
 
 
