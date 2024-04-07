@@ -43,11 +43,11 @@ class FrontendPageController extends Controller
             'lastname_th' => $request->lastname_th,
             'firstname_en' => $request->firstname_en,
             'lastname_en' => $request->lastname_en,
-            'work' => $request->work,
-            'finance' => $request->finance,
-            'love' => $request->love,
-            'health' => $request->health,
-            'fortune' => $request->fortune,
+            'prominence_1' => $request->prominence_1,
+            'prominence_2' => $request->prominence_2,
+            'prominence_3' => $request->prominence_3,
+            'prominence_4' => $request->prominence_4,
+            'prominence_5' => $request->prominence_5,
             'TargetPreorder' => $request->TargetPreorder,
             'name' => $request->name,
             'dob' => $request->dob,
@@ -75,11 +75,11 @@ class FrontendPageController extends Controller
             'lastname_th' => $request->lastname_th,
             'firstname_en' => $request->firstname_en,
             'lastname_en' => $request->lastname_en,
-            'work' => $request->work,
-            'finance' => $request->finance,
-            'love' => $request->love,
-            'health' => $request->health,
-            'fortune' => $request->fortune,
+            'prominence_1' => $request->prominence_1,
+            'prominence_2' => $request->prominence_2,
+            'prominence_3' => $request->prominence_3,
+            'prominence_4' => $request->prominence_4,
+            'prominence_5' => $request->prominence_5,
             'TargetPreorder' => $request->TargetPreorder,
             'name' => $request->name,
             'dob' => $request->dob,
@@ -141,11 +141,18 @@ class FrontendPageController extends Controller
 
         if (!empty($keyword)) {
             // Perform the search query
-            $names = NamesModel::whereHas('signs', function ($query) use ($keyword) {
-                $query->where('name_th', 'like', '%' . $keyword . '%')
-                    ->orWhere('name_en', 'like', '%' . $keyword . '%');
-            })->distinct()->get();
+            // $names = NamesModel::whereHas('signs', function ($query) use ($keyword) {
+            //     $query->where('name_th', 'like', '%' . $keyword . '%')
+            //         ->orWhere('name_en', 'like', '%' . $keyword . '%');
+            // })->distinct()->get();
+            $names = NamesModel::where('name_th', 'like', '%' . $keyword . '%')
+                  ->orWhere('name_en', 'like', '%' . $keyword . '%')
+                  ->distinct()
+                  ->orderBy('name_th')
+                //   ->orderBy('name_en')
+                  ->paginate(24);
 
+            // dd($names);
             // If at least one result found, return the results
             if ($names->count() > 0) {
                 return view('frontend.search', [
@@ -270,32 +277,34 @@ class FrontendPageController extends Controller
     }
     public function productPage(Request $request)
     {
-        $namesth = NamesModel::has('signs')
-            ->with(['signs' => function ($query) {
-                $query->where('lang', 'th'); // Only select signs with lang = 'th'
-            }])
+            
+        $namesen = NamesModel::whereHas('signs', function ($query) {
+                $query->where('lang', 'en');
+            })
             ->get()
-            ->take(12) // Limit the result to 2
+            ->take(12)
             ->map(function ($name) {
                 if ($name->signs->isNotEmpty()) {
-                    $randomSign = $name->signs->random(); // Randomly select a sign from the collection
+                    $randomSign = $name->signs->random();
                     $name->random_sign = $randomSign;
                 }
                 return $name;
             });
-        $namesen = NamesModel::has('signs')
-            ->with(['signs' => function ($query) {
-                $query->where('lang', 'en'); // Only select signs with lang = 'th'
-            }])
+        
+        $namesth = NamesModel::whereHas('signs', function ($query) {
+                $query->where('lang', 'th');
+            })
             ->get()
-            ->take(12) // Limit the result to 2
+            ->take(12)
             ->map(function ($name) {
                 if ($name->signs->isNotEmpty()) {
-                    $randomSign = $name->signs->random(); // Randomly select a sign from the collection
+                    $randomSign = $name->signs->random();
                     $name->random_sign = $randomSign;
                 }
                 return $name;
-            });    
+            });
+
+        // dd($namesen);
 
         return view('frontend/product', [
             'default_pagename' => 'homePage',

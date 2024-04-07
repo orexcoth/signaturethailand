@@ -12,6 +12,7 @@ class signsModel extends Model
     protected $table = 'signs';
 
     protected $fillable = [
+        'status',
         'names_id',
         'users_id',
         'work',

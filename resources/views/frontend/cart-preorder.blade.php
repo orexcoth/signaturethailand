@@ -201,11 +201,11 @@
                             <input type="hidden" name="lastname_th" value="{{$lastname_th}}" />
                             <input type="hidden" name="firstname_en" value="{{$firstname_en}}" />
                             <input type="hidden" name="lastname_en" value="{{$lastname_en}}" />
-                            <input type="hidden" name="work" value="{{$work}}" />
-                            <input type="hidden" name="finance" value="{{$finance}}" />
-                            <input type="hidden" name="love" value="{{$love}}" />
-                            <input type="hidden" name="health" value="{{$health}}" />
-                            <input type="hidden" name="fortune" value="{{$fortune}}" />
+                            <input type="hidden" name="prominence_1" value="{{$prominence_1}}" />
+                            <input type="hidden" name="prominence_2" value="{{$prominence_2}}" />
+                            <input type="hidden" name="prominence_3" value="{{$prominence_3}}" />
+                            <input type="hidden" name="prominence_4" value="{{$prominence_4}}" />
+                            <input type="hidden" name="prominence_5" value="{{$prominence_5}}" />
                             <input type="hidden" name="TargetPreorder" value="{{$TargetPreorder}}" />
                             <input type="hidden" name="name" value="{{$name}}" />
                             <input type="hidden" name="dob" value="{{$dob}}" />

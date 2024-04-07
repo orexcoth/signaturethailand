@@ -94,11 +94,11 @@ class CheckoutCustomerController extends Controller
         $newpreorders->lastname_th = $request->lastname_th;
         $newpreorders->firstname_en = $request->firstname_en;
         $newpreorders->lastname_en = $request->lastname_en;
-        $newpreorders->work = $request->work;
-        $newpreorders->finance = $request->finance;
-        $newpreorders->love = $request->love;
-        $newpreorders->health = $request->health;
-        $newpreorders->fortune = $request->fortune;
+        $newpreorders->prominence_1 = $request->prominence_1;
+        $newpreorders->prominence_2 = $request->prominence_2;
+        $newpreorders->prominence_3 = $request->prominence_3;
+        $newpreorders->prominence_4 = $request->prominence_4;
+        $newpreorders->prominence_5 = $request->prominence_5;
         $newpreorders->TargetPreorder = $request->TargetPreorder;
         $newpreorders->name = $request->name;
         $newpreorders->dob = $request->dob;

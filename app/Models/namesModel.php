@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Models;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -21,5 +22,9 @@ class namesModel extends Model
     public function signs()
     {
         return $this->hasMany(SignsModel::class, 'names_id');
+        // return $this->hasMany(SignsModel::class, 'names_id')->whereHas('signs', function ($query) {
+        //     $query->where('lang', $this->lang);
+        // });
     }
+    
 }

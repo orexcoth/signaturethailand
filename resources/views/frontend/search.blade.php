@@ -13,6 +13,10 @@
 // echo "</pre>";
 
 ?>
+
+
+
+
     <section class="Section-Bigsearch">
         <div class="container">
             <div class="WarperDiv-Bigsearch">
@@ -48,10 +52,12 @@
             </section>
             @foreach ($query as $name)
                 <!-- Display each name -->
-                <section class="Section-SelectPackage">
+                <!-- <section class="Section-SelectPackage"> -->
+                <section class="">
                     <div class="container">
-                        <div class="BoxSelectPackage">
-                            <div class="BoxnameSignature">
+                        <div class="BoxSelectPackage" style="border:none;">
+                            <!-- <div class="BoxnameSignature"> -->
+                            <div class="BoxnameSignature" style="padding:0;">
                                 <div class="Box-Text-Search-Left">
                                     <p class="Text-Search-TH mb-0 Text-48 Text-W600 Text-LineHeight-50">
                                     {{ $name->name_th }} / {{ $name->name_en }}
@@ -67,6 +73,10 @@
                     </div>
                 </section>
             @endforeach
+            <br>
+            <div class="pagination justify-content-center mt-3">
+                {{ $query->appends(request()->input())->links() }}
+            </div>
         @else
             <!-- Display a message indicating no results -->
             <section class="Section-Bigpreorder mt-1 mb-1">
@@ -138,17 +148,7 @@
 
 
 
-    @if ($query !== null)
-        
-        @foreach ($query as $name)
-            
 
-            
-        @endforeach
-    @else
-        <!-- Display a message indicating no results -->
-        
-    @endif
         
     
 

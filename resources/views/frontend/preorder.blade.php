@@ -170,70 +170,109 @@ echo "</pre>";
                         <div class="WarpColInput-Preorder row">
                             <div class="col-lg-4 col-md-4 col-12 Col-Margin-TopBottom">
                                 <div class="ColSelect-Input">
-                                    <label class="me-3 Text-18 Text-W400 Text-Gray-Label" for="work">การงาน</label>
-                                    <select name="work" id="work" class="DropdownBox-SelectPreorder">
-                                        <option class="OptionSelect" value="0">0</option>
-                                        <option class="OptionSelect" value="1">1</option>
-                                        <option class="OptionSelect" value="2">2</option>
-                                        <option class="OptionSelect" value="3">3</option>
-                                        <option class="OptionSelect" value="4">4</option>
-                                        <option class="OptionSelect" value="5">5</option>
+                                    <label class="me-3 Text-18 Text-W400 Text-Gray-Label" for="prominence_1">ความเด่นของลายเซ็น ลำดับ 1</label>
+                                    <select name="prominence_1" id="prominence_1" class="DropdownBox-SelectPreorder">
+                                        <option class="OptionSelect" value="work">การงาน</option>
+                                        <option class="OptionSelect" value="finance">การเงิน</option>
+                                        <option class="OptionSelect" value="love">ความรัก</option>
+                                        <option class="OptionSelect" value="health">สุขภาพ</option>
+                                        <option class="OptionSelect" value="fortune">โชคลาภ</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="col-lg-4 col-md-4 col-12 Col-Margin-TopBottom">
                                 <div class="ColSelect-Input">
-                                    <label class="me-3 Text-18 Text-W400 Text-Gray-Label" for="finance">การเงิน</label>
-                                    <select name="finance" id="finance" class="DropdownBox-SelectPreorder">
-                                        <option class="OptionSelect" value="0">0</option>
-                                        <option class="OptionSelect" value="1">1</option>
-                                        <option class="OptionSelect" value="2">2</option>
-                                        <option class="OptionSelect" value="3">3</option>
-                                        <option class="OptionSelect" value="4">4</option>
-                                        <option class="OptionSelect" value="5">5</option>
+                                    <label class="me-3 Text-18 Text-W400 Text-Gray-Label" for="prominence_2">ความเด่นของลายเซ็น ลำดับ 2</label>
+                                    <select name="prominence_2" id="prominence_2" class="DropdownBox-SelectPreorder">
+                                        <!-- Options will be dynamically populated -->
                                     </select>
                                 </div>
                             </div>
+
                             <div class="col-lg-4 col-md-4 col-12 Col-Margin-TopBottom">
                                 <div class="ColSelect-Input">
-                                    <label class="me-3 Text-18 Text-W400 Text-Gray-Label" for="love">ความรัก</label>
-                                    <select name="love" id="love" class="DropdownBox-SelectPreorder">
-                                        <option class="OptionSelect" value="0">0</option>   
-                                        <option class="OptionSelect" value="1">1</option>
-                                        <option class="OptionSelect" value="2">2</option>
-                                        <option class="OptionSelect" value="3">3</option>
-                                        <option class="OptionSelect" value="4">4</option>
-                                        <option class="OptionSelect" value="5">5</option>
+                                    <label class="me-3 Text-18 Text-W400 Text-Gray-Label" for="prominence_3">ความเด่นของลายเซ็น ลำดับ 3</label>
+                                    <select name="prominence_3" id="prominence_3" class="DropdownBox-SelectPreorder">
+                                        <!-- Options will be dynamically populated -->
                                     </select>
                                 </div>
                             </div>
+
                             <div class="col-lg-4 col-md-4 col-12 Col-Margin-TopBottom">
                                 <div class="ColSelect-Input">
-                                    <label class="me-3 Text-18 Text-W400 Text-Gray-Label" for="health">สุขภาพ</label>
-                                    <select name="health" id="health" class="DropdownBox-SelectPreorder">
-                                        <option class="OptionSelect" value="0">0</option>
-                                        <option class="OptionSelect" value="1">1</option>
-                                        <option class="OptionSelect" value="2">2</option>
-                                        <option class="OptionSelect" value="3">3</option>
-                                        <option class="OptionSelect" value="4">4</option>
-                                        <option class="OptionSelect" value="5">5</option>
+                                    <label class="me-3 Text-18 Text-W400 Text-Gray-Label" for="prominence_4">ความเด่นของลายเซ็น ลำดับ 4</label>
+                                    <select name="prominence_4" id="prominence_4" class="DropdownBox-SelectPreorder">
+                                        <!-- Options will be dynamically populated -->
                                     </select>
                                 </div>
                             </div>
+
                             <div class="col-lg-4 col-md-4 col-12 Col-Margin-TopBottom">
                                 <div class="ColSelect-Input">
-                                    <label class="me-3 Text-18 Text-W400 Text-Gray-Label" for="fortune">โชคลาภ</label>
-                                    <select name="fortune" id="fortune" class="DropdownBox-SelectPreorder">
-                                        <option class="OptionSelect" value="0">0</option>
-                                        <option class="OptionSelect" value="1">1</option>
-                                        <option class="OptionSelect" value="2">2</option>
-                                        <option class="OptionSelect" value="3">3</option>
-                                        <option class="OptionSelect" value="4">4</option>
-                                        <option class="OptionSelect" value="5">5</option>
+                                    <label class="me-3 Text-18 Text-W400 Text-Gray-Label" for="prominence_5">ความเด่นของลายเซ็น ลำดับ 5</label>
+                                    <select name="prominence_5" id="prominence_5" class="DropdownBox-SelectPreorder">
+                                        <!-- Options will be dynamically populated -->
                                     </select>
                                 </div>
                             </div>
+
                         </div>
+
+
+
+                        <!-- <div class="WarpColInput-Preorder row">
+                            <div class="col-lg-4 col-md-4 col-12 Col-Margin-TopBottom">
+                                <div class="ColSelect-Input">
+                                    <label class="me-3 Text-18 Text-W400 Text-Gray-Label" for="prominence_1">ความเด่นของลายเซ็น ลำดับ 1</label>
+                                    <select name="prominence_1" id="prominence_1" class="DropdownBox-SelectPreorder">
+                                        <option class="OptionSelect" value="work">การงาน</option>
+                                        <option class="OptionSelect" value="finance">การเงิน</option>
+                                        <option class="OptionSelect" value="love">ความรัก</option>
+                                        <option class="OptionSelect" value="health">สุขภาพ</option>
+                                        <option class="OptionSelect" value="fortune">โชคลาภ</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-12 Col-Margin-TopBottom">
+                                <div class="ColSelect-Input">
+                                    <label class="me-3 Text-18 Text-W400 Text-Gray-Label" for="prominence_2">ความเด่นของลายเซ็น ลำดับ 2</label>
+                                    <select name="prominence_2" id="prominence_2" class="DropdownBox-SelectPreorder">
+        
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-12 Col-Margin-TopBottom">
+                                <div class="ColSelect-Input">
+                                    <label class="me-3 Text-18 Text-W400 Text-Gray-Label" for="prominence_3">ความเด่นของลายเซ็น ลำดับ 3</label>
+                                    <select name="prominence_3" id="prominence_3" class="DropdownBox-SelectPreorder">
+              
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-12 Col-Margin-TopBottom">
+                                <div class="ColSelect-Input">
+                                    <label class="me-3 Text-18 Text-W400 Text-Gray-Label" for="prominence_4">ความเด่นของลายเซ็น ลำดับ 4</label>
+                                    <select name="prominence_4" id="prominence_4" class="DropdownBox-SelectPreorder">
+                           
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-12 Col-Margin-TopBottom">
+                                <div class="ColSelect-Input">
+                                    <label class="me-3 Text-18 Text-W400 Text-Gray-Label" for="prominence_5">ความเด่นของลายเซ็น ลำดับ 5</label>
+                                    <select name="prominence_5" id="prominence_5" class="DropdownBox-SelectPreorder">
+
+                                    </select>
+                                </div>
+                            </div>
+                        </div> -->
+
+
+
+
+
+
+
 
                         <div class="WarpColInput-Preorder row">
                             <div class="col-12 Col-Margin-TopBottom">
@@ -367,6 +406,94 @@ echo "</pre>";
 
 @section('script')
 <script>
+    
+    $(document).ready(function() {
+        // Function to populate select options based on the selected values
+        function populateOptions(selectedValues, targetSelect) {
+            // Clear previous options
+            $(targetSelect).empty();
+            // Get all selected options from previous selects
+            var selectedOptions = [];
+            $('#prominence_1, #prominence_2, #prominence_3, #prominence_4').each(function() {
+                selectedOptions.push($(this).val());
+            });
+            // Loop through options in prominence_1 select
+            $('#prominence_1 option').each(function() {
+                // Check if the option is not selected in previous selects
+                if (!selectedOptions.includes($(this).val()) || selectedValues.includes(null) || selectedValues.includes(undefined)) {
+                    // Append option to target select
+                    $(targetSelect).append($(this).clone());
+                }
+            });
+        }
+
+        // Event listener for change in prominence_1 select
+        $('#prominence_1').change(function() {
+            // Reset higher prominences
+            $('#prominence_2, #prominence_3, #prominence_4, #prominence_5').empty();
+            // Populate options for prominence_2
+            populateOptions([$(this).val()], '#prominence_2');
+        });
+
+        // Event listener for change in prominence_2 select
+        $('#prominence_2').change(function() {
+            // Reset higher prominences
+            $('#prominence_3, #prominence_4, #prominence_5').empty();
+            // Populate options for prominence_3
+            populateOptions([$('#prominence_1').val(), $(this).val()], '#prominence_3');
+        });
+
+        // Event listener for change in prominence_3 select
+        $('#prominence_3').change(function() {
+            // Reset higher prominences
+            $('#prominence_4, #prominence_5').empty();
+            // Populate options for prominence_4
+            populateOptions([$('#prominence_1').val(), $('#prominence_2').val(), $(this).val()], '#prominence_4');
+        });
+
+        // Event listener for change in prominence_4 select
+        $('#prominence_4').change(function() {
+            // Reset higher prominences
+            $('#prominence_5').empty();
+            // Populate options for prominence_5
+            populateOptions([$('#prominence_1').val(), $('#prominence_2').val(), $('#prominence_3').val(), $(this).val()], '#prominence_5');
+        });
+
+        // Event listener for change in prominence_5 select
+        $('#prominence_5').change(function() {
+            // Auto select the next available option
+            $('#prominence_5 option:not(:selected):first').prop('selected', true);
+        });
+    });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     // Function to show/hide input blocks based on selected package and preorder_type
     function showHideInputs() {
         var package = $('#package').val();

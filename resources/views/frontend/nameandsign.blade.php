@@ -9,11 +9,11 @@
     @include('frontend.layouts.inc_searchsignature')
 <?php
 // echo "<pre>";
-// print_r($name);
+// print_r($nth);
 // echo "</pre>";
 
 // echo "<pre>";
-// print_r(count($namesen));
+// print_r(count($nen));
 // echo "</pre>";
 ?>
     <section class="Section-SelectPackage">
@@ -54,6 +54,7 @@
                         </div>
                     </div>
                 </div>
+                @if(count($nth) > 0 && count($nen) > 0)
                 <form action="{{route('cartPage')}}" method="post" >
                     @csrf
                     <div class="Col-DD-SelectPackage">
@@ -76,6 +77,17 @@
                         </button> 
                     </div>
                 </form>
+                @else
+                    <div class="Col-DD-SelectPackage">
+                        <div class="DropdownPackage">
+                            <!-- <label class="me-3 Text-24 Text-W500" for="Select-OptionVerSignature">เลือกแพ็คเกจ</label> -->
+                            <h3 class="mb-0 Text-24">อยู่ระหว่างการเพิ่มลายเซ็นต์</h3>
+
+                        </div>
+   
+                    </div>
+                @endif
+                
             </div>
         </div>
     </section>
