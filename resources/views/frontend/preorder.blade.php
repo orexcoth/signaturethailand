@@ -166,17 +166,19 @@ echo "</pre>";
                             ต้องการเน้นมงคลด้านใด (เรียงลำดับความสำคัญ)
                         </h3>
                         <hr class="w-100 Color-Grey-HR">
+                        <!-- <option class="OptionSelect" value="work">การงาน</option>
+                        <option class="OptionSelect" value="finance">การเงิน</option>
+                        <option class="OptionSelect" value="love">ความรัก</option>
+                        <option class="OptionSelect" value="health">สุขภาพ</option>
+                        <option class="OptionSelect" value="fortune">โชคลาภ</option> -->
+
 
                         <div class="WarpColInput-Preorder row">
                             <div class="col-lg-4 col-md-4 col-12 Col-Margin-TopBottom">
                                 <div class="ColSelect-Input">
                                     <label class="me-3 Text-18 Text-W400 Text-Gray-Label" for="prominence_1">ความเด่นของลายเซ็น ลำดับ 1</label>
                                     <select name="prominence_1" id="prominence_1" class="DropdownBox-SelectPreorder">
-                                        <option class="OptionSelect" value="work">การงาน</option>
-                                        <option class="OptionSelect" value="finance">การเงิน</option>
-                                        <option class="OptionSelect" value="love">ความรัก</option>
-                                        <option class="OptionSelect" value="health">สุขภาพ</option>
-                                        <option class="OptionSelect" value="fortune">โชคลาภ</option>
+                                        
                                     </select>
                                 </div>
                             </div>
@@ -406,145 +408,72 @@ echo "</pre>";
 
 @section('script')
 <script>
-    
-    $(document).ready(function() {
-        // Function to populate select options based on the selected values
-        function populateOptions(selectedValues, targetSelect) {
-            // Clear previous options
-            $(targetSelect).empty();
-            // Get all selected options from previous selects
-            var selectedOptions = [];
-            $('#prominence_1, #prominence_2, #prominence_3, #prominence_4').each(function() {
-                selectedOptions.push($(this).val());
-            });
-            // Loop through options in prominence_1 select
-            $('#prominence_1 option').each(function() {
-                // Check if the option is not selected in previous selects
-                if (!selectedOptions.includes($(this).val()) || selectedValues.includes(null) || selectedValues.includes(undefined)) {
-                    // Append option to target select
-                    $(targetSelect).append($(this).clone());
+
+    $(document).ready(function () {
+        // Default options
+        var defaultOptions = [
+            { value: "work", text: "การงาน" },
+            { value: "finance", text: "การเงิน" },
+            { value: "love", text: "ความรัก" },
+            { value: "health", text: "สุขภาพ" },
+            { value: "fortune", text: "โชคลาภ" }
+        ];
+
+        // Populate prominence_1 with default options
+        populateSelect('prominence_1', defaultOptions);
+
+        // Handle change event for each select element
+        $('.DropdownBox-SelectPreorder').change(function () {
+            var selectedValues = [];
+
+            // Get selected values from all select elements
+            $('.DropdownBox-SelectPreorder').each(function () {
+                var selectedValue = $(this).val();
+                if (selectedValue) {
+                    selectedValues.push(selectedValue);
                 }
             });
-        }
 
-        // Event listener for change in prominence_1 select
-        $('#prominence_1').change(function() {
-            // Reset higher prominences
-            $('#prominence_2, #prominence_3, #prominence_4, #prominence_5').empty();
-            // Populate options for prominence_2
-            populateOptions([$(this).val()], '#prominence_2');
-        });
+            // Filter out selected values from default options
+            var filteredOptions = defaultOptions.filter(function (option) {
+                return !selectedValues.includes(option.value);
+            });
 
-        // Event listener for change in prominence_2 select
-        $('#prominence_2').change(function() {
-            // Reset higher prominences
-            $('#prominence_3, #prominence_4, #prominence_5').empty();
-            // Populate options for prominence_3
-            populateOptions([$('#prominence_1').val(), $(this).val()], '#prominence_3');
-        });
-
-        // Event listener for change in prominence_3 select
-        $('#prominence_3').change(function() {
-            // Reset higher prominences
-            $('#prominence_4, #prominence_5').empty();
-            // Populate options for prominence_4
-            populateOptions([$('#prominence_1').val(), $('#prominence_2').val(), $(this).val()], '#prominence_4');
-        });
-
-        // Event listener for change in prominence_4 select
-        $('#prominence_4').change(function() {
-            // Reset higher prominences
-            $('#prominence_5').empty();
-            // Populate options for prominence_5
-            populateOptions([$('#prominence_1').val(), $('#prominence_2').val(), $('#prominence_3').val(), $(this).val()], '#prominence_5');
-        });
-
-        // Event listener for change in prominence_5 select
-        $('#prominence_5').change(function() {
-            // Auto select the next available option
-            $('#prominence_5 option:not(:selected):first').prop('selected', true);
+            // Find next select element and populate it with filtered options
+            var nextSelectId = $(this).next().find('.DropdownBox-SelectPreorder').attr('id');
+            populateSelect(nextSelectId, filteredOptions);
         });
     });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    // Function to show/hide input blocks based on selected package and preorder_type
-    function showHideInputs() {
-        var package = $('#package').val();
-        var preorder_type = $('#Select-OptionSignature').val();
-
-        // Hide all input blocks first
-        $('[id$="_block"]').hide();
-
-        // Show the relevant input blocks based on package and preorder_type
-        if (package === 'thai') {
-            if (preorder_type === 'firstname') {
-                $('#firstname_th_block').show();
-            } else if (preorder_type === 'lastname') {
-                $('#lastname_th_block').show();
-            } else if (preorder_type === 'duo') {
-                $('#firstname_th_block, #lastname_th_block').show();
-            }
-        } else if (package === 'english') {
-            if (preorder_type === 'firstname') {
-                $('#firstname_en_block').show();
-            } else if (preorder_type === 'lastname') {
-                $('#lastname_en_block').show();
-            } else if (preorder_type === 'duo') {
-                $('#firstname_en_block, #lastname_en_block').show();
-            }
-        } else if (package === 'combo') {
-            if (preorder_type === 'firstname') {
-                $('#firstname_th_block, #firstname_en_block').show();
-            } else if (preorder_type === 'lastname') {
-                $('#lastname_th_block, #lastname_en_block').show();
-            } else if (preorder_type === 'duo') {
-                $('#firstname_th_block, #lastname_th_block, #firstname_en_block, #lastname_en_block').show();
-            }
-        }
+    // Function to populate a select element
+    function populateSelect(selectId, options) {
+        var select = $('#' + selectId);
+        select.empty();
+        $.each(options, function (i, option) {
+            select.append($('<option></option>').attr('value', option.value).text(option.text));
+        });
     }
 
-    // Call showHideInputs on page load
-    $(document).ready(function () {
-        showHideInputs();
-    });
 
-    // Change package value on packagebutton click
-    $('.packagebutton').click(function () {
-        $('#package').val($(this).data('package'));
-        showHideInputs();
-    });
 
-    // Change inputs visibility on preorder_type change
-    $('#Select-OptionSignature').change(function () {
-        showHideInputs();
-    });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    
 </script>
 @endsection
 
