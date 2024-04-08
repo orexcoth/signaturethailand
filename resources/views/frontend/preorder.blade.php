@@ -7,16 +7,20 @@
 @section('content')
     @include('frontend.layouts.inc_menusignature')
 <?php
-echo "<pre>";
-print_r($firstname_th);
-echo "</pre>";
+// echo "<pre>";
+// print_r($firstname_th);
+// echo "</pre>";
 
 // echo "<pre>";
 // print_r(count($namesen));
 // echo "</pre>";
 ?>
+<style>
+    
+</style>
+
     <Section class="Section-Preorder">
-        <form method="post" action="{{route('cartpreorderPage')}}">
+        <form method="post" action="{{route('cartpreorderPage')}}" enctype="multipart/form-data" >
             @csrf 
             <div class="container">
                 <div class="ColPreorder">
@@ -178,7 +182,12 @@ echo "</pre>";
                                 <div class="ColSelect-Input">
                                     <label class="me-3 Text-18 Text-W400 Text-Gray-Label" for="prominence_1">ความเด่นของลายเซ็น ลำดับ 1</label>
                                     <select name="prominence_1" id="prominence_1" class="DropdownBox-SelectPreorder">
-                                        
+                                        <option>โปรดเลือก</option>
+                                        <option class="OptionSelect" value="work">การงาน</option>
+                                        <option class="OptionSelect" value="finance">การเงิน</option>
+                                        <option class="OptionSelect" value="love">ความรัก</option>
+                                        <option class="OptionSelect" value="health">สุขภาพ</option>
+                                        <option class="OptionSelect" value="fortune">โชคลาภ</option>
                                     </select>
                                 </div>
                             </div>
@@ -186,7 +195,12 @@ echo "</pre>";
                                 <div class="ColSelect-Input">
                                     <label class="me-3 Text-18 Text-W400 Text-Gray-Label" for="prominence_2">ความเด่นของลายเซ็น ลำดับ 2</label>
                                     <select name="prominence_2" id="prominence_2" class="DropdownBox-SelectPreorder">
-                                        <!-- Options will be dynamically populated -->
+                                        <option>โปรดเลือก</option>
+                                        <option class="OptionSelect" value="work">การงาน</option>
+                                        <option class="OptionSelect" value="finance">การเงิน</option>
+                                        <option class="OptionSelect" value="love">ความรัก</option>
+                                        <option class="OptionSelect" value="health">สุขภาพ</option>
+                                        <option class="OptionSelect" value="fortune">โชคลาภ</option>
                                     </select>
                                 </div>
                             </div>
@@ -195,7 +209,12 @@ echo "</pre>";
                                 <div class="ColSelect-Input">
                                     <label class="me-3 Text-18 Text-W400 Text-Gray-Label" for="prominence_3">ความเด่นของลายเซ็น ลำดับ 3</label>
                                     <select name="prominence_3" id="prominence_3" class="DropdownBox-SelectPreorder">
-                                        <!-- Options will be dynamically populated -->
+                                        <option>โปรดเลือก</option>
+                                        <option class="OptionSelect" value="work">การงาน</option>
+                                        <option class="OptionSelect" value="finance">การเงิน</option>
+                                        <option class="OptionSelect" value="love">ความรัก</option>
+                                        <option class="OptionSelect" value="health">สุขภาพ</option>
+                                        <option class="OptionSelect" value="fortune">โชคลาภ</option>
                                     </select>
                                 </div>
                             </div>
@@ -204,7 +223,12 @@ echo "</pre>";
                                 <div class="ColSelect-Input">
                                     <label class="me-3 Text-18 Text-W400 Text-Gray-Label" for="prominence_4">ความเด่นของลายเซ็น ลำดับ 4</label>
                                     <select name="prominence_4" id="prominence_4" class="DropdownBox-SelectPreorder">
-                                        <!-- Options will be dynamically populated -->
+                                        <option>โปรดเลือก</option>
+                                        <option class="OptionSelect" value="work">การงาน</option>
+                                        <option class="OptionSelect" value="finance">การเงิน</option>
+                                        <option class="OptionSelect" value="love">ความรัก</option>
+                                        <option class="OptionSelect" value="health">สุขภาพ</option>
+                                        <option class="OptionSelect" value="fortune">โชคลาภ</option>
                                     </select>
                                 </div>
                             </div>
@@ -213,12 +237,59 @@ echo "</pre>";
                                 <div class="ColSelect-Input">
                                     <label class="me-3 Text-18 Text-W400 Text-Gray-Label" for="prominence_5">ความเด่นของลายเซ็น ลำดับ 5</label>
                                     <select name="prominence_5" id="prominence_5" class="DropdownBox-SelectPreorder">
-                                        <!-- Options will be dynamically populated -->
+                                        <option>โปรดเลือก</option>
+                                        <option class="OptionSelect" value="work">การงาน</option>
+                                        <option class="OptionSelect" value="finance">การเงิน</option>
+                                        <option class="OptionSelect" value="love">ความรัก</option>
+                                        <option class="OptionSelect" value="health">สุขภาพ</option>
+                                        <option class="OptionSelect" value="fortune">โชคลาภ</option>
                                     </select>
                                 </div>
                             </div>
 
                         </div>
+
+
+                        <!-- <select class="select-option">
+                            <option >โปรดเลือก</option>
+                            <option value="1">Option 1</option>
+                            <option value="2">Option 2</option>
+                            <option value="3">Option 3</option>
+                            <option value="4">Option 4</option>
+                            <option value="5">Option 5</option>
+                        </select>
+                        <select class="select-option">
+                            <option >โปรดเลือก</option>
+                            <option value="1">Option 1</option>
+                            <option value="2">Option 2</option>
+                            <option value="3">Option 3</option>
+                            <option value="4">Option 4</option>
+                            <option value="5">Option 5</option>
+                        </select>
+                        <select class="select-option">
+                            <option >โปรดเลือก</option>
+                            <option value="1">Option 1</option>
+                            <option value="2">Option 2</option>
+                            <option value="3">Option 3</option>
+                            <option value="4">Option 4</option>
+                            <option value="5">Option 5</option>
+                        </select>
+                        <select class="select-option">
+                            <option>โปรดเลือก</option>
+                            <option value="1">Option 1</option>
+                            <option value="2">Option 2</option>
+                            <option value="3">Option 3</option>
+                            <option value="4">Option 4</option>
+                            <option value="5">Option 5</option>
+                        </select>
+                        <select class="select-option">
+                            <option>โปรดเลือก</option>
+                            <option value="1">Option 1</option>
+                            <option value="2">Option 2</option>
+                            <option value="3">Option 3</option>
+                            <option value="4">Option 4</option>
+                            <option value="5">Option 5</option>
+                        </select> -->
 
 
 
@@ -314,6 +385,7 @@ echo "</pre>";
                                     <select name="SelectStatus" id="SelectStatus" class="DropdownBox-SelectPreorder">
                                         <option class="OptionSelect" value="single" selected >โสด</option>
                                         <option class="OptionSelect" value="married">สมรส</option>
+                                        <option class="OptionSelect" value="divorce">หย่าร้าง</option>
                                     </select>
                                 </div>
                             </div>
@@ -343,7 +415,7 @@ echo "</pre>";
                                 <label for="dropdown" class="me-3 Text-18 Text-W400 Text-Gray-Label">
                                     แนบไฟล์ภาพลายเซ็น
                                 </label>
-                                <input class="form-control DropdownBox-SelectPreorder" type="file" name="mysignature" id="formFile">
+                                <input class="form-control DropdownBox-SelectPreorder" type="file" name="mysignature" id="formFile" accept="image/*">
                             </div>
                         </div>
 
@@ -407,74 +479,95 @@ echo "</pre>";
 @endsection
 
 @section('script')
+
+
+
+
 <script>
-
-    $(document).ready(function () {
-        // Default options
-        var defaultOptions = [
-            { value: "work", text: "การงาน" },
-            { value: "finance", text: "การเงิน" },
-            { value: "love", text: "ความรัก" },
-            { value: "health", text: "สุขภาพ" },
-            { value: "fortune", text: "โชคลาภ" }
-        ];
-
-        // Populate prominence_1 with default options
-        populateSelect('prominence_1', defaultOptions);
-
-        // Handle change event for each select element
-        $('.DropdownBox-SelectPreorder').change(function () {
-            var selectedValues = [];
-
-            // Get selected values from all select elements
-            $('.DropdownBox-SelectPreorder').each(function () {
-                var selectedValue = $(this).val();
-                if (selectedValue) {
-                    selectedValues.push(selectedValue);
-                }
+    $(document).ready(function() {
+        $('.DropdownBox-SelectPreorder').change(function() {
+            // Get the selected option value
+            var selectedValue = $(this).val();
+            
+            // Disable the selected option in other select boxes
+            $('.DropdownBox-SelectPreorder').not(this).find('option[value="' + selectedValue + '"]').prop('disabled', true);
+            
+            // Enable all options in all select boxes
+            $('.DropdownBox-SelectPreorder option').prop('disabled', false);
+            
+            // Disable selected options in other select boxes
+            $('.DropdownBox-SelectPreorder').each(function() {
+                var selected = $(this).val();
+                $('.DropdownBox-SelectPreorder').not(this).find('option[value="' + selected + '"]').prop('disabled', true);
             });
-
-            // Filter out selected values from default options
-            var filteredOptions = defaultOptions.filter(function (option) {
-                return !selectedValues.includes(option.value);
-            });
-
-            // Find next select element and populate it with filtered options
-            var nextSelectId = $(this).next().find('.DropdownBox-SelectPreorder').attr('id');
-            populateSelect(nextSelectId, filteredOptions);
         });
     });
 
-    // Function to populate a select element
-    function populateSelect(selectId, options) {
-        var select = $('#' + selectId);
-        select.empty();
-        $.each(options, function (i, option) {
-            select.append($('<option></option>').attr('value', option.value).text(option.text));
-        });
+
+
+
+
+
+    // Function to show/hide input blocks based on selected package and preorder_type
+    function showHideInputs() {
+        var package = $('#package').val();
+        var preorder_type = $('#Select-OptionSignature').val();
+
+        // Hide all input blocks first
+        $('[id$="_block"]').hide();
+
+        // Show the relevant input blocks based on package and preorder_type
+        if (package === 'thai') {
+            if (preorder_type === 'firstname') {
+                $('#firstname_th_block').show();
+            } else if (preorder_type === 'lastname') {
+                $('#lastname_th_block').show();
+            } else if (preorder_type === 'duo') {
+                $('#firstname_th_block, #lastname_th_block').show();
+            }
+        } else if (package === 'english') {
+            if (preorder_type === 'firstname') {
+                $('#firstname_en_block').show();
+            } else if (preorder_type === 'lastname') {
+                $('#lastname_en_block').show();
+            } else if (preorder_type === 'duo') {
+                $('#firstname_en_block, #lastname_en_block').show();
+            }
+        } else if (package === 'combo') {
+            if (preorder_type === 'firstname') {
+                $('#firstname_th_block, #firstname_en_block').show();
+            } else if (preorder_type === 'lastname') {
+                $('#lastname_th_block, #lastname_en_block').show();
+            } else if (preorder_type === 'duo') {
+                $('#firstname_th_block, #lastname_th_block, #firstname_en_block, #lastname_en_block').show();
+            }
+        }
     }
 
+    // Call showHideInputs on page load
+    $(document).ready(function () {
+        showHideInputs();
+    });
 
+    // Change package value on packagebutton click
+    $('.packagebutton').click(function () {
+        $('#package').val($(this).data('package'));
+        showHideInputs();
+    });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
-    
+    // Change inputs visibility on preorder_type change
+    $('#Select-OptionSignature').change(function () {
+        showHideInputs();
+    });
 </script>
+
+
+
+
+
+
+
+
 @endsection
 
 

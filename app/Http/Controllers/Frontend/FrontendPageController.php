@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\LogsSaveController;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
+use Illuminate\Http\UploadedFile;
 
 // use App\Models\Sms_session;
 // use App\Models\provincesModel;
@@ -55,17 +56,24 @@ class FrontendPageController extends Controller
             'SelectStatus' => $request->SelectStatus,
             'occupation' => $request->occupation,
             'EverSignature' => $request->EverSignature,
-            'mysignature' => $request->mysignature,
             'ProblemPreorder' => $request->ProblemPreorder,
             'DeliverSignature' => $request->DeliverSignature,
             'preorder_price' => $request->preorder_price,
+            'mysignaturePath' => $request->mysignaturePath,
         ]);
     }
 
     public function cartpreorderPage(Request $request)
     {
-        // dd($request);
-        // $name = namesModel::find($request->name_id);
+
+        $currentDate = date('Ymd');
+        $randomString = uniqid().uniqid();
+        $signExtension = $request->file('mysignature')->getClientOriginalExtension();
+        $oldsignFile = $request->file('mysignature');
+        $oldsignNewFileName = $currentDate . '-' . $randomString . '.' . $signExtension;
+        $signDestinationPath = 'uploads/oldsign';
+        $oldsignPath = $oldsignFile->move($signDestinationPath, $oldsignNewFileName);
+
         $shipping = ($request->DeliverSignature == 'express')?100:0;
         return view('frontend/cart-preorder', [
             'default_pagename' => 'cart-preorder',
@@ -87,17 +95,10 @@ class FrontendPageController extends Controller
             'SelectStatus' => $request->SelectStatus,
             'occupation' => $request->occupation,
             'EverSignature' => $request->EverSignature,
-            'mysignature' => $request->mysignature,
             'ProblemPreorder' => $request->ProblemPreorder,
             'DeliverSignature' => $request->DeliverSignature,
             'shipping' => $shipping,
-            // 'name' => $name,
-            // 'name_id' => $request->name_id,
-            // 'signsth' => $request->signsth,
-            // 'signsen' => $request->signsen,
-            // 'signsall' => $request->signsall,
-            // 'type' => $request->type,
-            // 'package' => $request->package,
+            'mysignaturePath' => $oldsignPath->getPathname(),
         ]);
     }
 

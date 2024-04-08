@@ -213,11 +213,13 @@
                             <input type="hidden" name="SelectStatus" value="{{$SelectStatus}}" />
                             <input type="hidden" name="occupation" value="{{$occupation}}" />
                             <input type="hidden" name="EverSignature" value="{{$EverSignature}}" />
-                            <input type="hidden" name="mysignature" value="{{$mysignature}}" />
                             <input type="hidden" name="ProblemPreorder" value="{{$ProblemPreorder}}" />
                             <input type="hidden" name="DeliverSignature" value="{{$DeliverSignature}}" />
 
                             <input type="hidden" name="preorder_price" value="255" />
+
+                            <input type="hidden" name="mysignaturePath" value="{{ $mysignaturePath }}">
+
 
 
 

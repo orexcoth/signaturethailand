@@ -32,7 +32,6 @@ class CheckoutCustomerController extends Controller
     
     public function preorder_checkout(Request $request)
     {
-        // dd($request);
         // 1. Check if required fields are not null
         $requiredFields = ['firstname', 'email', 'phone', 'package', 'preorder_type'];
         foreach ($requiredFields as $field) {
@@ -106,7 +105,7 @@ class CheckoutCustomerController extends Controller
         $newpreorders->SelectStatus = $request->SelectStatus;
         $newpreorders->occupation = $request->occupation;
         $newpreorders->EverSignature = $request->EverSignature;
-        $newpreorders->mysignature = $request->mysignature;
+        $newpreorders->mysignature = $request->mysignaturePath;
         $newpreorders->ProblemPreorder = $request->ProblemPreorder;
         $newpreorders->DeliverSignature = $request->DeliverSignature;
         // Assuming you also need to store other fields from the request in SellsModel
