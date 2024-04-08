@@ -103,6 +103,7 @@ class NamesController extends Controller
         }
     
         $sign = new signsModel();
+        $sign->status = 1;
         $sign->names_id = $request->names_id;
         $sign->users_id = $request->users_id; // Change to users_id
         $sign->work = $request->work;
