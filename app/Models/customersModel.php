@@ -20,6 +20,5 @@ class customersModel extends Model
         'phone',
         'line',
         'status',
-        'password',
     ];
 }

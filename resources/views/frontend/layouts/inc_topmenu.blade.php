@@ -34,7 +34,7 @@
                             <a class="nav-link text-nav" href="{{route('contactPage')}}">ติดต่อเรา</a>
                         </li>
                         <li class="nav-item BoxNav-TextEnd">
-                            <a class="nav-link text-nav text-nav-end" href="{{route('historyloginPage')}}">ประวัติการสั่งซื้อ</a>
+                            <a class="nav-link text-nav text-nav-end" href="{{route('historyPage')}}">ประวัติการสั่งซื้อ</a>
                         </li>
                     </ul>
                 </div>

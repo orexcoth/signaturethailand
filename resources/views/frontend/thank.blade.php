@@ -27,14 +27,14 @@
                 </div>
                 <div>
                     <p class="Text-24 Text-W400 Text-Gray-Label text-center mb-2">
-                        รหัสผ่านไว้ใช้สำหรับดาวน์โหลดลายเซ็นของคุณคือ
+                        คุณสามารถใช้อีเมลและเบอร์โทรศัพท์เพื่อเข้าไปดาวน์โหลดลายเซ็นต์ของคุณ
                     </p>
-                    <p class="Text-38 Text-W500 text-center mb-2">
+                    <!-- <p class="Text-38 Text-W500 text-center mb-2">
                         passcode
                     </p>
                     <p class="Text-24 Text-W400 Text-Gray-Label text-center mb-2">
                         กรุณาคัดลอกรหัสผ่านเก็บไว้
-                    </p>
+                    </p> -->
                 </div>
                 <div class="BoxBTN-Thank">
                     <a class="btn Button-NextCart mt-5 me-2" href="{{route('historyPage')}}">

@@ -64,7 +64,8 @@
                     <input type="hidden" name="package" value="{{$package}}" />
                     <input type="hidden" name="total" value="{{$total}}" />
 
-                    
+                    <input type="hidden" name="name_th" value="{{$name_th}}" />
+                    <input type="hidden" name="name_en" value="{{$name_en}}" />
                     
                     
                     <div class="col-12 Col-Margin-TopBottom mt-5">

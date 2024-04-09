@@ -205,6 +205,8 @@
                             @endif
                             <input type="hidden" name="type" value="{{$type}}" />
                             <input type="hidden" name="package" value="{{$package}}" />
+                            <input type="hidden" name="name_th" value="{{$name->name_th}}" />
+                            <input type="hidden" name="name_en" value="{{$name->name_en}}" />
 
                             <button type="submit" class="btn Button-NextCart" href="fill-in-information.php">
                                 ถัดไป

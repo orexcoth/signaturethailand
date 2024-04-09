@@ -25,6 +25,13 @@ use Illuminate\Http\UploadedFile;
 use App\Models\OptionsModel;
 use App\Models\namesModel;
 use App\Models\signsModel;
+use App\Models\customersModel;
+
+use App\Models\preordersModel;
+use App\Models\preorders_signs;
+use App\Models\sellsModel;
+use App\Models\sells_namesModel;
+
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
 use File;
@@ -32,6 +39,57 @@ use File;
 
 class FrontendPageController extends Controller
 {
+    public function historyPage(Request $request)
+    {
+        $customer = $request->session()->get('customer');
+        $customer_id = $customer->id;
+
+        $getpreorders = preordersModel::where('customers_id', $customer_id)->get();
+        $getsells = sellsModel::where('customers_id', $customer_id)->get();
+
+        // If the customer session is not available, redirect to historyloginPage
+        if (!$customer) {
+            return redirect()->route('historyloginPage');
+        }
+
+        return view('frontend.history', [
+            'default_pagename' => 'history',
+            'customer' => $customer,
+            'getpreorders' => $getpreorders,
+            'getsells' => $getsells,
+        ]);
+    }
+    public function historyloginPage(Request $request)
+    {
+        return view('frontend/history-login', [
+            'default_pagename' => 'history-login',
+        ]);
+    }
+    public function historyloginaction(Request $request)
+    {
+        // Validate the form data
+        $request->validate([
+            'email' => 'required|email',
+            'phone' => 'required',
+        ]);
+
+        // Check if the customer exists with the provided email and phone
+        $customer = customersModel::where('email', $request->email)
+                             ->where('phone', $request->phone)
+                             ->first();
+
+        if ($customer) {
+            // Store the customer details in the session
+            $request->session()->put('customer', $customer);
+
+            // Redirect to the historyPage
+            return redirect()->route('historyPage');
+        } else {
+            // If customer not found, redirect back with error message
+            return redirect()->back()->with('error', 'Invalid credentials. Please try again.');
+        }
+    }
+
     public function fillininformationpreorderPage(Request $request)
     {
         // dd($request);
@@ -59,6 +117,8 @@ class FrontendPageController extends Controller
             'ProblemPreorder' => $request->ProblemPreorder,
             'DeliverSignature' => $request->DeliverSignature,
             'preorder_price' => $request->preorder_price,
+            'total_price' => $request->total_price,
+            'shipping_price' => $request->shipping_price,
             'mysignaturePath' => $request->mysignaturePath,
         ]);
     }
@@ -66,13 +126,24 @@ class FrontendPageController extends Controller
     public function cartpreorderPage(Request $request)
     {
 
-        $currentDate = date('Ymd');
-        $randomString = uniqid().uniqid();
-        $signExtension = $request->file('mysignature')->getClientOriginalExtension();
-        $oldsignFile = $request->file('mysignature');
-        $oldsignNewFileName = $currentDate . '-' . $randomString . '.' . $signExtension;
-        $signDestinationPath = 'uploads/oldsign';
-        $oldsignPath = $oldsignFile->move($signDestinationPath, $oldsignNewFileName);
+        $myoldsign = '';
+        if ($request->hasFile('mysignature')) {
+            $currentDate = date('Ymd');
+            $randomString = uniqid().uniqid();
+            $signExtension = $request->file('mysignature')->getClientOriginalExtension();
+            $oldsignFile = $request->file('mysignature');
+            $oldsignNewFileName = $currentDate . '-' . $randomString . '.' . $signExtension;
+            $signDestinationPath = 'uploads/oldsign';
+            $oldsignPath = $oldsignFile->move($signDestinationPath, $oldsignNewFileName);
+            $myoldsign = $oldsignPath->getPathname();
+        } 
+        $firstname_th = OptionsModel::where('option_key', 'firstname_th')->first();
+        $lastname_th = OptionsModel::where('option_key', 'lastname_th')->first();
+        $firstname_en = OptionsModel::where('option_key', 'firstname_en')->first();
+        $lastname_en = OptionsModel::where('option_key', 'lastname_en')->first();
+
+        $express = OptionsModel::where('option_key', 'express')->first();
+            
 
         $shipping = ($request->DeliverSignature == 'express')?100:0;
         return view('frontend/cart-preorder', [
@@ -98,7 +169,12 @@ class FrontendPageController extends Controller
             'ProblemPreorder' => $request->ProblemPreorder,
             'DeliverSignature' => $request->DeliverSignature,
             'shipping' => $shipping,
-            'mysignaturePath' => $oldsignPath->getPathname(),
+            'mysignaturePath' => $myoldsign,
+            'firstname_th_price' => $firstname_th ? $firstname_th->option_value : 0,
+            'lastname_th_price' => $lastname_th ? $lastname_th->option_value : 0,
+            'firstname_en_price' => $firstname_en ? $firstname_en->option_value : 0,
+            'lastname_en_price' => $lastname_en ? $lastname_en->option_value : 0,
+            'express_price' => $express ? $express->option_value : 0,
         ]);
     }
 
@@ -185,6 +261,8 @@ class FrontendPageController extends Controller
             'type' => $request->type,
             'package' => $request->package,
             'total' => $request->total,
+            'name_th' => $request->name_th,
+            'name_en' => $request->name_en,
         ]);
     }
 

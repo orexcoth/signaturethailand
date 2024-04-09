@@ -22,6 +22,10 @@
 // echo "<pre>";
 // print_r(count($namesen));
 // echo "</pre>";
+
+$isprice = 0;
+$total_price = 0;
+$shipping_price = 0;
 ?>
 <form method="post" action="{{route('fillininformationpreorderPage')}}">
     @csrf
@@ -62,6 +66,7 @@
                                         </div>
                                         <div class="ColBoxName">
                                             @if($preorder_type == 'duo' || $preorder_type == 'firstname')
+                                            @php $isprice += $firstname_th_price; @endphp
                                             <div class="BoxName">
                                                 <p class="Text-18 Text-W500 me-lg-2 me-md-2 me-1 Margin-bt-1">
                                                     ชื่อ
@@ -72,6 +77,7 @@
                                             </div>
                                             @endif
                                             @if($preorder_type == 'duo' || $preorder_type == 'lastname')
+                                            @php $isprice += $lastname_th_price; @endphp
                                             <div class="BoxSurName">
                                                 <p class="Text-18 Text-W500 me-lg-2 me-md-2 me-1 Margin-bt-1">
                                                     นามสกุล
@@ -111,6 +117,7 @@
                                         </div>
                                         <div class="ColBoxName">
                                             @if($preorder_type == 'duo' || $preorder_type == 'firstname')
+                                            @php $isprice += $firstname_en_price; @endphp
                                             <div class="BoxName">
                                                 <p class="Text-18 Text-W500 me-lg-2 me-md-2 me-1 Margin-bt--2">
                                                     ชื่อ
@@ -121,6 +128,7 @@
                                             </div>
                                             @endif
                                             @if($preorder_type == 'duo' || $preorder_type == 'lastname')
+                                            @php $isprice += $lastname_en_price; @endphp
                                             <div class="BoxSurName">
                                                 <p class="Text-18 Text-W500 me-lg-2 me-md-2 me-1 Margin-bt--2">
                                                     นามสกุล
@@ -140,7 +148,7 @@
                                                 ราคา
                                             </p>
                                             <p class="Text-20 Text-W600 mb-0 Text-Green-Gardien">
-                                                255
+                                                {{$isprice}}
                                             </p>
                                         </div>
                                         <!-- <button class="ButtonTrash">
@@ -159,6 +167,7 @@
                             <h1 class="Text-38 Text-W600 mb-lg-5 mb-md-3 mb-3">
                                 สรุปการชำระเงิน
                             </h1>
+                            @php $total_price = $isprice; @endphp
                             <div class="BoxAnsPrice mt-5 pb-lg-3">
                                 <p class="mb-0 Text-20 Text-W500">
                                     จำนวน:
@@ -172,16 +181,18 @@
                                     ราคา:
                                 </p>
                                 <p class="mb-0 Text-20 Text-W500">
-                                    255.00
+                                {{number_format($isprice, 2, '.', ',')}}
                                 </p>
                             </div>
                             @if($shipping !== 0)
+                            @php $total_price += $express_price; @endphp
+                            @php $shipping_price += $express_price; @endphp
                             <div class="BoxAnsPrice BorDer-bt-Grey pb-lg-3 mb-lg-3">
                                 <p class="mb-0 Text-20 Text-W500">
                                     จัดส่งด่วน:
                                 </p>
                                 <p class="mb-0 Text-20 Text-W500">
-                                    {{$shipping}}
+                                    {{number_format($express_price, 2, '.', ',')}}
                                 </p>
                             </div>
                             @endif
@@ -191,7 +202,7 @@
                                     ราคารวมทั้งหมด:
                                 </p>
                                 <p class="mb-0 Text-24 Text-W500">
-                                    255.00
+                                    {{number_format($total_price, 2, '.', ',')}}
                                 </p>
                             </div>
 
@@ -216,7 +227,9 @@
                             <input type="hidden" name="ProblemPreorder" value="{{$ProblemPreorder}}" />
                             <input type="hidden" name="DeliverSignature" value="{{$DeliverSignature}}" />
 
-                            <input type="hidden" name="preorder_price" value="255" />
+                            <input type="hidden" name="preorder_price" value="{{$isprice}}" />
+                            <input type="hidden" name="total_price" value="{{$total_price}}" />
+                            <input type="hidden" name="shipping_price" value="{{$shipping_price}}" />
 
                             <input type="hidden" name="mysignaturePath" value="{{ $mysignaturePath }}">
 

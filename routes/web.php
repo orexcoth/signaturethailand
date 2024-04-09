@@ -102,7 +102,11 @@ Route::post('cart', [FrontendPageController::class, 'cartPage'])->name('cartPage
 
 
 Route::get('history-login', [FrontendPageController::class, 'historyloginPage'])->name('historyloginPage');
-Route::get('history', [FrontendPageController::class, 'historyPage'])->name('historyPage');
+Route::post('history-login-action', [FrontendPageController::class, 'historyloginaction'])->name('historyloginaction');
+// Route::get('history', [FrontendPageController::class, 'historyPage'])->name('historyPage');
+Route::get('history', [FrontendPageController::class, 'historyPage'])
+    ->name('historyPage')
+    ->middleware('checkCustomerSession');
 
 Route::get('product', [FrontendPageController::class, 'productPage'])->name('productPage');
 Route::get('product-detail/{name}', [FrontendPageController::class, 'productdetailPage'])->name('productdetailPage');
@@ -113,7 +117,7 @@ Route::post('fill-in-information', [FrontendPageController::class, 'fillininform
 Route::post('fill-in-information-preorder', [FrontendPageController::class, 'fillininformationpreorderPage'])->name('fillininformationpreorderPage');
 Route::post('sell-checkout', [CheckoutCustomerController::class, 'sell_checkout'])->name('sell_checkout');
 Route::post('preorder-checkout', [CheckoutCustomerController::class, 'preorder_checkout'])->name('preorder_checkout');
-Route::get('thank/{sell_id}', [CheckoutCustomerController::class, 'thankPage'])->name('thankPage');
+Route::get('thank', [CheckoutCustomerController::class, 'thankPage'])->name('thankPage');
 
 Route::get('preorder', [FrontendPageController::class, 'preorderPage'])->name('preorderPage');
 Route::post('cart-preorder', [FrontendPageController::class, 'cartpreorderPage'])->name('cartpreorderPage');

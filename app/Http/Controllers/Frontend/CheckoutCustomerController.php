@@ -32,6 +32,7 @@ class CheckoutCustomerController extends Controller
     
     public function preorder_checkout(Request $request)
     {
+        dd($request);
         // 1. Check if required fields are not null
         $requiredFields = ['firstname', 'email', 'phone', 'package', 'preorder_type'];
         foreach ($requiredFields as $field) {
@@ -73,7 +74,7 @@ class CheckoutCustomerController extends Controller
         $newpreorders->status = 'pending';
         $newpreorders->number = $gennumber;
         $newpreorders->customers_id = $customers_id;
-        $newpreorders->total = $request->total;
+        $newpreorders->total = $request->preorder_price;
 
         $newpreorders->firstname = $request->firstname;
         $newpreorders->lastname = $request->lastname;
@@ -126,6 +127,7 @@ class CheckoutCustomerController extends Controller
 
     public function sell_checkout(Request $request)
     {
+        // dd($request);
         // 1. Check if required fields are not null
         $requiredFields = ['firstname', 'email', 'phone', 'name_id', 'signs', 'type', 'package'];
         foreach ($requiredFields as $field) {
@@ -167,18 +169,32 @@ class CheckoutCustomerController extends Controller
         $newSell->status = 'pending';
         $newSell->number = $gennumber;
         $newSell->customers_id = $customers_id;
+        $newSell->names_id = $request->name_id;
+        $newSell->name_th = $request->name_th;
+        $newSell->name_en = $request->name_en;
+        $newSell->signs = $request->signs;
+        $newSell->type = $request->type;
+        $newSell->package = $request->package;
         $newSell->total = $request->total;
         $newSell->firstname = $request->firstname;
         $newSell->lastname = $request->lastname;
         $newSell->email = $request->email;
         $newSell->phone = $request->phone;
-        $newSell->passcode = $request->passcode;
+
+        $newSell->shipping_method = 'email';
+        $newSell->shipping_detail = $request->email;
+        $newSell->payment_method = 'qrcode';
+        $newSell->payment_qr = 'qrcodegenerate';
+        $newSell->payment_status = 'pending';
+
+        // dd($newSell);
+        // $newSell->passcode = $request->passcode;
         // Assuming you also need to store other fields from the request in SellsModel
         // Add them as necessary
         $newSell->save();
 
         // Optionally, return success response with sell ID
-        return redirect(route('thankPage', ['sell_id' => $newSell->id]))->with('success', 'สร้างสำเร็จ !!!');
+        return redirect(route('thankPage'))->with('success', 'สร้างสำเร็จ !!!');
 
     }
 
@@ -187,13 +203,13 @@ class CheckoutCustomerController extends Controller
 
 
 
-    public function thankPage(Request $request, $sell_id)
+    public function thankPage(Request $request)
     {
         // dd($sell_id);
-        $sell = sellsModel::find($sell_id);
+        // $sell = sellsModel::find($sell_id);
         return view('frontend/thank', [
             'default_pagename' => 'homePage',
-            'sell' => $sell,
+            // 'ordernumber' => $ordernumber,
         ]);
     }
 

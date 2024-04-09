@@ -80,8 +80,9 @@
                     <input type="hidden" name="DeliverSignature" value="{{$DeliverSignature}}" />
                     <input type="hidden" name="mysignaturePath" value="{{ $mysignaturePath }}">
 
-                    <input type="hidden" name="preorder_price" value="255" />
-                    <input type="hidden" name="total" value="255" />
+                    <input type="hidden" name="preorder_price" value="{{$preorder_price}}" />
+                    <input type="hidden" name="total_price" value="{{$total_price}}" />
+                    <input type="hidden" name="shipping_price" value="{{$shipping_price}}55" />
 
                     
                     

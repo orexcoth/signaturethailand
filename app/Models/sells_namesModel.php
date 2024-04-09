@@ -15,7 +15,7 @@ class sells_namesModel extends Model
         'names_id',
         'sells_id',
         'price',
-        'combo',
+        'signs',
         'remark',
     ];
 }
