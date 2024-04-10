@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+use App\Models\signsModel;
+
 class sellsModel extends Model
 {
     use HasFactory;
@@ -37,4 +39,12 @@ class sellsModel extends Model
         'ref2',
         'ref3',
     ];
+
+
+    public function signs()
+    {
+        return $this->hasMany(signsModel::class, 'sells_id');
+    }
+
+
 }

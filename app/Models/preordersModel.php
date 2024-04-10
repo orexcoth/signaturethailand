@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+use App\Models\customersModel;
+
 class preordersModel extends Model
 {
     use HasFactory;
@@ -16,6 +18,9 @@ class preordersModel extends Model
         'status',
         'number',
         'total',
+        'preorder_price',
+        'total_price',
+        'shipping_price',
         'firstname',
         'lastname',
         'email',
@@ -30,8 +35,8 @@ class preordersModel extends Model
         'ref1',
         'ref2',
         'ref3',
+        'package',
         'preorder_type',
-        'preorder_price',
         'firstname_th',
         'lastname_th',
         'firstname_en',
@@ -44,6 +49,7 @@ class preordersModel extends Model
         'TargetPreorder',
         'name',
         'dob',
+        'telephone',
         'SelectStatus',
         'occupation',
         'EverSignature',
@@ -55,6 +61,6 @@ class preordersModel extends Model
 
     public function customer()
     {
-        return $this->belongsTo(Customer::class, 'customers_id');
+        return $this->belongsTo(customersModel::class, 'customers_id');
     }
 }

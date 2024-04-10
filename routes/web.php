@@ -107,6 +107,10 @@ Route::post('history-login-action', [FrontendPageController::class, 'historylogi
 Route::get('history', [FrontendPageController::class, 'historyPage'])
     ->name('historyPage')
     ->middleware('checkCustomerSession');
+Route::get('history/detailsignatureforsells/{sells_id}/{signs_id}', [FrontendPageController::class, 'historydetailsignatureforsellsPage'])
+    ->name('historydetailsignatureforsellsPage')
+    ->middleware('checkCustomerSession');
+
 
 Route::get('product', [FrontendPageController::class, 'productPage'])->name('productPage');
 Route::get('product-detail/{name}', [FrontendPageController::class, 'productdetailPage'])->name('productdetailPage');

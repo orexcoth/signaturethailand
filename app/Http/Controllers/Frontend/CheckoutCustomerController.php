@@ -32,7 +32,7 @@ class CheckoutCustomerController extends Controller
     
     public function preorder_checkout(Request $request)
     {
-        dd($request);
+        // dd($request);
         // 1. Check if required fields are not null
         $requiredFields = ['firstname', 'email', 'phone', 'package', 'preorder_type'];
         foreach ($requiredFields as $field) {
@@ -88,8 +88,11 @@ class CheckoutCustomerController extends Controller
         $newpreorders->payment_status = 'payment_status';
         $newpreorders->payment_date = now();
 
+        $newpreorders->package = $request->package;
         $newpreorders->preorder_type = $request->preorder_type;
         $newpreorders->preorder_price = $request->preorder_price;
+        $newpreorders->total_price = $request->total_price;
+        $newpreorders->shipping_price = $request->shipping_price;
         $newpreorders->firstname_th = $request->firstname_th;
         $newpreorders->lastname_th = $request->lastname_th;
         $newpreorders->firstname_en = $request->firstname_en;

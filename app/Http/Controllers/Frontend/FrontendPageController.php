@@ -39,6 +39,35 @@ use File;
 
 class FrontendPageController extends Controller
 {
+
+    public function historydetailsignatureforsellsPage(Request $request, $sells_id, $signs_id)
+    {
+        $customer = $request->session()->get('customer');
+        $customer_id = $customer->id;
+
+        $sells = SellsModel::findOrFail($sells_id);
+
+        if ($sells->customers_id != $customer_id) {
+            abort(403, 'Unauthorized access'); // Return 403 Forbidden if the customer ID does not match
+        }
+        $signs = json_decode($sells->signs); // Assuming 'signs' field is in JSON format
+        if (!in_array($signs_id, $signs)) {
+            abort(404, 'Sign not found'); // Return 404 Not Found if $signs_id is not found
+        }
+        $sign = SignsModel::findOrFail($signs_id);
+
+        return view('frontend.detailsignature', [
+            'layout' => 'side-menu',
+            'sign' => $sign, // Pass the sells data to the view
+        ]);
+    }
+    // public function historydetailsignatureforsellsPage(Request $request, $sells_id, $signs_id)
+    // {
+    //     return view('frontend/detailsignature', [
+    //         'layout' => 'side-menu',
+    //     ]);
+    // }
+
     public function historyPage(Request $request)
     {
         $customer = $request->session()->get('customer');
@@ -46,6 +75,22 @@ class FrontendPageController extends Controller
 
         $getpreorders = preordersModel::where('customers_id', $customer_id)->get();
         $getsells = sellsModel::where('customers_id', $customer_id)->get();
+        foreach ($getsells as $sell) {
+            // $sign_ids = json_decode($sell->signs);
+            // $random_sign_id = $sign_ids[array_rand($sign_ids)];
+            // $random_sign = signsModel::find($random_sign_id);
+            // $sell->signs = $random_sign;
+
+            $sign_ids = json_decode($sell->signs);
+            $signs = signsModel::whereIn('id', $sign_ids)->get();
+            $sell->signs = $signs;
+        }
+        // dd($getsells);
+        // Now $getsells will contain sells along with associated signs
+
+
+
+
 
         // If the customer session is not available, redirect to historyloginPage
         if (!$customer) {

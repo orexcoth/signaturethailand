@@ -5,6 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+use App\Models\sellsModel;
+use App\Models\User;
+
 class signsModel extends Model
 {
     use HasFactory;
@@ -31,4 +34,11 @@ class signsModel extends Model
     {
         return $this->belongsTo(User::class, 'users_id');
     }
+
+    public function sell()
+    {
+        return $this->belongsTo(sellsModel::class, 'sells_id');
+    }
+
+
 }
