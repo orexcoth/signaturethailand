@@ -60,7 +60,7 @@
                             <div class="BoxnameSignature" style="padding:0;">
                                 <div class="Box-Text-Search-Left">
                                     <p class="Text-Search-TH mb-0 Text-48 Text-W600 Text-LineHeight-50">
-                                    {{ $name->name_th }} / {{ $name->name_en }}
+                                    {{ $name->name_th }}  {{ $name->name_en }}
                                     </p>
                                 </div>
                                 <div class="Box-Text-Search-Right">

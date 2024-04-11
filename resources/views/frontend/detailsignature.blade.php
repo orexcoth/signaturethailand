@@ -7,9 +7,9 @@
 @section('content')
 
 <?php
-echo "<pre>";
-print_r($sign);
-echo "</pre>";
+// echo "<pre>";
+// print_r($sign);
+// echo "</pre>";
 // echo "<pre>";
 // print_r(count($namesen));
 // echo "</pre>";
@@ -27,25 +27,32 @@ echo "</pre>";
                             <div class="ColProfile-TeamSNG">
                                 <p class="Text-20 Text-w500 Text-Gray-Label m-0">
                                     <span>
-                                        <img class="IMG-Profile-TeamSNG" src="{{asset('frontend/images/detail-product/img-profile-t.png')}}" alt="">
+                                        <img class="IMG-Profile-TeamSNG" src="{{asset($sign->user->photo)}}" alt="">
                                     </span>
-                                    A.Tinn Signature
+                                    {{$sign->user->name}}
                                 </p>
                             </div>
                             <p class="Text-60 Text-W600 m-0">
-                                ธนกานต์
+                                @if($sign->lang == 'th')
+                                {{$sign->name->name_th}}
+                                @endif
+                                @if($sign->lang == 'en')
+                                {{$sign->name->name_en}}
+                                @endif
                             </p>
+
                             <div class="Box-Maim-Star w-100">
                                 <div class="Box-Title-Star-Detail">
                                     <p class="Text-18 Text-W400 m-0">
                                         งาน
                                     </p>
                                     <div class="BoxStar-Deatail">
+                                        @for ($i = 0; $i < $sign->work; $i++)
                                         <span class="fa fa-star checked"></span>
-                                        <span class="fa fa-star checked"></span>
-                                        <span class="fa fa-star checked"></span>
-                                        <span class="fa fa-star checked"></span>
+                                        @endfor
+                                        @for ($i = $sign->work; $i < 5; $i++)
                                         <span class="fa fa-star"></span>
+                                        @endfor
                                     </div>
                                 </div>
                                 <div class="Box-Title-Star-Detail">
@@ -53,11 +60,12 @@ echo "</pre>";
                                         เงิน
                                     </p>
                                     <div class="BoxStar-Deatail">
+                                        @for ($i = 0; $i < $sign->finance; $i++)
                                         <span class="fa fa-star checked"></span>
-                                        <span class="fa fa-star checked"></span>
-                                        <span class="fa fa-star checked"></span>
+                                        @endfor
+                                        @for ($i = $sign->finance; $i < 5; $i++)
                                         <span class="fa fa-star"></span>
-                                        <span class="fa fa-star"></span>
+                                        @endfor
                                     </div>
                                 </div>
                                 <div class="Box-Title-Star-Detail">
@@ -65,11 +73,12 @@ echo "</pre>";
                                         รัก
                                     </p>
                                     <div class="BoxStar-Deatail">
+                                        @for ($i = 0; $i < $sign->love; $i++)
                                         <span class="fa fa-star checked"></span>
-                                        <span class="fa fa-star checked"></span>
-                                        <span class="fa fa-star "></span>
+                                        @endfor
+                                        @for ($i = $sign->love; $i < 5; $i++)
                                         <span class="fa fa-star"></span>
-                                        <span class="fa fa-star"></span>
+                                        @endfor
                                     </div>
                                 </div>
                                 <div class="Box-Title-Star-Detail">
@@ -77,11 +86,12 @@ echo "</pre>";
                                         สุขภาพ
                                     </p>
                                     <div class="BoxStar-Deatail">
+                                        @for ($i = 0; $i < $sign->health; $i++)
                                         <span class="fa fa-star checked"></span>
-                                        <span class="fa fa-star checked"></span>
-                                        <span class="fa fa-star checked"></span>
-                                        <span class="fa fa-star checked"></span>
+                                        @endfor
+                                        @for ($i = $sign->health; $i < 5; $i++)
                                         <span class="fa fa-star"></span>
+                                        @endfor
                                     </div>
                                 </div>
                                 <div class="Box-Title-Star-Detail">
@@ -89,14 +99,16 @@ echo "</pre>";
                                         โชคลาภ
                                     </p>
                                     <div class="BoxStar-Deatail">
+                                        @for ($i = 0; $i < $sign->fortune; $i++)
                                         <span class="fa fa-star checked"></span>
-                                        <span class="fa fa-star checked"></span>
-                                        <span class="fa fa-star checked"></span>
-                                        <span class="fa fa-star checked"></span>
-                                        <span class="fa fa-star checked"></span>
+                                        @endfor
+                                        @for ($i = $sign->fortune; $i < 5; $i++)
+                                        <span class="fa fa-star"></span>
+                                        @endfor
                                     </div>
                                 </div>
                             </div>
+
                             <p class="Text-16 Text-W300 Text-Gray-Label my-2">
                                 Lorem ipsum dolor sit am consectetuer adipiscing elit sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna.
                             </p>
@@ -123,7 +135,7 @@ echo "</pre>";
 
                                     </div>
 
-                                    <a class="btn ButtonAddSurname" href="preorder.php">
+                                    <a class="btn ButtonAddSurname" href="{{route('preorderPage')}}">
                                         เพิ่มลายเซ็นนามสกุล
                                     </a>
                                 </div>
@@ -143,6 +155,31 @@ echo "</pre>";
 
 @section('script')
 
+<script>
+    $(document).ready(function() {
+        // Handle click event for image download button
+        $("#BtnDownloadIMG").click(function() {
+            var imagePath = '<?php echo rawurlencode(asset($sign->sign)); ?>';
+            initiateDownload(imagePath);
+        });
+
+        // Handle click event for video download button
+        $("#BtnDownloadVDO").click(function() {
+            var videoPath = '<?php echo rawurlencode(asset($sign->video)); ?>';
+            initiateDownload(videoPath);
+        });
+
+        // Function to initiate download
+        function initiateDownload(filePath) {
+            // Decode the URL
+            var decodedPath = decodeURIComponent(filePath);
+            var link = document.createElement('a');
+            link.href = decodedPath;
+            link.download = decodedPath.split('/').pop(); // Set the download attribute to the filename
+            link.click();
+        }
+    });
+</script>
 @endsection
 
 

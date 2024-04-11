@@ -40,5 +40,10 @@ class signsModel extends Model
         return $this->belongsTo(sellsModel::class, 'sells_id');
     }
 
+    public function name()
+    {
+        return $this->belongsTo(NamesModel::class, 'names_id');
+    }
+
 
 }

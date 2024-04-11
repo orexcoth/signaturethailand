@@ -7,6 +7,7 @@
 @section('content')
 
 <?php
+// session()->forget('customer');
 // $customer = session('customer');
 // echo "<pre>";
 // print_r($getsells);

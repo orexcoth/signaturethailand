@@ -148,7 +148,8 @@ $selectedStatus = isset($_GET['status']) ? $_GET['status'] : '';
                         </td>
                         <td class="table-report__action w-56">
                             <div class="flex justify-center items-center">
-                                
+                                <button class="btn button" name-id="{{$res->id}}">ฟรี</button>
+                                &emsp;
                                 <a class="flex items-center text-success mr-3" href="{{ route('BN_names_detail', ['id' => $res->id]) }}" >
                                     <i data-lucide="eye" class="w-4 h-4 mr-1"></i> รายละเอียด
                                 </a>
@@ -269,53 +270,6 @@ $selectedStatus = isset($_GET['status']) ? $_GET['status'] : '';
     }
 }
 
-
-    // function updateAlphabetOptions() {
-    //     var languageDropdown = document.getElementById("language");
-    //     var alphabetDropdown = document.getElementById("alphabet");
-
-    //     // Clear existing options
-    //     alphabetDropdown.innerHTML = '<option value=""></option>';
-
-    //     // Generate options based on the selected language
-    //     if (languageDropdown.value === "th") {
-    //         for (var i = 0; i < 46; i++) {
-    //             var thaiAlphabet = String.fromCharCode(0xE01 + i); // Unicode for Thai alphabets ก-ฅ
-    //             var option = document.createElement("option");
-    //             option.value = thaiAlphabet;
-    //             option.text = thaiAlphabet;
-    //             alphabetDropdown.add(option);
-    //         }
-    //     } else if (languageDropdown.value === "en") {
-    //         for (var i = 0; i < 26; i++) {
-    //             var englishAlphabet = String.fromCharCode(97 + i); // Unicode for English alphabets a-z
-    //             var option = document.createElement("option");
-    //             option.value = englishAlphabet;
-    //             option.text = englishAlphabet;
-    //             alphabetDropdown.add(option);
-    //         }
-    //     }
-
-    //     // Set the width of the select box
-    //     // alphabetDropdown.style.width = "200px"; // Adjust the width as needed
-
-        
-    //     // Set selected option based on URL parameter
-    //     var urlParams = new URLSearchParams(window.location.search);
-    //     var alphabetParam = urlParams.get('alphabet');
-    //     if (alphabetParam) {
-    //         // Convert both the dropdown values and the URL parameter to lowercase
-    //         var lowercaseAlphabetParam = alphabetParam.toLowerCase();
-
-    //         // Set the selected option in the alphabet dropdown
-    //         for (var i = 0; i < alphabetDropdown.options.length; i++) {
-    //             if (alphabetDropdown.options[i].value.toLowerCase() === lowercaseAlphabetParam) {
-    //                 alphabetDropdown.value = alphabetDropdown.options[i].value;
-    //                 break;
-    //             }
-    //         }
-    //     }
-    // }
 
 </script>
 

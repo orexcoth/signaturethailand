@@ -24,9 +24,6 @@ class namesModel extends Model
     public function signs()
     {
         return $this->hasMany(signsModel::class, 'names_id');
-        // return $this->hasMany(SignsModel::class, 'names_id')->whereHas('signs', function ($query) {
-        //     $query->where('lang', $this->lang);
-        // });
     }
     
 }

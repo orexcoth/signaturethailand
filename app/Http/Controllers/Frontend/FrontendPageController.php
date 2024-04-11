@@ -55,6 +55,7 @@ class FrontendPageController extends Controller
             abort(404, 'Sign not found'); // Return 404 Not Found if $signs_id is not found
         }
         $sign = SignsModel::findOrFail($signs_id);
+        $signWithRelations = $sign->load('user', 'name');
 
         return view('frontend.detailsignature', [
             'layout' => 'side-menu',

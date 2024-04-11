@@ -81,7 +81,7 @@
             </div>
         </div>
         <div class="DivPen">
-            <img class="IMG-Pen" src="./images/index/pen.png" alt="">
+            <img class="IMG-Pen" src="{{asset('frontend/images/index/pen.png')}}" alt="">
         </div>
     </section>
 
