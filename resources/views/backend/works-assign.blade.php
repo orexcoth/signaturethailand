@@ -63,7 +63,7 @@
 @section('subcontent')
 <?php
 // echo "<pre>";
-// print_r($sells);
+// print_r($preorders);
 // echo "</pre>";
 ?>
     <div class="intro-y mt-5 flex flex-col items-center sm:flex-row">
@@ -112,8 +112,8 @@
                                     <select name="type" id="type-select" class="w-full">
                                         <option value="">เลือกประเภท</option>
                                         <option value="names">ชื่อที่มีในระบบ</option>
-                                        <option value="combos">รายการขายที่มีการเพิ่มนามสกุล</option>
-                                        <option value="orders">รายการสั่งออกแบบ</option>
+                                        <!-- <option value="combos">รายการขายที่มีการเพิ่มนามสกุล</option> -->
+                                        <option value="preorders">รายการสั่งออกแบบ</option>
                                     </select>
                                 </div>
                             </div>
@@ -129,23 +129,14 @@
                                 </div>
                             </div>
 
-                            <div id="combos-input" class="col-span-12 xl:col-span-12" style="display: none;">
-                                <div class="mt-5">
-                                    <label>รายการขายที่มีการเพิ่มนามสกุล</label>
-                                    <select name="combos" data-placeholder="Select your favorite actors" class="tom-select w-full mt-3">
-                                        @foreach($sells as $key_sells => $ressells)
-                                        <option value="{{$ressells->sell_id}}">{{$ressells->sell_number}}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
 
-                            <div id="orders-input" class="col-span-12 xl:col-span-12" style="display: none;">
+
+                            <div id="preorders-input" class="col-span-12 xl:col-span-12" style="display: none;">
                                 <div class="mt-5">
                                     <label>รายการสั่งออกแบบ</label>
-                                    <select name="orders" data-placeholder="Select your favorite actors" class="tom-select w-full mt-3">
-                                        @foreach($orders as $key_orders => $resorders)
-                                        <option value="{{$resorders->id}}">{{$resorders->sell_number}}</option>
+                                    <select name="preorders" data-placeholder="Select your favorite actors" class="tom-select w-full mt-3">
+                                        @foreach($preorders as $key_preorders => $respreorders)
+                                        <option value="{{$respreorders->id}}">{{$respreorders->number}} - {{$respreorders->email}} - {{$respreorders->status}}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -179,19 +170,19 @@
 document.getElementById('type-select').addEventListener('change', function() {
         var selectedType = this.value;
         var namesInput = document.getElementById('names-input');
-        var combosInput = document.getElementById('combos-input');
-        var ordersInput = document.getElementById('orders-input');
+        // var combosInput = document.getElementById('combos-input');
+        var preordersInput = document.getElementById('preorders-input');
 
         namesInput.style.display = 'none';
-        combosInput.style.display = 'none';
-        ordersInput.style.display = 'none';
+        // combosInput.style.display = 'none';
+        preordersInput.style.display = 'none';
 
         if (selectedType === 'names') {
             namesInput.style.display = 'block';
-        } else if (selectedType === 'combos') {
-            combosInput.style.display = 'block';
-        } else if (selectedType === 'orders') {
-            ordersInput.style.display = 'block';
+        // } else if (selectedType === 'combos') {
+        //     combosInput.style.display = 'block';
+        } else if (selectedType === 'preorders') {
+            preordersInput.style.display = 'block';
         }
     });
 
@@ -220,7 +211,6 @@ function toggleCheckAll() {
     });
 
     if (allChecked) {
-        // If all are checked, uncheck all
         checkboxes.forEach(function (checkbox) {
             checkbox.checked = false;
             checkbox.parentElement.classList.remove('checked');
@@ -228,7 +218,6 @@ function toggleCheckAll() {
         checkAllCheckbox.checked = false;
         checkAllCheckbox.parentElement.classList.remove('checked');
     } else {
-        // If not all are checked, check all
         checkboxes.forEach(function (checkbox) {
             checkbox.checked = true;
             checkbox.parentElement.classList.add('checked');

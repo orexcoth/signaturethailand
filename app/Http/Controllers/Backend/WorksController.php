@@ -15,7 +15,7 @@ use App\Models\ordersModel;
 use App\Models\sellsModel;
 use App\Models\sells_namesModel;
 use App\Models\sells_combosModel;
-
+use App\Models\preordersModel;
 use App\Models\worksModel;
 
 class WorksController extends Controller
@@ -25,34 +25,35 @@ class WorksController extends Controller
 
         $users = UsersModel::all();
         $names = namesModel::all();
-        $orders = ordersModel::all();
+        $preorders = preordersModel::get();
 
-        $sells = DB::table('sells')
-            ->select(
-                'sells.*',
-                'sells_names.*',
-                'sells_combos.*',
-                'names.*',
-                'sells.id as sell_id',
-                'sells_names.id as sells_names_id',
-                'sells_combos.id as sells_combos_id',
-                'sells.created_at as sells_created_at',
-                'sells.status as sells_status',
-                'names.id as names_id'
-            )
-            ->leftJoin('sells_names', 'sells.id', '=', 'sells_names.sells_id')
-            ->leftJoin('sells_combos', 'sells_names.id', '=', 'sells_combos.sells_names_id')
-            ->leftJoin('names', 'sells_names.names_id', '=', 'names.id')
-            ->where('sells_names.combo', 1)
-            ->get();
+        // $sells = DB::table('sells')
+            // ->select(
+            //     'sells.*',
+            //     'sells_names.*',
+            //     'sells_combos.*',
+            //     'names.*',
+            //     'sells.id as sell_id',
+            //     'sells_names.id as sells_names_id',
+            //     'sells_combos.id as sells_combos_id',
+            //     'sells.created_at as sells_created_at',
+            //     'sells.status as sells_status',
+            //     'names.id as names_id'
+            // )
+            // ->leftJoin('sells_names', 'sells.id', '=', 'sells_names.sells_id')
+            // ->leftJoin('sells_combos', 'sells_names.id', '=', 'sells_combos.sells_names_id')
+            // ->leftJoin('names', 'sells_names.names_id', '=', 'names.id')
+            // ->where('sells_names.combo', 1)
+            // ->get();
 
+        // dd($sells);
 
         return view('backend/works-assign', [
             'default_pagename' => 'มอบหมายงาน',
             'users' => $users,
             'names' => $names,
-            'orders' => $orders,
-            'sells' => $sells,
+            'preorders' => $preorders,
+            // 'sells' => $sells,
         ]);
     }
 
@@ -218,8 +219,8 @@ class WorksController extends Controller
                     $works->make = $request->names;
                 }elseif($request->type == 'combos'){
                     $works->make = $request->combos;
-                }elseif($request->type == 'orders'){
-                    $works->make = $request->orders;
+                }elseif($request->type == 'preorders'){
+                    $works->make = $request->preorders;
                 }
                 $works->save();
             }

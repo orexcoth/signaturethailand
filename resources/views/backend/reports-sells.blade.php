@@ -52,7 +52,8 @@
             <div class="relative w-56 text-slate-500">
                 <select id="status" name="status" class="form-select py-3 px-4 box w-full lg:w-auto mt-3 lg:mt-0 ml-auto" onchange="applySelects()" >
                     <option value="all" @if(empty(request('status')) || request('status') == 'all') selected @endif>สถานะทั้งหมด&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</option>
-                    <option value="paid" @if(request('status') == 'paid') selected @endif>ชำระเงินแล้ว&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</option>
+                    <option value="paid" @if(request('status') == 'paid') selected @endif>paid&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</option>
+                    <option value="pending" @if(request('status') == 'pending') selected @endif>pending&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</option>
                 </select>
             </div>
         </div>
@@ -65,6 +66,7 @@
             <thead>
                 <tr>
                     <th class="whitespace-nowrap">วันที่</th>
+                    <th class="whitespace-nowrap">รายการ</th>
                     <th class="whitespace-nowrap">ลูกค้า</th>
                     <th class="whitespace-nowrap">ชื่อที่สั่ง</th>
                     <th class="whitespace-nowrap">ยอดเงิน</th>
@@ -73,21 +75,33 @@
                     <th class="text-center whitespace-nowrap">แอคชั่น</th>
                 </tr>
             </thead>
+
             <tbody>
             @if($query->count() > 0)
                 @foreach($query as $keyres => $res)
                     <tr class="intro-x">
-                        <td><div class="text-slate-500 text-sm whitespace-nowrap mt-0.5">{{date('d/m/Y H:i:s', strtotime($res->sells_created_at))}}</div></td>
+                        <td><div class="text-slate-500 text-sm whitespace-nowrap mt-0.5">{{date('d/m/Y H:i:s', strtotime($res->created_at))}}</div></td>
                         <td>
-                            <div class="text-slate-500 text-sm whitespace-nowrap mt-0.5">{{$res->firstname}} {{$res->lastname}}</div>
+                            <div class="text-slate-500 text-sm whitespace-nowrap mt-0.5">{{$res->number}}</div>
+                        </td>
+                        <td>
+                            <div class="text-slate-500 text-sm whitespace-nowrap mt-0.5">{{$res->customers->firstname}} {{$res->customers->lastname}}</div>
                             <div class="text-slate-500 text-sm whitespace-nowrap mt-0.5">{{$res->email}}</div>
                         </td>
                         <td>
-                            <div class="text-slate-500 text-sm whitespace-nowrap mt-0.5">{{$res->name_th}} / {{$res->name_en}}</div>
-                            <div class="text-slate-500 text-sm whitespace-nowrap mt-0.5">เพิ่มนามสกุล {{$res->text}}</div>
+                            <div class="text-slate-500 text-sm whitespace-nowrap mt-0.5">
+                                @if ($res->package === 'th')
+                                    {{ $res->name_th }}
+                                @elseif ($res->package === 'en')
+                                    {{ $res->name_en }}
+                                @else
+                                    {{ $res->name_th }} / {{ $res->name_en }}
+                                @endif
+                            </div>
                         </td>
+
                         <td><div class="text-slate-500 text-sm whitespace-nowrap mt-0.5">{{$res->total}}</div></td>
-                        <td><div class="text-slate-500 text-sm whitespace-nowrap mt-0.5">{{$res->sells_status}}</div></td>
+                        <td><div class="text-slate-500 text-sm whitespace-nowrap mt-0.5">{{$res->status}}</div></td>
                         <td class="table-report__action w-56">
                             <div class="flex justify-center items-center">
                                 <!-- <a class="flex items-center mr-3" href="#">
@@ -105,7 +119,7 @@
                     <td colspan="2">No records found</td>
                 </tr>
             @endif
-        </tbody>
+            </tbody>
 
             <!-- <tbody id="fetchPosts">
                 

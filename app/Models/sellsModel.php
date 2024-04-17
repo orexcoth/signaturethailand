@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 use App\Models\signsModel;
+use App\Models\customersModel;
 
 class sellsModel extends Model
 {
@@ -44,6 +45,10 @@ class sellsModel extends Model
     public function signs()
     {
         return $this->hasMany(signsModel::class, 'sells_id');
+    }
+    public function customers()
+    {
+        return $this->belongsTo(customersModel::class, 'customers_id', 'id');
     }
 
 

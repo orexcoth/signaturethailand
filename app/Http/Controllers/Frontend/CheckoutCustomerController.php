@@ -166,7 +166,8 @@ class CheckoutCustomerController extends Controller
         $stiv = "STIV"; // Static prefix
         $timestamp = time(); // Current timestamp
         $uniq_id = uniqid(); // Unique identifier
-        $gennumber = $stiv . $timestamp  . $uniq_id;
+        // $gennumber = $stiv . $timestamp  . $uniq_id;
+        $gennumber = $stiv . $uniq_id;
         // 5. Create new sellsModel
         $newSell = new sellsModel();
         $newSell->status = 'pending';
