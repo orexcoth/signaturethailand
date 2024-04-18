@@ -1,10 +1,16 @@
 @extends('../backend/layout/side-menu')
 
 @section('subhead')
-    <title>Backend - {{$default_pagename}}</title>
+<title>Backend - {{$default_pagename}}</title>
+<style>
+    .highlight {
+        background-color: yellow; /* Change this to your desired highlight color */
+    }
+</style>
 @endsection
 
 @section('subcontent')
+
 <?php
 $selectedStatus = isset($_GET['status']) ? $_GET['status'] : '';
 
@@ -60,6 +66,15 @@ $selectedStatus = isset($_GET['status']) ? $_GET['status'] : '';
         </div>
         
         <div class="mx-auto hidden text-slate-500 md:block"></div>
+        <div class="mt-3 w-full sm:ml-auto sm:mt-0 sm:w-auto md:ml-0">
+            <div class="relative w-56 text-slate-500">
+                <select id="price" name="price" class="form-select py-3 px-4 box w-full lg:w-auto mt-3 lg:mt-0 ml-auto"  onchange="applySelects()">
+                    <option value="all" @if(empty(request('price')) || request('price') == 'all') selected @endif>ทุกราคา&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</option>
+                    <option value="free" @if(request('price') == 'free') selected @endif>เฉพาะชื่อฟรี&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</option>
+                    <option value="valuable" @if(request('price') == 'valuable') selected @endif>เฉพาะชื่อไม่ฟรี&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</option>
+                </select>
+            </div>
+        </div>
         <div class="mt-3 w-full sm:ml-auto sm:mt-0 sm:w-auto md:ml-0">
             <div class="relative w-56 text-slate-500">
                 <select id="sign" name="sign" class="form-select py-3 px-4 box w-full lg:w-auto mt-3 lg:mt-0 ml-auto"  onchange="applySelects()">
@@ -148,7 +163,7 @@ $selectedStatus = isset($_GET['status']) ? $_GET['status'] : '';
                         </td>
                         <td class="table-report__action w-56">
                             <div class="flex justify-center items-center">
-                                <button class="btn button" name-id="{{$res->id}}">ฟรี</button>
+                                <button class="btn button freeBtn {{ $res->free ? 'highlight' : '' }}" name-id="{{ $res->id }}" data-free="{{ $res->free }}">ฟรี</button>
                                 &emsp;
                                 <a class="flex items-center text-success mr-3" href="{{ route('BN_names_detail', ['id' => $res->id]) }}" >
                                     <i data-lucide="eye" class="w-4 h-4 mr-1"></i> รายละเอียด
@@ -184,7 +199,7 @@ $selectedStatus = isset($_GET['status']) ? $_GET['status'] : '';
 
 @section('script')
 <script>
-
+    
     function applyFilters() {
         var keyword = document.getElementById('keyword').value;
         var newUrl = `{{ route('BN_names_store') }}?keyword=${keyword}`;
@@ -199,8 +214,9 @@ $selectedStatus = isset($_GET['status']) ? $_GET['status'] : '';
     function applySelects() {
         var language = document.getElementById('language').value;
         var alphabet = document.getElementById('alphabet').value;
+        var price = document.getElementById('price').value;
         var sign = document.getElementById('sign').value;
-        var newUrl2 = `{{ route('BN_names_store') }}?sign=${sign}&language=${language}&alphabet=${alphabet}`;
+        var newUrl2 = `{{ route('BN_names_store') }}?sign=${sign}&language=${language}&alphabet=${alphabet}&price=${price}`;
         window.location.href = newUrl2;
     }
     // function applySelectsSign() {
@@ -208,6 +224,53 @@ $selectedStatus = isset($_GET['status']) ? $_GET['status'] : '';
     //     var newUrl3 = `{{ route('BN_names_store') }}?sign=${sign}`;
     //     window.location.href = newUrl3;
     // }
+
+    document.addEventListener("DOMContentLoaded", function() {
+        var buttons = document.querySelectorAll('.freeBtn');
+        buttons.forEach(function(button) {
+            button.addEventListener('click', function() {
+                var nameId = button.getAttribute('name-id');
+                var currentStatus = button.getAttribute('data-free');
+                var newStatus = currentStatus === '1' ? '0' : '1';
+
+                Swal.fire({
+                    title: "ยืนยันหรือไม่?",
+                    text: "ที่จะเปลี่ยนสถานะฟรี",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'ตกลง',
+                    cancelButtonText: 'ยกเลิก'
+                }).then(function(result) {
+                    if (result.isConfirmed) {
+                        axios.post('{{ route("BN_names_store_updateStatus") }}', {
+                            _token: '{{ csrf_token() }}',
+                            nameId: nameId,
+                            newStatus: newStatus
+                        })
+                        .then(function(response) {
+                            if (response.data.success) {
+                                if (newStatus === '1') {
+                                    button.classList.add('highlight');
+                                } else {
+                                    button.classList.remove('highlight');
+                                }
+                                button.setAttribute('data-free', newStatus);
+
+                                Swal.fire("Success!", "เปลี่ยนสถานะสำเร็จ!", "success");
+                            } else {
+                                Swal.fire("Error!", "เปลี่ยนสถานะล้มเหลว!", "error");
+                            }
+                        })
+                        .catch(function(error) {
+                            Swal.fire("Error!", "เปลี่ยนสถานะล้มเหลว!", "error");
+                        });
+                    }
+                });
+            });
+        });
+    });
     
     
 

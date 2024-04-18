@@ -18,7 +18,7 @@
 // print_r($signarrayALL);
 // echo "</pre>";
 // echo "<pre>";
-// print_r($en);
+// print_r($name);
 // echo "</pre>";
 // echo "<pre>";
 // print_r(count($namesen));
@@ -43,8 +43,9 @@
                             <p class="mb-0 Text-24 Text-W500">
                                 ราคา
                                 <span class="Text-W600 Text-Green-Gardien">
-                                {{$name->price_th}}
+                                {{ $name->free ? 0 : $name->price_th }}
                                 </span>
+                                บาท
                             </p>
                         </div>
                     </div>
@@ -56,8 +57,9 @@
                             <p class="mb-0 Text-24 Text-W500">
                                 ราคา
                                 <span class="Text-W600 Text-Green-Gardien">
-                                {{$name->price_en}}
+                                {{ $name->free ? 0 : $name->price_en }}
                                 </span>
+                                บาท
                             </p>
                         </div>
                     </div>
@@ -107,7 +109,7 @@
                     @foreach($nth as $keyth => $th)
                     <div class="col-lg-3 col-md-4 col-6">
                         <div class="BoxProductFree">
-                            <img class="IMG-PD" src="{{asset($th->feature)}}" alt="">
+                            <img class="IMG-PD" src="{{ $name->free ? asset($th->sign) : asset($th->feature) }}" alt="">
                             <div class="WarperDetail-ProductFree">
                                 <p class="TextName-PD">
                                 {{$name->name_th}}
@@ -212,7 +214,7 @@
                 @foreach($nen as $keyen => $en)
                     <div class="col-lg-3 col-md-4 col-6">
                         <div class="BoxProductFree">
-                            <img class="IMG-PD" src="{{asset($en->feature)}}" alt="">
+                            <img class="IMG-PD" src="{{ $name->free ? asset($en->sign) : asset($en->feature) }}" alt="">
                             <div class="WarperDetail-ProductFree">
                                 <p class="TextName-PD">
                                     {{$name->name_en}}

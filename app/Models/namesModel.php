@@ -19,6 +19,7 @@ class namesModel extends Model
         'name_en',
         'price_th',
         'price_en',
+        'free',
     ];
 
     public function signs()

@@ -131,11 +131,11 @@
                                             </p>
                                             <p class="Text-20 Text-W600 mb-0 Text-Green-Gardien">
                                                 @if($package == 'all')
-                                                {{ $name->price_th + $name->price_en }}
+                                                {{ $name->free ? 0 : $name->price_th + $name->price_en }}
                                                 @elseif($package == 'th')
-                                                {{$name->price_th}}
+                                                {{ $name->free ? 0 : $name->price_th }}
                                                 @elseif($package == 'en')
-                                                {{$name->price_en}}
+                                                {{ $name->free ? 0 : $name->price_en }}
                                                 @endif
                                             </p>
                                         </div>
@@ -169,12 +169,14 @@
                                     ราคา:
                                 </p>
                                 <p class="mb-0 Text-20 Text-W500">
+
+
                                     @if($package == 'all')
-                                    {{ $name->price_th + $name->price_en }}
+                                    {{ $name->free ? 0 : $name->price_th + $name->price_en }}
                                     @elseif($package == 'th')
-                                    {{$name->price_th}}
+                                    {{ $name->free ? 0 : $name->price_th }}
                                     @elseif($package == 'en')
-                                    {{$name->price_en}}
+                                    {{ $name->free ? 0 : $name->price_en }}
                                     @endif
                                 </p>
                             </div>
@@ -183,25 +185,27 @@
                                     ราคารวมทั้งหมด:
                                 </p>
                                 <p class="mb-0 Text-24 Text-W500">
+
+
                                     @if($package == 'all')
-                                    {{ $name->price_th + $name->price_en }}
+                                    {{ $name->free ? 0 : $name->price_th + $name->price_en }}
                                     @elseif($package == 'th')
-                                    {{$name->price_th}}
+                                    {{ $name->free ? 0 : $name->price_th }}
                                     @elseif($package == 'en')
-                                    {{$name->price_en}}
+                                    {{ $name->free ? 0 : $name->price_en }}
                                     @endif
                                 </p>
                             </div>
                             <input type="hidden" name="name_id" value="{{$name_id}}" />
                             @if($package == 'all')
                             <input type="hidden" name="signs" value="{{$signsall}}" />
-                            <input type="hidden" name="total" value="{{ $name->price_th + $name->price_en }}" />
+                            <input type="hidden" name="total" value="{{ $name->free ? 0 : $name->price_th + $name->price_en }}" />
                             @elseif($package == 'th')
                             <input type="hidden" name="signs" value="{{$signsth}}" />
-                            <input type="hidden" name="total" value="{{$name->price_th}}" />
+                            <input type="hidden" name="total" value="{{ $name->free ? 0 : $name->price_th }}" />
                             @elseif($package == 'en')
                             <input type="hidden" name="signs" value="{{$signsen}}" />
-                            <input type="hidden" name="total" value="{{$name->price_en}}" />
+                            <input type="hidden" name="total" value="{{ $name->free ? 0 : $name->price_en }}" />
                             @endif
                             <input type="hidden" name="type" value="{{$type}}" />
                             <input type="hidden" name="package" value="{{$package}}" />

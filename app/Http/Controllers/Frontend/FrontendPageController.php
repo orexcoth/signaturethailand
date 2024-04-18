@@ -353,6 +353,7 @@ class FrontendPageController extends Controller
         $namesth = NamesModel::whereHas('signs', function ($query) {
                 $query->where('lang', 'th');
             })
+            ->where('free', 1)
             ->get()
             ->take(12)
             ->map(function ($name) {
@@ -373,6 +374,7 @@ class FrontendPageController extends Controller
         $namesen = NamesModel::whereHas('signs', function ($query) {
                 $query->where('lang', 'en');
             })
+            ->where('free', 1)
             ->get()
             ->take(12)
             ->map(function ($name) {
@@ -394,6 +396,7 @@ class FrontendPageController extends Controller
         $namesen = NamesModel::whereHas('signs', function ($query) {
                 $query->where('lang', 'en');
             })
+            ->where('free', 1)
             ->get()
             ->take(12)
             ->map(function ($name) {
@@ -407,6 +410,7 @@ class FrontendPageController extends Controller
         $namesth = NamesModel::whereHas('signs', function ($query) {
                 $query->where('lang', 'th');
             })
+            ->where('free', 1)
             ->get()
             ->take(12)
             ->map(function ($name) {
@@ -461,9 +465,22 @@ class FrontendPageController extends Controller
     }
     public function indexPage(Request $request)
     {
+        $namefree = NamesModel::where('free', 1)
+            ->whereHas('signs')
+            ->get()
+            ->take(12)
+            ->map(function ($name) {
+                if ($name->signs->isNotEmpty()) {
+                    $randomSign = $name->signs->random();
+                    $name->random_sign = $randomSign;
+                }
+                return $name;
+            });
+
+
         return view('frontend/index', [
             'layout' => 'side-menu',
-            // 'categories' => $categories,
+            'namefree' => $namefree,
         ]);
     }
     

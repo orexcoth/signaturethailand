@@ -164,6 +164,7 @@ Route::middleware('auth')->group(function() {
             Route::get('suggest', [NamesController::class, 'BN_names_suggest'])->name('BN_names_suggest')->defaults('suggest_status', 'suggested');
             Route::get('suggest-delete/{id}', [NamesController::class, 'BN_names_suggest_delete'])->name('BN_names_suggest_delete');
 
+            Route::post('store/update-status', [NamesController::class, 'BN_names_store_updateStatus'])->name('BN_names_store_updateStatus');
             Route::get('store', [NamesController::class, 'BN_names_store'])->name('BN_names_store');
             Route::get('add', [NamesController::class, 'BN_names_add'])->name('BN_names_add');
             Route::post('add-action', [NamesController::class, 'BN_names_add_action'])->name('BN_names_add_action');

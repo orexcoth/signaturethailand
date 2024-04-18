@@ -7,7 +7,7 @@
 @section('content')
 <?php
 // echo "<pre>";
-// print_r($slide);
+// print_r($namefree);
 // echo "</pre>";
 ?>
     <section class="BannerIndex">
@@ -26,7 +26,7 @@
                     สั่งซื้อลายเซ็น
                 </h1>
                 <br />
-                <a class="btn ButtonSeemore" href="product.php">
+                <a class="btn ButtonSeemore" href="{{route('productPage')}}">
                     คลังลายเซ็น
                     <span>
                         <img class="ms-1" src="{{asset('frontend/images/index/ic_pen.svg')}}" alt="">
@@ -90,9 +90,9 @@
             <h1 class="TextHead-Gold text-align-center">
                 คลังลายเซ็นฟรี
             </h1>
-            <form role="search">
+            <form  role="search" method="get" action="{{route('searchPage')}}">
                 <div class="search BoxSearch">
-                    <input type="text" class="InputSearchBG-grey w-100" placeholder="พิมพ์ชื่อเพื่อค้นหาลายเซ็น">
+                    <input  type="text" name="keyword" class="InputSearchBG-grey w-100" placeholder="พิมพ์ชื่อเพื่อค้นหาลายเซ็น">
                     <!-- <a class="btn searchButton" href="search-results.php">ค้นหาลายเซ็น</a> -->
                     <button type="submit" class="searchButton">
                         ค้นหาลายเซ็น
@@ -104,25 +104,103 @@
             <br>
             <div>
                 <div class="row Row-Product">
-                    @include('frontend.layouts.inc_productfree1')
-                    @include('frontend.layouts.inc_productfree1')
-                    @include('frontend.layouts.inc_productfree1')
-                    @include('frontend.layouts.inc_productfree1')
-                    @include('frontend.layouts.inc_productfree1')
-                    @include('frontend.layouts.inc_productfree1')
-                    @include('frontend.layouts.inc_productfree1')
-                    @include('frontend.layouts.inc_productfree1')
-                    @include('frontend.layouts.inc_productfree1')
-                    @include('frontend.layouts.inc_productfree1')
-                    @include('frontend.layouts.inc_productfree1')
-                    @include('frontend.layouts.inc_productfree1')
+                    @foreach($namefree as $keyfreee => $freee)
+                    <div class="col-lg-3 col-md-4 col-6">
+                        <div class="BoxProductFree">
+                            <img class="IMG-PD" src="{{asset($freee->random_sign->sign)}}" alt="">
+                            <div class="WarperDetail-ProductFree">
+                                <p class="TextName-PD">
+                                    {{$freee->name_th}} / {{$freee->name_en}}
+                                </p>
+                                <div class="Box-Maim-Star w-100">
+                                    <div class="Box-Title-Star">
+                                        <p class="Text-TitleStar">
+                                            งาน
+                                        </p>
+                                        
+                                        <div>
+                                            @for ($i = 0; $i < $freee->random_sign->work; $i++)
+                                                <span class="fa fa-star checked"></span>
+                                            @endfor
+                                            @for ($i = $freee->random_sign->work; $i < 5; $i++)
+                                                <span class="fa fa-star"></span>
+                                            @endfor
+                                        </div>
+                                    </div>
+                                    <div class="Box-Title-Star">
+                                        <p class="Text-TitleStar">
+                                        เงิน
+                                        </p>
+                                        <div>
+                                            @for ($i = 0; $i < $freee->random_sign->finance; $i++)
+                                                <span class="fa fa-star checked"></span>
+                                            @endfor
+                                            @for ($i = $freee->random_sign->finance; $i < 5; $i++)
+                                                <span class="fa fa-star"></span>
+                                            @endfor
+                                        </div>
+                                    </div>
+                                    <div class="Box-Title-Star">
+                                        <p class="Text-TitleStar">
+                                            รัก
+                                        </p>
+                                        <div>
+                                            @for ($i = 0; $i < $freee->random_sign->love; $i++)
+                                                <span class="fa fa-star checked"></span>
+                                            @endfor
+                                            @for ($i = $freee->random_sign->love; $i < 5; $i++)
+                                                <span class="fa fa-star"></span>
+                                            @endfor
+                                        </div>
+                                    </div>
+                                    <div class="Box-Title-Star">
+                                        <p class="Text-TitleStar">
+                                            สุขภาพ
+                                        </p>
+                                        <div>
+                                            @for ($i = 0; $i < $freee->random_sign->health; $i++)
+                                                <span class="fa fa-star checked"></span>
+                                            @endfor
+                                            @for ($i = $freee->random_sign->health; $i < 5; $i++)
+                                                <span class="fa fa-star"></span>
+                                            @endfor
+                                        </div>
+                                    </div>
+                                    <div class="Box-Title-Star">
+                                        <p class="Text-TitleStar">
+                                            โชคลาภ
+                                        </p>
+                                        <div>
+                                            @for ($i = 0; $i < $freee->random_sign->fortune; $i++)
+                                                <span class="fa fa-star checked"></span>
+                                            @endfor
+                                            @for ($i = $freee->random_sign->fortune; $i < 5; $i++)
+                                                <span class="fa fa-star"></span>
+                                            @endfor
+                                        </div>
+                                    </div>
+                                </div>
+                                <p class="TextPrice-PD">
+                                    <span>
+                                        <img class="mb-1" src="{{asset('frontend/images/product/ic_money.svg')}}" alt="">
+                                    </span>
+                                    Free
+                                </p>
+                                <a class="btn ButtonSeemore-PD" href="{{route('productdetailPage', ['name' => $freee->id])}}">
+                                    ดูเพิ่มเติม
+                                </a>
+
+                            </div>
+                        </div>
+                    </div>
+                    @endforeach
                 </div>
             </div>
             <div class="d-flex justify-content-center">
                 <a class="btn ButtonSeemore mt-5" href="product.php">
                     คลังลายเซ็น
                     <span>
-                        <img class="ms-1" src="./images/index/ic_pen.svg" alt="">
+                        <img class="ms-1" src="{{asset('frontend/images/index/ic_pen.svg')}}" alt="">
                     </span>
                 </a>
             </div>

@@ -123,7 +123,7 @@
 
                 </div>
             </div>
-            <div class="BoxPagination d-flex justify-content-center">
+            <!-- <div class="BoxPagination d-flex justify-content-center">
                 <div class="pagination PaginationProduct mt-5">
                     <a href="#">&laquo;</a>
                     <a class="active" href="#">1</a>
@@ -133,7 +133,7 @@
                     <a class="" href="#">5</a>
                     <a href="#">&raquo;</a>
                 </div>
-            </div>
+            </div> -->
         </div>
     </section>
 

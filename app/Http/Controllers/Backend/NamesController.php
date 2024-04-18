@@ -28,6 +28,20 @@ use App\Models\OptionsModel;
 class NamesController extends Controller
 {
 
+    public function BN_names_store_updateStatus(Request $request) {
+        $nameId = $request->input('nameId');
+        $newStatus = $request->input('newStatus');
+
+        $name = namesModel::find($nameId);
+        if ($name) {
+            $name->free = $newStatus;
+            $name->save();
+            return response()->json(['success' => true, 'newStatus' => $newStatus]);
+        }
+
+        return response()->json(['success' => false], 500);
+    }
+
     public function BN_names_sign_add_action(Request $request) {
         // Validate sign and video uploads
         $request->validate([
@@ -119,7 +133,8 @@ class NamesController extends Controller
         $sign->save();
     
         Log::info('Sign added successfully.');
-        return redirect()->back()->with('success', 'เพิ่มลายเซ็นต์เรียบร้อย !');
+        // return redirect()->back()->with('success', 'เพิ่มลายเซ็นต์เรียบร้อย !');
+        return redirect(route('BN_names_detail', ['id' => $request->names_id]))->with('success', 'เพิ่มลายเซ็นต์เรียบร้อย !!!');
     }
 
 
@@ -274,6 +289,21 @@ class NamesController extends Controller
                     ->havingRaw('SUM(CASE WHEN signs.lang = "en" THEN 1 ELSE 0 END) > 0')
                     ->havingRaw('SUM(CASE WHEN signs.lang = "th" THEN 1 ELSE 0 END) > 0');
             });
+        }
+        if ($request->filled('price')) {
+            $price = $request->input('price');
+    
+            if ($price === 'free') {
+                // Query with field 'free' = 1
+                $query->where('free', 1);
+            } elseif ($price === 'valuable') {
+                // Query with field 'free' = 0 or NULL (empty)
+                $query->where(function ($query) {
+                    $query->where('free', 0)
+                          ->orWhereNull('free');
+                });
+            }
+            // No condition needed for 'all' as it retrieves all records
         }
 
 
