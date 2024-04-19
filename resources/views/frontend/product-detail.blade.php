@@ -76,9 +76,11 @@
                             <input type="hidden" name="signsall" value="{{$signarrayALL}}" />
                             <input type="hidden" name="type" value="sell" />
                             <select name="package" id="Select-OptionVerSignature" class="DropdownBox-SelectPreorder">
-                                <option class="OptionSelect" value="th">แพ็คเกจลายเซ็นภาษาไทย</option>
-                                <option class="OptionSelect" value="en">แพ็คเกจลายเซ็นภาษาอังกฤษ</option>
-                                <option class="OptionSelect" value="all">แพ็คเกจลายเซ็นภาษาไทยและภาษาอังกฤษ</option>
+                                
+                                    <option class="OptionSelect" value="th">แพ็คเกจลายเซ็นภาษาไทย</option>
+                                    <option class="OptionSelect" value="en">แพ็คเกจลายเซ็นภาษาอังกฤษ</option>
+                                    <option class="OptionSelect" value="all">แพ็คเกจลายเซ็นภาษาไทยและภาษาอังกฤษ</option>
+                            
                             </select>
                         </div>
                         <button type="submit" class="btn ButtonSeemore ms-lg-4" >

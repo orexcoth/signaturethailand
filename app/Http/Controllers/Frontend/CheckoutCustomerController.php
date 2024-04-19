@@ -68,7 +68,8 @@ class CheckoutCustomerController extends Controller
         $stiv = "PDIV"; // Static prefix
         $timestamp = time(); // Current timestamp
         $uniq_id = uniqid(); // Unique identifier
-        $gennumber = $stiv . $timestamp  . $uniq_id;
+        // $gennumber = $stiv . $timestamp  . $uniq_id;
+        $gennumber = strtoupper($stiv . $uniq_id);
         // 5. Create new sellsModel
         $newpreorders = new preordersModel();
         $newpreorders->status = 'pending';
@@ -116,6 +117,29 @@ class CheckoutCustomerController extends Controller
         // Add them as necessary
         // dd($newpreorders);
         $newpreorders->save();
+
+        
+        $getauto_assign = OptionsModel::where('option_key', 'auto_assign')->first();
+        $auto_assign = $getauto_assign->option_value;
+        if ($auto_assign == 'yes') {
+            $allusers = usersModel::get();
+            if (!$allusers->isEmpty()) {
+                foreach ($allusers as $user) {
+                    $works = new worksModel;
+                    $works->status = 'assign';
+                    $works->type = 'preorders';
+                    $works->description = '...';
+                    $works->users_id = $user->id;
+                    $works->make = $newpreorders->id;               
+                    $works->save();
+                }
+            } else {
+                // Handle the case where no users are found
+            }
+        }
+        // dd($newpreorders);
+            
+
 
         // Optionally, return success response with sell ID
         return redirect(route('thankPage', ['sell_id' => $newpreorders->id]))->with('success', 'สร้างสำเร็จ !!!');
@@ -167,7 +191,7 @@ class CheckoutCustomerController extends Controller
         $timestamp = time(); // Current timestamp
         $uniq_id = uniqid(); // Unique identifier
         // $gennumber = $stiv . $timestamp  . $uniq_id;
-        $gennumber = $stiv . $uniq_id;
+        $gennumber = strtoupper($stiv . $uniq_id);
         // 5. Create new sellsModel
         $newSell = new sellsModel();
         $newSell->status = 'pending';

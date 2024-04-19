@@ -195,6 +195,12 @@ class BackendPageController extends Controller
             'image_mosaic' => $image_mosaic,
         ]);
     }
+
+
+
+
+
+    
     public function bn_mosaic_upload(Request $request)
     {
         

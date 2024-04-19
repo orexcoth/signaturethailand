@@ -9,7 +9,7 @@
 $warklist = array(
     'names' => 'ออกแบบลายเซ็นต์',
     'combos' => 'ออเดอร์เพิ่มนามสกุล',
-    'orders' => 'ออกเดอร์สั่งออกแบบใหม่',
+    'preorders' => 'ออกเดอร์สั่งออกแบบใหม่',
 );
 // echo "<pre>";
 // print_r($users);
@@ -65,7 +65,8 @@ $warklist = array(
                     <th class="whitespace-nowrap">ประเภทงาน</th>
                     <th class="whitespace-nowrap">รายการ</th>
                     <th class="whitespace-nowrap">รายละเอียด</th>
-                    <!-- <th class="text-center whitespace-nowrap"></th> -->
+                    <th class="whitespace-nowrap">สถานะ</th>
+                    <th class="text-center whitespace-nowrap"></th>
                 </tr>
             </thead>
             <tbody>
@@ -86,6 +87,17 @@ $warklist = array(
                         </td>
                         <td>
                             <div class="font-medium whitespace-nowrap">{{$res->description}}</div>
+                        </td>
+                        <td>
+                            <div class="font-medium whitespace-nowrap">{{$res->status}}</div>
+                        </td>
+                        <td class="table-report__action w-56">
+                            <div class="flex justify-center items-center">
+                                
+                                <a class="flex items-center" href="{{route('BN_customers_edit', ['id' => $res->id])}}">
+                                    <i data-lucide="check-square" class="w-4 h-4 mr-1"></i> รายละเอียด
+                                </a>
+                            </div>
                         </td>
 
                         <!-- <td class="table-report__action w-56">
