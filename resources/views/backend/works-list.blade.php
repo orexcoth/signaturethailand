@@ -11,6 +11,14 @@ $warklist = array(
     'combos' => 'ออเดอร์เพิ่มนามสกุล',
     'preorders' => 'ออกเดอร์สั่งออกแบบใหม่',
 );
+$workst = array(
+    'assign' => 'มอบหมาย',
+    'submitted' => 'ส่งแล้ว',
+);
+$workstclass = array(
+    'assign' => 'btn-pending',
+    'submitted' => 'btn-success',
+);
 // echo "<pre>";
 // print_r($query);
 // echo "</pre>";
@@ -83,7 +91,7 @@ $warklist = array(
                             <div class="font-medium whitespace-nowrap">{{$res->description}}</div>
                         </td>
                         <td>
-                            <div class="font-medium whitespace-nowrap">{{$res->status}}</div>
+                            <div class="font-medium whitespace-nowrap"><span class="btn text-white {{$workstclass[$res->status]}}">{{$workst[$res->status]}}</span></div>
                         </td>
                         <td class="table-report__action w-56">
                             <div class="flex justify-center items-center">

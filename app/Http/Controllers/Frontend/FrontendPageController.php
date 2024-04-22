@@ -37,6 +37,7 @@ use Illuminate\Support\Facades\DB;
 use File;
 
 
+
 class FrontendPageController extends Controller
 {
 
@@ -258,8 +259,25 @@ class FrontendPageController extends Controller
 
 
 
+
+
     public function searchPage(Request $request)
     {
+        function detectLanguage($text) {
+            $englishPattern = '/[a-zA-Z]/';
+            $thaiPattern = '/[\p{Thai}]/u'; // Unicode property for Thai characters
+            if (preg_match($englishPattern, $text)) {
+                return 'en';
+            }
+                if (preg_match($thaiPattern, $text)) {
+                return 'th';
+            }
+            return 'Unknown';
+        }
+        $keywordsss =  $request->keyword;
+        $language = detectLanguage($keywordsss);
+        // dd($language);
+        
         $keyword = $request->input('keyword');
 
         if (!empty($keyword)) {
@@ -281,6 +299,7 @@ class FrontendPageController extends Controller
                 return view('frontend.search', [
                     'default_pagename' => 'search',
                     'query' => $names,
+                    'language' => $language,
                 ]);
             }
         }
@@ -477,10 +496,42 @@ class FrontendPageController extends Controller
                 return $name;
             });
 
+        $namesen = NamesModel::whereHas('signs', function ($query) {
+                $query->where('lang', 'en');
+            })
+            ->where('free', 1)
+            ->inRandomOrder()
+            ->get()
+            ->take(8)
+            ->map(function ($name) {
+                if ($name->signs->isNotEmpty()) {
+                    $randomSign = $name->signs->random();
+                    $name->random_sign = $randomSign;
+                }
+                return $name;
+            });
+        
+        $namesth = NamesModel::whereHas('signs', function ($query) {
+                $query->where('lang', 'th');
+            })
+            ->where('free', 1)
+            ->inRandomOrder()
+            ->get()
+            ->take(8)
+            ->map(function ($name) {
+                if ($name->signs->isNotEmpty()) {
+                    $randomSign = $name->signs->random();
+                    $name->random_sign = $randomSign;
+                }
+                return $name;
+            });
+
 
         return view('frontend/index', [
             'layout' => 'side-menu',
             'namefree' => $namefree,
+            'namesfreeen' => $namesen,
+            'namesfreeth' => $namesth,
         ]);
     }
     
@@ -511,5 +562,16 @@ class FrontendPageController extends Controller
             ++$j;
             $hash.=chr($ordStr-$ordKey);
         }return $hash;
+    }
+    function detectLanguage($text) {
+        $englishPattern = '/[a-zA-Z]/';
+        $thaiPattern = '/[\p{Thai}]/u'; // Unicode property for Thai characters
+        if (preg_match($englishPattern, $text)) {
+            return 'en';
+        }
+            if (preg_match($thaiPattern, $text)) {
+            return 'th';
+        }
+        return 'Unknown';
     }
 }

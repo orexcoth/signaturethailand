@@ -60,11 +60,16 @@
                             <div class="BoxnameSignature" style="padding:0;">
                                 <div class="Box-Text-Search-Left">
                                     <p class="Text-Search-TH mb-0 Text-48 Text-W600 Text-LineHeight-50">
+                                    
+                                    @if($language == 'th')
                                     {{ $name->name_th }}  {{ $name->name_en }}
+                                    @else
+                                    {{ $name->name_en }}  {{ $name->name_th }}
+                                    @endif
                                     </p>
                                 </div>
                                 <div class="Box-Text-Search-Right">
-                                    <a class="btn ButtonSeemore" href="{{route('nameandsignPage', ['name' => $name->id])}}">ดูรายละเอียด</a>
+                                    <a class="btn ButtonSeemore" href="{{route('productdetailPage', ['name' => $name->id])}}">ดูรายละเอียด</a>
                                 </div>
                             </div>
                             

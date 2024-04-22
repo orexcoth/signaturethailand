@@ -233,6 +233,9 @@ class NamesController extends Controller
     
     public function BN_names_store(Request $request)
     {
+        $userlogin = auth()->user();
+        $userloginid = auth()->user()->id; 
+
         $data = NamesModel::leftJoin('signs', 'names.id', '=', 'signs.names_id')
         ->select('names.id', 'signs.lang', DB::raw('COUNT(signs.lang) as count'))
         ->groupBy('names.id', 'signs.lang')
@@ -292,28 +295,22 @@ class NamesController extends Controller
         }
         if ($request->filled('price')) {
             $price = $request->input('price');
-    
             if ($price === 'free') {
-                // Query with field 'free' = 1
                 $query->where('free', 1);
             } elseif ($price === 'valuable') {
-                // Query with field 'free' = 0 or NULL (empty)
                 $query->where(function ($query) {
                     $query->where('free', 0)
                           ->orWhereNull('free');
                 });
             }
-            // No condition needed for 'all' as it retrieves all records
         }
 
+        $query->withCount('signs');
 
-        // Add sorting based on presence of name_th or name_en
         $query->orderByRaw("IF(name_th IS NOT NULL AND name_en IS NULL, 1, 0) ASC")
             ->orderByRaw("IF(name_en IS NOT NULL AND name_th IS NULL, 1, 0) ASC")
             ->orderBy('name_th', 'asc')
             ->orderBy('name_en', 'asc');
-
-        // If no filters applied, return no results
         if (!$request->filled('keyword') && !($request->filled('language') && $request->filled('alphabet')) && !($request->filled('sign') && $request->input('sign') === 'no')) {
             $query->where('id', '=', -1);
         }
@@ -340,6 +337,7 @@ class NamesController extends Controller
             'query' => $query,
             'alldata' => $alldata,
             'count' => $count,
+            'userlogin' => $userlogin,
         ]);
     }
 

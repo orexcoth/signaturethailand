@@ -15,7 +15,7 @@
 $selectedStatus = isset($_GET['status']) ? $_GET['status'] : '';
 
 // echo "<pre>";
-// print_r($count);
+// print_r($userlogin);
 // echo "</pre>";
 ?>
     <div class="intro-y mt-5 flex flex-col items-center sm:flex-row">
@@ -126,12 +126,12 @@ $selectedStatus = isset($_GET['status']) ? $_GET['status'] : '';
             <thead>
                 <tr>
                     <th class="text-center whitespace-nowrap">#</th>
-                    <th class="whitespace-nowrap">name_th</th>
-                    <th class="whitespace-nowrap">name_en</th>
-                    <th class="whitespace-nowrap">price_th</th>
-                    <th class="whitespace-nowrap">price_en</th>
-                    <th class="whitespace-nowrap">sign_th</th>
-                    <th class="whitespace-nowrap">sign_en</th>
+                    <th class="whitespace-nowrap">name th / en</th>
+                    @if($userlogin->role == 'admin')
+                    <th class="whitespace-nowrap">price th/en</th>
+                    @endif
+                    <th class="whitespace-nowrap">sign th / en</th>
+                    <th class="whitespace-nowrap">my</th>
                     <th class="text-center whitespace-nowrap"></th>
                 </tr>
             </thead>
@@ -144,27 +144,25 @@ $selectedStatus = isset($_GET['status']) ? $_GET['status'] : '';
                     <tr class="intro-x">
                         <td class="text-center">{{(($query->currentPage()-1)*50)+$keyres+1}}</td>
                         <td>
-                            <div class="font-medium whitespace-nowrap">{{$res->name_th}}</div>
+                            <div class="font-medium whitespace-nowrap">{{$res->name_th}} / {{$res->name_en}}</div>
+                        </td>
+                        @if($userlogin->role == 'admin')
+                        <td>
+                            <div class="font-medium whitespace-nowrap">{{$res->price_th}}฿ / {{$res->price_en}}฿</div>
+                        </td>
+                        @endif
+                        <td>
+                            <div class="font-medium whitespace-nowrap">{{($count[$res->id]['th'] ?? 0)}} / {{($count[$res->id]['en'] ?? 0)}}</div>
                         </td>
                         <td>
-                            <div class="font-medium whitespace-nowrap">{{$res->name_en}}</div>
-                        </td>
-                        <td>
-                            <div class="font-medium whitespace-nowrap">{{$res->price_th}}</div>
-                        </td>
-                        <td>
-                            <div class="font-medium whitespace-nowrap">{{$res->price_en}}</div>
-                        </td>
-                        <td>
-                            <div class="font-medium whitespace-nowrap">{{($count[$res->id]['th'] ?? 0)}}</div>
-                        </td>
-                        <td>
-                            <div class="font-medium whitespace-nowrap">{{($count[$res->id]['en'] ?? 0)}}</div>
+                            <div class="font-medium whitespace-nowrap">{{$res->signs_count}}</div>
                         </td>
                         <td class="table-report__action w-56">
                             <div class="flex justify-center items-center">
+                                @if($userlogin->role == 'admin')
                                 <button class="btn button freeBtn {{ $res->free ? 'highlight' : '' }}" name-id="{{ $res->id }}" data-free="{{ $res->free }}">ฟรี</button>
                                 &emsp;
+                                @endif
                                 <a class="flex items-center text-success mr-3" href="{{ route('BN_names_detail', ['id' => $res->id]) }}" >
                                     <i data-lucide="eye" class="w-4 h-4 mr-1"></i> รายละเอียด
                                 </a>
