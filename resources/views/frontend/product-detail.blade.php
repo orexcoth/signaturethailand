@@ -8,8 +8,9 @@
     @include('frontend.layouts.inc_menusignature')
     @include('frontend.layouts.inc_searchsignature')
 <?php
+$default_pagename = $name->name_th." / ".$name->name_en;
 // echo "<pre>";
-// print_r($signarrayTH);
+// print_r($nth);
 // echo "</pre>";
 // echo "<pre>";
 // print_r($signarrayEN);
@@ -64,6 +65,7 @@
                         </div>
                     </div>
                 </div>
+                @if(!$name->free)
                 <form action="{{route('cartPage')}}" method="post" >
                     @csrf
                     <div class="Col-DD-SelectPackage">
@@ -88,6 +90,8 @@
                         </button> 
                     </div>
                 </form>
+                @endif
+                
             </div>
         </div>
     </section>
@@ -183,15 +187,18 @@
                                         </div>
                                     </div>
                                 </div>
-                                <!-- <p class="TextPrice-PD">
+                                @if($name->free)
+                                <p class="TextPrice-PD">
                                     <span>
                                         <img class="mb-1" src="./images/product/ic_money.svg" alt="">
                                     </span>
                                     Free
-                                </p> -->
-                                <a class="btn ButtonSeemore-PD" href="detailsignature.php">
+                                </p>
+                                <a class="btn ButtonSeemore-PD" target="_blank" href="{{route('productdownloadPage', ['sign' => $th->id])}}">
                                     ดูเพิ่มเติม
                                 </a>
+                                @endif
+                                
 
                             </div>
                         </div>
@@ -289,15 +296,17 @@
                                         </div>
                                     </div>
                                 </div>
+                                @if($name->free)
                                 <p class="TextPrice-PD">
                                     <span>
                                         <img class="mb-1" src="{{asset('frontend/images/product/ic_money.svg')}}" alt="">
                                     </span>
                                     Free
                                 </p>
-                                <a class="btn ButtonSeemore-PD" href="{{route('productdetailPage', ['name' => $en->names_id])}}">
+                                <a class="btn ButtonSeemore-PD" target="_blank" href="{{route('productdownloadPage', ['sign' => $en->id])}}">
                                     ดูเพิ่มเติม
                                 </a>
+                                @endif
 
                             </div>
                         </div>

@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 use App\Models\customersModel;
+use App\Models\preordersTurnInModel;
 
 class preordersModel extends Model
 {
@@ -62,5 +63,9 @@ class preordersModel extends Model
     public function customer()
     {
         return $this->belongsTo(customersModel::class, 'customers_id');
+    }
+    public function turnIns()
+    {
+        return $this->hasMany(PreordersTurnInModel::class, 'preorders_id', 'id');
     }
 }

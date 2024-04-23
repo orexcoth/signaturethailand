@@ -51,7 +51,8 @@
     <section class="Section-AboutIndex">
         <div class="container">
             <div class="WarperAboutIndex">
-                <h1 class="TextSecon-Black">
+                {!!$about_index!!}
+                <!-- <h1 class="TextSecon-Black">
                     Signature Thailand
                 </h1>
                 <br>
@@ -70,7 +71,7 @@
                 <br>
                 <p class="TextDetail-Black">
                     Signature Thailand Official
-                </p>
+                </p> -->
                 <br>
                 <!-- <div class="BoxIconWeb">
                     <img class="IconWeb" src="./images/index/icon-1.svg" alt="">
@@ -78,7 +79,7 @@
                     <img class="IconWeb" src="./images/index/icon-3.svg" alt="">
                     <img class="IconWeb" src="./images/index/icon-4.svg" alt="">
                 </div> -->
-                <a class="btn ButtonSeemore" href="">
+                <a class="btn ButtonSeemore" href="{{route('aboutPage')}}">
                     ดูเพิ่มเติม
                 </a>
             </div>
@@ -403,7 +404,7 @@
                 </div>
             </div>
             <div class="d-flex justify-content-center">
-                <a class="btn ButtonSeemore mt-5" href="product.php">
+                <a class="btn ButtonSeemore mt-5" href="{{route('productPage')}}">
                     คลังลายเซ็น
                     <span>
                         <img class="ms-1" src="{{asset('frontend/images/index/ic_pen.svg')}}" alt="">

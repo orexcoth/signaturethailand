@@ -28,6 +28,7 @@ use App\Models\signsModel;
 use App\Models\customersModel;
 
 use App\Models\preordersModel;
+use App\Models\preordersTurnInModel;
 use App\Models\preorders_signs;
 use App\Models\sellsModel;
 use App\Models\sells_namesModel;
@@ -41,6 +42,34 @@ use File;
 class FrontendPageController extends Controller
 {
 
+    public function articlePage(Request $request)
+    {
+        return view('frontend/articles', [
+            'default_pagename' => 'บทความ',
+        ]);
+    }
+
+
+
+    public function historydetailsignatureforpreordersPage(Request $request, $preorders_id, $turnin_id)
+    {
+        $customer = $request->session()->get('customer');
+        $customer_id = $customer->id;
+        $turnIn = PreordersTurnInModel::findOrFail($turnin_id);
+        if ($turnIn->preorders_id != $preorders_id) {
+            // Handle the case where the turn-in record doesn't belong to the specified preorder
+            abort(404);
+        }
+        $turnInWithRelations = $turnIn->load('user', 'preorder');
+
+        // dd($turnIn);
+
+        return view('frontend.historydetailsignatureforpreorders', [
+            'default_pagename' => 'historydetailsignatureforpreorders',
+            'turnIn' => $turnIn,
+        ]);
+        
+    }
     public function historydetailsignatureforsellsPage(Request $request, $sells_id, $signs_id)
     {
         $customer = $request->session()->get('customer');
@@ -58,17 +87,13 @@ class FrontendPageController extends Controller
         $sign = SignsModel::findOrFail($signs_id);
         $signWithRelations = $sign->load('user', 'name');
 
-        return view('frontend.detailsignature', [
+        return view('frontend.historydetailsignatureforsells', [
+            'default_pagename' => 'historydetailsignatureforsells',
             'layout' => 'side-menu',
             'sign' => $sign, // Pass the sells data to the view
         ]);
     }
-    // public function historydetailsignatureforsellsPage(Request $request, $sells_id, $signs_id)
-    // {
-    //     return view('frontend/detailsignature', [
-    //         'layout' => 'side-menu',
-    //     ]);
-    // }
+
 
     public function historyPage(Request $request)
     {
@@ -89,9 +114,11 @@ class FrontendPageController extends Controller
         }
         // dd($getsells);
         // Now $getsells will contain sells along with associated signs
+        $preordersTurnIns = PreordersTurnInModel::whereHas('preorder', function ($query) use ($customer_id) {
+            $query->where('customers_id', $customer_id);
+        })->where('status', 'submitted')->with('preorder')->get();
 
-
-
+        // dd($preordersTurnIns);
 
 
         // If the customer session is not available, redirect to historyloginPage
@@ -104,6 +131,7 @@ class FrontendPageController extends Controller
             'customer' => $customer,
             'getpreorders' => $getpreorders,
             'getsells' => $getsells,
+            'preordersTurnIns' => $preordersTurnIns,
         ]);
     }
     public function historyloginPage(Request $request)
@@ -297,7 +325,7 @@ class FrontendPageController extends Controller
             // If at least one result found, return the results
             if ($names->count() > 0) {
                 return view('frontend.search', [
-                    'default_pagename' => 'search',
+                    'default_pagename' => 'ค้นหาลายเซ็น',
                     'query' => $names,
                     'language' => $language,
                 ]);
@@ -332,7 +360,18 @@ class FrontendPageController extends Controller
     }
 
     
+    public function productdownloadPage(Request $request)
+    {
+        $sign_id = $request->sign;
 
+        $getsign = SignsModel::find($sign_id);
+        // dd($getsign);
+
+        return view('frontend/product-download', [
+            'default_pagename' => 'productdownload',
+            'sign' => $getsign,
+        ]);
+    }
     public function productdetailPage(Request $request)
     {
         $name_id = $request->name;
@@ -358,7 +397,7 @@ class FrontendPageController extends Controller
         $signarrayALL = json_encode($combined_ids);
 
         return view('frontend/product-detail', [
-            'default_pagename' => 'homePage',
+            'default_pagename' => 'productdetail',
             'name' => $name,
             'nth' => $nth,
             'nen' => $nen,
@@ -405,7 +444,7 @@ class FrontendPageController extends Controller
             });
 
         return view('frontend/allproduct-en', [
-            'default_pagename' => 'allproduct-th',
+            'default_pagename' => 'allproduct-en',
             'namesen' => $namesen,
         ]);
     }
@@ -443,33 +482,32 @@ class FrontendPageController extends Controller
         // dd($namesen);
 
         return view('frontend/product', [
-            'default_pagename' => 'homePage',
+            'default_pagename' => 'คลังลายเซ็น',
             'namesth' => $namesth,
             'namesen' => $namesen,
         ]);
     }
-    public function articlePage(Request $request)
-    {
-        return view('frontend/performance', [
-            'default_pagename' => 'homePage',
-        ]);
-    }
+    
     public function teamPage(Request $request)
     {
-        return view('frontend/performance', [
-            'default_pagename' => 'homePage',
+        return view('frontend/team', [
+            'default_pagename' => 'teamPage',
         ]);
     }
     public function contactPage(Request $request)
     {
-        return view('frontend/performance', [
-            'default_pagename' => 'homePage',
+        return view('frontend/contact', [
+            'default_pagename' => 'contactPage',
         ]);
     }
     public function aboutPage(Request $request)
     {
+        $about_page = OptionsModel::where('option_key', 'about_page')->first();
+        $about_index = OptionsModel::where('option_key', 'about_index')->first();
         return view('frontend/about', [
-            'default_pagename' => 'homePage',
+            'default_pagename' => 'aboutPage',
+            'about_page' => $about_page->option_value,
+            'about_index' => $about_index->option_value,
         ]);
     }
     
@@ -526,12 +564,14 @@ class FrontendPageController extends Controller
                 return $name;
             });
 
-
+        $about_index = OptionsModel::where('option_key', 'about_index')->first();
         return view('frontend/index', [
+            'default_pagename' => 'Signature Thailand',
             'layout' => 'side-menu',
             'namefree' => $namefree,
             'namesfreeen' => $namesen,
             'namesfreeth' => $namesth,
+            'about_index' => $about_index->option_value,
         ]);
     }
     

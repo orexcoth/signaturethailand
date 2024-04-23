@@ -1,11 +1,9 @@
 <?php
-if (empty($_title))             $_title = '';
+// if (empty($_title))             $_title = '';
 if (empty($_keywords))         $_keywords = '';
 if (empty($_description))     $_description = '';
 ?>
-<title>
-    <?php echo $_title; ?>
-</title>
+
 <meta name="keywords" content="<?php echo $_keywords; ?>" />
 <meta name="description" content="<?php echo $_description; ?>" />
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">

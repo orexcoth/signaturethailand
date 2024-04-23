@@ -9,7 +9,7 @@
                         สามารถสั่งออกแบบลายเซ็นใหม่ได้ทั้งชื่อและนามสกุล ทั้งภาษาไทยและภาษาอังกฤษ
                     </p>
                     <div class="ms-3 me-3">
-                        <a class="btn ButtonSeemore" href="preorder.php">
+                        <a class="btn ButtonSeemore" href="{{route('preorderPage')}}">
                             สั่งออกแบบลายเซ็น
                         </a>
                     </div>

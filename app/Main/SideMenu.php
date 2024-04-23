@@ -133,6 +133,12 @@ class SideMenu
                         'params' => [],
                         'title' => 'ตั้งค่าระบบ'
                     ],
+                    'settings-about' => [
+                        'icon' => 'Monitor',
+                        'route_name' => 'BN_settings_about',
+                        'params' => [],
+                        'title' => 'ข้อมูลเว็บไซต์'
+                    ],
                     'settings-defaultprice' => [
                         'icon' => 'Monitor',
                         'route_name' => 'BN_settings_defaultprice',

@@ -7,9 +7,9 @@
                 </a>
             </div>
             <br />
-            <form role="search">
+            <form role="search" method="get" action="{{route('searchPage')}}" >
                 <div class="search BoxSearch">
-                    <input type="text" class="InputSearchFooter w-100" placeholder="พิมพ์ชื่อเพื่อค้นหาลายเซ็น">
+                    <input type="text" name="keyword" class="InputSearchFooter w-100" placeholder="พิมพ์ชื่อเพื่อค้นหาลายเซ็น">
                     <!-- <a class="btn searchButton" href="search-results.php">ค้นหาลายเซ็น</a> -->
                     <button type="submit" class="searchButton">
                         ค้นหาลายเซ็น

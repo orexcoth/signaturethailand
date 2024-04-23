@@ -10,7 +10,7 @@
 // session()->forget('customer');
 // $customer = session('customer');
 // echo "<pre>";
-// print_r($getsells);
+// print_r($preordersTurnIns);
 // echo "</pre>";
 // echo "<pre>";
 // print_r(count($namesen));
@@ -278,6 +278,44 @@
                 ลายเซ็นที่สั่งออกแบบซื้อเเล้ว
             </p>
             <hr class="w-100 Color-Grey-HR">
+            <div>
+                <div class="row Row-Product">
+                @foreach($preordersTurnIns as $keypreordersTurnIns => $turnIns)  
+                    <div class="col-lg-3 col-md-4 col-6">
+                        <div class="BoxProductFree">
+                            <img class="IMG-PD" src="{{asset($turnIns->sign)}}" alt="">
+                            <div class="WarperDetail-ProductFree">
+                                <p class="TextName-PD">
+
+                                    @if($turnIns->preorder->package=='combo' || $turnIns->preorder->package=='thai')
+                                        @if($turnIns->preorder->preorder_type=='firstname' || $turnIns->preorder->preorder_type=='duo')
+                                        {{$turnIns->preorder->firstname_th}}
+                                        @endif
+                                        @if($turnIns->preorder->preorder_type=='lastname' || $turnIns->preorder->preorder_type=='duo')
+                                        {{$turnIns->preorder->lastname_th}}
+                                        @endif
+                                    @endif
+
+                                    @if($turnIns->preorder->package=='combo' || $turnIns->preorder->package=='english')
+                                        @if($turnIns->preorder->preorder_type=='firstname' || $turnIns->preorder->preorder_type=='duo')
+                                        {{$turnIns->preorder->firstname_en}}
+                                        @endif
+                                        @if($turnIns->preorder->preorder_type=='lastname' || $turnIns->preorder->preorder_type=='duo')
+                                        {{$turnIns->preorder->lastname_en}}
+                                        @endif
+                                    @endif
+                                </p>
+                                <br>
+                                <a class="btn ButtonSeemore-PD" href="{{route('historydetailsignatureforpreordersPage', ['preorders_id' => $turnIns->preorder->id, 'turnin_id' => $turnIns->id])}}">
+                                    ดูเพิ่มเติม
+                                </a>
+
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+                </div>
+            </div>
         </div>
     </section>
 

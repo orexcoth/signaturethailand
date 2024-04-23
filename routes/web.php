@@ -110,10 +110,14 @@ Route::get('history', [FrontendPageController::class, 'historyPage'])
 Route::get('history/detailsignatureforsells/{sells_id}/{signs_id}', [FrontendPageController::class, 'historydetailsignatureforsellsPage'])
     ->name('historydetailsignatureforsellsPage')
     ->middleware('checkCustomerSession');
+Route::get('history/detailsignatureforpreorders/{preorders_id}/{turnin_id}', [FrontendPageController::class, 'historydetailsignatureforpreordersPage'])
+    ->name('historydetailsignatureforpreordersPage')
+    ->middleware('checkCustomerSession');
 
 
 Route::get('product', [FrontendPageController::class, 'productPage'])->name('productPage');
 Route::get('product-detail/{name}', [FrontendPageController::class, 'productdetailPage'])->name('productdetailPage');
+Route::get('product-download/{sign}', [FrontendPageController::class, 'productdownloadPage'])->name('productdownloadPage');
 Route::get('allproduct-th', [FrontendPageController::class, 'allproductTHPage'])->name('allproductTHPage');
 Route::get('allproduct-en', [FrontendPageController::class, 'allproductENPage'])->name('allproductENPage');
 
@@ -229,6 +233,8 @@ Route::middleware('auth')->group(function() {
             Route::post('defaultprice-action', [BackendPageController::class, 'BN_settings_defaultprice_action'])->name('BN_settings_defaultprice_action');
             Route::post('preorderprice-action', [BackendPageController::class, 'BN_settings_preorderprice_action'])->name('BN_settings_preorderprice_action');
             Route::get('dev', [BackendPageController::class, 'BN_settings_dev'])->name('BN_settings_dev');
+            Route::get('about', [BackendPageController::class, 'BN_settings_about'])->name('BN_settings_about');
+            Route::post('about-action', [BackendPageController::class, 'BN_settings_about_action'])->name('BN_settings_about_action');
         });
 
     });

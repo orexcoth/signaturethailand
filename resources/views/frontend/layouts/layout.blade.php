@@ -3,7 +3,10 @@
 
 <head>
     @include('frontend.layouts.inc_header')
-    <?php $pageName = "index"; ?>
+    <?php 
+    // $pageName = "index";
+    ?>
+    <title>{{$default_pagename}}</title>
 </head>
 
 <body>

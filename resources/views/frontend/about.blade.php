@@ -14,7 +14,8 @@
     <section class="Section-AboutIndex">
         <div class="container">
             <div class="WarperAboutIndex">
-                <h1 class="TextSecon-Black">
+                {!!$about_page!!}
+                <!-- <h1 class="TextSecon-Black">
                     Signature Thailand
                 </h1>
                 <br>
@@ -34,7 +35,8 @@
                 <p class="Text-Gold-Gardien Text-20 Text-W500">
                     Signature Thailand Official
                 </p>
-                <br>
+                <br> -->
+                
                 <!-- <div class="BoxIconWeb">
                     <img class="IconWeb" src="./images/index/icon-1.svg" alt="">
                     <img class="IconWeb" src="./images/index/icon-2.svg" alt="">

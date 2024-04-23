@@ -27,6 +27,8 @@ class preordersTurnInModel extends Model
     {
         return $this->belongsTo(preordersModel::class, 'preorders_id', 'id');
     }
+    
+
     public function user()
     {
         return $this->belongsTo(User::class, 'users_id');

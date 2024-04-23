@@ -22,8 +22,27 @@ use Intervention\Image\Facades\Image;
 
 class BackendPageController extends Controller
 {
-
-
+    public function BN_settings_about_action(Request $request)
+    {
+        // dd($request);
+        $getabout_index = $request->about_index;
+        $getabout_page = $request->about_page;
+        // dd($getabout_index);
+        OptionsModel::where('option_key', 'about_index')->update(['option_value' => $getabout_index]);
+        OptionsModel::where('option_key', 'about_page')->update(['option_value' => $getabout_page]);
+        return redirect(route('BN_settings_about'))->with('success', 'บันทึกข้อมูลสำเร็จ !!!');
+    }
+    public function BN_settings_about(Request $request)
+    {
+        // dd($request);
+        $about_index = OptionsModel::where('option_key', 'about_index')->first();
+        $about_page = OptionsModel::where('option_key', 'about_page')->first();
+        return view('backend/setting-about', [
+            'default_pagename' => 'ข้อมูลเว็บไซต์',
+            'about_index' => $about_index->option_value,
+            'about_page' => $about_page->option_value,
+        ]);
+    }
     public function BN_settings_dev(Request $request)
     {
         $imgpath = 'uploads/sign/th\20240327-4-2836-กก-660411ac6ead4.jpg';
