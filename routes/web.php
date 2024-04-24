@@ -214,8 +214,13 @@ Route::middleware('auth')->group(function() {
         });
         Route::prefix('reports')->group(function () {
             Route::get('', [ReportsController::class, 'BN_reports'])->name('BN_reports');
+            Route::get('users', [ReportsController::class, 'BN_reports_users'])->name('BN_reports_users');
             Route::get('sells', [ReportsController::class, 'BN_reports_sells'])->name('BN_reports_sells');
-            Route::get('orders', [ReportsController::class, 'BN_reports_orders'])->name('BN_reports_orders');
+            Route::get('sells/export', [ReportsController::class, 'BN_reports_sells_exportToExcel'])->name('BN_reports_sells_exportToExcel');
+            Route::get('sells/detail/{sells_id}', [ReportsController::class, 'BN_reports_sells_detail'])->name('BN_reports_sells_detail');
+            Route::get('preorders', [ReportsController::class, 'BN_reports_preorders'])->name('BN_reports_preorders');
+            Route::get('preorders/export', [ReportsController::class, 'BN_reports_preorders_exportToExcel'])->name('BN_reports_preorders_exportToExcel');
+            Route::get('preorders/detail/{preorders_id}', [ReportsController::class, 'BN_reports_preorders_detail'])->name('BN_reports_preorders_detail');
         });
         Route::prefix('users')->group(function () {
 

@@ -43,6 +43,7 @@ class CheckoutCustomerController extends Controller
 
         // 2. Check if email exists in customersModel
         $customer = CustomersModel::where('email', $request->email)->first();
+        // dd($customer);
         if ($customer) {
             $customers_id = $customer->id;
         } else {
@@ -64,6 +65,7 @@ class CheckoutCustomerController extends Controller
                 $customers_id = $newCustomer->id;
             }
         }
+        // dd($customers_id);
 
         $stiv = "PDIV"; // Static prefix
         $timestamp = time(); // Current timestamp
@@ -142,7 +144,7 @@ class CheckoutCustomerController extends Controller
 
 
         // Optionally, return success response with sell ID
-        return redirect(route('thankPage', ['sell_id' => $newpreorders->id]))->with('success', 'สร้างสำเร็จ !!!');
+        return redirect(route('thankPage', ['preorders_id' => $newpreorders->id]))->with('success', 'สร้างสำเร็จ !!!');
 
     }
 
@@ -222,7 +224,8 @@ class CheckoutCustomerController extends Controller
         $newSell->save();
 
         // Optionally, return success response with sell ID
-        return redirect(route('thankPage'))->with('success', 'สร้างสำเร็จ !!!');
+        // return redirect(route('thankPage'))->with('success', 'สร้างสำเร็จ !!!');
+        return redirect(route('thankPage', ['sells_id' => $newSell->id]))->with('success', 'สร้างสำเร็จ !!!');
 
     }
 

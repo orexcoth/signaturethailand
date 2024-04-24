@@ -10,6 +10,10 @@ $arr_st = array(
     'pending' => 'รอชำระ',
     'paid' => 'ชำระเงินแล้ว',
 );
+$arr_expss = array(
+    'express' => 'ส่งด่วน',
+    'normal' => 'ส่งปกติ',
+);
 // echo "<pre>";
 // print_r($query);
 // echo "</pre>";
@@ -17,7 +21,7 @@ $arr_st = array(
     <div class="intro-y mt-5 flex flex-col items-center sm:flex-row">
         <h2 class="mr-auto text-lg font-medium">{{$default_pagename}}</h2>
         <div class="mt-4 flex w-full sm:mt-0 sm:w-auto">
-            <a href="{{ route('BN_reports_sells_exportToExcel') }}" class="transition duration-200 border inline-flex items-center justify-center py-2 px-3 rounded-md font-medium cursor-pointer focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus-visible:outline-none dark:focus:ring-slate-700 dark:focus:ring-opacity-50 [&amp;:hover:not(:disabled)]:bg-opacity-90 [&amp;:hover:not(:disabled)]:border-opacity-90 [&amp;:not(button)]:text-center disabled:opacity-70 disabled:cursor-not-allowed bg-primary border-primary text-white dark:border-primary shadow-md" >
+            <a href="{{ route('BN_reports_preorders_exportToExcel') }}" class="transition duration-200 border inline-flex items-center justify-center py-2 px-3 rounded-md font-medium cursor-pointer focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus-visible:outline-none dark:focus:ring-slate-700 dark:focus:ring-opacity-50 [&amp;:hover:not(:disabled)]:bg-opacity-90 [&amp;:hover:not(:disabled)]:border-opacity-90 [&amp;:not(button)]:text-center disabled:opacity-70 disabled:cursor-not-allowed bg-primary border-primary text-white dark:border-primary shadow-md" >
                 Export
             </a>    
         </div>
@@ -74,8 +78,8 @@ $arr_st = array(
                     <th class="whitespace-nowrap">วันที่</th>
                     <th class="whitespace-nowrap">รายการ</th>
                     <th class="whitespace-nowrap">ลูกค้า</th>
-                    <th class="whitespace-nowrap text-center">ชื่อที่สั่ง</th>
                     <th class="whitespace-nowrap text-right">ยอดชำระ</th>
+                    <th class="whitespace-nowrap text-right">ส่งด่วน</th>
                     <th class="whitespace-nowrap text-center">สถานะ</th>
 
                     <th class="text-center whitespace-nowrap">แอคชั่น</th>
@@ -91,29 +95,20 @@ $arr_st = array(
                             <div class="text-slate-500 text-sm whitespace-nowrap mt-0.5">{{$res->number}}</div>
                         </td>
                         <td>
-                            <div class="text-slate-500 text-sm whitespace-nowrap mt-0.5">{{$res->customers->firstname}} {{$res->customers->lastname}}</div>
+                            <div class="text-slate-500 text-sm whitespace-nowrap mt-0.5">{{$res->customer->firstname}} {{$res->customer->lastname}}</div>
                             <div class="text-slate-500 text-sm whitespace-nowrap mt-0.5">{{$res->email}}</div>
                         </td>
-                        <td>
-                            <div class="text-slate-500 text-sm whitespace-nowrap mt-0.5 text-center">
-                                @if ($res->package === 'th')
-                                    {{ $res->name_th }}
-                                @elseif ($res->package === 'en')
-                                    {{ $res->name_en }}
-                                @else
-                                    {{ $res->name_th }} / {{ $res->name_en }}
-                                @endif
-                            </div>
-                        </td>
+
 
                         <td><div class="text-slate-500 text-sm whitespace-nowrap mt-0.5 text-right">{{$res->total}}</div></td>
+                        <td><div class="text-slate-500 text-sm whitespace-nowrap mt-0.5 text-right">{{$arr_expss[$res->DeliverSignature]}}</div></td>
                         <td><div class="text-slate-500 text-sm whitespace-nowrap mt-0.5 text-center">{{$arr_st[$res->status]}}</div></td>
                         <td class="table-report__action w-56">
                             <div class="flex justify-center items-center">
                                 <!-- <a class="flex items-center mr-3" href="#">
                                     <i data-lucide="check-square" class="w-4 h-4 mr-1"></i> แก้ไข
                                 </a> -->
-                                <a class="flex items-center mr-3" href="{{route('BN_reports_sells_detail', ['sells_id' => $res->id])}}">
+                                <a class="flex items-center mr-3" href="{{route('BN_reports_preorders_detail', ['preorders_id' => $res->id])}}">
                                     <i data-lucide="check-square" class="w-4 h-4 mr-1"></i> ดูโพสท์
                                 </a>
                             </div>
@@ -146,7 +141,7 @@ $arr_st = array(
 <script>
     function applyFilters() {
         var keyword = document.getElementById('keyword').value;
-        var newUrl = `{{ route('BN_reports_sells') }}?keyword=${keyword}`;
+        var newUrl = `{{ route('BN_reports_preorders') }}?keyword=${keyword}`;
         window.location.href = newUrl;
     }
     function handleEnter(event) {
@@ -158,7 +153,7 @@ $arr_st = array(
     function applySelects() {
         var status = document.getElementById('status').value;
         // var combo = document.getElementById('combo').value;
-        var newUrl2 = `{{ route('BN_reports_sells') }}?status=${status}`;
+        var newUrl2 = `{{ route('BN_reports_preorders') }}?status=${status}`;
         window.location.href = newUrl2;
     }
 

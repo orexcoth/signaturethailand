@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\sellsModel;
 use App\Models\User;
 
+
 class signsModel extends Model
 {
     use HasFactory;
