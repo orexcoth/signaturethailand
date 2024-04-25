@@ -33,19 +33,46 @@ class ReportsController extends Controller
 {
 
 
+    public function BN_reports_users_detail(Request $request, $users_id)
+    {
+        // $query = SellsModel::with('customers')->find($sells_id);
+        $user = usersModel::find($users_id);
+        // dd($user);
+        return view('backend/reports-users-detail', [
+            'default_pagename' => 'รายละเอียดรายการ',
+            'user' => $user,
+        ]);
+    }
     public function BN_reports_users(Request $request)
     {
-        // dd($request);
-        $query = User::withCount(['signs', 'preordersTurnIns'])
-            ->with(['signs', 'preordersTurnIns'])
-            ->get();
-
-
-        // dd($query);
+        $startDate = null;
+        $endDate = null;
+        if ($request->has('period')) {
+            $dateRange = explode(" - ", $request->period);
+            $startDate = Carbon::createFromFormat('j M, Y', trim($dateRange[0]))->startOfDay();
+            $endDate = Carbon::createFromFormat('j M, Y', trim($dateRange[1]))->endOfDay();
+        }
+        $query = User::query();
+        if ($startDate && $endDate) {
+            $query->withCount(['signs' => function ($query) use ($startDate, $endDate) {
+                $query->whereBetween('created_at', [$startDate, $endDate]);
+            }, 'preordersTurnIns' => function ($query) use ($startDate, $endDate) {
+                $query->whereBetween('created_at', [$startDate, $endDate]);
+            }])->with(['signs' => function ($query) use ($startDate, $endDate) {
+                $query->whereBetween('created_at', [$startDate, $endDate]);
+            }, 'preordersTurnIns' => function ($query) use ($startDate, $endDate) {
+                $query->whereBetween('created_at', [$startDate, $endDate]);
+            }]);
+        } else {
+            $query->withCount(['signs', 'preordersTurnIns'])->with(['signs', 'preordersTurnIns']);
+        }
+        $results = $query->get();
+        $period = $request->query('period');
 
         return view('backend/reports-users', [
             'default_pagename' => 'ข้อมูลนักออกแบบ',
-            'query' => $query,
+            'query' => $results,
+            'period' => $period,
         ]); 
     }
 

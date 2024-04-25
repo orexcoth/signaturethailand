@@ -11,9 +11,28 @@ $arr_st = array(
     'paid' => 'ชำระเงินแล้ว',
 );
 $arr_package = array(
-    'th' => 'เฉพาะภาษาไทย',
-    'en' => 'เฉพาะภาษาอังกฤษ',
-    'all' => 'ทั้งภาษาไทยและภาษาอังกฤษ',
+    'thai' => 'ลายเซ็นไทย',
+    'english' => 'ลายเซ็นอังกฤษ',
+    'combo' => 'ลายเซ็นไทยและอังกฤษ',
+);
+$arr_type = array(
+    'firstname' => 'ลายเซ็นชื่อ',
+    'lastname' => 'ลายเซ็นนามสกุล',
+    'duo' => 'ลายเซ็นชื่อและลายเซ็นนามสกุล',
+);
+$arr_sex = array(
+    'single' => 'โสด',
+    'married' => 'แต่งงาน',
+    'divorce' => 'หย่าร้าง',
+    'other' => 'ไม่ระบุ',
+);
+$arr_ever = array(
+    'ever' => 'เคย',
+    'never' => 'ไม่เคย',
+);
+$arr_ship = array(
+    'normal' => 'ส่งปกติ',
+    'express' => 'ส่งด่วน',
 );
 // echo "<pre>";
 // print_r($query);
@@ -59,8 +78,20 @@ $arr_package = array(
                             </div>
                             <div class="col-span-12 xl:col-span-3">
                                 <div class="mt-3 ">
+                                    <label for="" class="form-label">ราคาสั่งออกแบบ</label>
+                                    <input type="text" class="form-control w-full" value="{{$query->preorder_price}}" readonly />
+                                </div>
+                            </div>
+                            <div class="col-span-12 xl:col-span-3">
+                                <div class="mt-3 ">
+                                    <label for="" class="form-label">ค่าจัดส่ง</label>
+                                    <input type="text" class="form-control w-full" value="{{$query->shipping_price}}" readonly />
+                                </div>
+                            </div>
+                            <div class="col-span-12 xl:col-span-3">
+                                <div class="mt-3 ">
                                     <label for="" class="form-label">ยอดชำระ</label>
-                                    <input type="text" class="form-control w-full" value="{{$query->total}}" readonly />
+                                    <input type="text" class="form-control w-full" value="{{$query->total_price}}" readonly />
                                 </div>
                             </div>
 
@@ -115,6 +146,161 @@ $arr_package = array(
                                     <input type="text" class="form-control w-full" value="{{$query->payment_status}}" readonly />
                                 </div>
                             </div>
+
+
+                            <div class="col-span-12 xl:col-span-12">
+                                <br>
+                                <br>
+                            </div>
+
+
+                            <div class="col-span-12 xl:col-span-6">
+                                <div class="mt-3 ">
+                                    <label for="" class="form-label">แพ็คเกจ</label>
+                                    <input type="text" class="form-control w-full" value="{{$arr_package[$query->package]}}" readonly />
+                                </div>
+                            </div>
+                            <div class="col-span-12 xl:col-span-6">
+                                <div class="mt-3 ">
+                                    <label for="" class="form-label">ประเภทคำสั่งซื้อ</label>
+                                    <input type="text" class="form-control w-full" value="{{$arr_type[$query->preorder_type]}}" readonly />
+                                </div>
+                            </div>
+                            @if($query->package=='thai'  ||  $query->package=='combo')
+                                @if($query->preorder_type=='firstname' ||  $query->preorder_type=='duo')
+                                <div class="col-span-12 xl:col-span-3">
+                                    <div class="mt-3 ">
+                                        <label for="" class="form-label">ชื่อภาษาไทย</label>
+                                        <input type="text" class="form-control w-full" value="{{$query->firstname_th}}" readonly />
+                                    </div>
+                                </div>
+                                @endif  
+                                @if($query->preorder_type=='lastname' ||  $query->preorder_type=='duo')
+                                <div class="col-span-12 xl:col-span-3">
+                                    <div class="mt-3 ">
+                                        <label for="" class="form-label">นามสกุลภาษาไทย</label>
+                                        <input type="text" class="form-control w-full" value="{{$query->lastname_th}}" readonly />
+                                    </div>
+                                </div>
+                                @endif      
+                            @endif
+
+                            @if($query->package=='english'  ||  $query->package=='combo')
+                                @if($query->preorder_type=='firstname' ||  $query->preorder_type=='duo')
+                                <div class="col-span-12 xl:col-span-3">
+                                    <div class="mt-3 ">
+                                        <label for="" class="form-label">ชื่อภาษาอังกฤษ</label>
+                                        <input type="text" class="form-control w-full" value="{{$query->firstname_en}}" readonly />
+                                    </div>
+                                </div>
+                                @endif  
+                                @if($query->preorder_type=='lastname' ||  $query->preorder_type=='duo')
+                                <div class="col-span-12 xl:col-span-3">
+                                    <div class="mt-3 ">
+                                        <label for="" class="form-label">นามสกุลภาษาอังกฤษ</label>
+                                        <input type="text" class="form-control w-full" value="{{$query->lastname_en}}" readonly />
+                                    </div>
+                                </div>
+                                @endif       
+                            @endif
+                            
+                            
+                            
+                            
+                            <div class="col-span-12 xl:col-span-12">
+                                <br>
+                            </div>
+                            <div class="col-span-12 xl:col-span-4">
+                                <div class="mt-3 ">
+                                    <label for="" class="form-label">ความเด่นของลายเซ็น ลำดับ 1</label>
+                                    <input type="text" class="form-control w-full" value="{{$query->prominence_1}}" readonly />
+                                </div>
+                            </div>
+                            <div class="col-span-12 xl:col-span-2">
+                                <div class="mt-3 ">
+                                    <label for="" class="form-label">ความเด่นของลายเซ็น ลำดับ 2</label>
+                                    <input type="text" class="form-control w-full" value="{{$query->prominence_2}}" readonly />
+                                </div>
+                            </div>
+                            <div class="col-span-12 xl:col-span-2">
+                                <div class="mt-3 ">
+                                    <label for="" class="form-label">ความเด่นของลายเซ็น ลำดับ 3</label>
+                                    <input type="text" class="form-control w-full" value="{{$query->prominence_3}}" readonly />
+                                </div>
+                            </div>
+                            <div class="col-span-12 xl:col-span-2">
+                                <div class="mt-3 ">
+                                    <label for="" class="form-label">ความเด่นของลายเซ็น ลำดับ 4</label>
+                                    <input type="text" class="form-control w-full" value="{{$query->prominence_4}}" readonly />
+                                </div>
+                            </div>
+                            <div class="col-span-12 xl:col-span-2">
+                                <div class="mt-3 ">
+                                    <label for="" class="form-label">ความเด่นของลายเซ็น ลำดับ 5</label>
+                                    <input type="text" class="form-control w-full" value="{{$query->prominence_5}}" readonly />
+                                </div>
+                            </div>
+                            <div class="col-span-12 xl:col-span-12">
+                                <div class="mt-3 ">
+                                    <label for="" class="form-label">เป้าหมายเปลี่ยนชีวิต</label>
+                                    <input type="text" class="form-control w-full" value="{{$query->TargetPreorder}}" readonly />
+                                </div>
+                            </div>
+                            <div class="col-span-12 xl:col-span-4">
+                                <div class="mt-3 ">
+                                    <label for="" class="form-label">ชื่อ - นามสกุล</label>
+                                    <input type="text" class="form-control w-full" value="{{$query->name}}" readonly />
+                                </div>
+                            </div>
+                            <div class="col-span-12 xl:col-span-4">
+                                <div class="mt-3 ">
+                                    <label for="" class="form-label">วัน/เดือน/ปีเกิด</label>
+                                    <input type="text" class="form-control w-full" value="{{$query->dob}}" readonly />
+                                </div>
+                            </div>
+                            <div class="col-span-12 xl:col-span-4">
+                                <div class="mt-3 ">
+                                    <label for="" class="form-label">เบอร์โทรติดต่อ</label>
+                                    <input type="text" class="form-control w-full" value="{{$query->telephone}}" readonly />
+                                </div>
+                            </div>
+                            <div class="col-span-12 xl:col-span-2">
+                                <div class="mt-3 ">
+                                    <label for="" class="form-label">สถานภาพปัจจุบัน</label>
+                                    <input type="text" class="form-control w-full" value="{{$arr_sex[$query->SelectStatus]}}" readonly />
+                                </div>
+                            </div>
+                            <div class="col-span-12 xl:col-span-2">
+                                <div class="mt-3 ">
+                                    <label for="" class="form-label">อาชีพ</label>
+                                    <input type="text" class="form-control w-full" value="{{$query->occupation}}" readonly />
+                                </div>
+                            </div>
+                            <div class="col-span-12 xl:col-span-2">
+                                <div class="mt-3 ">
+                                    <label for="" class="form-label">เคยมีลายเซ็นหรือไม่</label>
+                                    <input type="text" class="form-control w-full" value="{{$arr_ever[$query->EverSignature]}}" readonly />
+                                </div>
+                            </div>
+                            <div class="col-span-12 xl:col-span-6">
+                                <div class="mt-3 ">
+                                    <label for="" class="form-label">ลายเซ็นเก่า</label>
+                                    <input type="text" class="form-control w-full" value="{{asset($query->mysignature)}}" readonly />
+                                </div>
+                            </div>
+                            <div class="col-span-12 xl:col-span-12">
+                                <div class="mt-3 ">
+                                    <label for="" class="form-label">เล่าถึงปัญหาที่พบเจอในปัจจุบัน</label>
+                                    <input type="text" class="form-control w-full" value="{{$query->ProblemPreorder}}" readonly />
+                                </div>
+                            </div>
+                            <div class="col-span-12 xl:col-span-3">
+                                <div class="mt-3 ">
+                                    <label for="" class="form-label">การจัดส่ง</label>
+                                    <input type="text" class="form-control w-full" value="{{$arr_ship[$query->DeliverSignature]}}" readonly />
+                                </div>
+                            </div>
+
                             
 
 

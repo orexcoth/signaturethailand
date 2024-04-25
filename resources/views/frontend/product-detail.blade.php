@@ -32,7 +32,10 @@ $default_pagename = $name->name_th." / ".$name->name_en;
                     <span>
                         <img class="IC-PenLine" src="{{asset('frontend/images/icon/ic-pen-line.svg')}}" alt="">
                     </span>
-                    ลายเซ็น
+                    ลายเซ็น 
+                    @if($name->free)
+                    (Free)
+                    @endif
                 </p>
 
                 <div class="BoxnameSignature">

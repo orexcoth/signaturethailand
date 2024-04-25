@@ -19,6 +19,31 @@ class SideMenu
                 'params' => [],
                 'title' => 'แดชบอร์ด'
             ],
+            
+            'works' => [
+                'icon' => 'Briefcase',
+                'title' => 'งาน',
+                'sub_menu' => [
+                    'works-assign' => [
+                        'icon' => 'Folder',
+                        'route_name' => 'BN_works_assign',
+                        'params' => [],
+                        'title' => 'มอบหมายงาน'
+                    ],
+                    'works-report' => [
+                        'icon' => 'Folder Plus',
+                        'route_name' => 'BN_works_report',
+                        'params' => [],
+                        'title' => 'รายงาน ตารางงาน'
+                    ],
+                    'works-list' => [
+                        'icon' => 'Folder Plus',
+                        'route_name' => 'BN_works_list',
+                        'params' => [],
+                        'title' => 'ตารางงาน'
+                    ]
+                ]
+            ],
             'customers' => [
                 'icon' => 'Users',
                 'route_name' => 'BN_customers',
@@ -74,36 +99,13 @@ class SideMenu
                 ]
             ],
 
-            'works' => [
-                'icon' => 'Briefcase',
-                'title' => 'งาน',
-                'sub_menu' => [
-                    'works-assign' => [
-                        'icon' => 'Folder',
-                        'route_name' => 'BN_works_assign',
-                        'params' => [],
-                        'title' => 'มอบหมายงาน'
-                    ],
-                    'works-report' => [
-                        'icon' => 'Folder Plus',
-                        'route_name' => 'BN_works_report',
-                        'params' => [],
-                        'title' => 'รายงาน ตารางงาน'
-                    ],
-                    'works-list' => [
-                        'icon' => 'Folder Plus',
-                        'route_name' => 'BN_works_list',
-                        'params' => [],
-                        'title' => 'ตารางงาน'
-                    ]
-                ]
-            ],
-            'commissions' => [
-                'icon' => 'Dollar Sign',
-                'route_name' => 'BN_commissions',
-                'params' => [],
-                'title' => 'ค่าคอมมิทชั่น'
-            ],
+            
+            // 'commissions' => [
+            //     'icon' => 'Dollar Sign',
+            //     'route_name' => 'BN_commissions',
+            //     'params' => [],
+            //     'title' => 'ค่าคอมมิทชั่น'
+            // ],
             'articles' => [
                 'icon' => 'Image',
                 'route_name' => 'BN_articles',

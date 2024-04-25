@@ -76,7 +76,7 @@ $arr_st = array(
                                 <!-- <a class="flex items-center mr-3" href="#">
                                     <i data-lucide="check-square" class="w-4 h-4 mr-1"></i> แก้ไข
                                 </a> -->
-                                <a class="flex items-center mr-3" href="#">
+                                <a class="flex items-center mr-3" href="{{ route('BN_reports_users_detail', ['users_id' => $res->id]) }}@if(request()->has('period'))?period={{ request()->query('period') }}@endif">
                                     <i data-lucide="check-square" class="w-4 h-4 mr-1"></i> รายละเอียด
                                 </a>
                             </div>
