@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 use App\Models\signsModel;
 use App\Models\customersModel;
+use App\Models\downloadsModel;
 
 class sellsModel extends Model
 {
@@ -50,6 +51,8 @@ class sellsModel extends Model
     {
         return $this->belongsTo(customersModel::class, 'customers_id', 'id');
     }
-
+    public function downloads() {
+        return $this->hasMany(downloadsModel::class);
+    }
 
 }

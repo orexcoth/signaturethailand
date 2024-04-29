@@ -32,6 +32,7 @@ use App\Models\preordersTurnInModel;
 use App\Models\preorders_signs;
 use App\Models\sellsModel;
 use App\Models\sells_namesModel;
+use App\Models\downloadsModel;
 
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
@@ -70,6 +71,54 @@ class FrontendPageController extends Controller
         ]);
         
     }
+
+
+
+
+
+    public function savedownloadcountaction(Request $request)
+    {
+        // dd($request);
+        // Check if the download exists
+        $exists = downloadsModel::where([
+            'signs_id' => $request->input('signs_id'),
+            'sells_id' => $request->input('sells_id'),
+            'preorders_id' => $request->input('preorders_id'),
+            'post_id' => $request->input('post_id'),
+            'tablename' => $request->input('tablename'),
+            'type' => $request->input('type'),
+            'customers_id' => $request->input('customers_id'),
+        ])->exists();
+
+        // If download does not exist, save it
+        if (!$exists) {
+            $download = new downloadsModel();
+            $download->signs_id = $request->input('signs_id');
+            $download->sells_id = $request->input('sells_id');
+            $download->preorders_id = $request->input('preorders_id');
+            $download->post_id = $request->input('post_id');
+            $download->tablename = $request->input('tablename');
+            $download->type = $request->input('type');
+            $download->customers_id = $request->input('customers_id');
+            $download->save();
+        }
+
+        // You can modify this response as per your requirement
+        return response()->json(['exists' => $exists, 'message' => 'Download action completed', 'file_path' => '']);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
     public function historydetailsignatureforsellsPage(Request $request, $sells_id, $signs_id)
     {
         $customer = $request->session()->get('customer');
@@ -91,6 +140,9 @@ class FrontendPageController extends Controller
             'default_pagename' => 'historydetailsignatureforsells',
             'layout' => 'side-menu',
             'sign' => $sign, // Pass the sells data to the view
+            'customer' => $customer,
+            'sells_id' => $sells_id,
+            'signs_id' => $signs_id,
         ]);
     }
 

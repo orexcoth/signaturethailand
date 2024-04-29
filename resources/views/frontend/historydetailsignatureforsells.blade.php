@@ -7,9 +7,18 @@
 @section('content')
 
 <?php
+$customers_id = $customer->id;
+$post_id = isset($sells_id) ? $sells_id : $preorders_id;
+$tablename = isset($sells_id) ? 'sells' : 'preorders';
+$type = isset($sells_id) ? 'sell' : 'preorder';
+
+$sells_id = isset($sells_id) ? $sells_id : '';
+$preorders_id = isset($preorders_id) ? $preorders_id : '';
 // echo "<pre>";
-// print_r($sign);
+// print_r($signs_id);
 // echo "</pre>";
+
+
 // echo "<pre>";
 // print_r(count($namesen));
 // echo "</pre>";
@@ -156,29 +165,80 @@
 @section('script')
 
 <script>
-    $(document).ready(function() {
-        // Handle click event for image download button
-        $("#BtnDownloadIMG").click(function() {
-            var imagePath = '<?php echo rawurlencode(asset($sign->sign)); ?>';
-            initiateDownload(imagePath);
-        });
 
-        // Handle click event for video download button
-        $("#BtnDownloadVDO").click(function() {
-            var videoPath = '<?php echo rawurlencode(asset($sign->video)); ?>';
-            initiateDownload(videoPath);
-        });
 
-        // Function to initiate download
-        function initiateDownload(filePath) {
-            // Decode the URL
-            var decodedPath = decodeURIComponent(filePath);
-            var link = document.createElement('a');
-            link.href = decodedPath;
-            link.download = decodedPath.split('/').pop(); // Set the download attribute to the filename
-            link.click();
+
+$(document).ready(function() {
+
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
     });
+    // Handle click event for image download button
+    $("#BtnDownloadIMG").click(function() {
+        var imagePath = '<?php echo rawurlencode(asset($sign->sign)); ?>';
+        var data = {
+            customers_id: <?php echo $customer->id; ?>,
+            signs_id: <?php echo isset($sign) ? $sign->id : 'null'; ?>,
+            type: 'image'
+        };
+        initiateDownload(imagePath, data);
+    });
+
+    // Handle click event for video download button
+    $("#BtnDownloadVDO").click(function() {
+        var videoPath = '<?php echo rawurlencode(asset($sign->video)); ?>';
+        var data = {
+            customers_id: <?php echo $customer->id; ?>,
+            signs_id: <?php echo isset($sign) ? $sign->id : 'null'; ?>,
+            type: 'video'
+        };
+        initiateDownload(videoPath, data);
+    });
+
+    // Function to initiate download and save data in db
+    function initiateDownload(filePath, data) {
+        // Decode the URL
+        var decodedPath = decodeURIComponent(filePath);
+        var link = document.createElement('a');
+        link.href = decodedPath;
+        link.download = decodedPath.split('/').pop(); // Set the download attribute to the filename
+        link.click();
+
+        // Save data in database
+        console.log(<?php echo $post_id; ?>);
+        
+        $.ajax({
+            url: '{{ route("savedownloadcountaction") }}',
+            method: 'POST',
+            data: {
+                customers_id: <?php echo $customer->id; ?>,
+                signs_id: <?php echo isset($sign) ? $sign->id : 'null'; ?>,
+                post_id: <?php echo $post_id; ?>,
+                tablename: '<?php echo $tablename; ?>',
+                type: '<?php echo $type; ?>',
+                sells_id: '<?php echo $sells_id; ?>',
+                preorders_id: '<?php echo $preorders_id; ?>',
+            },
+            success: function (response) {
+                // if (!response.exists) {
+                //     console.log('Download saved successfully.');
+                // }
+                // Replace the file_path with the actual path to the file
+                // var filePath = ''; // Replace this with the actual file path
+                // downloadFile(filePath);
+            },
+            error: function (xhr, status, error) {
+                console.error(xhr.responseText);
+            }
+        });
+
+
+    }
+});
+
+    
 </script>
 @endsection
 

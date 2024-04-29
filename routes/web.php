@@ -113,6 +113,8 @@ Route::get('history/detailsignatureforsells/{sells_id}/{signs_id}', [FrontendPag
 Route::get('history/detailsignatureforpreorders/{preorders_id}/{turnin_id}', [FrontendPageController::class, 'historydetailsignatureforpreordersPage'])
     ->name('historydetailsignatureforpreordersPage')
     ->middleware('checkCustomerSession');
+Route::post('savedownloadcount', [FrontendPageController::class, 'savedownloadcountaction'])->name('savedownloadcountaction');
+
 
 
 Route::get('product', [FrontendPageController::class, 'productPage'])->name('productPage');

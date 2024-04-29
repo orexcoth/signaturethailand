@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 use App\Models\sellsModel;
 use App\Models\User;
+use App\Models\NamesModel;
 
 
 class signsModel extends Model

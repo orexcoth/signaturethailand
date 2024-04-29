@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 use App\Models\customersModel;
 use App\Models\preordersTurnInModel;
+use App\Models\downloadsModel;
 
 class preordersModel extends Model
 {
@@ -67,5 +68,8 @@ class preordersModel extends Model
     public function turnIns()
     {
         return $this->hasMany(PreordersTurnInModel::class, 'preorders_id', 'id');
+    }
+    public function downloads() {
+        return $this->hasMany(downloadsModel::class);
     }
 }

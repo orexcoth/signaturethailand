@@ -9,6 +9,7 @@ if (empty($_description))     $_description = '';
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robot" content="index, follow" />
 <meta name='copyright' content='Orange Technology Solution co.,ltd.'>
+<meta name="csrf-token" content="{{ csrf_token() }}">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=Edge">
 <link rel="stylesheet" href="{{asset('frontend/css/bootstrap.css')}}">
