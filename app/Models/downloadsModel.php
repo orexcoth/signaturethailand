@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 use App\Models\sellsModel;
 use App\Models\preordersModel;
+use App\Models\signsModel;
 
 class downloadsModel extends Model
 {
@@ -33,5 +34,9 @@ class downloadsModel extends Model
     public function preorder()
     {
         return $this->belongsTo(preordersModel::class, 'preorders_id', 'id');
+    }
+    public function sign()
+    {
+        return $this->belongsTo(signsModel::class, 'signs_id');
     }
 }

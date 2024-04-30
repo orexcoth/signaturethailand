@@ -6,10 +6,10 @@
 
 @section('subcontent')
 <?php
-$arr_st = array(
-    'pending' => 'รอชำระ',
-    'paid' => 'ชำระเงินแล้ว',
-);
+// $arr_st = array(
+//     'pending' => 'รอชำระ',
+//     'paid' => 'ชำระเงินแล้ว',
+// );
 // echo "<pre>";
 // print_r($query);
 // echo "</pre>";
@@ -56,6 +56,7 @@ $arr_st = array(
                     <th class="whitespace-nowrap">ชื่อ</th>
                     <th class="whitespace-nowrap">ลายเซ็นทั้งหมด</th>
                     <th class="whitespace-nowrap">ส่งงานทั้งหมด</th>
+                    <th class="whitespace-nowrap">ดาวน์โหลด</th>
 
 
                     <th class="text-center whitespace-nowrap">แอคชั่น</th>
@@ -70,6 +71,7 @@ $arr_st = array(
                         <td><div class="text-slate-500 text-sm whitespace-nowrap mt-0.5">{{$res->name}}</div></td>
                         <td><div class="text-slate-500 text-sm whitespace-nowrap mt-0.5">{{$res->signs_count }}</div></td>
                         <td><div class="text-slate-500 text-sm whitespace-nowrap mt-0.5">{{$res->preorders_turn_ins_count }}</div></td>
+                        <td><div class="text-slate-500 text-sm whitespace-nowrap mt-0.5">{{$res->downloads_count }}</div></td>
                         
                         <td class="table-report__action w-56">
                             <div class="flex justify-center items-center">
