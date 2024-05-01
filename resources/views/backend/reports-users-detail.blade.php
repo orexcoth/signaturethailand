@@ -87,7 +87,7 @@ $arr_package = array(
 
     
         <div class="intro-y col-span-12 sm:col-span-6 xl:col-span-4">
-            <a href="#">
+            <a href="{{ route('BN_reports_users_detail_sign', ['users_id' => $user->id]) }}@if(request()->has('period'))?period={{ request()->query('period') }}@endif">
                 <div class="relative before:box before:absolute before:inset-x-3 before:mt-3 before:h-full before:bg-slate-50 before:content-['']">
                     <div class="box p-5">
                         <div class="mt-6 text-3xl font-medium leading-8">{{$query->signs_count}} ลายเซ็นต์</div>
@@ -97,7 +97,7 @@ $arr_package = array(
             </a>
         </div>
         <div class="intro-y col-span-12 sm:col-span-6 xl:col-span-4">
-            <a href="#">
+            <a href="{{ route('BN_reports_users_detail_turnin', ['users_id' => $user->id]) }}@if(request()->has('period'))?period={{ request()->query('period') }}@endif">
                 <div class="relative before:box before:absolute before:inset-x-3 before:mt-3 before:h-full before:bg-slate-50 before:content-['']">
                     <div class="box p-5">
                         <div class="mt-6 text-3xl font-medium leading-8">{{$query->preorders_turn_ins_count}} ครั้ง</div>
@@ -107,7 +107,7 @@ $arr_package = array(
             </a>
         </div>
         <div class="intro-y col-span-12 sm:col-span-6 xl:col-span-4">
-            <a href="#">
+            <a href="{{ route('BN_reports_users_detail_download', ['users_id' => $user->id]) }}@if(request()->has('period'))?period={{ request()->query('period') }}@endif">
                 <div class="relative before:box before:absolute before:inset-x-3 before:mt-3 before:h-full before:bg-slate-50 before:content-['']">
                     <div class="box p-5">
                         <div class="mt-6 text-3xl font-medium leading-8">{{$query->downloads_count}} ครั้ง</div>
