@@ -3,8 +3,12 @@
 
 namespace App\Exports;
 
-use App\Models\SellsModel;
 use Maatwebsite\Excel\Concerns\FromCollection;
+
+use App\Models\sellsModel;
+use App\Models\preordersModel;
+use App\Models\preorders_signsModel;
+use App\Models\downloadsModel;
 
 class SellsExport implements FromCollection
 {

@@ -167,7 +167,7 @@ class UsersController extends Controller
         $User->name = $request->name;
         $User->email = $request->email;
         $User->role = $request->role;;
-        $User->active = $request->active;
+        $User->status = $request->active;
 
         $User->update();
         

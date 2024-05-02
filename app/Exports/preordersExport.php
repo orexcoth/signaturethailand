@@ -2,11 +2,15 @@
 
 namespace App\Exports;
 
-use App\Models\PreordersModel; // Make sure to import the PreordersModel
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Schema;
+
+use App\Models\sellsModel;
+use App\Models\preordersModel;
+use App\Models\preorders_signsModel;
+use App\Models\downloadsModel;
 
 class PreordersExport implements FromCollection, WithHeadings
 {
