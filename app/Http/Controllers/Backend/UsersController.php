@@ -113,7 +113,7 @@ class UsersController extends Controller
         $User->email = $request->email;
         $User->password = Hash::make($request->password);
         $User->role = $request->role;;
-        $User->active = $request->active;
+        $User->status = $request->active;
 
         $User->save();
         
