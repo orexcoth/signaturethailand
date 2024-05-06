@@ -43,6 +43,13 @@ use File;
 class FrontendPageController extends Controller
 {
 
+    public function articledetailPage(Request $request, $id)
+    {
+
+        return view('frontend/article-detail', [
+            'default_pagename' => 'รายละเอียดบทความ',
+        ]);
+    }
     public function articlePage(Request $request)
     {
         return view('frontend/articles', [

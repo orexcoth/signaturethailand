@@ -13,7 +13,7 @@
 // print_r($namesfreeth);
 // echo "</pre>";
 ?>
-    <section class="BannerIndex">
+    <!-- <section class="BannerIndex">
         <div class="container">
             <div class="BoxText-Banner">
                 <p class="TextHeadBanner-Green">
@@ -35,15 +35,44 @@
                         <img class="ms-1" src="{{asset('frontend/images/index/ic_pen.svg')}}" alt="">
                     </span>
                 </a>
-                <!-- <form role="search">
+                <form role="search">
                     <div class="search BoxSearch">
                         <input type="text" class="InputSearchBanner" placeholder="พิมพ์ชื่อเพื่อค้นหาลายเซ็น">
                         <button type="submit" class="searchButtonBanner">
                             ค้นหาลายเซ็น
                         </button>
                     </div>
-                </form> -->
+                </form>
             </div>
+        </div>
+    </section> -->
+    <section class="SlideBanner">
+        <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <a href="product.php">
+                        <img class="Banner-IndexSlide" src="{{asset('frontend/images/index/Banner3.jpg')}}" class="d-block w-100" alt="...">
+                    </a>
+                </div>
+                <div class="carousel-item">
+                    <a href="about.php">
+                        <img class="Banner-IndexSlide" src="{{asset('frontend/images/index/bn2.jpg')}}" class="d-block w-100" alt="...">
+                    </a>
+                </div>
+                <div class="carousel-item">
+                    <a href="contact.php">
+                        <img class="Banner-IndexSlide" src="{{asset('frontend/images/index/bn3.jpg')}}" class="d-block w-100" alt="...">
+                    </a>
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
         </div>
     </section>
     @include('frontend.layouts.inc_menusignature')
@@ -416,13 +445,112 @@
 
 
     @include('frontend.layouts.inc_menupreorder')
+
+    <section class="TeamIndex">
+        <div class="container">
+            <h1 class="TextHead-Gold text-center mb-5">
+                ทีมงาน Signature Thailand
+            </h1>
+
+            <div class="SlideTeam team owl-carousel owl-theme ">
+                <div class="items">
+                    <div class="BoxTeam">
+                        <img class="IMG-Team" src="{{asset('frontend/images/team/pfpd.png')}}" alt="">
+                        <div class="BoxDetail-Team">
+                            <p class="Text-Gold-Gardien Text-24 Text-W600 text-center mb-2">
+                                A.Tinn Signature
+                            </p>
+                            <p class="Text-box-DetailTeam Text-18 Text-W400 text-center mb-2">
+                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's
+                            </p>
+                            <a class="btn Button-NoBG" href="detail-team.php">
+                                ดูเพิ่มเติม
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="items">
+                    <div class="BoxTeam">
+                        <img class="IMG-Team" src="{{asset('frontend/images/team/pfpd2.png')}}" alt="">
+                        <div class="BoxDetail-Team">
+                            <p class="Text-Gold-Gardien Text-24 Text-W600 text-center mb-2">
+                                A.Amy Signature
+                            </p>
+                            <p class="Text-box-DetailTeam Text-18 Text-W400 text-center mb-2">
+                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's
+                            </p>
+                            <a class="btn Button-NoBG" href="detail-team.php">
+                                ดูเพิ่มเติม
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="items">
+                    <div class="BoxTeam">
+                        <img class="IMG-Team" src="{{asset('frontend/images/team/pfpd.png')}}" alt="">
+                        <div class="BoxDetail-Team">
+                            <p class="Text-Gold-Gardien Text-24 Text-W600 text-center mb-2">
+                                A.Tinn Signature
+                            </p>
+                            <p class="Text-box-DetailTeam Text-18 Text-W400 text-center mb-2">
+                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's
+                            </p>
+                            <a class="btn Button-NoBG" href="detail-team.php">
+                                ดูเพิ่มเติม
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="items">
+                    <div class="BoxTeam">
+                        <img class="IMG-Team" src="{{asset('frontend/images/team/pfpd3.png')}}" alt="">
+                        <div class="BoxDetail-Team">
+                            <p class="Text-Gold-Gardien Text-24 Text-W600 text-center mb-2">
+                                A.Ohm Signature
+                            </p>
+                            <p class="Text-box-DetailTeam Text-18 Text-W400 text-center mb-2">
+                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's
+                            </p>
+                            <a class="btn Button-NoBG" href="detail-team.php">
+                                ดูเพิ่มเติม
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+
     
 
 
 @endsection
 
 @section('script')
+<script>
 
+    $('.team').owlCarousel({
+			autoplay: true,
+			loop: true,
+			margin: 10,
+			nav: false,
+			smartSpeed: 600,
+			dots: true,
+			responsive: {
+			  0: {
+				items: 1
+			  },
+			  600: {
+				items: 2
+			  },
+			  1000: {
+				items: 3
+			  }
+			}
+		});
+</script>
 @endsection
 
 

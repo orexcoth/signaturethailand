@@ -96,6 +96,7 @@ Route::get('nameandsign/{name}', [NamesAndSignsCustomerController::class, 'namea
 
 Route::get('about', [FrontendPageController::class, 'aboutPage'])->name('aboutPage');
 Route::get('article', [FrontendPageController::class, 'articlePage'])->name('articlePage');
+Route::get('article-detail/{id}', [FrontendPageController::class, 'articledetailPage'])->name('articledetailPage');
 Route::get('team', [FrontendPageController::class, 'teamPage'])->name('teamPage');
 Route::get('contact', [FrontendPageController::class, 'contactPage'])->name('contactPage');
 Route::post('cart', [FrontendPageController::class, 'cartPage'])->name('cartPage');

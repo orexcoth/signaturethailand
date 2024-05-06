@@ -1032,7 +1032,12 @@ body {
     align-items: center;
 }
 
-
+.BoxText-Banner {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 540px;
+}
 
 .SectionImage-SelectOrder {
     overflow: hidden;
@@ -1542,7 +1547,7 @@ body {
     -webkit-border-radius: 15px;
     -moz-border-radius: 15px;
     -ms-border-radius: 15px;
-    -o-border-radius: 15px;
+    -o-border-radius: 15px;  
 }
 
 .Text-SocialTeam {
@@ -1574,386 +1579,15 @@ body {
 /*---Team Page---*/
 
 
-/*---New Design---*/
 
-.Banner-IndexSlide {
-    width: 100%;
-    height: 650px;
-    object-fit: cover;
-    position: relative;
-}
-
-.BoxText-Banner {
-    position: absolute;
-    top: 0;
-    left: 12%;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: center;
-    width: 540px;
-    height: 650px;
-}
-
-.IMG-PD {
-    width: 100%;
-    height: 170px;
-    object-fit: cover;
-    border-bottom: 1px solid #EAEBEC;
-    margin-bottom: 10px;
-    border-bottom: 1px solid var(--Main-Linear-Gold, #CCA359);
-}
-
-.BoxProductFree {
-    border-radius: 10px;
-    border: 1px solid var(--Main-Linear-Gold, #CCA359);
-    background-color: #FFF;
-    width: 100%;
-    padding: 20px 30px 20px 30px;
-}
-
-.WarperDetail-ProductFree {
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.BoxBTN-Reset {
-    display: flex;
-    align-items: flex-end;
-}
-
-.BTN-Reset {
-    width: 100%;
-    height: 42px;
-    background-color: #EAEBEC;
-    border: none;
-    color: #5B5B5B;
-    font-size: 16px;
-    font-weight: 500;
-    border-radius: 10px;
-    -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
-    -ms-border-radius: 10px;
-    -o-border-radius: 10px;
-}
-
-.BoxBefore-Payment {
-    padding-top: 20px;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-}
-
-.Button-NextCart {
-    border-radius: 6px;
-    background: linear-gradient(90deg, #CCA359 8.19%, #F4CB83 65.47%, #9F7326 104.81%);
-    width: 100%;
-    border: none !important;
-    color: #000;
-    text-align: center;
-    font-size: 20px;
-    font-weight: 600;
-    -webkit-border-radius: 6px;
-    -moz-border-radius: 6px;
-    -ms-border-radius: 6px;
-    -o-border-radius: 6px;
-}
-
-.Button-PrevCart {
-    border-radius: 6px;
-    background-color: #EAEBEC;
-    width: 100%;
-    border: none !important;
-    color: #000;
-    text-align: center;
-    font-size: 20px;
-    font-weight: 600;
-    -webkit-border-radius: 6px;
-    -moz-border-radius: 6px;
-    -ms-border-radius: 6px;
-    -o-border-radius: 6px;
-}
-
-.Button-PrevCart:hover {
-    background-color: #aaa;
-}
-
-.TeamIndex {
-    padding: 80px 0;
-}
-
-.BoxProductHistory {
-    border-radius: 10px;
-    border: 1px solid var(--Main-Linear-Gold, #CCA359);
-    background-color: #FFF;
-    width: 100%;
-    /* height: 350px; */
-    padding: 20px 30px;
-}
-
-.WarperDetail-ProductHistory {
-    /* padding: 10px; */
-    height: 120px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.WarpperSecHis {}
-
-.BoxWarpSecHis-Left {
-    width: 50%;
-}
-
-.popupname {
-    padding: 30px;
-}
-
-.detail-popupname {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.ColArticle {
-    margin-top: 30px;
-}
-
-.BoxArticle {
-    margin-bottom: 24px;
-    display: flex;
-    border-radius: 20px;
-    -webkit-border-radius: 20px;
-    -moz-border-radius: 20px;
-    -ms-border-radius: 20px;
-    -o-border-radius: 20px;
-    background-color: #fff;
-    box-shadow: 0px 0px 30px 10px rgba(70, 70, 70, 0.068)
-}
-
-.IMG-Article {
-    width: 300px;
-    height: 250px;
-    object-fit: cover;
-    padding-right: 20px;
-    border-radius: 20px;
-    -webkit-border-radius: 20px;
-    -moz-border-radius: 20px;
-    -ms-border-radius: 0px;
-    -o-border-radius: 0px;
-}
-
-.BoxDetail-Article {
-    padding: 10px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-.IMG-Profile-Article {
-    border-radius: 20px;
-    -webkit-border-radius: 20px;
-    -moz-border-radius: 20px;
-    -ms-border-radius: 20px;
-    -o-border-radius: 20px;
-}
-
-.Button-NoBG2 {
-    background: none;
-    width: 100%;
-    border: none !important;
-    color: #388C47;
-    text-align: left;
-    font-size: 18px;
-    font-weight: 600;
-    padding: 0;
-    margin-top: 10px;
-}
-
-.Button-NoBG2:hover {
-    background: none;
-    width: 100%;
-    border: none !important;
-    color: #48ad5a;
-
-}
-
-.IMG-Profile-Article {
-    width: 600px;
-    height: 400px;
-    object-fit: cover;
-}
-
-.SectionContact-Page {
-    padding: 80px 0;
-}
-
-.Warper-DivDetail-Contact {
-    border-top: 1px solid #eeeeee;
-    margin-top: 30px;
-    padding-top: 30px;
-}
-
-.TextHead-Contact {
-    color: #000;
-    font-size: 28px;
-    font-weight: 600;
-    line-height: normal;
-    margin-bottom: 20px;
-}
-
-.Text-Social-CTPage {
-    color: #000;
-    font-size: 16px;
-    font-weight: 400;
-    text-decoration: none;
-    margin-bottom: 10px;
-}
-
-.FormTextArea {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background-color: #fff;
-    border: 1px solid #EAEBEC;
-    color: #A8ACAF;
-    border-radius: 10px;
-    -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
-    -ms-border-radius: 10px;
-    -o-border-radius: 10px;
-}
-
-.BoxSocial-CTPage {
-    display: flex;
-
-}
-
-.Text-Social-CTPage {
-    color: #000;
-    font-size: 18px;
-    font-weight: 400;
-    text-decoration: none;
-    line-height: normal;
-}
-
-.Text-SocialCTP2 img {
-    width: 40px;
-    height: 40px;
-    object-fit: contain;
-    border: 1px solid #9F7326;
-    border-radius: 500px;
-    -webkit-border-radius: 500px;
-    -moz-border-radius: 500px;
-    -ms-border-radius: 500px;
-    -o-border-radius: 500px;
-    padding: 8px;
-}
-
-.Text-SocialCTP2 {
-    color: #FFF;
-    font-size: 18px;
-    font-weight: 400;
-    text-decoration: none;
-    line-height: normal;
-}
-
-.MapContact {
-    margin-bottom: 30px;
-    border-radius: 10px;
-    -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
-    -ms-border-radius: 10px;
-    -o-border-radius: 10px;
-}
-
-.Section-SRS {
-    padding: 80px 0;
-}
-
-.BoxSRS {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border: 1px solid #9F7326;
-    padding: 25px 15px;
-    border-radius: 10px;
-    -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
-    -ms-border-radius: 10px;
-    -o-border-radius: 10px;
-    margin-bottom: 24px;
-}
-
-.DetailBox-SRS {
-    display: flex;
-}
-
-.Button-Seemore-SRS {
-    border-radius: 6px;
-    background: linear-gradient(90deg, #CCA359 8.19%, #F4CB83 65.47%, #9F7326 104.81%);
-    width: 250px;
-    border: none !important;
-    color: #000;
-    text-align: center;
-    font-size: 20px;
-    font-weight: 600;
-    -webkit-border-radius: 6px;
-    -moz-border-radius: 6px;
-    -ms-border-radius: 6px;
-    -o-border-radius: 6px;
-}
-
-/*---New Design---*/
 
 /*----------- RESPONSIVE --------------*/
 
-@media (max-width: 1399px) {
-
-    .BoxStar-Deatail {
-        padding-right: 40%;
-    }
-
-
-}
-
 @media (max-width: 1299px) {}
 
-@media (max-width: 1199px) {
-
-    .BoxStar-Deatail {
-        padding-right: 37%;
-    }
-
-}
+@media (max-width: 1199px) {}
 
 @media (max-width: 1024px) {
-
-    .BoxProductHistory {
-        border-radius: 10px;
-        border: 1px solid var(--Main-Linear-Gold, #CCA359);
-        background-color: #FFF;
-        width: 100%;
-        /* height: 350px; */
-        padding: 10px 20px;
-    }
-
-    .WarperDetail-ProductHistory {
-        /* padding: 10px; */
-        height: 140px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: space-between;
-    }
-
-    .BoxStar-Deatail {
-        padding-right: 55%;
-    }
 
     .BoxLeftBig-Preorder {
         background-image: url(../images/index/bg-sec-preorder.jpg);
@@ -2062,14 +1696,10 @@ body {
     }
 
     .BoxText-Banner {
-        position: absolute;
-        top: 0;
-        left: 0;
         display: flex;
         flex-direction: column;
         align-items: flex-start;
         width: 420px;
-        height: 650px;
     }
 
     .LogoNav {
@@ -2126,7 +1756,7 @@ body {
         background-clip: text;
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
-        /* text-align: center; */
+        text-align: center;
         font-size: 24px;
         font-weight: 600;
         margin: 0;
@@ -2261,7 +1891,7 @@ body {
         font-size: 16px;
         font-weight: 400;
         text-decoration: none;
-    }
+    }    
 
     .Section-Footer {
         background-image: url(../images/footer/bg-footer.png);
@@ -2343,30 +1973,10 @@ body {
         box-shadow: 0px 2px 20px 0px rgba(0, 0, 0, 0.10);
     }
 
-    .WarpColProfile-TeamSNG {
-        padding-left: 0px;
-        padding-top: 20px;
-    }
-
 }
 
 @media (max-width: 768px) {
 
-    .BoxSRS {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        border: 1px solid #9F7326;
-        padding: 25px 10px;
-        border-radius: 10px;
-        -webkit-border-radius: 10px;
-        -moz-border-radius: 10px;
-        -ms-border-radius: 10px;
-        -o-border-radius: 10px;
-        margin-bottom: 24px;
-        flex-direction: column;
-    }
-    
     .BoxTeam {
         height: 480px;
         width: 100%;
@@ -2602,64 +2212,9 @@ body {
         padding: 0 20px 15px 20px;
     }
 
-
-
-
-    .BoxProductHistory {
-        border-radius: 10px;
-        border: 1px solid var(--Main-Linear-Gold, #CCA359);
-        background-color: #FFF;
-        width: 100%;
-        /* height: 350px; */
-        padding: 10px 20px;
-    }
-
-    .WarperDetail-ProductHistory {
-        /* padding: 10px; */
-        height: 140px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: space-between;
-    }
-
-    .TextName-PD {
-        color: #000;
-        text-align: center;
-        font-size: 16px;
-        font-weight: 500;
-        margin-bottom: 0;
-    }
-
 }
 
 @media (max-width: 440px) {
-
-    .BoxProductHistory {
-        border-radius: 10px;
-        border: 1px solid var(--Main-Linear-Gold, #CCA359);
-        background-color: #FFF;
-        width: 100%;
-        /* height: 350px; */
-        padding: 10px 10px;
-    }
-
-    .WarperDetail-ProductHistory {
-        /* padding: 10px; */
-        height: 100px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: space-between;
-    }
-
-    .TextName-PD {
-        color: #000;
-        text-align: center;
-        font-size: 14px;
-        font-weight: 500;
-        margin-bottom: 0;
-    }
 
     .TextDetail-Black {
         color: #000;
