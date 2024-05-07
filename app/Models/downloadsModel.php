@@ -31,6 +31,7 @@ class downloadsModel extends Model
         return $this->belongsTo(sellsModel::class, 'sells_id');
     }
 
+
     public function preorder()
     {
         return $this->belongsTo(preordersModel::class, 'preorders_id', 'id');

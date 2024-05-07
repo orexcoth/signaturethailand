@@ -72,8 +72,12 @@ class ReportsController extends Controller
         } else {
             $getdata = null;
         }
-        $period = $request->query('period');   
-        // dd($getdata->signs);
+        $period = $request->query('period');  
+        
+        // $sellsWithDownloads = sellsModel::whereHas('downloads', function($query) use ($users_id) {
+        //     $query->where('sells_id', $users_id);
+        // })->get();
+        // dd($sellsWithDownloads);
         return view('backend/reports-users-detail-download', [
             'default_pagename' => 'รายละเอียดรายการ',
             'period' => $period,
