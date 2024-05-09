@@ -63,49 +63,53 @@
                             <h2 class="TextHead-Contact">
                                 ฟอร์มติดต่อเรา
                             </h2>
-                            <div class="WarpColInput-Preorder row">
-                                <div class="col-lg-6 col-md-12 col-12 Col-Margin-TopBottom">
-                                    <label for="" class="me-3 Text-18 Text-W400 Text-Gray-Label">
-                                        ชื่อ
-                                    </label>
-                                    <input type="text" class="w-100 DropdownBox-SelectPreorder">
+                            <form method="post" action="{{route('contactaction')}}">
+                                @csrf
+                                <div class="WarpColInput-Preorder row">
+                                    <div class="col-lg-6 col-md-12 col-12 Col-Margin-TopBottom">
+                                        <label for="" class="me-3 Text-18 Text-W400 Text-Gray-Label">
+                                            ชื่อ
+                                        </label>
+                                        <input type="text" name="contact_firstname" class="w-100 DropdownBox-SelectPreorder">
+                                    </div>
+                                    <div class="col-lg-6 col-md-12 col-12 Col-Margin-TopBottom">
+                                        <label for="" class="me-3 Text-18 Text-W400 Text-Gray-Label">
+                                            นามสกุล
+                                        </label>
+                                        <input type="text" name="contact_lastname" class="w-100 DropdownBox-SelectPreorder">
+                                    </div>
+                                    <div class="col-lg-6 col-md-12 col-12 Col-Margin-TopBottom">
+                                        <label for="" class="me-3 Text-18 Text-W400 Text-Gray-Label">
+                                            อีเมล
+                                        </label>
+                                        <input type="email" name="contact_email" class="w-100 DropdownBox-SelectPreorder">
+                                    </div>
+                                    <div class="col-lg-6 col-md-12 col-12 Col-Margin-TopBottom d-none d-sm-none d-md-block d-lg-block d-xl-block">
+                                        <label for="" class="me-3 Text-18 Text-W400 Text-Gray-Label">
+                                            เบอร์โทรติดต่อ
+                                        </label>
+                                        <input type="tel" name="contact_phone" class="w-100 DropdownBox-SelectPreorder">
+                                    </div>
+                                    <div class="col-lg-12 col-md-12 col-12 Col-Margin-TopBottom">
+                                        <label for="" class="me-3 Text-18 Text-W400 Text-Gray-Label">
+                                            เรื่อง
+                                        </label>
+                                        <input type="text" name="contact_heading" class="w-100 DropdownBox-SelectPreorder">
+                                    </div>
+                                    <div class="col-lg-12 col-md-12 col-12 Col-Margin-TopBottom">
+                                        <label for="" class="me-3 Text-18 Text-W400 Text-Gray-Label">
+                                            รายละเอียด
+                                        </label>
+                                        <textarea name="contact_message" class="form-control w-100 FormTextArea" id="TextareaContact" rows="4"></textarea>
+                                    </div>
+                                    <div class="col-lg-6 col-md-12 col-12 Col-Margin-TopBottom mt-lg-4 mt-md-3 mt-2">
+                                        <button type="submit" class="btn Button-NextCart" >
+                                            ส่ง
+                                        </button>
+                                    </div>
                                 </div>
-                                <div class="col-lg-6 col-md-12 col-12 Col-Margin-TopBottom">
-                                    <label for="" class="me-3 Text-18 Text-W400 Text-Gray-Label">
-                                        นามสกุล
-                                    </label>
-                                    <input type="text" class="w-100 DropdownBox-SelectPreorder">
-                                </div>
-                                <div class="col-lg-6 col-md-12 col-12 Col-Margin-TopBottom">
-                                    <label for="" class="me-3 Text-18 Text-W400 Text-Gray-Label">
-                                        อีเมล
-                                    </label>
-                                    <input type="email" class="w-100 DropdownBox-SelectPreorder">
-                                </div>
-                                <div class="col-lg-6 col-md-12 col-12 Col-Margin-TopBottom d-none d-sm-none d-md-block d-lg-block d-xl-block">
-                                    <label for="" class="me-3 Text-18 Text-W400 Text-Gray-Label">
-                                        เบอร์โทรติดต่อ
-                                    </label>
-                                    <input type="tel" class="w-100 DropdownBox-SelectPreorder">
-                                </div>
-                                <div class="col-lg-12 col-md-12 col-12 Col-Margin-TopBottom">
-                                    <label for="" class="me-3 Text-18 Text-W400 Text-Gray-Label">
-                                        เรื่อง
-                                    </label>
-                                    <input type="text" class="w-100 DropdownBox-SelectPreorder">
-                                </div>
-                                <div class="col-lg-12 col-md-12 col-12 Col-Margin-TopBottom">
-                                    <label for="" class="me-3 Text-18 Text-W400 Text-Gray-Label">
-                                        รายละเอียด
-                                    </label>
-                                    <textarea class="form-control w-100 FormTextArea" id="TextareaContact" rows="4"></textarea>
-                                </div>
-                                <div class="col-lg-6 col-md-12 col-12 Col-Margin-TopBottom mt-lg-4 mt-md-3 mt-2">
-                                    <a class="btn Button-NextCart" href="fill-in-information.php">
-                                        ส่ง
-                                    </a>
-                                </div>
-                            </div>
+                            </form>
+                                
                         </div>
                     </div>
                 </div>

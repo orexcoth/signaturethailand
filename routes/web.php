@@ -101,6 +101,9 @@ Route::get('team', [FrontendPageController::class, 'teamPage'])->name('teamPage'
 Route::get('contact', [FrontendPageController::class, 'contactPage'])->name('contactPage');
 Route::post('cart', [FrontendPageController::class, 'cartPage'])->name('cartPage');
 
+Route::post('suggest-action', [FrontendPageController::class, 'suggestaction'])->name('suggestaction');
+Route::post('contact-action', [FrontendPageController::class, 'contactaction'])->name('contactaction');
+
 
 Route::get('history-login', [FrontendPageController::class, 'historyloginPage'])->name('historyloginPage');
 Route::post('history-login-action', [FrontendPageController::class, 'historyloginaction'])->name('historyloginaction');

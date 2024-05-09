@@ -7,6 +7,7 @@ use App\Http\Controllers\LogsSaveController;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Validator;
 
 // use App\Models\Sms_session;
 // use App\Models\provincesModel;
@@ -22,6 +23,8 @@ use Illuminate\Http\UploadedFile;
 // use App\Models\contacts_backModel;
 // use App\Models\newsModel;
 // use App\Models\noticeModel;
+use App\Models\suggestsModel;
+use App\Models\contactsModel;
 use App\Models\OptionsModel;
 use App\Models\namesModel;
 use App\Models\signsModel;
@@ -43,6 +46,56 @@ use File;
 class FrontendPageController extends Controller
 {
 
+    public function contactaction(Request $request)
+    {
+        // dd($request);
+        $validator = Validator::make($request->all(), [
+            'contact_firstname' => 'required|string|max:255',
+            'contact_lastname' => 'required|string|max:255',
+            'contact_email' => 'required|email|max:255',
+            'contact_phone' => 'required|string|max:20',
+            'contact_heading' => 'required|string|max:255',
+            'contact_message' => 'required|string',
+        ]);
+        
+
+        if ($validator->fails()) {
+            // dd($validator->errors()->all());
+            return redirect()->back()->with('error', 'Validation failed. Please check your inputs!');
+        }
+
+        $contacts = new ContactsModel;
+        $contacts->contact_firstname = $request->contact_firstname;
+        $contacts->contact_lastname = $request->contact_lastname;
+        $contacts->contact_email = $request->contact_email;
+        $contacts->contact_phone = $request->contact_phone;
+        $contacts->contact_heading = $request->contact_heading;
+        $contacts->contact_message = $request->contact_message;
+        $contacts->save();
+
+
+        return redirect()->back()->with('success', 'ส่งข้อมูลเรียบร้อย!');
+    }
+    public function suggestaction(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'name_th' => 'required|string|max:255',
+            'name_en' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+            'phone' => 'required|string|max:20',
+        ]);
+        if ($validator->fails()) {
+            return redirect()->back()->with('error', 'Validation failed. Please check your inputs.')->withInput();
+        }
+        $suggest = new suggestsModel;
+        $suggest->name_th = $request->name_th;
+        $suggest->name_en = $request->name_en;
+        $suggest->email = $request->email;
+        $suggest->phone = $request->phone;
+        $suggest->status = 'suggested';
+        $suggest->save();
+        return redirect()->back()->with('success', 'ส่งข้อมูลเรียบร้อย!');
+    }
     public function articledetailPage(Request $request, $id)
     {
 

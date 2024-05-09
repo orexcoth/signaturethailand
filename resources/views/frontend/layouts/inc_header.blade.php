@@ -32,6 +32,7 @@ if (empty($_description))     $_description = '';
 <script src="{{asset('frontend/js/jquery-ui.js')}}"></script>
 <script src="{{asset('frontend/js/modernizr.js')}}"></script>
 <script src="{{asset('frontend/js/owl.carousel.min.js')}}"></script>
+<script src="{{asset('myassets/js/sweetalert.min.js')}}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.js"></script>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.2.1/assets/owl.carousel.min.css" rel="stylesheet">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.2.1/assets/owl.theme.default.min.css" rel="stylesheet">

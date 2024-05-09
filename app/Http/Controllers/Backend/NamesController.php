@@ -636,6 +636,7 @@ class NamesController extends Controller
 
     public function BN_names_mock_suggest(Request $request)
     {
+        dd($request);
         $suggest = new suggestsModel;
         $suggest->name_th = $request->name_th;
         $suggest->name_en = $request->name_en;
