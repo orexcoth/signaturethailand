@@ -124,6 +124,13 @@
 
                         <input type="hidden" name="package" id="package" value="thai" />
                         <input type="hidden" name="total" id="total" value="{{$firstname_th}}" />
+
+                        <input type="hidden" name="firstname_th_price" id="firstname_th_price" value="{{$firstname_th}}" />
+                        <input type="hidden" name="lastname_th_price" id="lastname_th_price" value="{{$lastname_th}}" />
+                        <input type="hidden" name="firstname_en_price" id="firstname_en_price" value="{{$firstname_en}}" />
+                        <input type="hidden" name="lastname_en_price" id="lastname_en_price" value="{{$lastname_en}}" />
+                        <input type="hidden" name="express_price" id="express_price" value="{{$express}}" />
+
                         <div class="WarpColInput-Preorder row">
                             <div class="col-lg-4 col-md-4 col-12 Col-Margin-TopBottom">
                                 <label class="me-3 Text-18 Text-W500 Text-Gold-Gardien" for="Select-OptionSignature">เลือกแบบลายเซ็น</label>
@@ -244,6 +251,12 @@
                                         <option class="OptionSelect" value="health">สุขภาพ</option>
                                         <option class="OptionSelect" value="fortune">โชคลาภ</option>
                                     </select>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-4 col-md-4 col-12 Col-Margin-TopBottom BoxBTN-Reset">
+                                <div id="resets" class=" BTN-Reset">
+                                    รีเซ็ท
                                 </div>
                             </div>
 
@@ -447,6 +460,30 @@
                             </div>
                         </div>
 
+
+
+
+
+
+                        <div class="BoxBefore-Payment">
+                            <div class="BoxPricePackage">
+                                <p class="mb-0 Text-24 Text-W500">
+                                    ราคารวม
+                                    <span class="Text-W600 Text-Green-Gardien" id="display_price">
+                                        0
+                                    </span>
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-center">
+                            <button class="btn ButtonSeemore mt-4" >
+                                สั่งออกแบบลายเซ็น
+                                <span>
+                                    <img class="ms-1" src="{{asset('frontend/images/index/ic_pen.svg')}}" alt="">
+                                </span>
+                            </button>
+                        </div>
                         <p class="mt-4 Text-20 Text-W400 Text-Gray-Label text-center">
                             หมายเหตุ : เงินส่วนหนึ่งที่ได้รับจากท่าน อ.ติณณ์ จะขอนำไปทำบุญ เพื่อความเป็นศิริมงคลให้แก่ท่าน ขอให้ท่านได้อนุโมทนาบุญร่วมกันครับ
                         </p>
@@ -456,14 +493,9 @@
                         <p class="mt-4 Text-20 Text-W500 Text-Gray-Label text-center">
                             ทีมงาน Signature Thailand
                         </p>
-                        <div class="d-flex justify-content-center">
-                            <button class="btn ButtonSeemore mt-4" >
-                                สั่งออกแบบลายเซ็น
-                                <span>
-                                    <img class="ms-1" src="{{asset('frontend/images/index/ic_pen.svg')}}" alt="">
-                                </span>
-                            </button>
-                        </div>
+
+
+
 
                     </div>
 
@@ -484,24 +516,119 @@
 
 
 <script>
-    $(document).ready(function() {
-        $('.DropdownBox-SelectPreorder').change(function() {
-            // Get the selected option value
-            var selectedValue = $(this).val();
-            
-            // Disable the selected option in other select boxes
-            $('.DropdownBox-SelectPreorder').not(this).find('option[value="' + selectedValue + '"]').prop('disabled', true);
-            
-            // Enable all options in all select boxes
-            $('.DropdownBox-SelectPreorder option').prop('disabled', false);
-            
-            // Disable selected options in other select boxes
-            $('.DropdownBox-SelectPreorder').each(function() {
-                var selected = $(this).val();
-                $('.DropdownBox-SelectPreorder').not(this).find('option[value="' + selected + '"]').prop('disabled', true);
-            });
+
+
+$(document).ready(function() {
+    $('.DropdownBox-SelectPreorder').change(function() {
+        // Get the selected option value
+        var selectedValue = $(this).val();
+        
+        // Disable the selected option in other select boxes
+        $('.DropdownBox-SelectPreorder').not(this).find('option[value="' + selectedValue + '"]').prop('disabled', true);
+        
+        // Enable all options in all select boxes
+        $('.DropdownBox-SelectPreorder option').prop('disabled', false);
+        
+        // Disable selected options in other select boxes
+        $('.DropdownBox-SelectPreorder').each(function() {
+            var selected = $(this).val();
+            $('.DropdownBox-SelectPreorder').not(this).find('option[value="' + selected + '"]').prop('disabled', true);
         });
     });
+
+    // Reset button click event handler
+    $('#resets').click(function() {
+        // Reset specific select elements to default
+        $('#prominence_1, #prominence_2, #prominence_3, #prominence_4, #prominence_5').val('');
+        $('#prominence_1, #prominence_2, #prominence_3, #prominence_4, #prominence_5').find('option').prop('selected', false);
+        $('#prominence_1, #prominence_2, #prominence_3, #prominence_4, #prominence_5').find('option:first-child').prop('selected', true);
+    });
+});
+
+
+
+
+
+
+    
+    // Function to calculate price based on selected package, preorder_type, and delivery option
+    function calculatePrice() {
+        var package = $('#package').val();
+        var preorder_type = $('#Select-OptionSignature').val();
+        var delivery_option = $('#DeliverSignature').val();
+        var price = 0;
+
+        // Get input values
+        var firstname_th_price = parseFloat($('#firstname_th_price').val());
+        var lastname_th_price = parseFloat($('#lastname_th_price').val());
+        var firstname_en_price = parseFloat($('#firstname_en_price').val());
+        var lastname_en_price = parseFloat($('#lastname_en_price').val());
+        var express_price = parseFloat($('#express_price').val());
+
+        // Calculate price based on selected package, preorder_type, and delivery option
+        if (delivery_option === 'express') {
+            price += express_price;
+        }
+
+        if (package === 'thai') {
+            if (preorder_type === 'firstname') {
+                price += firstname_th_price;
+            } else if (preorder_type === 'lastname') {
+                price += lastname_th_price;
+            } else if (preorder_type === 'duo') {
+                price += firstname_th_price + lastname_th_price;
+            }
+        } else if (package === 'english') {
+            if (preorder_type === 'firstname') {
+                price += firstname_en_price;
+            } else if (preorder_type === 'lastname') {
+                price += lastname_en_price;
+            } else if (preorder_type === 'duo') {
+                price += firstname_en_price + lastname_en_price;
+            }
+        } else if (package === 'combo') {
+            if (preorder_type === 'firstname') {
+                price += firstname_th_price + firstname_en_price;
+            } else if (preorder_type === 'lastname') {
+                price += lastname_th_price + lastname_en_price;
+            } else if (preorder_type === 'duo') {
+                price += firstname_th_price + lastname_th_price + firstname_en_price + lastname_en_price;
+            }
+        }
+
+        // Display calculated price
+        $('#display_price').text(price.toFixed(2));
+    }
+
+    // Call calculatePrice whenever the preorder_type changes
+    $('#Select-OptionSignature').change(function () {
+        calculatePrice();
+    });
+
+    // Call calculatePrice whenever a package button is clicked
+    $('.packagebutton').click(function () {
+        $('#package').val($(this).data('package'));
+        calculatePrice();
+    });
+
+    // Call calculatePrice whenever the delivery option changes
+    $('#DeliverSignature').change(function () {
+        calculatePrice();
+    });
+
+    // Call calculatePrice on page load
+    $(document).ready(function () {
+        calculatePrice();
+    });
+
+
+
+
+
+
+
+
+
 
 
 

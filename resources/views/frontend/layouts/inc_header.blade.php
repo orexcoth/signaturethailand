@@ -14,7 +14,7 @@ if (empty($_description))     $_description = '';
 <meta http-equiv="X-UA-Compatible" content="IE=Edge">
 <link rel="stylesheet" href="{{asset('frontend/css/bootstrap.css')}}">
 <link type="text/css" rel="stylesheet" href="{{asset('frontend/css/layout.css')}}" />
-<link type="image/ico" rel="shortcut icon" href="images/favicon.ico">
+<link type="image/ico" rel="shortcut icon" href="{{asset('frontend/images/index/ic_pen_w.svg')}}">
 
 <link rel="stylesheet" href="{{asset('frontend/css/jquery-ui.css')}}">
 <link rel="stylesheet" href="{{asset('frontend/css/owl.carousel.min.css')}}">

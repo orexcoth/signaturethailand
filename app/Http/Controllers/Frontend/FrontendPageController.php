@@ -386,6 +386,7 @@ class FrontendPageController extends Controller
         $lastname_th = OptionsModel::where('option_key', 'lastname_th')->first();
         $firstname_en = OptionsModel::where('option_key', 'firstname_en')->first();
         $lastname_en = OptionsModel::where('option_key', 'lastname_en')->first();
+        $express = OptionsModel::where('option_key', 'express')->first();
 
 
         return view('frontend/preorder', [
@@ -394,6 +395,7 @@ class FrontendPageController extends Controller
             'lastname_th' => $lastname_th ? $lastname_th->option_value : 0,
             'firstname_en' => $firstname_en ? $firstname_en->option_value : 0,
             'lastname_en' => $lastname_en ? $lastname_en->option_value : 0,
+            'express' => $express ? $express->option_value : 0,
         ]);
     }
 
