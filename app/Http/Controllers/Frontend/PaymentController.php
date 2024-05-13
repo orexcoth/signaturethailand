@@ -18,8 +18,10 @@ class PaymentController extends Controller
         $orderdata = '';
         if($type=='sell'){
             $orderdata = sellsModel::find($order); 
+            $lasttotal = $orderdata->total;
         }elseif($type=='preorder'){
             $orderdata = preordersModel::find($order);
+            $lasttotal = $orderdata->total_price;
         }
 
         if($orderdata['customers_id']){
@@ -36,6 +38,7 @@ class PaymentController extends Controller
         $data->routeno = 1;
         $data->currency = "764";
         $data->description = 'test';
+        $data->amount = $lasttotal;
         // dd($data);
 
 
