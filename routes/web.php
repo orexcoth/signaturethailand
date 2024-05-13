@@ -24,6 +24,7 @@ use App\Http\Controllers\Backend\SettingsController;
 use App\Http\Controllers\Frontend\FrontendPageController;
 use App\Http\Controllers\Frontend\CheckoutCustomerController;
 use App\Http\Controllers\Frontend\NamesAndSignsCustomerController;
+use App\Http\Controllers\Frontend\PaymentController;
 
 
 
@@ -135,6 +136,9 @@ Route::get('thank', [CheckoutCustomerController::class, 'thankPage'])->name('tha
 
 Route::get('preorder', [FrontendPageController::class, 'preorderPage'])->name('preorderPage');
 Route::post('cart-preorder', [FrontendPageController::class, 'cartpreorderPage'])->name('cartpreorderPage');
+
+Route::get('payment/{type}/{order}', [PaymentController::class, 'paymentPage'])->name('paymentPage');
+Route::post('payment-callback', [PaymentController::class, 'paymentcallbackPage'])->name('paymentcallbackPage');
 
 
 

@@ -69,7 +69,7 @@
                     
                     
                     <div class="col-12 Col-Margin-TopBottom mt-5">
-                        <button type="submit" class="btn Button-NextCart" href="qr-code.php">
+                        <button type="submit" class="btn Button-NextCart" >
                             ชำระเงิน
                         </button>
                     </div>

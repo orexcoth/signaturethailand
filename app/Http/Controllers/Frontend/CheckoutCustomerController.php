@@ -214,7 +214,7 @@ class CheckoutCustomerController extends Controller
         $newSell->shipping_method = 'email';
         $newSell->shipping_detail = $request->email;
         $newSell->payment_method = 'qrcode';
-        $newSell->payment_qr = 'qrcodegenerate';
+        // $newSell->payment_qr = 'qrcodegenerate';
         $newSell->payment_status = 'pending';
 
         // dd($newSell);
@@ -225,7 +225,8 @@ class CheckoutCustomerController extends Controller
 
         // Optionally, return success response with sell ID
         // return redirect(route('thankPage'))->with('success', 'สร้างสำเร็จ !!!');
-        return redirect(route('thankPage', ['sells_id' => $newSell->id]))->with('success', 'สร้างสำเร็จ !!!');
+        return redirect(route('paymentPage', ['type' => 'sell', 'order' => $newSell->id]));
+        // return redirect(route('thankPage', ['sells_id' => $newSell->id]))->with('success', 'สร้างสำเร็จ !!!');
 
     }
 

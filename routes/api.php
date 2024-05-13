@@ -3,6 +3,8 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\Frontend\PaymentController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -17,5 +19,7 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-Route::get('/smsreceived/{messages}', [\App\Http\Controllers\Frontend\SmsController::class, 'store']);
-Route::get('/sendsms', [\App\Http\Controllers\Frontend\SmsController::class, 'sendsms']);
+// Route::get('/smsreceived/{messages}', [\App\Http\Controllers\Frontend\SmsController::class, 'store']);
+// Route::get('/sendsms', [\App\Http\Controllers\Frontend\SmsController::class, 'sendsms']);
+
+Route::post('payment-callback', [PaymentController::class, 'paymentcallbackPage'])->name('paymentcallbackPage');
