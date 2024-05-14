@@ -23,7 +23,8 @@
             data-routeno="{{$data->routeno}}" 
             data-currency="{{$data->currency}}" 
             data-description="{{$data->description}}" 
-            data-apikey="{{$data->apikey}}">
+            data-apikey="{{$data->apikey}}"
+            >
         </modernpay:widget>
         <!-- <button type="submit" id="btnSubmit" value="Submit" class="btn">Payment</button> -->
     </form>

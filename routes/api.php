@@ -23,3 +23,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 // Route::get('/sendsms', [\App\Http\Controllers\Frontend\SmsController::class, 'sendsms']);
 
 Route::post('payment-callback', [PaymentController::class, 'paymentcallbackPage'])->name('paymentcallbackPage');
+Route::get('payment-callback', [PaymentController::class, 'paymentcallbackPageget'])->name('paymentcallbackPageget');

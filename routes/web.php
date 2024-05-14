@@ -138,7 +138,8 @@ Route::get('preorder', [FrontendPageController::class, 'preorderPage'])->name('p
 Route::post('cart-preorder', [FrontendPageController::class, 'cartpreorderPage'])->name('cartpreorderPage');
 
 Route::get('payment/{type}/{order}', [PaymentController::class, 'paymentPage'])->name('paymentPage');
-Route::post('payment-callback', [PaymentController::class, 'paymentcallbackPage'])->name('paymentcallbackPage');
+// Route::post('payment-callback', [PaymentController::class, 'paymentcallbackPage'])->name('paymentcallbackPage');
+Route::get('payment-test', [PaymentController::class, 'paymenttestPage'])->name('paymenttestPage');
 
 
 

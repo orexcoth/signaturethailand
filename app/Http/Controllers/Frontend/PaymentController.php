@@ -9,6 +9,8 @@ use App\Models\sellsModel;
 use App\Models\preordersModel;
 use App\Models\customersModel;
 
+use Carbon\Carbon;
+
 class PaymentController extends Controller
 {
     public function paymentPage(Request $request, $type, $order)
@@ -39,11 +41,6 @@ class PaymentController extends Controller
         $data->currency = "764";
         $data->description = 'test';
         $data->amount = $lasttotal;
-        // dd($data);
-
-
-        // $chillpay = new Client(env('CHILLPAY_API_KEY'), env('CHILLPAY_API_SECRET'));
-        // $qrCodeUrl = $chillpay->getQRCodeUrl($amount, $orderId, $callbackUrl);
 
         return view('frontend/payment', [
             'default_pagename' => 'ชำระเงิน',
@@ -53,9 +50,62 @@ class PaymentController extends Controller
     }
     public function paymentcallbackPage(Request $request)
     {
+        $orderNo = $request->orderNo;
+        $order_id = null;
+        $order_type = "";
+        $currentTimestamp = Carbon::now(); // Get the current timestamp
+    
+        // Search for the order in the sellsModel
+        $sellOrder = sellsModel::where('number', $orderNo)->first();
+        if ($sellOrder) {
+            $order_id = $sellOrder->id;
+            $order_type = 'sells';
+        } else {
+            // If not found in sellsModel, search in the preordersModel
+            $preorderOrder = preordersModel::where('number', $orderNo)->first();
+            if ($preorderOrder) {
+                $order_id = $preorderOrder->id;
+                $order_type = 'preorders';
+            }
+        }
+        // Check if the response code and status are as expected
+        if ($request->respCode == '0' && $request->status == 'complete') {
+            if ($order_type == 'sells') {
+                if ($sellOrder) {
+                    // Update payment_status and payment_date for sellsModel
+                    $sellOrder->update([
+                        'status' => 'paid',
+                        'payment_status' => 'success',
+                        'payment_date' => $currentTimestamp
+                    ]);
+                    return redirect(route('thankPage', ['sells_id' => $sellOrder->id]))->with('success', 'สร้างสำเร็จ !!!');
+                }
+            } elseif ($order_type == 'preorders') {
+                if ($preorderOrder) {
+                    // Update payment_status and payment_date for preordersModel
+                    $preorderOrder->update([
+                        'status' => 'paid',
+                        'payment_status' => 'success',
+                        'payment_date' => $currentTimestamp
+                    ]);
+                    return redirect(route('thankPage', ['preorders_id' => $preorderOrder->id]))->with('success', 'สร้างสำเร็จ !!!');
+                }
+            }
+        }
+    }
+
+    public function paymentcallbackPageget(Request $request)
+    {
         dd($request);
-        return view('frontend/payment', [
-            'default_pagename' => 'ชำระเงิน',
+        return view('frontend/paymenttest', [
+            'default_pagename' => 'paymenttest',
+        ]);
+    }
+    public function paymenttestPage(Request $request)
+    {
+        // dd($request);
+        return view('frontend/paymenttest', [
+            'default_pagename' => 'paymenttest',
         ]);
     }
 }
