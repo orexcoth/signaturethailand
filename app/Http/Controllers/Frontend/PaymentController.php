@@ -31,7 +31,8 @@ class PaymentController extends Controller
         }
         // dd($customer);
         $data = new \stdClass(); // Create an empty object
-        $data->apikey = env('CHILLPAY_API_KEY');
+        // $data->apikey = env('CHILLPAY_API_KEY');
+        $data->apikey = 'RJlFW2fmhMTOBWyTNffFhrBCTJPlfUuEL5IpsP7Z8kbucl4PQvPBsDTg5Hk3zlTY';
         $data->merchantid = 'M035329';
         $data->orderno = $orderdata['number'];
         $data->customerid = $orderdata['customers_id'];

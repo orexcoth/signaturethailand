@@ -43,16 +43,21 @@ class sellsModel extends Model
     ];
 
 
-    public function signs()
-    {
-        return $this->hasMany(signsModel::class, 'sells_id');
-    }
     public function customers()
     {
         return $this->belongsTo(customersModel::class, 'customers_id', 'id');
     }
+    public function signs()
+    {
+        return $this->hasMany(signsModel::class, 'sells_id');
+    }
     public function downloads() {
         return $this->hasMany(downloadsModel::class);
     }
+
+    // public function downloads()
+    // {
+    //     return $this->hasMany(downloadsModel::class, 'sells_id'); // Ensure this is correct
+    // }
 
 }

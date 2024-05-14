@@ -40,4 +40,5 @@ class downloadsModel extends Model
     {
         return $this->belongsTo(signsModel::class, 'signs_id');
     }
+
 }

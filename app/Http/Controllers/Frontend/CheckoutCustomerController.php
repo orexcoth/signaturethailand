@@ -216,7 +216,7 @@ class CheckoutCustomerController extends Controller
         $newSell->payment_method = 'qrcode';
         // $newSell->payment_qr = 'qrcodegenerate';
         $newSell->payment_status = 'pending';
-        dd($newSell);
+        // dd($newSell);
 
         // dd($newSell);
         // $newSell->passcode = $request->passcode;

@@ -19,4 +19,13 @@ class usersModel extends Model
         'photo',
         'status',
     ];
+
+    public function signs()
+    {
+        return $this->hasMany(SignsModel::class, 'users_id');
+    }
+    public function preordersTurnIns()
+    {
+        return $this->hasMany(PreordersTurnInModel::class, 'users_id');
+    }
 }

@@ -35,49 +35,97 @@ class ReportsController extends Controller
 
     public function BN_reports_users_detail_download(Request $request, $users_id)
     {
-        $user = User::find($users_id);
-        $startDate = null;
-        $endDate = null;
-        if ($request->has('period')) {
-            $dateRange = explode(" - ", $request->period);
-            $startDate = Carbon::createFromFormat('j M, Y', trim($dateRange[0]))->startOfDay();
-            $endDate = Carbon::createFromFormat('j M, Y', trim($dateRange[1]))->endOfDay();
-        }
-        $query = User::query();
-        if ($users_id) {
-            $query->where('id', $users_id);
-        }
-        if ($startDate && $endDate) {
-            $query->withCount([
-                'signs' => function ($query) use ($startDate, $endDate) {
-                    $query->whereBetween('created_at', [$startDate, $endDate]);
-                }
-            ])->with([
-                'signs' => function ($query) use ($startDate, $endDate) {
-                    $query->whereBetween('created_at', [$startDate, $endDate])->with('downloads');
-                }
-            ]);
-        } else {
-            $query->withCount(['signs', 'preordersTurnIns'])
-                ->with(['signs', 'preordersTurnIns']);
-        }
-        $results = $query->get();
-        if ($results->isNotEmpty()) {
-            $firstUser = $results->first();
-            $downloadsCount = downloadsModel::whereHas('sign', function ($query) use ($firstUser) {
-                $query->where('users_id', $firstUser->id);
-            })->count();
-            $firstUser->downloads_count = $downloadsCount;
-            $getdata = $firstUser;
-        } else {
-            $getdata = null;
-        }
-        $period = $request->query('period');  
+        // $user = User::find($users_id);
+        // $startDate = null;
+        // $endDate = null;
+        // if ($request->has('period')) {
+        //     $dateRange = explode(" - ", $request->period);
+        //     $startDate = Carbon::createFromFormat('j M, Y', trim($dateRange[0]))->startOfDay();
+        //     $endDate = Carbon::createFromFormat('j M, Y', trim($dateRange[1]))->endOfDay();
+        // }
+        // $query = User::query();
+        // if ($users_id) {
+        //     $query->where('id', $users_id);
+        // }
+        // if ($startDate && $endDate) {
+        //     $query->withCount([
+        //         'signs' => function ($query) use ($startDate, $endDate) {
+        //             $query->whereBetween('created_at', [$startDate, $endDate]);
+        //         }
+        //     ])->with([
+        //         'signs' => function ($query) use ($startDate, $endDate) {
+        //             $query->whereBetween('created_at', [$startDate, $endDate])->with('downloads');
+        //         }
+        //     ]);
+        // } else {
+        //     $query->withCount(['signs', 'preordersTurnIns'])
+        //         ->with(['signs', 'preordersTurnIns']);
+        // }
+        // $results = $query->get();
+        // if ($results->isNotEmpty()) {
+        //     $firstUser = $results->first();
+        //     $downloadsCount = downloadsModel::whereHas('sign', function ($query) use ($firstUser) {
+        //         $query->where('users_id', $firstUser->id);
+        //     })->count();
+        //     $firstUser->downloads_count = $downloadsCount;
+        //     $getdata = $firstUser;
+        // } else {
+        //     $getdata = null;
+        // }
+        // $period = $request->query('period');  
+        // $sellsWithDownloads = sellsModel::get();
         
-        // $sellsWithDownloads = sellsModel::whereHas('downloads', function($query) use ($users_id) {
-        //     $query->where('sells_id', $users_id);
-        // })->get();
-        // dd($sellsWithDownloads);
+
+
+        // $user = User::findOrFail($users_id);
+        // $signsIds = $user->signs()->pluck('id')->toArray();
+        // $sells = sellsModel::where(function($query) use ($signsIds) {
+        //     foreach ($signsIds as $signId) {
+        //         $query->orWhereJsonContains('signs', $signId);
+        //     }
+        // })
+        // ->whereHas('downloads') // Ensure the sellsModel has at least one related downloadsModel
+        // ->get();
+
+
+        // Step 1: Retrieve the user
+        $user = User::findOrFail($users_id);
+
+        // Step 2: Get all signs IDs for this user
+        $signsIds = $user->signs()->pluck('id')->toArray();
+
+        // Step 3: Get all sellsModels where 'signs' field contains the user's signs IDs
+        $sells = sellsModel::where(function($query) use ($signsIds) {
+            foreach ($signsIds as $signId) {
+                $query->orWhereJsonContains('signs', $signId);
+            }
+        })->get();
+
+
+        $sellsWithDownloads = $sells->filter(function($sell) use ($signsIds) {
+            $signs = json_decode($sell->signs, true); // Decode the JSON string to an array
+            foreach ($signs as $signId) {
+                if (in_array($signId, $signsIds)) {
+                    $sign = signsModel::find($signId);
+                    if ($sign) {
+                        // Check if there is at least one downloadsModel with matching sells_id
+                        $hasDownloads = downloadsModel::where('signs_id', $signId)
+                                                      ->where('sells_id', $sell->id)
+                                                      ->exists();
+                        if ($hasDownloads) {
+                            return true;
+                        }
+                    }
+                }
+            }
+            return false;
+        });
+
+
+
+
+
+        dd($sellsWithDownloads);
         return view('backend/reports-users-detail-download', [
             'default_pagename' => 'รายละเอียดรายการ',
             'period' => $period,
