@@ -6,58 +6,67 @@
 
 @section('pagestyle')
 <style>
+    
 
+    .checkbox-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
 
+.checkbox-item {
+    flex: 0 0 100%;
+    margin-bottom: 10px;
+    position: relative;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #f0f0f0;
+    padding: 10px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    display: inline-block; /* Changed to inline-block */
+}
 
+.checkbox-item:hover {
+    background-color: #e0e0e0;
+}
 
+.styled-checkbox {
+    display: inline-block;
+    font-size: 16px;
+    vertical-align: middle;
+}
 
-.checkbox-container {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: flex-start; /* Change justify-content */
-    }
+.hidden-checkbox {
+    position: absolute;
+    opacity: 0;
+}
 
-    .checkbox-item {
-        flex: 0 0 calc(33.33% - 10px); /* Adjusted to fit 3 checkboxes per row */
-        margin-bottom: 10px;
-        position: relative;
-        cursor: pointer;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        background-color: #f0f0f0;
-        padding: 10px;
-        text-align: center;
-        transition: background-color 0.3s ease, color 0.3s ease;
-    }
+.checkbox-item.checked {
+    background-color: #2196F3;
+    color: #fff;
+}
 
-    .checkbox-item:hover {
-        background-color: #e0e0e0;
-    }
+.user-image {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin-right: 10px;
+    display: inline; /* Changed to inline */
+    vertical-align: middle;
+}
 
-    .styled-checkbox {
-        display: inline-block;
-        font-size: 16px;
-    }
+.user-info {
+    display: inline; /* Changed to inline */
+    vertical-align: middle;
+}
 
-    .hidden-checkbox {
-        position: absolute;
-        opacity: 0;
-    }
-
-    .checkbox-item.checked {
-        background-color: #2196F3;
-        color: #fff;
-    }
-
-
-
-
-
-
-
-
-
+.user-id, .user-name {
+    margin-left: 5px;
+    display: inline; /* Ensure they are inline */
+}
 </style>
+
 @endsection
 
 @section('subcontent')
@@ -82,6 +91,15 @@
                         <div class="grid grid-cols-12 gap-x-5">
 
 
+                            
+
+                      
+
+                            
+
+                           
+
+
                             <div class="col-span-12 xl:col-span-12">
                                 <div class="mt-5">
                                     <label>ผู้รับมอบหมาย</label>
@@ -95,7 +113,13 @@
                                         @foreach($users as $key_user => $res)
                                         <div class="checkbox-item" onclick="toggleCheckbox(this)">
                                             <input type="checkbox" name="users[]" id="users_{{$res->id}}" value="{{$res->id}}" class="hidden-checkbox" />
-                                            <label for="users_{{$res->id}}" class="styled-checkbox">{{$res->name}}</label>
+                                            <label for="users_{{$res->id}}" class="styled-checkbox">
+                                                <img src="{{ asset($res->photo) }}" alt="User Image" class="user-image" />
+                                                <div class="user-info">
+                                                    <span class="user-id">ID: {{$res->id}}</span> /
+                                                    <span class="user-name">{{$res->name}}</span>
+                                                </div>
+                                            </label>
                                         </div>
                                         @endforeach
                                     </div>
@@ -167,31 +191,21 @@
 <script>
 
 
+
 document.getElementById('type-select').addEventListener('change', function() {
-        var selectedType = this.value;
-        var namesInput = document.getElementById('names-input');
-        // var combosInput = document.getElementById('combos-input');
-        var preordersInput = document.getElementById('preorders-input');
+    var selectedType = this.value;
+    var namesInput = document.getElementById('names-input');
+    var preordersInput = document.getElementById('preorders-input');
 
-        namesInput.style.display = 'none';
-        // combosInput.style.display = 'none';
-        preordersInput.style.display = 'none';
+    namesInput.style.display = 'none';
+    preordersInput.style.display = 'none';
 
-        if (selectedType === 'names') {
-            namesInput.style.display = 'block';
-        // } else if (selectedType === 'combos') {
-        //     combosInput.style.display = 'block';
-        } else if (selectedType === 'preorders') {
-            preordersInput.style.display = 'block';
-        }
-    });
-
-
-
-
-
-
-
+    if (selectedType === 'names') {
+        namesInput.style.display = 'block';
+    } else if (selectedType === 'preorders') {
+        preordersInput.style.display = 'block';
+    }
+});
 
 function toggleCheckbox(item) {
     var checkbox = item.querySelector('input[type="checkbox"]');
@@ -213,22 +227,20 @@ function toggleCheckAll() {
     if (allChecked) {
         checkboxes.forEach(function (checkbox) {
             checkbox.checked = false;
-            checkbox.parentElement.classList.remove('checked');
+            checkbox.closest('.checkbox-item').classList.remove('checked');
         });
         checkAllCheckbox.checked = false;
-        checkAllCheckbox.parentElement.classList.remove('checked');
+        checkAllCheckbox.closest('.checkbox-item').classList.remove('checked');
     } else {
         checkboxes.forEach(function (checkbox) {
             checkbox.checked = true;
-            checkbox.parentElement.classList.add('checked');
+            checkbox.closest('.checkbox-item').classList.add('checked');
         });
         checkAllCheckbox.checked = true;
-        checkAllCheckbox.parentElement.classList.add('checked');
+        checkAllCheckbox.closest('.checkbox-item').classList.add('checked');
     }
-
-    var checkboxContainer = document.querySelector('.checkbox-container');
-    checkboxContainer.classList.toggle('all-checked', !allChecked);
 }
+
 
 
 

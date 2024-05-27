@@ -23,7 +23,7 @@
     </div>
     <div class="grid grid-cols-12 gap-6">
         
-        <div class="col-span-12 2xl:col-span-6">
+        <div class="col-span-12  sm:col-span-12 xl:col-span-6 2xl:col-span-6">
             <div class="grid grid-cols-12 gap-6">
                 <div class="col-span-12 mt-8">
                     <div class="mt-5 grid grid-cols-12 gap-6">
@@ -73,11 +73,12 @@
                                         <div class="intro-y col-span-12 sm:col-span-12 xl:col-span-4">
                                             <div class="relative before:box before:absolute before:inset-x-3 before:mt-3 before:h-full before:bg-slate-50 before:content-['']">
                                                 <div class="">
-                                                    <div class="mt-1 text-base text-slate-500">work  {{$th->work}}</div>
+                                                    <div class="mt-1 text-base text-slate-500">work  <span class="text-right">{{$th->work}}</span></div>
                                                     <div class="mt-1 text-base text-slate-500">finance  {{$th->finance}}</div>
                                                     <div class="mt-1 text-base text-slate-500">love  {{$th->love}}</div>
                                                     <div class="mt-1 text-base text-slate-500">health  {{$th->health}}</div>
                                                     <div class="mt-1 text-base text-slate-500">fortune  {{$th->fortune}}</div>
+                                                    
                                                 </div>
                                             </div>
                                         </div>
@@ -104,7 +105,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-span-12 2xl:col-span-6">
+        <div class="col-span-12  sm:col-span-12 xl:col-span-6 2xl:col-span-6">
             <div class="grid grid-cols-12 gap-6">
                 <div class="col-span-12 mt-8">
                     <div class="mt-5 grid grid-cols-12 gap-6">
