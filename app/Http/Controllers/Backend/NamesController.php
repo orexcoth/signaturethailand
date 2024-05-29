@@ -352,20 +352,35 @@ class NamesController extends Controller
             'price_en' => $price_en ? $price_en->option_value : 0,
         ]);
     }
+
     public function BN_names_add_action(Request $request)
     {
-        // dd($request);
-        $name = new namesModel;
+            // Get the option values
+            $price_th = OptionsModel::where('option_key', 'price_th')->value('option_value');
+            $price_en = OptionsModel::where('option_key', 'price_en')->value('option_value');
+            
+            // Create a new namesModel instance
+            $name = new namesModel;
 
-        $name->name_th = $request->name_th;
-        $name->name_en = $request->name_en;
-        $name->price_th = $request->price_th;
-        $name->price_en = $request->price_en;
-        $name->save();
+            // Set name values from the request
+            $name->name_th = $request->name_th;
+            $name->name_en = $request->name_en;
 
-        return redirect(route('BN_names_store'))->with('success', 'สร้างสำเร็จ !!!');
+            // Set price_th using conditional logic
+            $name->price_th = $request->price_th ?? $price_th ?? 0;
+
+            // Set price_en using conditional logic
+            $name->price_en = $request->price_en ?? $price_en ?? 0;
+
+            // Save the instance
+            $name->save();
+
+            // Redirect with success message
+            // return redirect(route('BN_names_store'))->with('success', 'สร้างสำเร็จ !!!');
+            return redirect(route('BN_names_detail', ['id' => $name->id]))->with('success', 'สร้างสำเร็จ !!!');
 
     }
+
 
     public function BN_names_import(Request $request)
     {

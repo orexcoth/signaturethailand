@@ -63,7 +63,7 @@
                         <td class="table-report__action w-56">
                             <div class="flex justify-center items-center">
                                 
-                                <a class="flex items-center text-success mr-3" href="#" >
+                                <a class="flex items-center text-success mr-3" href="{{route('BN_customers_detail', ['id' => $res->id])}}" >
                                     <i data-lucide="check-square" class="w-4 h-4 mr-1"></i> ดูข้อมูล
                                 </a>
                                 <a class="flex items-center" href="{{route('BN_customers_edit', ['id' => $res->id])}}">

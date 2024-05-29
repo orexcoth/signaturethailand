@@ -21,50 +21,74 @@
             <div class="box">
                 <div class="flex flex-col lg:flex-row border-b border-slate-200/60 dark:border-darkmode-400 px-5 py-5 -mx-5">
                     <div class="flex flex-1 px-5 items-center justify-center lg:justify-start">
-                        <div class="w-20 h-20 sm:w-24 sm:h-24 flex-none lg:w-32 lg:h-32 image-fit relative">
-                            <img alt="" class="rounded-full" src="{{asset($Customer->image)}}">
-                        </div>
                         <div class="ml-5">
-                            <div class="w-24 sm:w-40 truncate sm:whitespace-normal font-medium text-lg">{{$Customer->firstname." ".$Customer->lastname}}</div>
-                            <div class="text-slate-500">{{$Customer->phone}}</div>
+                            <div class=" truncate sm:whitespace-normal font-medium text-lg">{{$query->firstname." ".$query->lastname}}</div>
+                            <div class="text-slate-500">{{$query->phone}}</div>
+                            <div class="text-slate-500">{{$query->email}}</div>
                         </div>
                     </div>
-                    <div class="mt-6 lg:mt-0 flex-1 px-5 border-l border-r border-slate-200/60 dark:border-darkmode-400 border-t lg:border-t-0 pt-5 lg:pt-0">
-                        <div class="font-medium text-center lg:text-left lg:mt-3">ข้อมูลลูกค้า</div>
-                        <div class="flex flex-col justify-center items-center lg:items-start mt-4">
-                            <div class="truncate sm:whitespace-normal flex items-center">
-                                <i data-lucide="Circle" class="w-4 h-4 mr-2"></i> {{$Customer->email}}
-                            </div>
 
-                        </div>
-                    </div>
                 </div>
             </div>
                 
         </div>
     </div>
-    <!-- <div id="fetchCustomers"></div> -->
-    <!-- <div class="grid gap-6 mt-5 p-5 box">
-        
-        <div class="overflow-x-auto">
-            <table class="w-full text-left">
-                <thead class="">
-                    <tr class="">
-                        <td class="font-medium px-5 py-3 border-b-2 dark:border-darkmode-300 whitespace-nowrap">#</td>
-                        <td class="font-medium px-5 py-3 border-b-2 dark:border-darkmode-300 whitespace-nowrap">เวลา</td>
-                        <td class="font-medium px-5 py-3 border-b-2 dark:border-darkmode-300 whitespace-nowrap">กิจกรรม</td>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr class="">
-                        <td class="px-5 py-3 border-b dark:border-darkmode-300 whitespace-nowrap">1 </td>
-                        <td class="px-5 py-3 border-b dark:border-darkmode-300 whitespace-nowrap"> Angelina </td>envelope
-                        <td class="px-5 py-3 border-b dark:border-darkmode-300 whitespace-nowrap"> @angelinajolie </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div> -->
+
+
+
+    @if($query->sells()->count() > 0)
+    <div class="intro-y mt-4 flex flex-col items-center sm:flex-row">
+        <h2 class="mr-auto text-lg font-medium">Sells</h2>
+    </div>
+    <div class="intro-y col-span-12 overflow-auto lg:overflow-visible">
+        <table class="table table-report -mt-2">
+            <thead>
+                <tr>
+                    <th class="text-center whitespace-nowrap">#</th>
+                    <th class="whitespace-nowrap">Number</th>
+                    <th class="whitespace-nowrap">Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($query->sells as $key => $sell)
+                <tr class="intro-x">
+                    <td class="text-center">{{ $key + 1 }}</td>
+                    <td>{{ $sell->number }}</td>
+                    <td>{{ $sell->status }}</td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
+    @endif
+
+    @if($query->preorders()->count() > 0)
+    <div class="intro-y mt-4 flex flex-col items-center sm:flex-row">
+        <h2 class="mr-auto text-lg font-medium">Preorders</h2>
+    </div>
+    <div class="intro-y col-span-12 overflow-auto lg:overflow-visible">
+        <table class="table table-report -mt-2">
+            <thead>
+                <tr>
+                    <th class="text-center whitespace-nowrap">#</th>
+                    <th class="whitespace-nowrap">Number</th>
+                    <th class="whitespace-nowrap">Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($query->preorders as $key => $preorder)
+                <tr class="intro-x">
+                    <td class="text-center">{{ $key + 1 }}</td>
+                    <td>{{ $preorder->number }}</td>
+                    <td>{{ $preorder->status }}</td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
+    @endif
+    
+
 
 
 
@@ -74,18 +98,6 @@
 @section('script')
 <script>
 
-    // jQuery(function() {
-    //     fetchCustomers();
-    //     function fetchCustomers(){
-    //         jQuery.ajax({
-    //             url: '{{route('BN_customersFetch')}}',
-    //             method: 'get',
-    //             success: function(response){
-    //                 jQuery('#fetchCustomers').html(response);
-    //             }
-    //         });
-    //     }
-    // });
     
 
 </script>

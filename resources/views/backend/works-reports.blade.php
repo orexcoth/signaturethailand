@@ -11,6 +11,14 @@ $warklist = array(
     'combos' => 'ออเดอร์เพิ่มนามสกุล',
     'preorders' => 'ออกเดอร์สั่งออกแบบใหม่',
 );
+$workst = array(
+    'assign' => 'มอบหมาย',
+    'submitted' => 'ส่งแล้ว',
+);
+$workstclass = array(
+    'assign' => 'btn-pending',
+    'submitted' => 'btn-success',
+);
 // echo "<pre>";
 // print_r($users);
 // echo "</pre>";
@@ -23,30 +31,32 @@ $warklist = array(
     </div>
     
     <div class="intro-y col-span-12 mt-5 mb-5 flex flex-wrap items-center sm:flex-nowrap">
+
         <div class="mt-3 w-full sm:ml-auto sm:mt-0 sm:w-auto md:ml-0 mr-5">
             <div class="relative text-slate-500">
-                <!-- <input type="text" name="keyword" id="keyword" class="form-control py-3 px-4 w-full lg:w-64 box pr-10" placeholder="ค้นหา.." value="{{ request()->input('keyword') }}" onkeypress="handleEnter(event)" >
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" icon-name="search" class="lucide lucide-search w-4 h-4 absolute my-auto inset-y-0 mr-3 right-0 text-slate-500" data-lucide="search">
-                    <circle cx="11" cy="11" r="8"></circle>
-                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-                </svg>  -->
-                <select id="user" name="user" class="form-select py-3 px-4 box w-full lg:w-auto mt-3 lg:mt-0 ml-auto" onchange="applySelects()" >
+                <select id="user" name="user" class="form-select py-3 px-4 box w-full lg:w-auto mt-3 lg:mt-0 ml-auto" onchange="applySelects()">
+                    <option value="" @if(empty(request('user'))) selected @endif>เลิอกยูสเซอร์&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</option>
                     @foreach($users as $keyusers => $user)
-                    <option value="{{$user->id}}" @if(request('user') == '{{$user->id}}') selected @endif>{{$user->name}} - {{$user->id}}&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</option>
+                        <option value="{{ $user->id }}" @if(request('user') == $user->id) selected @endif>{{ $user->name }} - {{ $user->id }}&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</option>
                     @endforeach
                 </select>
             </div>
         </div>
+
         
         <div class="mx-auto hidden text-slate-500 md:block"></div>
         
         <div class="mt-3 w-full sm:ml-auto sm:mt-0 sm:w-auto md:ml-0">
-            <div class="relative w-56 text-slate-500">
+            <div class="relative text-slate-500">
                 <select id="status" name="status" class="form-select py-3 px-4 box w-full lg:w-auto mt-3 lg:mt-0 ml-auto" onchange="applySelects()" >
-                    <option value="" @if(empty(request('status')) || request('status') == 'all') selected @endif>งานทั้งหมด&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</option>
+                    <!-- <option value="" @if(empty(request('status')) || request('status') == 'all') selected @endif>งานทั้งหมด&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</option>
                     <option value="assign" @if(request('sign') == 'assign') selected @endif>Assigned&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</option>
                     <option value="create" @if(request('sign') == 'create') selected @endif>Creating&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</option>
-                    <option value="finish" @if(request('sign') == 'finish') selected @endif>Finished&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</option>
+                    <option value="finish" @if(request('sign') == 'finish') selected @endif>Finished&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</option> -->
+                    <option value="all" @if(empty(request('status')) || request('status') == 'all') selected @endif>งานทั้งหมด&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</option>
+                    @foreach($workst as $indexfilter => $workstfilter)
+                        <option value="{{ $indexfilter }}" @if(request('status') == $indexfilter) selected @endif>{{ $workstfilter }}&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</option>
+                    @endforeach
                 </select>
             </div>
         </div>
@@ -89,12 +99,12 @@ $warklist = array(
                             <div class="font-medium whitespace-nowrap">{{$res->description}}</div>
                         </td>
                         <td>
-                            <div class="font-medium whitespace-nowrap">{{$res->status}}</div>
+                            <div class="font-medium whitespace-nowrap"><span class="btn text-white {{$workstclass[$res->status]}}">{{$workst[$res->status]}}</span></div>
                         </td>
                         <td class="table-report__action w-56">
                             <div class="flex justify-center items-center">
                                 
-                                <a class="flex items-center" href="{{route('BN_customers_edit', ['id' => $res->id])}}">
+                                <a class="flex items-center" href="{{route('BN_works_list_detail', ['id' => $res->id])}}">
                                     <i data-lucide="check-square" class="w-4 h-4 mr-1"></i> รายละเอียด
                                 </a>
                             </div>

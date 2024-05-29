@@ -20,7 +20,7 @@ $workstclass = array(
     'submitted' => 'btn-success',
 );
 // echo "<pre>";
-// print_r($query);
+// print_r(request('status'));
 // echo "</pre>";
 ?>
     <div class="intro-y mt-5 flex flex-col items-center sm:flex-row">
@@ -43,14 +43,19 @@ $workstclass = array(
         
         <div class="mx-auto hidden text-slate-500 md:block"></div>
         
+
+
         <div class="mt-3 w-full sm:ml-auto sm:mt-0 sm:w-auto md:ml-0">
-            <div class="relative w-56 text-slate-500">
-                <select id="sign" name="sign" class="form-select py-3 px-4 box w-full lg:w-auto mt-3 lg:mt-0 ml-auto" >
+            <div class="relative text-slate-500">
+                <select id="status" name="status" onchange="applyFilters()" class="form-select py-3 px-4 box w-full lg:w-auto mt-3 lg:mt-0 ml-auto">
                     <option value="all" @if(empty(request('status')) || request('status') == 'all') selected @endif>งานทั้งหมด&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</option>
-                    <!-- <option value="no" @if(request('sign') == 'no') selected @endif>ยังไม่มีลายเซ็นต์&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</option> -->
+                    @foreach($workst as $indexfilter => $workstfilter)
+                        <option value="{{ $indexfilter }}" @if(request('status') == $indexfilter) selected @endif>{{ $workstfilter }}&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</option>
+                    @endforeach
                 </select>
             </div>
         </div>
+
 
     </div>
 
@@ -97,7 +102,7 @@ $workstclass = array(
                             <div class="flex justify-center items-center">
                                 
                                 <a class="flex items-center" href="{{route('BN_works_list_detail', ['id' => $res->id])}}">
-                                    <i data-lucide="check-square" class="w-4 h-4 mr-1"></i> ดูข้อมูล
+                                    <i data-lucide="check-square" class="w-4 h-4 mr-1"></i> รายละเอียด
                                 </a>
                             </div>
                         </td>
@@ -140,6 +145,16 @@ $workstclass = array(
 <script>
 
 
+    function applyFilters() {
+        var status = document.getElementById('status').value;
+        var newUrl = `{{ route('BN_works_list') }}?status=${status}`;
+        window.location.href = newUrl;
+    }
+    function handleEnter(event) {
+        if (event.key === 'Enter') {
+            applyFilters();
+        }
+    }
 </script>
 
 

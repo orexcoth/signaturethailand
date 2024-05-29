@@ -97,6 +97,12 @@ class WorksController extends Controller
             ->where('users_id',$userloginid)
             ->orderBy('id', 'desc');
         $resultPerPage = 24;
+
+        // Check if the status parameter is set and is not 'all'
+        if ($request->filled('status') && $request->input('status') !== 'all') {
+            $status = $request->input('status');
+            $query->where('status', '=', $status);
+        }
         $query = $query->paginate($resultPerPage);
 
         return view('backend/works-list', [
@@ -107,6 +113,7 @@ class WorksController extends Controller
 
     public function BN_works_list_detail(Request $request)
     {
+        $detail = NULL;
         if($request->id){
             $work = worksModel::find($request->id);
             $submitted = array();
@@ -167,7 +174,7 @@ class WorksController extends Controller
             // 'sells' => $sells,
         ]);
     }
-
+    
     public function BN_works_assign_list_detail(Request $request, $id)
     {
         // dd($id);
@@ -176,7 +183,7 @@ class WorksController extends Controller
             return redirect()->back()->with('error', 'Work order not found.');
         }
         $works = $workOrder->works;
-
+        // dd($workOrder);
         return view('backend/works-assign-list-detail', [
             'default_pagename' => 'รายละเอียดงานที่มอบหมาย',
             'query' => $workOrder,
@@ -193,19 +200,13 @@ class WorksController extends Controller
         // Fetch all users
         $users = usersModel::orderBy('id', 'desc')->get();
 
-        // Check if user is provided
         if ($request->has('user')) {
             $query = worksModel::query()->where('users_id', $request->user);
-
-            // Check if status is provided
-            if ($request->filled('status')) {
-                $query->where('status', $request->status);
+            if ($request->filled('status') && $request->input('status') !== 'all') {
+                $status = $request->input('status');
+                $query->where('status', '=', $status);
             }
-
-            // Order the query by id in descending order
             $query->orderBy('id', 'desc');
-
-            // Paginate the results
             $resultPerPage = 24;
             $query = $query->paginate($resultPerPage);
 

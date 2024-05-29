@@ -97,4 +97,19 @@ class CustomersController extends Controller
         return redirect(route('BN_customers'))->with('success', 'บันทึกข้อมูลสำเร็จ !!!');
 
     }
+    public function BN_customers_detail(Request $request, $id)
+    {
+
+        $query = customersModel::with(['sells', 'preorders'])->find($id);
+        if (!$query) {
+            abort(404, 'Customer not found');
+        }
+
+        // dd($query);
+        return view('backend/customers-detail', [
+            'default_pagename' => 'รายละเอียดลูกค้า',
+            'query' => $query,
+        ]);
+    }
+
 }

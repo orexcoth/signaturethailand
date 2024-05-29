@@ -42,8 +42,8 @@ use App\Http\Controllers\Backend\testImageController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-Route::get('dark-mode-switcher', [DarkModeController::class, 'switch'])->name('dark-mode-switcher');
-Route::get('color-scheme-switcher/{color_scheme}', [ColorSchemeController::class, 'switch'])->name('color-scheme-switcher');
+// Route::get('dark-mode-switcher', [DarkModeController::class, 'switch'])->name('dark-mode-switcher');
+// Route::get('color-scheme-switcher/{color_scheme}', [ColorSchemeController::class, 'switch'])->name('color-scheme-switcher');
 
 Route::get('change-language/{locale}',[LanguageController::class, 'changeLanguage'])->name('change.language');
 Route::get('/phpinfo', function () {
@@ -172,6 +172,7 @@ Route::middleware('auth')->group(function() {
             Route::post('add-action', [CustomersController::class, 'BN_customers_add_action'])->name('BN_customers_add_action');
             Route::get('edit/{id}', [CustomersController::class, 'BN_customers_edit'])->name('BN_customers_edit');
             Route::post('edit-action', [CustomersController::class, 'BN_customers_edit_action'])->name('BN_customers_edit_action');
+            Route::get('detail/{id}', [CustomersController::class, 'BN_customers_detail'])->name('BN_customers_detail');
         });
         Route::prefix('names')->group(function () {
             Route::get('', [NamesController::class, 'BN_names'])->name('BN_names');
