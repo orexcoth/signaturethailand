@@ -30,6 +30,12 @@ class SideMenu
                         'params' => [],
                         'title' => 'มอบหมายงาน'
                     ],
+                    'works-assign-list' => [
+                        'icon' => 'Folder',
+                        'route_name' => 'BN_works_assign_list',
+                        'params' => [],
+                        'title' => 'ประวัติมอบหมาย'
+                    ],
                     'works-report' => [
                         'icon' => 'Folder Plus',
                         'route_name' => 'BN_works_report',

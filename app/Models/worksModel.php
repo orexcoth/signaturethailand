@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+use App\Models\work_ordersModel;
+
 class worksModel extends Model
 {
     use HasFactory;
@@ -23,4 +25,9 @@ class worksModel extends Model
         'orders_id',
         'commissions_id',
     ];
+
+    public function workOrder()
+    {
+        return $this->belongsTo(work_ordersModel::class, 'work_orders_id');
+    }
 }
