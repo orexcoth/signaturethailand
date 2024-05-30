@@ -423,20 +423,17 @@ class FrontendPageController extends Controller
         $keyword = $request->input('keyword');
 
         if (!empty($keyword)) {
-            // Perform the search query
-            // $names = NamesModel::whereHas('signs', function ($query) use ($keyword) {
-            //     $query->where('name_th', 'like', '%' . $keyword . '%')
-            //         ->orWhere('name_en', 'like', '%' . $keyword . '%');
-            // })->distinct()->get();
+
+            $orderByColumn = $language == 'th' ? 'name_th' : 'name_en';
             $names = NamesModel::where('name_th', 'like', '%' . $keyword . '%')
                   ->orWhere('name_en', 'like', '%' . $keyword . '%')
                   ->distinct()
-                  ->orderBy('name_th')
-                //   ->orderBy('name_en')
+                  ->orderBy($orderByColumn, 'asc')
                   ->paginate(24);
+                //   ->toSql();
 
             // dd($names);
-            // If at least one result found, return the results
+
             if ($names->count() > 0) {
                 return view('frontend.search', [
                     'default_pagename' => 'ค้นหาลายเซ็น',
@@ -478,7 +475,7 @@ class FrontendPageController extends Controller
     {
         $sign_id = $request->sign;
 
-        $getsign = SignsModel::find($sign_id);
+        $getsign = SignsModel::with('name')->find($sign_id);
         // dd($getsign);
 
         return view('frontend/product-download', [

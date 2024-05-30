@@ -48,8 +48,8 @@
 }
 
 .user-image {
-    width: 30px;
-    height: 30px;
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
     margin-right: 10px;
     display: inline; /* Changed to inline */

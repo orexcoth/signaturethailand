@@ -9,7 +9,7 @@
 $warklist = array(
     'names' => 'ออกแบบลายเซ็นต์',
     'combos' => 'ออเดอร์เพิ่มนามสกุล',
-    'preorders' => 'ออกเดอร์สั่งออกแบบใหม่',
+    'preorders' => 'สั่งออกแบบ',
 );
 $workst = array(
     'assign' => 'มอบหมาย',

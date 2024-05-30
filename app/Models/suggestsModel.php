@@ -20,4 +20,9 @@ class suggestsModel extends Model
         'status',
         'names_id',
     ];
+
+    public function name()
+    {
+        return $this->belongsTo(namesModel::class, 'names_id');
+    }
 }

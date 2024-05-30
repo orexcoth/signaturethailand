@@ -26,5 +26,9 @@ class namesModel extends Model
     {
         return $this->hasMany(signsModel::class, 'names_id');
     }
+    public function suggests()
+    {
+        return $this->hasMany(suggestsModel::class, 'names_id');
+    }
     
 }

@@ -9,7 +9,7 @@
 $selectedStatus = isset($_GET['status']) ? $_GET['status'] : 'suggested';
 $suggest_st = array(
     'suggested' => 'แนะนำเข้ามา',
-    'approved' => 'อนุมัติ',
+    'added' => 'เพิ่มเข้าคลังรายชื่อ',
     'worked' => 'เข้าตารางงาน',
     'created' => 'สร้างลายเซ็นต์แล้ว',
     'deleted' => 'ลบแล้ว',
@@ -97,9 +97,10 @@ $suggest_st = array(
                         </td>
 
                         <td class="table-report__action w-56">
+
                             @if($res->status == 'suggested')
                             <div class="flex justify-center items-center">
-                                <a class="flex items-center text-success mr-3" href="#" >
+                                <a class="flex items-center text-success mr-3" href="#" onclick="approveSuggestion({{ $res->id }})">
                                     <i data-lucide="check-square" class="w-4 h-4 mr-1"></i> อนุมัติ
                                 </a>
                                 <a class="flex items-center text-danger" href="#" onclick="deleteSuggestion({{ $res->id }})">
@@ -107,6 +108,8 @@ $suggest_st = array(
                                 </a>
                             </div>
                             @endif
+
+
                             
                         </td>
 
@@ -135,6 +138,52 @@ $suggest_st = array(
 
 @section('script')
 <script>
+
+function approveSuggestion(id) {
+    Swal.fire({
+        title: 'คุณแน่ใจหรือไม่?',
+        text: 'คุณต้องการอนุมัติการแนะนำนี้หรือไม่?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'ตกลง',
+        cancelButtonText: 'ยกเลิก'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            let form = document.createElement('form');
+            form.method = 'POST';
+            form.action = '{{ route('BN_names_suggest_action') }}';
+
+            let inputId = document.createElement('input');
+            inputId.type = 'hidden';
+            inputId.name = 'id';
+            inputId.value = id;
+            form.appendChild(inputId);
+
+            let csrfInput = document.createElement('input');
+            csrfInput.type = 'hidden';
+            csrfInput.name = '_token';
+            csrfInput.value = '{{ csrf_token() }}';
+            form.appendChild(csrfInput);
+
+            document.body.appendChild(form);
+            form.submit();
+        }
+    });
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
     function applyFilters() {
         var status = document.getElementById('status').value;

@@ -55,7 +55,7 @@
                     <div class="row">
                     @foreach ($query as $name)
                     <!-- Display each name -->
-                        <div class="col-lg-6 col-md-6 col-12">
+                        <div class="col-lg-12 col-md-12 col-12">
                             <div class="WarperSearch-Results">
                                 <div class="BoxSRS">
                                     <div class="DetailBox-SRS">

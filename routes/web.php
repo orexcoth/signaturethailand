@@ -178,6 +178,7 @@ Route::middleware('auth')->group(function() {
             Route::get('', [NamesController::class, 'BN_names'])->name('BN_names');
             Route::post('mock-suggest', [NamesController::class, 'BN_names_mock_suggest'])->name('BN_names_mock_suggest');
             Route::get('suggest', [NamesController::class, 'BN_names_suggest'])->name('BN_names_suggest')->defaults('suggest_status', 'suggested');
+            Route::post('suggest-action', [NamesController::class, 'BN_names_suggest_action'])->name('BN_names_suggest_action');
             Route::get('suggest-delete/{id}', [NamesController::class, 'BN_names_suggest_delete'])->name('BN_names_suggest_delete');
 
             Route::post('store/update-status', [NamesController::class, 'BN_names_store_updateStatus'])->name('BN_names_store_updateStatus');
@@ -224,7 +225,7 @@ Route::middleware('auth')->group(function() {
         });
         Route::prefix('contacts')->group(function () {
             Route::get('', [ContactsController::class, 'BN_contacts'])->name('BN_contacts');
-            Route::get('detail', [ContactsController::class, 'BN_contacts_detail'])->name('BN_contacts_detail');
+            Route::get('detail/{id}', [ContactsController::class, 'BN_contacts_detail'])->name('BN_contacts_detail');
         });
         Route::prefix('reports')->group(function () {
             Route::get('', [ReportsController::class, 'BN_reports'])->name('BN_reports');

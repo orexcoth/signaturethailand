@@ -32,9 +32,11 @@ use App\Models\User;
 
 class ReportsController extends Controller
 {
-
+    
     public function BN_reports_users_detail_download(Request $request, $users_id)
     {
+        $period = '';
+        // $getdata->sign = '';
         // $user = User::find($users_id);
         // $startDate = null;
         // $endDate = null;

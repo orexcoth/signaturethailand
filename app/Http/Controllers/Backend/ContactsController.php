@@ -43,10 +43,14 @@ class ContactsController extends Controller
             'query' => $query,
         ]);
     }
-    public function BN_contacts_detail(Request $request)
+    public function BN_contacts_detail(Request $request, $id)
     {
+        $query = contactsModel::find($id);
+
+        // dd($query);
         return view('backend/contacts-detail', [ 
             'default_pagename' => 'รายละเอียดข้อความติดต่อ',
+            'query' => $query,
         ]);
     }
 }

@@ -115,25 +115,26 @@
                             <hr class="w-100 Color-Grey-HR my-4">
                             <div class="ColButton-Group">
                                 <div class="BoxButton-Group1">
-                                    <!-- Trigger/Open The Modal -->
-                                    <button id="myBtnModal" class="ButtonModal me-3">ดาวน์โหลด</button>
+                                    
+                                    @if ($sign->name && $sign->name->free == 1)
+                                        <!-- Trigger/Open The Modal -->
+                                        <button id="myBtnModal" class="ButtonModal me-3">ดาวน์โหลด</button>
 
-                                    <!-- The Modal -->
-                                    <div id="myModalAddSurname" class="modal">
-
-                                        <!-- Modal content -->
-                                        <div class="modal-content">
-                                            <div class="d-flex justify-content-end">
-                                                <span class="close">&times;</span>
-                                            </div>
-                                            <p class="Text-24 Text-W500 text-center mb-4">ดาวน์โหลดตัวอย่างลายเซ็น</p>
-                                            <div class="ColButton-DownloadSignature">
-                                                <button id="BtnDownloadIMG" class="ButtonModal">ดาวน์โหลดภาพ</button>
-                                                <button id="BtnDownloadVDO" class="ButtonModal">ดาวน์โหลดวิดีโอ</button>
+                                        <!-- The Modal -->
+                                        <div id="myModalAddSurname" class="modal">
+                                            <!-- Modal content -->
+                                            <div class="modal-content">
+                                                <div class="d-flex justify-content-end">
+                                                    <span class="close">&times;</span>
+                                                </div>
+                                                <p class="Text-24 Text-W500 text-center mb-4">ดาวน์โหลดตัวอย่างลายเซ็น</p>
+                                                <div class="ColButton-DownloadSignature">
+                                                    <button id="BtnDownloadIMG" class="ButtonModal">ดาวน์โหลดภาพ</button>
+                                                    <button id="BtnDownloadVDO" class="ButtonModal">ดาวน์โหลดวิดีโอ</button>
+                                                </div>
                                             </div>
                                         </div>
-
-                                    </div>
+                                    @endif
 
                                     <a class="btn ButtonAddSurname" href="{{route('preorderPage')}}">
                                         เพิ่มลายเซ็นนามสกุล

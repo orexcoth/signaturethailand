@@ -306,6 +306,7 @@ class NamesController extends Controller
         }
 
         $query->withCount('signs');
+        $query->with('suggests'); // Eager load the suggests relationship
 
         $query->orderByRaw("IF(name_th IS NOT NULL AND name_en IS NULL, 1, 0) ASC")
             ->orderByRaw("IF(name_en IS NOT NULL AND name_th IS NULL, 1, 0) ASC")
@@ -318,8 +319,8 @@ class NamesController extends Controller
         $resultPerPage = 50;
         $query = $query->paginate($resultPerPage);
 
-
-
+        
+        // dd($query);
         
 
 
@@ -380,6 +381,8 @@ class NamesController extends Controller
             return redirect(route('BN_names_detail', ['id' => $name->id]))->with('success', 'สร้างสำเร็จ !!!');
 
     }
+
+    
 
 
     public function BN_names_import(Request $request)
@@ -662,4 +665,36 @@ class NamesController extends Controller
 
         return redirect()->back()->with('success', 'submit success!');
     }
+
+    public function BN_names_suggest_action(Request $request)
+    {
+        $suggestion = suggestsModel::find($request->id);
+
+        if ($suggestion) {
+            // Get the option values
+            $price_th = OptionsModel::where('option_key', 'price_th')->first();
+            $price_en = OptionsModel::where('option_key', 'price_en')->first();
+
+            // Create a new namesModel instance
+            $name = new namesModel;
+            $name->name_th = $suggestion->name_th;
+            $name->name_en = $suggestion->name_en;
+            $name->price_th = $price_th ? $price_th->option_value : 0;
+            $name->price_en = $price_en ? $price_en->option_value : 0;
+            $name->save();
+
+            // Update the status to 'added' in the suggestsModel
+            $suggestion->status = 'added';
+            $suggestion->names_id = $name->id;
+            $suggestion->save();
+
+            // return redirect()->back()->with('success', 'เพิ่มชื่อเข้าคลังรายชื่อสำเร็จ !');
+            return redirect(route('BN_names_detail', ['id' => $name->id]))->with('success', 'เพิ่มชื่อเข้าคลังรายชื่อสำเร็จ !!!');
+        } else {
+            return redirect()->back()->with('error', 'ผิดพลาด !');
+        }
+    }
+
+
+
 }

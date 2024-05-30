@@ -237,7 +237,7 @@
             </div> -->
             <div>
                 <div class="row Row-Product">
-                    @foreach($namesfreeen as $keyth => $th)
+                    @foreach($namesfreeth as $keyth => $th)
                     <div class="col-lg-3 col-md-4 col-6">
                         <div class="BoxProductFree">
                             <img class="IMG-PD" src="{{asset($th->random_sign->sign)}}" alt="">
@@ -339,7 +339,7 @@
             <br>
             <div>
                 <div class="row Row-Product">
-                    @foreach($namesfreeth as $keyen => $en)
+                    @foreach($namesfreeen as $keyen => $en)
                     <div class="col-lg-3 col-md-4 col-6">
                         <div class="BoxProductFree">
                             <img class="IMG-PD" src="{{asset($en->random_sign->sign)}}" alt="">

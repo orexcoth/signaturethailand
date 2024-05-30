@@ -134,7 +134,7 @@ foreach ($submitted as $keyyy =>  $submit) {
                     </div>
                 </div>
                 <div class="image-fit h-24 w-24 lg:mr-1 lg:h-12 lg:w-12">
-                    <img style="border: 1px solid #ddd;" data-action="zoom" src="{{asset($send->sign)}}" alt="">
+                    <img style="border: 1px solid #aaa;" data-action="zoom" src="{{asset($send->sign)}}" alt="">
                 </div>
                 <!-- <div class="mt-4 flex lg:mt-0">
                         <button class="transition duration-200 border shadow-sm inline-flex items-center justify-center rounded-md font-medium cursor-pointer focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus-visible:outline-none dark:focus:ring-slate-700 dark:focus:ring-opacity-50 [&amp;:hover:not(:disabled)]:bg-opacity-90 [&amp;:hover:not(:disabled)]:border-opacity-90 [&amp;:not(button)]:text-center disabled:opacity-70 disabled:cursor-not-allowed bg-primary border-primary text-white dark:border-primary mr-2 px-2 py-1">Message</button>

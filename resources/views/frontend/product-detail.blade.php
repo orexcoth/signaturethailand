@@ -193,14 +193,15 @@ $default_pagename = $name->name_th." / ".$name->name_en;
                                 @if($name->free)
                                 <p class="TextPrice-PD">
                                     <span>
-                                        <img class="mb-1" src="./images/product/ic_money.svg" alt="">
+                                        <img class="mb-1" src="{{asset('frontend/images/product/ic_money.svg')}}" alt="">
                                     </span>
                                     Free
                                 </p>
+                                @endif
                                 <a class="btn ButtonSeemore-PD" target="_blank" href="{{route('productdownloadPage', ['sign' => $th->id])}}">
                                     ดูเพิ่มเติม
                                 </a>
-                                @endif
+                                
                                 
 
                             </div>
@@ -306,10 +307,11 @@ $default_pagename = $name->name_th." / ".$name->name_en;
                                     </span>
                                     Free
                                 </p>
+                                @endif
                                 <a class="btn ButtonSeemore-PD" target="_blank" href="{{route('productdownloadPage', ['sign' => $en->id])}}">
                                     ดูเพิ่มเติม
                                 </a>
-                                @endif
+                                
 
                             </div>
                         </div>
