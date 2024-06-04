@@ -6,6 +6,15 @@
 
 @section('subcontent')
 <?php
+
+$dtst = array(
+    'paid' => 'ชำระเงินแล้ว',
+    'pending' => 'รอชำระเงิน',
+);
+$dtstclass = array(
+    'pending' => 'btn-pending',
+    'paid' => 'btn-success',
+);
 // echo "<pre>";
 // print_r($page_name);
 // echo "</pre>";
@@ -54,7 +63,9 @@
                 <tr class="intro-x">
                     <td class="text-center">{{ $key + 1 }}</td>
                     <td>{{ $sell->number }}</td>
-                    <td>{{ $sell->status }}</td>
+                    <td>
+                        <div class="font-medium whitespace-nowrap"><span class="btn text-white {{$dtstclass[$sell->status]}}">{{$dtst[$sell->status]}}</span></div>
+                    </td>
                 </tr>
                 @endforeach
             </tbody>
@@ -80,7 +91,9 @@
                 <tr class="intro-x">
                     <td class="text-center">{{ $key + 1 }}</td>
                     <td>{{ $preorder->number }}</td>
-                    <td>{{ $preorder->status }}</td>
+                    <td>
+                        <div class="font-medium whitespace-nowrap"><span class="btn text-white {{$dtstclass[$preorder->status]}}">{{$dtst[$preorder->status]}}</span></div>
+                    </td>
                 </tr>
                 @endforeach
             </tbody>

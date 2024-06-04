@@ -6,7 +6,14 @@
 
 @section('subcontent')
 <?php
-
+$workst = array(
+    'assign' => 'มอบหมาย',
+    'submitted' => 'ส่งแล้ว',
+);
+$workstclass = array(
+    'assign' => 'btn-pending',
+    'submitted' => 'btn-success',
+);
 // echo "<pre>";
 // print_r($works);
 // echo "</pre>";
@@ -45,8 +52,46 @@
                 {{$query->number}}
             </div>
             <div class="mt-2 text-center text-slate-500">
-                gggg
+                ประเภท : {{$query->type}}
             </div>
+
+            @if($query->type == 'preorders')
+            
+                @if($query->preorder->package=='thai'  ||  $query->preorder->package=='combo')
+                    @if($query->preorder->preorder_type=='firstname' ||  $query->preorder->preorder_type=='duo')
+                        <div class="mt-2 text-center text-slate-500">
+                        ชื่อภาษาไทย : {{$query->preorder->firstname_th}}
+                        </div>
+                    @endif  
+                    
+                    @if($query->preorder->preorder_type=='lastname' ||  $query->preorder->preorder_type=='duo')
+                        <div class="mt-2 text-center text-slate-500">
+                        นามสกุลภาษาไทย : {{$query->preorder->lastname_th}}
+                        </div>
+                    @endif      
+                @endif
+                
+                @if($query->preorder->package=='english'  ||  $query->preorder->package=='combo')
+                    @if($query->preorder->preorder_type=='firstname' ||  $query->preorder->preorder_type=='duo')
+                        <div class="mt-2 text-center text-slate-500">
+                        ชื่อภาษาอังกฤษ : {{$query->preorder->firstname_en}}
+                        </div>
+                    @endif  
+                    
+                    @if($query->preorder->preorder_type=='lastname' ||  $query->preorder->preorder_type=='duo')
+                        <div class="mt-2 text-center text-slate-500">
+                        นามสกุลภาษาอังกฤษ : {{$query->preorder->lastname_en}}
+                        </div>
+                    @endif       
+                @endif
+            
+            @endif
+            
+            @if($query->type == 'names')
+            <div class="mt-2 text-center text-slate-500">
+            {{$query->name->name_th}} / {{$query->name->name_en}}
+            </div>
+            @endif
         </div>
         
     </div>
@@ -81,10 +126,11 @@
                 <tr class="intro-x">
                     <td class="text-center">{{$count}}</td>
                     <td>
-                        <div class="font-medium whitespace-nowrap">{{$res->users_id}}</div>
+                        <div class="font-medium whitespace-nowrap">{{$res->user->name}}</div>
                     </td>
+
                     <td>
-                        <div class="font-medium whitespace-nowrap">{{$res->status}}</div>
+                        <div class="font-medium whitespace-nowrap"><span class="btn text-white {{$workstclass[$res->status]}}">{{$workst[$res->status]}}</span></div>
                     </td>
                     <!-- <td class="table-report__action w-56">
                         <div class="flex justify-center items-center">

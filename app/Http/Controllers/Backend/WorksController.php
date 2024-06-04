@@ -30,6 +30,17 @@ class WorksController extends Controller
         $workget = worksModel::findOrFail($request->work_id);
         $userId = $request->users_id;
 
+        $textname = '';
+        if($workget){
+            if($workget->type=='preorders'){
+                $wgpreorders = preordersModel::findOrFail($workget->make);
+                $textname = $wgpreorders->firstname_th.'-'.$wgpreorders->lastname_th.'-'.$wgpreorders->firstname_en.'-'.$wgpreorders->lastname_en;
+            }elseif($workget->type=='names'){
+                $wgnames = namesModel::findOrFail($workget->make);
+                $textname = $wgnames->name_th.'-'.$wgnames->name_en;
+            }
+        }
+
         $currentDate = date('Ymd');
         $randomString = uniqid().uniqid();
         $currentyear = date('Y');
@@ -40,7 +51,7 @@ class WorksController extends Controller
         $videoExtension = $request->file('video')->getClientOriginalExtension();
     
         $signFile = $request->file('sign');
-        $signNewFileName = $currentDate . '-' . $userId . '-' . $request->work_id . '-' . '-' . $randomString . '.' . $signExtension;
+        $signNewFileName = $currentDate . '-' . $userId . '-' . $request->work_id . '-' . $textname . '-' . $randomString . '.' . $signExtension;
         $signDestinationPath = 'uploads/preorders/sign/' . $langFolder;
         $signPath = $signFile->move($signDestinationPath, $signNewFileName);
         if ($signPath === false) {
@@ -49,7 +60,7 @@ class WorksController extends Controller
         }
     
         $videoFile = $request->file('video');
-        $videoNewFileName = $currentDate . '-' . $userId . '-' . $request->work_id . '-' . '-' . $randomString . '.' . $videoExtension;
+        $videoNewFileName = $currentDate . '-' . $userId . '-' . $request->work_id . '-' . $textname . '-' . $randomString . '.' . $videoExtension;
         $videoDestinationPath = 'uploads/preorders/video/' . $langFolder;
         $videoPath = $videoFile->move($videoDestinationPath, $videoNewFileName);
         if ($videoPath === false) {
@@ -178,7 +189,10 @@ class WorksController extends Controller
     public function BN_works_assign_list_detail(Request $request, $id)
     {
         // dd($id);
-        $workOrder = work_ordersModel::find($id);
+        // $workOrder = work_ordersModel::find($id);
+        // $workOrder = work_ordersModel::with(['works.user'])->find($id);
+        $workOrder = work_ordersModel::with(['works.user', 'preorder', 'name'])->find($id);
+
         if (!$workOrder) {
             return redirect()->back()->with('error', 'Work order not found.');
         }
@@ -241,6 +255,9 @@ class WorksController extends Controller
         $workOrder = new work_ordersModel;
         $workOrder->number = $workOrderNumber;
         $workOrder->users_id = $userlogin->id;
+        $workOrder->type = $request->type;
+        $workOrder->preorders_id = $request->preorders ?? NULL;
+        $workOrder->names_id = $request->names ?? NULL;
         $workOrder->save();
 
         $workOrderId = $workOrder->id;

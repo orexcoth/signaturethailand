@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 use App\Models\signsModel;
+use App\Models\WorkOrder;
 
 class namesModel extends Model
 {
@@ -29,6 +30,11 @@ class namesModel extends Model
     public function suggests()
     {
         return $this->hasMany(suggestsModel::class, 'names_id');
+    }
+
+    public function workOrders()
+    {
+        return $this->hasMany(WorkOrder::class, 'names_id');
     }
     
 }

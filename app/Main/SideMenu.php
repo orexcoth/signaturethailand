@@ -60,6 +60,12 @@ class SideMenu
                 'icon' => 'Hard Drive',
                 'title' => 'คลังชื่อ',
                 'sub_menu' => [
+                    'names-add' => [
+                        'icon' => 'Users',
+                        'route_name' => 'BN_names_add',
+                        'params' => [],
+                        'title' => 'เพิ่มชื่อ'
+                    ],
                     'names-all' => [
                         'icon' => 'Folder',
                         'route_name' => 'BN_names_store',

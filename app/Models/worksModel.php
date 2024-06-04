@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 use App\Models\work_ordersModel;
+use App\Models\User;
 
 class worksModel extends Model
 {
@@ -29,5 +30,9 @@ class worksModel extends Model
     public function workOrder()
     {
         return $this->belongsTo(work_ordersModel::class, 'work_orders_id');
+    }
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'users_id');
     }
 }

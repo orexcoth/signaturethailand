@@ -10,6 +10,7 @@ use Laravel\Sanctum\HasApiTokens;
 
 use App\Models\signsModel;
 use App\Models\preordersTurnInModel;
+use App\Models\worksModel;
 
 class User extends Authenticatable
 {
@@ -53,6 +54,10 @@ class User extends Authenticatable
     public function preordersTurnIns()
     {
         return $this->hasMany(PreordersTurnInModel::class, 'users_id');
+    }
+    public function works()
+    {
+        return $this->hasMany(worksModel::class, 'users_id');
     }
 
 

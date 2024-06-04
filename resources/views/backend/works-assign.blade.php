@@ -94,7 +94,41 @@
                             
 
                       
+                        <div class="col-span-12 xl:col-span-12">
+                                <div class="mt-3">
+                                    <label for="" class="form-label">ประเภท</label>
+                                    <select name="type" id="type-select" class="w-full">
+                                        <option value="">เลือกประเภท</option>
+                                        <option value="names">ชื่อที่มีในระบบ</option>
+                                        <!-- <option value="combos">รายการขายที่มีการเพิ่มนามสกุล</option> -->
+                                        <option value="preorders">รายการสั่งออกแบบ</option>
+                                    </select>
+                                </div>
+                            </div>
 
+                            <div id="names-input" class="col-span-12 xl:col-span-12" style="display: none;">
+                                <div class="mt-5">
+                                    <label>ชื่อที่มีในระบบ</label>
+                                    <select name="names" data-placeholder="Select your favorite actors" class="tom-select w-full mt-3">
+                                        @foreach($names as $key_names => $resnames)
+                                        <option value="{{$resnames->id}}">{{$resnames->name_th}} - {{$resnames->name_en}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+
+
+
+                            <div id="preorders-input" class="col-span-12 xl:col-span-12" style="display: none;">
+                                <div class="mt-5">
+                                    <label>รายการสั่งออกแบบ</label>
+                                    <select name="preorders" data-placeholder="Select your favorite actors" class="tom-select w-full mt-3">
+                                        @foreach($preorders as $key_preorders => $respreorders)
+                                        <option value="{{$respreorders->id}}">{{$respreorders->number}} - {{$respreorders->email}} - {{$respreorders->status}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
                             
 
                            
@@ -130,41 +164,7 @@
 
 
 
-                            <div class="col-span-12 xl:col-span-12">
-                                <div class="mt-3">
-                                    <label for="" class="form-label">ประเภท</label>
-                                    <select name="type" id="type-select" class="w-full">
-                                        <option value="">เลือกประเภท</option>
-                                        <option value="names">ชื่อที่มีในระบบ</option>
-                                        <!-- <option value="combos">รายการขายที่มีการเพิ่มนามสกุล</option> -->
-                                        <option value="preorders">รายการสั่งออกแบบ</option>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div id="names-input" class="col-span-12 xl:col-span-12" style="display: none;">
-                                <div class="mt-5">
-                                    <label>ชื่อที่มีในระบบ</label>
-                                    <select name="names" data-placeholder="Select your favorite actors" class="tom-select w-full mt-3">
-                                        @foreach($names as $key_names => $resnames)
-                                        <option value="{{$resnames->id}}">{{$resnames->name_th}} - {{$resnames->name_en}}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-
-
-
-                            <div id="preorders-input" class="col-span-12 xl:col-span-12" style="display: none;">
-                                <div class="mt-5">
-                                    <label>รายการสั่งออกแบบ</label>
-                                    <select name="preorders" data-placeholder="Select your favorite actors" class="tom-select w-full mt-3">
-                                        @foreach($preorders as $key_preorders => $respreorders)
-                                        <option value="{{$respreorders->id}}">{{$respreorders->number}} - {{$respreorders->email}} - {{$respreorders->status}}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
+                            
 
                             
                                 
