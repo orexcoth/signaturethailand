@@ -35,9 +35,10 @@ class ReportsController extends Controller
     
     public function BN_reports_users_detail_download(Request $request, $users_id)
     {
-        $period = '';
+        
         // $getdata->sign = '';
         // $user = User::find($users_id);
+        // $period = '';
         // $startDate = null;
         // $endDate = null;
         // if ($request->has('period')) {
@@ -90,6 +91,18 @@ class ReportsController extends Controller
         // ->get();
 
 
+        // Initialize variables for date range
+        $period = '';
+        $startDate = null;
+        $endDate = null;
+
+        // Check if 'period' is present in the request and parse the date range
+        if ($request->has('period')) {
+            $dateRange = explode(" - ", $request->period);
+            $startDate = Carbon::createFromFormat('j M, Y', trim($dateRange[0]))->startOfDay();
+            $endDate = Carbon::createFromFormat('j M, Y', trim($dateRange[1]))->endOfDay();
+        }
+
         // Step 1: Retrieve the user
         $user = User::findOrFail($users_id);
 
@@ -101,9 +114,14 @@ class ReportsController extends Controller
             foreach ($signsIds as $signId) {
                 $query->orWhereJsonContains('signs', $signId);
             }
-        })->get();
+        })
+        ->when($startDate && $endDate, function($query) use ($startDate, $endDate) {
+            // Add date range filter if period is provided
+            $query->whereBetween('created_at', [$startDate, $endDate]);
+        })
+        ->get();
 
-
+        // Step 4: Filter sells with downloads
         $sellsWithDownloads = $sells->filter(function($sell) use ($signsIds) {
             $signs = json_decode($sell->signs, true); // Decode the JSON string to an array
             foreach ($signs as $signId) {
@@ -112,8 +130,8 @@ class ReportsController extends Controller
                     if ($sign) {
                         // Check if there is at least one downloadsModel with matching sells_id
                         $hasDownloads = downloadsModel::where('signs_id', $signId)
-                                                      ->where('sells_id', $sell->id)
-                                                      ->exists();
+                                                    ->where('sells_id', $sell->id)
+                                                    ->exists();
                         if ($hasDownloads) {
                             return true;
                         }
@@ -123,15 +141,17 @@ class ReportsController extends Controller
             return false;
         });
 
+        
 
 
 
 
-        dd($sellsWithDownloads);
+
+        // dd($sellsWithDownloads);
         return view('backend/reports-users-detail-download', [
             'default_pagename' => 'รายละเอียดรายการ',
             'period' => $period,
-            'query' => $getdata->signs,
+            'query' => $sellsWithDownloads,
         ]);
     }
 

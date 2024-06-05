@@ -231,15 +231,23 @@ class NamesController extends Controller
         ]);
     }
     
+
+
+
+
+
+
+
     public function BN_names_store(Request $request)
     {
         $userlogin = auth()->user();
         $userloginid = auth()->user()->id; 
 
         $data = NamesModel::leftJoin('signs', 'names.id', '=', 'signs.names_id')
-        ->select('names.id', 'signs.lang', DB::raw('COUNT(signs.lang) as count'))
-        ->groupBy('names.id', 'signs.lang')
-        ->get();
+            ->select('names.id', 'signs.lang', DB::raw('COUNT(signs.lang) as count'))
+            ->groupBy('names.id', 'signs.lang')
+            ->get();
+
         $count = [];
         foreach ($data as $item) {
             $lang = $item->lang ?: ''; // Handle NULL lang values
@@ -248,21 +256,40 @@ class NamesController extends Controller
                 $count[$nameId][$lang] = $item->count;
             }
         }
+
         foreach ($count as &$item) {
-        $languages = array_unique(array_merge(array_keys($item), ['en', 'th'])); // Include empty string
-        foreach ($languages as $lang) {
-            if (!isset($item[$lang])) {
-                $item[$lang] = 0;
+            $languages = array_unique(array_merge(array_keys($item), ['en', 'th'])); // Include empty string
+            foreach ($languages as $lang) {
+                if (!isset($item[$lang])) {
+                    $item[$lang] = 0;
+                }
             }
-        }
-        ksort($item); 
+            ksort($item); 
         }
         ksort($count);
 
-        $alldata = namesModel::count();
+        $alldata = NamesModel::count();
         
-        $query = namesModel::query();
+        $query = NamesModel::query();
+        $keylang = null;
+        if ($request->filled('keyword')) {
+            $keyword = $request->input('keyword');
+            $firstChar = mb_substr($keyword, 0, 1); // Get the first character of the keyword
+            if (preg_match('/^[\x{0E01}-\x{0E2E}]$/u', $firstChar)) {
+                $keylang = 'th'; // Keyword starts with Thai character
+            } elseif (preg_match('/^[a-zA-Z]$/', $firstChar)) {
+                $keylang = 'en'; // Keyword starts with English character
+            }
+        } elseif ($request->filled('alphabet')) {
+            $alphabet = $request->input('alphabet');
+            if (preg_match('/^[\x{0E01}-\x{0E2E}]$/u', $alphabet)) {
+                $keylang = 'th'; // Alphabet selected is Thai
+            } elseif (preg_match('/^[a-zA-Z]$/', $alphabet)) {
+                $keylang = 'en'; // Alphabet selected is English
+            }
+        }
 
+        // Keyword filtering
         if ($request->filled('keyword')) {
             $keyword = $request->input('keyword');
             $query->where(function ($query) use ($keyword) {
@@ -271,28 +298,48 @@ class NamesController extends Controller
             });
         }
 
-        if ($request->filled('language') && $request->filled('alphabet')) {
-            $language = $request->input('language');
+        // Alphabet filtering
+        if ($request->filled('alphabet')) {
             $alphabet = $request->input('alphabet');
-
-            if ($language == 'th') {
-                $query->where('name_th', 'REGEXP', '^[ก-๙เแัะำิีืึุูเแ]?' . $alphabet);
-            } elseif ($language == 'en') {
+            if (preg_match('/^[\x{0E01}-\x{0E2E}]$/u', $alphabet)) { // Thai alphabet range
+                $query->where('name_th', 'LIKE', $alphabet . '%');
+            } elseif (preg_match('/^[a-zA-Z]$/', $alphabet)) { // English alphabet range
                 $query->where('name_en', 'LIKE', $alphabet . '%');
             }
         }
+        // Alphabet filtering
+        // if ($request->filled('alphabet')) {
+        //     $alphabet = $request->input('alphabet');
+        //     if (preg_match('/^[\x{0E01}-\x{0E2E}]$/u', $alphabet)) { // Thai alphabet range
+        //         $query->where('name_th', 'LIKE', '%' . $alphabet . '%');
+        //     } elseif (preg_match('/^[a-zA-Z]$/', $alphabet)) { // English alphabet range
+        //         $query->where('name_en', 'LIKE', '%' . $alphabet . '%');
+        //     }
+        // }
 
-        if ($request->filled('sign') && $request->input('sign') === 'no') {
-            $query->whereNotExists(function ($query) {
-                $query->select(DB::raw(1))
-                    ->from('signs')
-                    ->whereColumn('names.id', 'signs.names_id')
-                    ->whereIn('signs.lang', ['en', 'th'])
-                    ->groupBy('signs.names_id')
-                    ->havingRaw('SUM(CASE WHEN signs.lang = "en" THEN 1 ELSE 0 END) > 0')
-                    ->havingRaw('SUM(CASE WHEN signs.lang = "th" THEN 1 ELSE 0 END) > 0');
-            });
+        // Sign filtering
+        if ($request->filled('sign')) {
+            $sign = $request->input('sign');
+            if ($sign === 'no') {
+                $query->whereNotExists(function ($query) {
+                    $query->select(DB::raw(1))
+                        ->from('signs')
+                        ->whereColumn('names.id', 'signs.names_id')
+                        ->groupBy('signs.names_id')
+                        ->havingRaw('COUNT(signs.id) > 0');
+                });
+            } elseif ($sign === 'yes') {
+                $query->whereExists(function ($query) {
+                    $query->select(DB::raw(1))
+                        ->from('signs')
+                        ->whereColumn('names.id', 'signs.names_id')
+                        ->groupBy('signs.names_id')
+                        ->havingRaw('COUNT(signs.id) > 0');
+                });
+            }
         }
+
+        // Price filtering
         if ($request->filled('price')) {
             $price = $request->input('price');
             if ($price === 'free') {
@@ -300,11 +347,13 @@ class NamesController extends Controller
             } elseif ($price === 'valuable') {
                 $query->where(function ($query) {
                     $query->where('free', 0)
-                          ->orWhereNull('free');
+                        ->orWhereNull('free');
                 });
             }
         }
 
+
+        $totalCount = $query->count();
         $query->withCount('signs');
         $query->with('suggests'); // Eager load the suggests relationship
 
@@ -312,26 +361,15 @@ class NamesController extends Controller
             ->orderByRaw("IF(name_en IS NOT NULL AND name_th IS NULL, 1, 0) ASC")
             ->orderBy('name_th', 'asc')
             ->orderBy('name_en', 'asc');
-        if (!$request->filled('keyword') && !($request->filled('language') && $request->filled('alphabet')) && !($request->filled('sign') && $request->input('sign') === 'no')) {
-            $query->where('id', '=', -1);
+
+        // Retrieve all data when no filters are applied
+        if (!$request->filled('keyword') && !$request->filled('alphabet') && !$request->filled('sign') && !$request->filled('price')) {
+            // No condition needed here to retrieve all data
         }
 
+        // dd($query->toSql(), $query->getBindings());
         $resultPerPage = 50;
         $query = $query->paginate($resultPerPage);
-
-        
-        // dd($query);
-        
-
-
-
-
-
-
-
-
-
-        
 
         return view('backend/names-store', [
             'default_pagename' => 'คลังรายชื่อ',
@@ -339,8 +377,23 @@ class NamesController extends Controller
             'alldata' => $alldata,
             'count' => $count,
             'userlogin' => $userlogin,
+            'totalCount' => $totalCount,
+            'keylang' => $keylang,
         ]);
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     public function BN_names_add(Request $request)
     {

@@ -192,4 +192,8 @@ return [
         'Image' => Intervention\Image\Facades\Image::class,
     ])->toArray(),
 
+
+    'charset' => 'UTF-8',
+
+
 ];

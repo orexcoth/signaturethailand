@@ -170,11 +170,17 @@ class WorksController extends Controller
         $preorders = preordersModel::get();
         $work_orders = work_ordersModel::get();
 
-        $query = work_ordersModel::query()
+        // $query = work_ordersModel::query()
+        //     ->orderBy('id', 'desc');
+        // $resultPerPage = 24;
+        // $query = $query->paginate($resultPerPage);
+
+        $query = work_ordersModel::with(['works.user', 'preorder', 'name'])
             ->orderBy('id', 'desc');
         $resultPerPage = 24;
         $query = $query->paginate($resultPerPage);
-        
+        // $paginatedResults = $query->paginate($resultPerPage);
+        // dd($query);
 
         return view('backend/works-assign-list', [
             'default_pagename' => 'ประวัติมอบหมาย',

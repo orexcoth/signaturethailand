@@ -56,33 +56,23 @@
         <table class="table table-report -mt-2">
             <thead>
                 <tr>
-                    <th class="whitespace-nowrap">*</th>
-                    <th class="whitespace-nowrap">signs_id</th>
-                    <th class="whitespace-nowrap">lang</th>
-                    <th class="whitespace-nowrap">created_at</th>
-                    <th class="whitespace-nowrap">customers_id</th>
+                    <th class="whitespace-nowrap">วันที่</th>
+                    <th class="whitespace-nowrap">รายการ</th>
+                    <th class="whitespace-nowrap">ยอด</th>
                 </tr>
             </thead>
 
             <tbody>
             @if($query->count() > 0)
-                @php
-                    $rowNumber = 0;
-                @endphp
-                @foreach($query as $keyres => $res)
-                    @foreach($res->downloads as $keyresdownloads => $downloads)
-                        @php
-                            $rowNumber++;
-                        @endphp
-                        <tr class="intro-x">
-                            <td><div class="text-slate-500 text-sm whitespace-nowrap mt-0.5">{{ $rowNumber }}</div></td>
-                            <td><div class="text-slate-500 text-sm whitespace-nowrap mt-0.5">{{ $res->id }}</div></td>
-                            <td><div class="text-slate-500 text-sm whitespace-nowrap mt-0.5">{{ $res->lang }}</div></td>
-                            <td><div class="text-slate-500 text-sm whitespace-nowrap mt-0.5">{{ $downloads->created_at }}</div></td>
-                            <td><div class="text-slate-500 text-sm whitespace-nowrap mt-0.5">{{ $downloads->customers_id }}</div></td>
-                        </tr>
-                    @endforeach
+                @foreach($query as $keyquery => $res)
+                <tr class="intro-x">
+                    <td><div class="text-slate-500 text-sm whitespace-nowrap mt-0.5">{{$res->created_at}}</div></td>
+                    <td><div class="text-slate-500 text-sm whitespace-nowrap mt-0.5">{{$res->number}}</div></td>
+                    <td><div class="text-slate-500 text-sm whitespace-nowrap mt-0.5">{{$res->total}}</div></td>
+
+                </tr>
                 @endforeach
+                
             @else
                 <tr>
                     <td colspan="2">No records found</td>

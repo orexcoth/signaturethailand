@@ -71,9 +71,10 @@
 
 @section('subcontent')
 <?php
-// echo "<pre>";
-// print_r($preorders);
-// echo "</pre>";
+$defaultuser = asset('img/avatar.JPEG');
+echo "<pre>";
+print_r($defaultuser);
+echo "</pre>";
 ?>
     <div class="intro-y mt-5 flex flex-col items-center sm:flex-row">
         <h2 class="mr-auto text-lg font-medium">{{$default_pagename}}</h2>
@@ -148,7 +149,7 @@
                                         <div class="checkbox-item" onclick="toggleCheckbox(this)">
                                             <input type="checkbox" name="users[]" id="users_{{$res->id}}" value="{{$res->id}}" class="hidden-checkbox" />
                                             <label for="users_{{$res->id}}" class="styled-checkbox">
-                                                <img src="{{ asset($res->photo) }}" alt="User Image" class="user-image" />
+                                                <img data-action="zoom" src="{{ asset($res->photo) ?? $defaultuser}}" alt="User Image" class="user-image" />
                                                 <div class="user-info">
                                                     <span class="user-id">ID: {{$res->id}}</span> /
                                                     <span class="user-name">{{$res->name}}</span>

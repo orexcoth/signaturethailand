@@ -43,60 +43,140 @@ class BackendPageController extends Controller
             'about_page' => $about_page->option_value,
         ]);
     }
-    public function BN_settings_dev(Request $request)
+    public function BN_settings_devvvv(Request $request)
     {
-        $imgpath = 'uploads/sign/th\20240327-4-2836-กก-660411ac6ead4.jpg';
+        // $imgpath = 'uploads/sign/th\20240327-4-2836-กก-660411ac6ead4.jpg';
 
-        $imagesource = asset($imgpath);
-        $logosource = asset('uploads/ic-logo-update-bg-w.png');
-        $imagePath = public_path($imgpath);
-        $logoPath = public_path('uploads/ic-logo-update-bg-w.png');
-        $image = imagecreatefromjpeg($imagePath);
-        $logo = imagecreatefrompng($logoPath);
+        // $imagesource = asset($imgpath);
+        // $logosource = asset('uploads/ic-logo-update-bg-w.png');
+        // $imagePath = public_path($imgpath);
+        // $logoPath = public_path('uploads/ic-logo-update-bg-w.png');
+        // $image = imagecreatefromjpeg($imagePath);
+        // $logo = imagecreatefrompng($logoPath);
 
-        // $logo = imagerotate($logo, 30, 0);
+        // $imageWidth = imagesx($image);
+        // $imageHeight = imagesy($image);
+        // $logoWidth = imagesx($logo);
+        // $logoHeight = imagesy($logo);
+        // $startX = 40;
+        // $startY = 20;
+        // $spacingX = 17; // ระยะห่างในแนวนอน
+        // $spacingY = 17; // ระยะห่างในแนวตั้ง
+        // $numCopiesX = floor(($imageWidth - $startX) / ($logoWidth + $spacingX)); // จำนวนโลโก้ในแนวนอน
+        // $numCopiesY = floor(($imageHeight - $startY) / ($logoHeight + $spacingY)); // จำนวนโลโก้ในแนวตั้ง
 
-        $imageWidth = imagesx($image);
-        $imageHeight = imagesy($image);
-        $logoWidth = imagesx($logo);
-        $logoHeight = imagesy($logo);
-        $startX = 40;
-        $startY = 20;
-        $spacingX = 17; // ระยะห่างในแนวนอน
-        $spacingY = 17; // ระยะห่างในแนวตั้ง
-        // $logo->rotate(45);
-        $numCopiesX = floor(($imageWidth - $startX) / ($logoWidth + $spacingX)); // จำนวนโลโก้ในแนวนอน
-        $numCopiesY = floor(($imageHeight - $startY) / ($logoHeight + $spacingY)); // จำนวนโลโก้ในแนวตั้ง
+        // for ($i = 0; $i < $numCopiesY; $i++) {
+        //     for ($j = 0; $j < $numCopiesX; $j++) {
+        //         $x = $startX + ($logoWidth + $spacingX) * $j;
+        //         $y = $startY + ($logoHeight + $spacingY) * $i;
+        //         imagecopy($image, $logo, $x, $y, 0, 0, $logoWidth, $logoHeight);
+        //     }
+        // }
+        // imagejpeg($image, public_path('uploads/watermarked.jpg'));
+        // imagedestroy($image);
+        // imagedestroy($logo);
+        // $watermarked = asset('uploads/watermarked.jpg');
+        // $watermarkedPath = 'uploads/feature/';
 
-        for ($i = 0; $i < $numCopiesY; $i++) {
-            for ($j = 0; $j < $numCopiesX; $j++) {
-                $x = $startX + ($logoWidth + $spacingX) * $j;
-                $y = $startY + ($logoHeight + $spacingY) * $i;
-                imagecopy($image, $logo, $x, $y, 0, 0, $logoWidth, $logoHeight);
-            }
-        }
-        imagejpeg($image, public_path('uploads/watermarked.jpg'));
-        imagedestroy($image);
-        imagedestroy($logo);
-        $watermarked = asset('uploads/watermarked.jpg');
-        $watermarkedPath = 'uploads/feature/';
+        // $testpath = public_path('uploads/sign/th\20240221-4-2836-กก-65d61d97bd5de.jpg');
+        // $testurl = asset('uploads/sign/th\20240221-4-2836-กก-65d61d97bd5de.jpg');
 
-        $testpath = public_path('uploads/sign/th\20240221-4-2836-กก-65d61d97bd5de.jpg');
-        $testurl = asset('uploads/sign/th\20240221-4-2836-กก-65d61d97bd5de.jpg');
-
-        return view('backend/setting-dev', [
+        return view('backend/setting-devvvv', [
             'default_pagename' => 'แดชบอร์ด',
-            'imagePath' => $imagePath,
-            'logoPath' => $logoPath,
-            'imagesource' => $imagesource,
-            'logosource' => $logosource,
-            'watermarked' => $watermarked,
-            'watermarkedPath' => $watermarkedPath,
-            'testpath' => $testpath,
-            'testurl' => $testurl,
+            // 'imagePath' => $imagePath,
+            // 'logoPath' => $logoPath,
+            // 'imagesource' => $imagesource,
+            // 'mosaic_url' => asset($mosaicPath)
+            // 'logosource' => $logosource,
+            // 'watermarked' => $watermarked,
+            // 'watermarkedPath' => $watermarkedPath,
+            // 'testpath' => $testpath,
+            // 'testurl' => $testurl,
         ]);
 
+        //http://127.0.0.1:8000/uploads/sign/th\20240327-4-2836-กก-660411ac6ead4.jpg
+
+        // Download the image from the URL
+        $tempImage = tempnam(sys_get_temp_dir(), 'mosaic_') . '.jpg';
+        file_put_contents($tempImage, file_get_contents($imagesource));
+
+        // Check if the temporary image file exists
+        if (!File::exists($tempImage)) {
+            return response()->json(['error' => 'Temporary image file not found'], 404);
+        }
+
+        $mosaicWidth = 800; // Width of the mosaic
+        $mosaicHeight = 600; // Height of the mosaic
+        $tileSize = 100; // Size of each tile
+
+        $mosaic = Image::canvas($mosaicWidth, $mosaicHeight);
+
+        $sourceImage = Image::make($tempImage);
+
+        for ($y = 0; $y < $mosaicHeight; $y += $tileSize) {
+            for ($x = 0; $x < $mosaicWidth; $x += $tileSize) {
+                $tile = $sourceImage->resize($tileSize, $tileSize);
+                $mosaic->insert($tile, 'top-left', $x, $y);
+            }
+        }
+
+        $mosaicPath = 'mosaic/mosaic_' . time() . '.jpg';
+        $mosaic->save(public_path($mosaicPath));
+
+        // Delete the temporary image file
+        unlink($tempImage);
+
+        // dd($mosaicPath);
     }
+
+
+
+    public function BN_settings_dev(Request $request)
+    {
+        $imgpath = 'uploads/sign/th/20240327-4-2836-กก-660411ac6ead4.jpg';
+        $imagesource = public_path($imgpath);
+
+        // Check if the source image exists
+        if (!File::exists($imagesource)) {
+            return response()->json(['error' => 'Source image not found'], 404);
+        }
+
+        $image = Image::make($imagesource);
+
+        $x = 0;
+        $y = 0;
+        $width = $image->width();
+        $height = $image->height();
+        $blockSize = 20;
+
+        $croppedImage = $image->crop($width, $height, $x, $y);
+        $mosaicImage = $croppedImage->resize($width / $blockSize, $height / $blockSize);
+        $mosaicImage = $mosaicImage->resize($width, $height, function ($constraint) {
+            $constraint->aspectRatio();
+        });
+        $image->insert($mosaicImage, 'top-left', $x, $y);
+
+        $name_mosaic = uniqid() . time() . '-result-mosaic.jpg';
+        $filepath_mosaic = 'uploads/mosaic/' . $name_mosaic;
+        $image->save(public_path($filepath_mosaic));
+
+        return view('backend.setting-dev', [
+            'default_pagename' => 'แดชบอร์ด',
+            'imagesource' => asset($imgpath),
+            'mosaic_url' => asset($filepath_mosaic)
+        ]);
+    }
+
+
+
+
+
+
+
+
+
+
+
 
     public function backendDashboard()
     {

@@ -42,8 +42,11 @@
         <table class="table table-report -mt-2">
             <thead>
                 <tr>
-                    <th class="text-center whitespace-nowrap">#</th>
+                    <!-- <th class="text-center whitespace-nowrap">#</th> -->
                     <th class="whitespace-nowrap">วันที่มอบหมาย</th>
+                    <th class="whitespace-nowrap">ผู้มอบหมาย</th>
+                    <th class="whitespace-nowrap">ประเภท</th>
+                    <th class="whitespace-nowrap">หมายเลขรายการ</th>
                     <th class="whitespace-nowrap">รายการ</th>
                     <th class="text-center whitespace-nowrap"></th>
                     <!-- <th class="text-center whitespace-nowrap"></th> -->
@@ -53,14 +56,59 @@
             @foreach($query as $keyres => $res)
    
                 <tr class="intro-x">
-                    <td class="text-center">{{(($query->currentPage()-1)*24)+$keyres+1}}</td>
+                    <!-- <td class="text-center">{{(($query->currentPage()-1)*24)+$keyres+1}}</td> -->
 
                     <td>
                         <div class="font-medium whitespace-nowrap">{{date('d/m/Y H:i:s', strtotime($res->created_at))}}</div>
                     </td>
 
                     <td>
+                        <div class="font-medium whitespace-nowrap">{{$res->user->name}}</div>
+                    </td>
+                    <td>
+                        <div class="font-medium whitespace-nowrap">{{$res->type}}</div>
+                    </td>
+                    <td>
                         <div class="font-medium whitespace-nowrap">{{$res->number}}</div>
+                    </td>
+                    <td>
+                        <div class="font-medium whitespace-nowrap">
+                        @if($res->type == 'preorders')
+            
+                            @if($res->preorder->package=='thai'  ||  $res->preorder->package=='combo')
+                                @if($res->preorder->preorder_type=='firstname' ||  $res->preorder->preorder_type=='duo')
+                                    
+                                    {{$res->preorder->firstname_th}}
+                                    
+                                @endif  
+                                
+                                @if($res->preorder->preorder_type=='lastname' ||  $res->preorder->preorder_type=='duo')
+                                    
+                                     {{$res->preorder->lastname_th}}
+                                    
+                                @endif      
+                            @endif
+                            
+                            @if($res->preorder->package=='english'  ||  $res->preorder->package=='combo')
+                                @if($res->preorder->preorder_type=='firstname' ||  $res->preorder->preorder_type=='duo')
+                                    
+                                     {{$res->preorder->firstname_en}}
+
+                                @endif  
+                                
+                                @if($res->preorder->preorder_type=='lastname' ||  $res->preorder->preorder_type=='duo')
+
+                                     {{$res->preorder->lastname_en}}
+
+                                @endif       
+                            @endif
+                        
+                        @endif
+                        
+                        @if($res->type == 'names')
+                            {{$res->name->name_th}} / {{$res->name->name_en}}
+                        @endif
+                        </div>
                     </td>
                     <td class="table-report__action w-56">
                         <div class="flex justify-center items-center">

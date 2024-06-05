@@ -8,7 +8,7 @@
 
 <?php
 // echo "<pre>";
-// print_r($sign);
+// print_r($sign->name->free);
 // echo "</pre>";
 // echo "<pre>";
 // print_r(count($namesen));
@@ -20,7 +20,12 @@
             <div class="ColDetail-Signature">
                 <div class="row">
                     <div class="col-lg-6 col-md-6 col-12">
+                        <!-- <img class="IMG-BigSignature" src="{{asset($sign->sign)}}" alt=""> -->
+                        @if ($sign->name->free)
                         <img class="IMG-BigSignature" src="{{asset($sign->sign)}}" alt="">
+                        @else
+                        <img class="IMG-BigSignature" src="{{asset($sign->feature)}}" alt="">
+                        @endif
                     </div>
                     <div class="col-lg-6 col-md-6 col-12 d-flex align-items-center">
                         <div class="WarpColProfile-TeamSNG">
