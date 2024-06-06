@@ -51,46 +51,58 @@
         </div>
     </form>
 
-    <!-- BEGIN: Data List -->
-    <div class="intro-y col-span-12 overflow-auto lg:overflow-visible">
-        <table class="table table-report -mt-2">
-            <thead>
-                <tr>
-                    <th class="whitespace-nowrap">วันที่</th>
-                    <th class="whitespace-nowrap">รายการ</th>
-                    <th class="whitespace-nowrap">ยอด</th>
-                </tr>
-            </thead>
+   
 
-            <tbody>
-            @if($query->count() > 0)
-                @foreach($query as $keyquery => $res)
-                <tr class="intro-x">
-                    <td><div class="text-slate-500 text-sm whitespace-nowrap mt-0.5">{{$res->created_at}}</div></td>
-                    <td><div class="text-slate-500 text-sm whitespace-nowrap mt-0.5">{{$res->number}}</div></td>
-                    <td><div class="text-slate-500 text-sm whitespace-nowrap mt-0.5">{{$res->total}}</div></td>
-
-                </tr>
-                @endforeach
-                
-            @else
-                <tr>
-                    <td colspan="2">No records found</td>
-                </tr>
-            @endif
-        </tbody>
+    
 
 
-            <!-- <tbody id="fetchPosts">
-                
-            </tbody> -->
-        </table>
-    </div>
-    <!-- END: Data List -->
+
+    
     
 
 
    
+    <!-- BEGIN: Data List -->
+        <div class="intro-y col-span-12 overflow-auto lg:overflow-visible">
+            <table class="table table-report -mt-2">
+                <thead>
+                    <tr>
+                        <th class="whitespace-nowrap">วันที่</th>
+                        <th class="whitespace-nowrap">รายการ</th>
+                        <th class="whitespace-nowrap">ยอด</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                @if($query->count() > 0)
+                    @php
+                        $totalSum = 0;
+                    @endphp
+                    @foreach($query as $keyquery => $res)
+                    <tr class="intro-x">
+                        <td><div class="text-slate-500 text-sm whitespace-nowrap mt-0.5">{{$res->created_at}}</div></td>
+                        <td><div class="text-slate-500 text-sm whitespace-nowrap mt-0.5">{{$res->number}}</div></td>
+                        <td><div class="text-slate-500 text-sm whitespace-nowrap mt-0.5">{{$res->total}}</div></td>
+                    </tr>
+                    @php
+                        $totalSum += $res->total;
+                    @endphp
+                    @endforeach
+
+                    <!-- Row for total -->
+                    <tr class="intro-x">
+                        <td colspan="2"><div class="text-slate-500 text-sm whitespace-nowrap mt-0.5 text-right font-bold">Total</div></td>
+                        <td><div class="text-slate-500 text-sm whitespace-nowrap mt-0.5 font-bold">{{$totalSum}}</div></td>
+                    </tr>
+                @else
+                    <tr>
+                        <td colspan="3">No records found</td>
+                    </tr>
+                @endif
+                </tbody>
+            </table>
+        </div>
+        <!-- END: Data List -->
 
     
 
