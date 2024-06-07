@@ -133,7 +133,7 @@ class BackendPageController extends Controller
 
     public function BN_settings_dev(Request $request)
     {
-        $imgpath = 'uploads/sign/th/20240327-4-2836-กก-660411ac6ead4.jpg';
+        $imgpath = 'uploads/sign/S__7643142.jpg';
         $imagesource = public_path($imgpath);
 
         // Check if the source image exists
@@ -147,7 +147,7 @@ class BackendPageController extends Controller
         $y = 0;
         $width = $image->width();
         $height = $image->height();
-        $blockSize = 20;
+        $blockSize = 27;
 
         $croppedImage = $image->crop($width, $height, $x, $y);
         $mosaicImage = $croppedImage->resize($width / $blockSize, $height / $blockSize);

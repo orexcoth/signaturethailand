@@ -168,6 +168,7 @@ class UsersController extends Controller
         $User->email = $request->email;
         $User->role = $request->role;;
         $User->status = $request->active;
+        $User->percent = $request->percent;
 
         $User->update();
         

@@ -18,6 +18,7 @@ class usersModel extends Model
         'role',
         'photo',
         'status',
+        'percent',
     ];
 
     public function signs()

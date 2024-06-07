@@ -25,6 +25,8 @@ use App\Models\usersModel;
 use App\Models\suggestsModel;
 use App\Models\OptionsModel;
 
+use Illuminate\Support\Facades\Mail;
+
 class NamesController extends Controller
 {
 
@@ -740,6 +742,16 @@ class NamesController extends Controller
             $suggestion->status = 'added';
             $suggestion->names_id = $name->id;
             $suggestion->save();
+
+            // Send email to the suggestion's email address
+            $toEmail = $suggestion->email;
+            $subject = 'Suggestion Approved';
+            $content = 'Your suggestion is approved!';
+            
+            Mail::raw($content, function ($message) use ($toEmail, $subject) {
+                $message->to($toEmail)
+                        ->subject($subject);
+            });
 
             // return redirect()->back()->with('success', 'เพิ่มชื่อเข้าคลังรายชื่อสำเร็จ !');
             return redirect(route('BN_names_detail', ['id' => $name->id]))->with('success', 'เพิ่มชื่อเข้าคลังรายชื่อสำเร็จ !!!');

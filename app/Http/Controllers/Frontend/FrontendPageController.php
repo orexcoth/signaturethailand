@@ -9,20 +9,6 @@ use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Validator;
 
-// use App\Models\Sms_session;
-// use App\Models\provincesModel;
-// use App\Models\brandsModel;
-// use App\Models\modelsModel;
-// use App\Models\generationsModel;
-// use App\Models\sub_modelsModel;
-// use App\Models\carsModel;
-// use App\Models\categoriesModel;
-// use App\Models\setFooterModel;
-// use App\Models\setting_optionModel;
-// use App\Models\contactsModel;
-// use App\Models\contacts_backModel;
-// use App\Models\newsModel;
-// use App\Models\noticeModel;
 use App\Models\suggestsModel;
 use App\Models\contactsModel;
 use App\Models\OptionsModel;
@@ -37,14 +23,66 @@ use App\Models\sellsModel;
 use App\Models\sells_namesModel;
 use App\Models\downloadsModel;
 
+// use Dompdf\Dompdf;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
 use File;
+
+use Mpdf\Mpdf;
+use Mpdf\Config\ConfigVariables;
+use Mpdf\Config\FontVariables;
+use Illuminate\Support\Facades\Mail;
+// use Barryvdh\DomPDF\Facade as PDF;
+// use PDF;
+// use Barryvdh\DomPDF\PDF;
+
 
 
 
 class FrontendPageController extends Controller
 {
+
+    public function generateReceipt()
+    {
+        // Set font directory and font data
+        $fontDir = public_path('fonts/prompt');
+        $fontData = [
+            'prompt' => [
+                'R' => 'Prompt-Regular.ttf', // Regular font
+            ],
+        ];
+
+        // Set up mPDF with font configuration
+        $mpdf = new Mpdf([
+            'fontDir' => $fontDir,
+            'fontdata' => $fontData
+        ]);
+
+        // HTML template for receipt
+        $html = view('receipt')->render();
+
+        // Render HTML as PDF
+        $mpdf->WriteHTML($html);
+
+        // Output the PDF as a downloadable file (optional)
+        $mpdf->Output('receipt.pdf', 'I');
+    }
+
+
+
+    public function sendEmail(Request $request)
+    {
+        $toEmail = 'hireos.kong@gmail.com'; // The recipient's email address
+
+        Mail::raw('send email success', function ($message) use ($toEmail) {
+            $message->to($toEmail)
+                    ->subject('Test Email');
+        });
+
+        return redirect()->back()->with('success', 'Email sent successfully!');
+    }
+
+
 
     public function contactaction(Request $request)
     {

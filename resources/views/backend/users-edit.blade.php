@@ -51,6 +51,12 @@
                                         <option value="creator" {{($user->role=='creator')?'selected':''}} >พนักงาน</option>
                                     </select>
                                 </div>
+
+                                <div class="mt-3">
+                                    <label for="percent" class="form-label">Percent</label>
+                                    <input type="number" class="form-control w-full" value="{{ number_format($user->percent, 2) }}" name="percent" id="percent" min="0.00" max="100.00" step="0.01" autocomplete="off" />
+                                </div>
+
                                 <!-- <div class="mt-3">
                                     <label for="" class="form-label">แอคทีฟ</label>
                                     <select class="form-control w-full" name="active" required >

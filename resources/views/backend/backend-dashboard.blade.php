@@ -21,6 +21,8 @@
         <h2 class="mr-auto text-lg font-medium">{{$default_pagename}}</h2>
     </div>
 
+    <a href="{{ route('send.email') }}">Test Mail</a>
+
 
         
 @endsection

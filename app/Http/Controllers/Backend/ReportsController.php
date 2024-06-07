@@ -35,61 +35,6 @@ class ReportsController extends Controller
     
     public function BN_reports_users_detail_download(Request $request, $users_id)
     {
-        
-        // $getdata->sign = '';
-        // $user = User::find($users_id);
-        // $period = '';
-        // $startDate = null;
-        // $endDate = null;
-        // if ($request->has('period')) {
-        //     $dateRange = explode(" - ", $request->period);
-        //     $startDate = Carbon::createFromFormat('j M, Y', trim($dateRange[0]))->startOfDay();
-        //     $endDate = Carbon::createFromFormat('j M, Y', trim($dateRange[1]))->endOfDay();
-        // }
-        // $query = User::query();
-        // if ($users_id) {
-        //     $query->where('id', $users_id);
-        // }
-        // if ($startDate && $endDate) {
-        //     $query->withCount([
-        //         'signs' => function ($query) use ($startDate, $endDate) {
-        //             $query->whereBetween('created_at', [$startDate, $endDate]);
-        //         }
-        //     ])->with([
-        //         'signs' => function ($query) use ($startDate, $endDate) {
-        //             $query->whereBetween('created_at', [$startDate, $endDate])->with('downloads');
-        //         }
-        //     ]);
-        // } else {
-        //     $query->withCount(['signs', 'preordersTurnIns'])
-        //         ->with(['signs', 'preordersTurnIns']);
-        // }
-        // $results = $query->get();
-        // if ($results->isNotEmpty()) {
-        //     $firstUser = $results->first();
-        //     $downloadsCount = downloadsModel::whereHas('sign', function ($query) use ($firstUser) {
-        //         $query->where('users_id', $firstUser->id);
-        //     })->count();
-        //     $firstUser->downloads_count = $downloadsCount;
-        //     $getdata = $firstUser;
-        // } else {
-        //     $getdata = null;
-        // }
-        // $period = $request->query('period');  
-        // $sellsWithDownloads = sellsModel::get();
-        
-
-
-        // $user = User::findOrFail($users_id);
-        // $signsIds = $user->signs()->pluck('id')->toArray();
-        // $sells = sellsModel::where(function($query) use ($signsIds) {
-        //     foreach ($signsIds as $signId) {
-        //         $query->orWhereJsonContains('signs', $signId);
-        //     }
-        // })
-        // ->whereHas('downloads') // Ensure the sellsModel has at least one related downloadsModel
-        // ->get();
-
 
         // Initialize variables for date range
         $period = '';
@@ -152,6 +97,7 @@ class ReportsController extends Controller
             'default_pagename' => 'รายละเอียดรายการ',
             'period' => $period,
             'query' => $sellsWithDownloads,
+            'user' => $user,
         ]);
     }
 
@@ -292,6 +238,9 @@ class ReportsController extends Controller
             $getdata = null;
         }
         $period = $request->query('period');    
+
+
+        
         return view('backend/reports-users-detail', [
             'default_pagename' => 'รายละเอียดรายการ',
             'user' => $user,

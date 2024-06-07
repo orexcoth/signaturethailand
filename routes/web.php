@@ -146,6 +146,20 @@ Route::get('payment-test', [PaymentController::class, 'paymenttestPage'])->name(
 
 
 
+
+Route::get('/send-email', [FrontendPageController::class, 'sendEmail'])->name('send.email');
+// Route::get('/receipt', [FrontendPageController::class, 'genreceipt'])->name('genreceipt');
+Route::get('/generate-receipt', [FrontendPageController::class, 'generateReceipt'])->name('generate-receipt');
+
+
+
+
+
+
+
+
+
+
 // Backend
 // Backend
 // Backend
