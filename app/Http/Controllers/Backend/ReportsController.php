@@ -19,6 +19,7 @@ use App\Models\OptionsModel;
 use App\Models\sellsModel;
 use App\Models\preordersModel;
 use App\Models\preorders_signsModel;
+use App\Models\preordersTurnInModel;
 use App\Models\downloadsModel;
 
 use App\Exports\SellsExport;
@@ -33,6 +34,108 @@ use App\Models\User;
 class ReportsController extends Controller
 {
     
+    public function BN_reports_users_detail_commission(Request $request, $users_id)
+{
+    // Initialize variables for date range
+    $period = '';
+    $startDate = null;
+    $endDate = null;
+
+    // Check if 'period' is present in the request and parse the date range
+    if ($request->has('period')) {
+        $dateRange = explode(" - ", $request->period);
+        $startDate = Carbon::createFromFormat('j M, Y', trim($dateRange[0]))->startOfDay();
+        $endDate = Carbon::createFromFormat('j M, Y', trim($dateRange[1]))->endOfDay();
+    }
+
+    // Step 1: Retrieve the user
+    $user = User::findOrFail($users_id);
+
+    // Get all signs IDs for this user
+    $signsIds = $user->signs()->pluck('id')->toArray();
+
+    // Get all sellsModels where 'signs' field contains the user's signs IDs
+    $sells = sellsModel::where(function($query) use ($signsIds) {
+        foreach ($signsIds as $signId) {
+            $query->orWhereJsonContains('signs', $signId);
+        }
+    })
+    ->when($startDate && $endDate, function($query) use ($startDate, $endDate) {
+        // Add date range filter if period is provided
+        $query->whereBetween('created_at', [$startDate, $endDate]);
+    })
+    ->get();
+
+    // Filter sells with downloads
+    $sellsWithDownloads = $sells->filter(function($sell) use ($signsIds) {
+        $signs = json_decode($sell->signs, true); // Decode the JSON string to an array
+        foreach ($signs as $signId) {
+            if (in_array($signId, $signsIds)) {
+                $sign = signsModel::find($signId);
+                if ($sign) {
+                    // Check if there is at least one downloadsModel with matching sells_id
+                    $hasDownloads = downloadsModel::where('signs_id', $signId)
+                                                ->where('sells_id', $sell->id)
+                                                ->exists();
+                    if ($hasDownloads) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    });
+
+    // Get all preordersTurnInModel entries for this user
+    $turnIns = preordersTurnInModel::where('users_id', $user->id)
+                ->when($startDate && $endDate, function($query) use ($startDate, $endDate) {
+                    // Add date range filter if period is provided
+                    $query->whereBetween('created_at', [$startDate, $endDate]);
+                })
+                ->get();
+
+    // Get unique preorders_id from the turnIns
+    $preordersIds = $turnIns->pluck('preorders_id')->unique()->toArray();
+
+    // Retrieve preordersModel records that match the preordersIds
+    $preorders = preordersModel::whereIn('id', $preordersIds)
+                ->get();
+
+    // dd($preorders);
+    return view('backend/reports-users-detail-commission', [
+        'default_pagename' => 'รายละเอียด commission',
+        'period' => $period,
+        'sellsWithDownloads' => $sellsWithDownloads,
+        'preorders' => $preorders,
+        'user' => $user,
+    ]);
+}
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     public function BN_reports_users_detail_download(Request $request, $users_id)
     {
 
@@ -86,12 +189,6 @@ class ReportsController extends Controller
             return false;
         });
 
-        
-
-
-
-
-
         // dd($sellsWithDownloads);
         return view('backend/reports-users-detail-download', [
             'default_pagename' => 'รายละเอียดรายการ',
@@ -101,48 +198,45 @@ class ReportsController extends Controller
         ]);
     }
 
-
     public function BN_reports_users_detail_turnin(Request $request, $users_id)
     {
-        $user = User::find($users_id);
+        // Initialize variables for date range
+        $period = '';
         $startDate = null;
         $endDate = null;
+
+        // Check if 'period' is present in the request and parse the date range
         if ($request->has('period')) {
             $dateRange = explode(" - ", $request->period);
             $startDate = Carbon::createFromFormat('j M, Y', trim($dateRange[0]))->startOfDay();
             $endDate = Carbon::createFromFormat('j M, Y', trim($dateRange[1]))->endOfDay();
         }
-        $query = User::query();
-        if ($users_id) {
-            $query->where('id', $users_id);
-        }
-        if ($startDate && $endDate) {
-            $query->withCount([
-                'preordersTurnIns' => function ($query) use ($startDate, $endDate) {
-                    $query->whereBetween('created_at', [$startDate, $endDate]);
-                }
-            ])->with([
-                'preordersTurnIns' => function ($query) use ($startDate, $endDate) {
-                    $query->whereBetween('created_at', [$startDate, $endDate])->with('preorder');
-                }
-            ]);
-        } else {
-            $query->withCount(['signs', 'preordersTurnIns'])
-                ->with(['signs', 'preordersTurnIns']);
-        }
-        $results = $query->get();
-        if ($results->isNotEmpty()) {
-            $firstUser = $results->first();
-            $getdata = $firstUser;
-        } else {
-            $getdata = null;
-        }
-        $period = $request->query('period');   
-        // dd($getdata->preordersTurnIns);
+
+        // Step 1: Retrieve the user
+        $user = User::findOrFail($users_id);
+
+        // Step 2: Get all preordersTurnInModel entries for this user
+        $turnIns = preordersTurnInModel::where('users_id', $user->id)
+                    ->when($startDate && $endDate, function($query) use ($startDate, $endDate) {
+                        // Add date range filter if period is provided
+                        $query->whereBetween('created_at', [$startDate, $endDate]);
+                    })
+                    ->get();
+
+        // Step 3: Get unique preorders_id from the turnIns
+        $preordersIds = $turnIns->pluck('preorders_id')->unique()->toArray();
+
+        // Step 4: Retrieve preordersModel records that match the preordersIds
+        $preorders = preordersModel::whereIn('id', $preordersIds)
+                    // ->with(['customer', 'turnIns', 'downloads', 'workOrders'])
+                    ->get();
+
+        // dd($preorders);
         return view('backend/reports-users-detail-turnin', [
             'default_pagename' => 'รายละเอียดรายการ',
             'period' => $period,
-            'query' => $getdata->preordersTurnIns,
+            'query' => $preorders,
+            'user' => $user,
         ]);
     }
 
@@ -403,6 +497,69 @@ class ReportsController extends Controller
         return view('backend/reports-preorders', [
             'default_pagename' => 'การสั่งออกแบบทั้งหมด',
             'query' => $results,
+        ]);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    public function OLD_BN_reports_users_detail_turnin(Request $request, $users_id)
+    {
+        $user = User::find($users_id);
+        $startDate = null;
+        $endDate = null;
+        if ($request->has('period')) {
+            $dateRange = explode(" - ", $request->period);
+            $startDate = Carbon::createFromFormat('j M, Y', trim($dateRange[0]))->startOfDay();
+            $endDate = Carbon::createFromFormat('j M, Y', trim($dateRange[1]))->endOfDay();
+        }
+        $query = User::query();
+        if ($users_id) {
+            $query->where('id', $users_id);
+        }
+        if ($startDate && $endDate) {
+            $query->withCount([
+                'preordersTurnIns' => function ($query) use ($startDate, $endDate) {
+                    $query->whereBetween('created_at', [$startDate, $endDate]);
+                }
+            ])->with([
+                'preordersTurnIns' => function ($query) use ($startDate, $endDate) {
+                    $query->whereBetween('created_at', [$startDate, $endDate])->with('preorder');
+                }
+            ]);
+        } else {
+            $query->withCount(['signs', 'preordersTurnIns'])
+                ->with(['signs', 'preordersTurnIns']);
+        }
+        $results = $query->get();
+        if ($results->isNotEmpty()) {
+            $firstUser = $results->first();
+            $getdata = $firstUser;
+        } else {
+            $getdata = null;
+        }
+        $period = $request->query('period');          
+        // dd($getdata->preordersTurnIns);
+        return view('backend/reports-users-detail-turnin', [
+            'default_pagename' => 'รายละเอียดรายการ',
+            'period' => $period,
+            'query' => $getdata->preordersTurnIns,
         ]);
     }
 }

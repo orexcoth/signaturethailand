@@ -29,7 +29,8 @@ class User extends Authenticatable
         'role',
         'photo',
         'status',
-        'percent',
+        'rate_download',
+        'rate_preorder',
     ];
 
     /**

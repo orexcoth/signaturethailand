@@ -10,13 +10,8 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\DB;
 
 
-// use Illuminate\Http\RedirectResponse;
-// use Illuminate\Support\Facades\File;
-// use Illuminate\Support\Facades\Auth;
-// use Illuminate\Support\Facades\Hash;
-// use Illuminate\Support\Facades\Storage;
-// use Illuminate\Auth\Events\Registered;
-// use Illuminate\Validation\Rules;
+use Illuminate\Support\Facades\File; // Import the File facade
+use Image; // Import the Image facade
 
 use App\Models\customersModel;
 use App\Models\namesModel;
@@ -26,6 +21,8 @@ use App\Models\suggestsModel;
 use App\Models\OptionsModel;
 
 use Illuminate\Support\Facades\Mail;
+
+
 
 class NamesController extends Controller
 {
@@ -43,6 +40,27 @@ class NamesController extends Controller
 
         return response()->json(['success' => false], 500);
     }
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     public function BN_names_sign_add_action(Request $request) {
         // Validate sign and video uploads
@@ -74,49 +92,42 @@ class NamesController extends Controller
         $videoNewFileName = $currentDate . '-' . $userId . '-' . $request->names_id . '-' . $defaultName . '-' . $randomString . '.' . $videoExtension;
         $videoDestinationPath = 'uploads/video/' . $langFolder;
         $videoPath = $videoFile->move($videoDestinationPath, $videoNewFileName);
-        /** gen feature */
-        /** gen feature */
-        $imgpath = $signPath->getPathname();
-        $imagesource = asset($imgpath);
-        $logosource = asset('uploads/ic-logo-update-bg-w.png');
-        $imagePath = public_path($imgpath);
-        $logoPath = public_path('uploads/ic-logo-update-bg-w.png');
-        $image = imagecreatefromjpeg($imagePath);
-        $logo = imagecreatefrompng($logoPath);
-        // $logo = imagerotate($logo, 30, 0);
-
-        $imageWidth = imagesx($image);
-        $imageHeight = imagesy($image);
-        $logoWidth = imagesx($logo);
-        $logoHeight = imagesy($logo);
-        $startX = 40;
-        $startY = 20;
-        $spacingX = 17; // ระยะห่างในแนวนอน
-        $spacingY = 17; // ระยะห่างในแนวตั้ง
-        
-        $numCopiesX = floor(($imageWidth - $startX) / ($logoWidth + $spacingX)); // จำนวนโลโก้ในแนวนอน
-        $numCopiesY = floor(($imageHeight - $startY) / ($logoHeight + $spacingY)); // จำนวนโลโก้ในแนวตั้ง
-
-        for ($i = 0; $i < $numCopiesY; $i++) {
-            for ($j = 0; $j < $numCopiesX; $j++) {
-                $x = $startX + ($logoWidth + $spacingX) * $j;
-                $y = $startY + ($logoHeight + $spacingY) * $i;
-                imagecopy($image, $logo, $x, $y, 0, 0, $logoWidth, $logoHeight);
-            }
-        }
-        imagejpeg($image, public_path('uploads/feature/' . $langFolder . '/' . $signNewFileName));
-        imagedestroy($image);
-        imagedestroy($logo);
-        $watermarked = asset('uploads/feature/' . $langFolder . '/' . $signNewFileName);
-        $watermarkedPath = 'uploads/feature/' . $langFolder . '/' . $signNewFileName;
-        
-        /** gen feature */
-        /** gen feature */
-
+    
         if ($videoPath === false) {
             Log::error('Video upload failed.');
             return redirect()->back()->with('error', 'Video upload failed.');
         }
+    
+        /** start gen feature */
+        $imgpath = $signPath->getPathname();
+        $imagesource = public_path($imgpath);
+    
+        // Check if the source image exists
+        if (!File::exists($imagesource)) {
+            return redirect()->back()->with('error', 'Source image not found.');
+        }
+    
+        $image = Image::make($imagesource);
+    
+        $x = 0;
+        $y = 0;
+        $width = $image->width();
+        $height = $image->height();
+        $blockSize = 27;
+    
+        $croppedImage = $image->crop($width, $height, $x, $y);
+        $mosaicImage = $croppedImage->resize($width / $blockSize, $height / $blockSize);
+        $mosaicImage = $mosaicImage->resize($width, $height, function ($constraint) {
+            $constraint->aspectRatio();
+        });
+        $image->insert($mosaicImage, 'top-left', $x, $y);
+    
+        $name_mosaic = uniqid() . time() . '-result-mosaic.jpg';
+        $filepath_mosaic = 'uploads/mosaic/' . $name_mosaic;
+        $image->save(public_path($filepath_mosaic));
+    
+        $mosaicImagePath = $filepath_mosaic;
+        /** end gen feature */
     
         $sign = new signsModel();
         $sign->status = 1;
@@ -131,13 +142,22 @@ class NamesController extends Controller
         $sign->lang = $request->lang;
         $sign->sign = $signPath->getPathname();
         $sign->video = $videoPath->getPathname();
-        $sign->feature = $watermarkedPath;
+        $sign->feature = $mosaicImagePath;
         $sign->save();
     
         Log::info('Sign added successfully.');
-        // return redirect()->back()->with('success', 'เพิ่มลายเซ็นต์เรียบร้อย !');
         return redirect(route('BN_names_detail', ['id' => $request->names_id]))->with('success', 'เพิ่มลายเซ็นต์เรียบร้อย !!!');
     }
+
+    
+
+
+
+
+
+
+
+
 
 
     

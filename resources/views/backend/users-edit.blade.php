@@ -53,8 +53,12 @@
                                 </div>
 
                                 <div class="mt-3">
-                                    <label for="percent" class="form-label">Percent</label>
-                                    <input type="number" class="form-control w-full" value="{{ number_format($user->percent, 2) }}" name="percent" id="percent" min="0.00" max="100.00" step="0.01" autocomplete="off" />
+                                    <label for="rate_download" class="form-label">ดาวน์โหลด</label>
+                                    <input type="number" class="form-control w-full" value="{{ number_format($user->rate_download, 2) }}" name="rate_download" id="rate_download" min="0.00" max="100.00" step="0.01" autocomplete="off" />
+                                </div>
+                                <div class="mt-3">
+                                    <label for="rate_preorder" class="form-label">สั่งออกแบบ</label>
+                                    <input type="number" class="form-control w-full" value="{{ number_format($user->rate_preorder, 2) }}" name="rate_preorder" id="rate_preorder" min="0.00" max="100.00" step="0.01" autocomplete="off" />
                                 </div>
 
                                 <!-- <div class="mt-3">

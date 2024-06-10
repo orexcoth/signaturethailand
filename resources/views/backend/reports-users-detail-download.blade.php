@@ -71,7 +71,7 @@
                         <th class="whitespace-nowrap">สถานะ</th>
                         <th class="whitespace-nowrap">รายการ</th>
                         <th class="whitespace-nowrap">ยอด</th>
-                        <th class="whitespace-nowrap">percent</th>
+                        <th class="whitespace-nowrap">ค่าคอม</th>
                     </tr>
                 </thead>
 
@@ -87,11 +87,11 @@
                         <td><div class="text-slate-500 text-sm whitespace-nowrap mt-0.5">{{$res->status}}</div></td>
                         <td><div class="text-slate-500 text-sm whitespace-nowrap mt-0.5">{{$res->number}}</div></td>
                         <td><div class="text-slate-500 text-sm whitespace-nowrap mt-0.5">{{$res->total}}</div></td>
-                        <td><div class="text-slate-500 text-sm whitespace-nowrap mt-0.5">{{ $res->total * ($user->percent / 100)}}</div></td> 
+                        <td><div class="text-slate-500 text-sm whitespace-nowrap mt-0.5">{{ $res->total * ($user->rate_download / 100)}}</div></td> 
                     </tr>
                     @php
                         $totalSum += $res->total;
-                        $totalpercent += ($res->total * ($user->percent / 100));
+                        $totalpercent += ($res->total * ($user->rate_download / 100));
                     @endphp
                     @endforeach
 
@@ -104,7 +104,7 @@
                     <!-- Row for percent -->
                     <tr class="intro-x">
                         <td colspan="3"><div class="text-slate-500 text-sm whitespace-nowrap mt-0.5 text-right font-bold">Percent</div></td>
-                        <td><div class="text-slate-500 text-sm whitespace-nowrap mt-0.5 font-bold">{{$user->percent}}</div></td>
+                        <td><div class="text-slate-500 text-sm whitespace-nowrap mt-0.5 font-bold">{{$user->rate_download}} %</div></td>
                         <td><div class="text-slate-500 text-sm whitespace-nowrap mt-0.5 font-bold"></div></td>
                     </tr>
                 @else

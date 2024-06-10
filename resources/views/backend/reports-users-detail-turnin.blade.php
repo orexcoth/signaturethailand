@@ -5,20 +5,6 @@
 @endsection
 
 @section('subcontent')
-<?php
-// $arr_st = array(
-//     'pending' => 'รอชำระ',
-//     'paid' => 'ชำระเงินแล้ว',
-// );
-// foreach($query as $kety => $qry){
-//     echo "<pre>";
-//     print_r($qry->preorder);
-//     echo "</pre>";
-// }
-// echo "<pre>";
-// print_r($query);
-// echo "</pre>";
-?>
     <div class="intro-y mt-5 flex flex-col items-center sm:flex-row">
         <h2 class="mr-auto text-lg font-medium">{{$default_pagename}}</h2>
         <div class="mt-4 flex w-full sm:mt-0 sm:w-auto">
@@ -30,9 +16,6 @@
 
     <form id="date_select" action="#" method="get">
         <div class="intro-y col-span-12 mt-5 mb-5 flex flex-wrap items-center sm:flex-nowrap">
-
-            
-
             <div class="mx-auto hidden text-slate-500 md:block"></div>
             
             <div class="mt-3 w-full sm:ml-auto sm:mt-0 sm:w-auto md:ml-0" id="periodInput">
@@ -56,57 +39,59 @@
         <table class="table table-report -mt-2">
             <thead>
                 <tr>
-                    <th class="whitespace-nowrap">*</th>
+                    <th class="whitespace-nowrap">*</</th>
                     <th class="whitespace-nowrap">วันที่ส่ง</th>
                     <th class="whitespace-nowrap">ออเดอร์</th>
+                    <th class="whitespace-nowrap">แพ็คเกจ</th>
+                    <th class="whitespace-nowrap">ประเภท</th>
                     <th class="whitespace-nowrap">ราคา</th>
-                    <th class="whitespace-nowrap">แพ็ค</th>
-                    <th class="whitespace-nowrap">ไทป์</th>
-
-
+                    <th class="whitespace-nowrap">ค่าคอม</th>
                 </tr>
             </thead>
 
             <tbody>
             @if($query->count() > 0)
+                @php
+                    $totalSum = 0;
+                    $totalpercent = 0;
+                @endphp
                 @foreach($query as $keyres => $res)
                     <tr class="intro-x">
                         <td><div class="text-slate-500 text-sm whitespace-nowrap mt-0.5">{{$keyres+1}}</div></td>
                         <td><div class="text-slate-500 text-sm whitespace-nowrap mt-0.5">{{$res->created_at}}</div></td>
-                        <td><div class="text-slate-500 text-sm whitespace-nowrap mt-0.5">{{$res->preorder->number}}</div></td>
-                        <td><div class="text-slate-500 text-sm whitespace-nowrap mt-0.5">{{$res->preorder->preorder_price}}</div></td>
-                        <td><div class="text-slate-500 text-sm whitespace-nowrap mt-0.5">{{$res->preorder->package}}</div></td>
-                        <td><div class="text-slate-500 text-sm whitespace-nowrap mt-0.5">{{$res->preorder->preorder_type}}</div></td>
-
-                        
+                        <td><div class="text-slate-500 text-sm whitespace-nowrap mt-0.5">{{$res->number}}</div></td>
+                        <td><div class="text-slate-500 text-sm whitespace-nowrap mt-0.5">{{$res->package}}</div></td>
+                        <td><div class="text-slate-500 text-sm whitespace-nowrap mt-0.5">{{$res->preorder_type}}</div></td>
+                        <td><div class="text-slate-500 text-sm whitespace-nowrap mt-0.5">{{$res->preorder_price}}</div></td>
+                        <td><div class="text-slate-500 text-sm whitespace-nowrap mt-0.5">{{ $res->preorder_price * ($user->rate_preorder / 100)}}</div></td>
                     </tr>
+                    @php
+                        $totalSum += $res->preorder_price;
+                        $totalpercent += ($res->preorder_price * ($user->rate_preorder / 100));
+                    @endphp
                 @endforeach
+
+                <!-- Row for total -->
+                <tr class="intro-x">
+                    <td colspan="5"><div class="text-slate-500 text-sm whitespace-nowrap mt-0.5 text-right font-bold">Total</div></td>
+                    <td><div class="text-slate-500 text-sm whitespace-nowrap mt-0.5 font-bold">{{$totalSum}}</div></td>
+                    <td><div class="text-slate-500 text-sm whitespace-nowrap mt-0.5 font-bold">{{$totalpercent}}</div></td>
+                </tr>
+                <!-- Row for percent -->
+                <tr class="intro-x">
+                    <td colspan="5"><div class="text-slate-500 text-sm whitespace-nowrap mt-0.5 text-right font-bold">Percent</div></td>
+                    <td><div class="text-slate-500 text-sm whitespace-nowrap mt-0.5 font-bold">{{$user->rate_preorder}} %</div></td>
+                    <td><div class="text-slate-500 text-sm whitespace-nowrap mt-0.5 font-bold"></div></td>
+                </tr>
             @else
                 <tr>
-                    <td colspan="2">No records found</td>
+                    <td colspan="7">No records found</td>
                 </tr>
             @endif
             </tbody>
-
-            <!-- <tbody id="fetchPosts">
-                
-            </tbody> -->
         </table>
     </div>
     <!-- END: Data List -->
-    
-
-
-   
-
-    
-
-    
-    
-
-
-
-
 @endsection
 
 @section('script')
@@ -128,8 +113,5 @@
         var newUrl2 = `{{ route('BN_reports_sells') }}?status=${status}`;
         window.location.href = newUrl2;
     }
-
 </script>
-
-
 @endsection

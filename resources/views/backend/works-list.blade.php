@@ -7,9 +7,9 @@
 @section('subcontent')
 <?php
 $warklist = array(
-    'names' => 'ออกแบบลายเซ็นต์',
+    'names' => 'ออกแบบลายเซ็นต์จากชื่อ',
     'combos' => 'ออเดอร์เพิ่มนามสกุล',
-    'preorders' => 'สั่งออกแบบ',
+    'preorders' => 'สั่งออกแบบใหม่',
 );
 $workst = array(
     'assign' => 'มอบหมาย',
@@ -70,7 +70,6 @@ $workstclass = array(
                     <th class="whitespace-nowrap">วันที่มอบหมาย</th>
                     <th class="whitespace-nowrap">ประเภทงาน</th>
                     <th class="whitespace-nowrap">รายการ</th>
-                    <th class="whitespace-nowrap">รายละเอียด</th>
                     <th class="whitespace-nowrap">สถานะ</th>
                     <th class="text-center whitespace-nowrap"></th>
                     <!-- <th class="text-center whitespace-nowrap"></th> -->
@@ -90,11 +89,47 @@ $workstclass = array(
                             <div class="font-medium whitespace-nowrap">{{$warklist[$res->type]}}</div>
                         </td>
                         <td>
-                            <div class="font-medium whitespace-nowrap">{{$res->make}}</div>
+                            <div class="font-medium whitespace-nowrap">
+                            @if($res->type == 'preorders')
+            
+                                @if($res->workOrder->preorder->package=='thai'  ||  $res->workOrder->preorder->package=='combo')
+                                    @if($res->workOrder->preorder->preorder_type=='firstname' ||  $res->workOrder->preorder->preorder_type=='duo')
+                                        
+                                        {{$res->workOrder->preorder->firstname_th}}
+                                        
+                                    @endif  
+                                    
+                                    @if($res->workOrder->preorder->preorder_type=='lastname' ||  $res->workOrder->preorder->preorder_type=='duo')
+                                        
+                                        {{$res->workOrder->preorder->lastname_th}}
+                                        
+                                    @endif      
+                                @endif
+                                
+                                @if($res->workOrder->preorder->package=='english'  ||  $res->workOrder->preorder->package=='combo')
+                                    @if($res->workOrder->preorder->preorder_type=='firstname' ||  $res->workOrder->preorder->preorder_type=='duo')
+                                        
+                                        {{$res->workOrder->preorder->firstname_en}}
+
+                                    @endif  
+                                    
+                                    @if($res->workOrder->preorder->preorder_type=='lastname' ||  $res->workOrder->preorder->preorder_type=='duo')
+
+                                        {{$res->workOrder->preorder->lastname_en}}
+
+                                    @endif       
+                                @endif
+                            
+                            @endif
+                            
+                            @if($res->type == 'names')
+                                {{$res->workOrder->name->name_th}} / {{$res->workOrder->name->name_en}}
+                            @endif
+
+
+                            </div>
                         </td>
-                        <td>
-                            <div class="font-medium whitespace-nowrap">{{$res->description}}</div>
-                        </td>
+
                         <td>
                             <div class="font-medium whitespace-nowrap"><span class="btn text-white {{$workstclass[$res->status]}}">{{$workst[$res->status]}}</span></div>
                         </td>

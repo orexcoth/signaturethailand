@@ -114,6 +114,8 @@ class UsersController extends Controller
         $User->password = Hash::make($request->password);
         $User->role = $request->role;;
         $User->status = $request->active;
+        $User->rate_download = $request->rate_download;
+        $User->rate_preorder = $request->rate_preorder;
 
         $User->save();
         
@@ -168,7 +170,8 @@ class UsersController extends Controller
         $User->email = $request->email;
         $User->role = $request->role;;
         $User->status = $request->active;
-        $User->percent = $request->percent;
+        $User->rate_download = $request->rate_download;
+        $User->rate_preorder = $request->rate_preorder;
 
         $User->update();
         

@@ -6,7 +6,11 @@
 
 @section('subcontent')
 <?php
-
+$warklist = array(
+    'names' => 'ออกแบบลายเซ็นต์จากชื่อ',
+    'combos' => 'ออเดอร์เพิ่มนามสกุล',
+    'preorders' => 'สั่งออกแบบใหม่',
+);
 // echo "<pre>";
 // print_r($query);
 // echo "</pre>";
@@ -45,7 +49,7 @@
                     <!-- <th class="text-center whitespace-nowrap">#</th> -->
                     <th class="whitespace-nowrap">วันที่มอบหมาย</th>
                     <th class="whitespace-nowrap">ผู้มอบหมาย</th>
-                    <th class="whitespace-nowrap">ประเภท</th>
+                    <th class="whitespace-nowrap">ประเภทงาน</th>
                     <th class="whitespace-nowrap">หมายเลขรายการ</th>
                     <th class="whitespace-nowrap">รายการ</th>
                     <th class="text-center whitespace-nowrap"></th>
@@ -66,7 +70,7 @@
                         <div class="font-medium whitespace-nowrap">{{$res->user->name}}</div>
                     </td>
                     <td>
-                        <div class="font-medium whitespace-nowrap">{{$res->type}}</div>
+                        <div class="font-medium whitespace-nowrap">{{$warklist[$res->type]}}</div>
                     </td>
                     <td>
                         <div class="font-medium whitespace-nowrap">{{$res->number}}</div>
@@ -114,7 +118,7 @@
                         <div class="flex justify-center items-center">
                             
                             <a class="flex items-center" href="{{route('BN_works_assign_list_detail', ['id' => $res->id])}}">
-                                <i data-lucide="check-square" class="w-4 h-4 mr-1"></i> ดูข้อมูล
+                                <i data-lucide="check-square" class="w-4 h-4 mr-1"></i> รายละเอียด
                             </a>
                         </div>
                     </td>

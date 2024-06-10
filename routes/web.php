@@ -249,6 +249,7 @@ Route::middleware('auth')->group(function() {
             Route::get('users/detail/sign/{users_id}', [ReportsController::class, 'BN_reports_users_detail_sign'])->name('BN_reports_users_detail_sign');
             Route::get('users/detail/turnin/{users_id}', [ReportsController::class, 'BN_reports_users_detail_turnin'])->name('BN_reports_users_detail_turnin');
             Route::get('users/detail/download/{users_id}', [ReportsController::class, 'BN_reports_users_detail_download'])->name('BN_reports_users_detail_download');
+            Route::get('users/detail/commission/{users_id}', [ReportsController::class, 'BN_reports_users_detail_commission'])->name('BN_reports_users_detail_commission');
 
             Route::get('sells', [ReportsController::class, 'BN_reports_sells'])->name('BN_reports_sells');
             Route::get('sells/export', [ReportsController::class, 'BN_reports_sells_exportToExcel'])->name('BN_reports_sells_exportToExcel');

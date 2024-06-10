@@ -86,7 +86,7 @@ $arr_package = array(
     <div class="mt-5 grid grid-cols-12 gap-6">
 
     
-        <div class="intro-y col-span-12 sm:col-span-6 xl:col-span-4">
+        <div class="intro-y col-span-12 sm:col-span-6 xl:col-span-3">
             <a href="{{ route('BN_reports_users_detail_sign', ['users_id' => $user->id]) }}@if(request()->has('period'))?period={{ request()->query('period') }}@endif">
                 <div class="relative before:box before:absolute before:inset-x-3 before:mt-3 before:h-full before:bg-slate-50 before:content-['']">
                     <div class="box p-5">
@@ -96,7 +96,7 @@ $arr_package = array(
                 </div>
             </a>
         </div>
-        <div class="intro-y col-span-12 sm:col-span-6 xl:col-span-4">
+        <div class="intro-y col-span-12 sm:col-span-6 xl:col-span-3">
             <a href="{{ route('BN_reports_users_detail_turnin', ['users_id' => $user->id]) }}@if(request()->has('period'))?period={{ request()->query('period') }}@endif">
                 <div class="relative before:box before:absolute before:inset-x-3 before:mt-3 before:h-full before:bg-slate-50 before:content-['']">
                     <div class="box p-5">
@@ -106,12 +106,22 @@ $arr_package = array(
                 </div>
             </a>
         </div>
-        <div class="intro-y col-span-12 sm:col-span-6 xl:col-span-4">
+        <div class="intro-y col-span-12 sm:col-span-6 xl:col-span-3">
             <a href="{{ route('BN_reports_users_detail_download', ['users_id' => $user->id]) }}@if(request()->has('period'))?period={{ request()->query('period') }}@endif">
                 <div class="relative before:box before:absolute before:inset-x-3 before:mt-3 before:h-full before:bg-slate-50 before:content-['']">
                     <div class="box p-5">
                         <div class="mt-6 text-3xl font-medium leading-8">{{$query->downloads_count}} ครั้ง</div>
                         <div class="mt-1 text-base text-slate-500">ยอดดาวน์โหลด</div>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="intro-y col-span-12 sm:col-span-6 xl:col-span-3">
+            <a href="{{ route('BN_reports_users_detail_commission', ['users_id' => $user->id]) }}@if(request()->has('period'))?period={{ request()->query('period') }}@endif">
+                <div class="relative before:box before:absolute before:inset-x-3 before:mt-3 before:h-full before:bg-slate-50 before:content-['']">
+                    <div class="box p-5">
+                        <div class="mt-6 text-3xl font-medium leading-8">ภาพรวม</div>
+                        <div class="mt-1 text-base text-slate-500">คอมมิชชั่น</div>
                     </div>
                 </div>
             </a>

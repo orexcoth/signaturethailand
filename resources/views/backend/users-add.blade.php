@@ -44,6 +44,10 @@
                                         <option value="2" >ไม่แอคทีฟ</option>
                                     </select>
                                 </div> -->
+                                <div class="mt-3">
+                                    <label for="rate_download" class="form-label">ดาวน์โหลด</label>
+                                    <input type="number" class="form-control w-full" value="0.00" name="rate_download" id="rate_download" min="0.00" max="100.00" step="0.01" autocomplete="off" />
+                                </div>
 
 
                             </div>
@@ -59,6 +63,10 @@
                                 <div class="mt-3 ">
                                     <label for="" class="form-label">พาสเวิร์ด</label>
                                     <input type="password" class="form-control w-full" id="" name="password" >
+                                </div>
+                                <div class="mt-3">
+                                    <label for="rate_preorder" class="form-label">สั่งออกแบบ</label>
+                                    <input type="number" class="form-control w-full" value="0.00" name="rate_preorder" id="rate_preorder" min="0.00" max="100.00" step="0.01" autocomplete="off" />
                                 </div>
 
                                 

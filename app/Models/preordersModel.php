@@ -74,8 +74,9 @@ class preordersModel extends Model
         return $this->hasMany(downloadsModel::class);
     }
 
+
     public function workOrders()
     {
-        return $this->hasMany(WorkOrder::class);
+        return $this->hasMany(WorkOrder::class, 'preorders_id', 'id');
     }
 }

@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 use App\Models\work_ordersModel;
 use App\Models\User;
+use App\Models\namesModel;
 
 class worksModel extends Model
 {
@@ -34,5 +35,9 @@ class worksModel extends Model
     public function user()
     {
         return $this->belongsTo(User::class, 'users_id');
+    }
+    public function name()
+    {
+        return $this->belongsTo(namesModel::class, 'names_id');
     }
 }

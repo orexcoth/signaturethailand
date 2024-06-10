@@ -104,18 +104,18 @@ class WorksController extends Controller
         $userlogin = auth()->user();
         $userloginid = auth()->user()->id; 
 
-        $query = worksModel::query()
+        $query = worksModel::with(['user', 'workOrder', 'workOrder.preorder'])
             ->where('users_id',$userloginid)
             ->orderBy('id', 'desc');
         $resultPerPage = 24;
-
+        
         // Check if the status parameter is set and is not 'all'
         if ($request->filled('status') && $request->input('status') !== 'all') {
             $status = $request->input('status');
             $query->where('status', '=', $status);
         }
         $query = $query->paginate($resultPerPage);
-
+        // dd($query);
         return view('backend/works-list', [
             'default_pagename' => 'ตารางงาน',
             'query' => $query,
