@@ -14,43 +14,22 @@ use App\Models\downloadsModel;
 
 class PreordersExport implements FromCollection, WithHeadings
 {
-    protected $status;
-    protected $keyword;
+    protected $query;
 
-    public function __construct($status, $keyword)
+    public function __construct($query)
     {
-        $this->status = $status;
-        $this->keyword = $keyword;
+        $this->query = $query;
     }
 
     public function collection()
     {
-        $query = PreordersModel::query();
-
-        if ($this->status && $this->status !== 'all') {
-            $query->where('status', $this->status);
-        }
-
-        if ($this->keyword) {
-            $query->where(function ($query) {
-                $query->where('number', 'like', '%' . $this->keyword . '%')
-                      ->orWhere('email', 'like', '%' . $this->keyword . '%')
-                      ->orWhere('firstname', 'like', '%' . $this->keyword . '%')
-                      ->orWhere('lastname', 'like', '%' . $this->keyword . '%');
-            })->orWhereHas('customers', function ($query) {
-                $query->where('email', 'like', '%' . $this->keyword . '%')
-                      ->orWhere('firstname', 'like', '%' . $this->keyword . '%')
-                      ->orWhere('lastname', 'like', '%' . $this->keyword . '%');
-            });
-        }
-
-        return $query->get();
+        return $this->query;
     }
 
     public function headings(): array
     {
         // Get column names from the model's table
-        $columns = Schema::getColumnListing((new PreordersModel())->getTable());
+        $columns = Schema::getColumnListing((new preordersModel())->getTable());
         // Filter out unwanted columns if needed
         $headers = array_filter($columns, function ($column) {
             return $column != 'id'; // Exclude 'id' column

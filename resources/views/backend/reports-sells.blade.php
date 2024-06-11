@@ -17,9 +17,10 @@ $arr_st = array(
     <div class="intro-y mt-5 flex flex-col items-center sm:flex-row">
         <h2 class="mr-auto text-lg font-medium">{{$default_pagename}}</h2>
         <div class="mt-4 flex w-full sm:mt-0 sm:w-auto">
-            <a href="{{ route('BN_reports_sells_exportToExcel') }}" class="transition duration-200 border inline-flex items-center justify-center py-2 px-3 rounded-md font-medium cursor-pointer focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus-visible:outline-none dark:focus:ring-slate-700 dark:focus:ring-opacity-50 [&amp;:hover:not(:disabled)]:bg-opacity-90 [&amp;:hover:not(:disabled)]:border-opacity-90 [&amp;:not(button)]:text-center disabled:opacity-70 disabled:cursor-not-allowed bg-primary border-primary text-white dark:border-primary shadow-md" >
+            <a href="{{ route('BN_reports_sells_exportToExcel', ['status' => request('status'), 'keyword' => request('keyword')]) }}" class="transition duration-200 border inline-flex items-center justify-center py-2 px-3 rounded-md font-medium cursor-pointer focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus-visible:outline-none dark:focus:ring-slate-700 dark:focus:ring-opacity-50 [&amp;:hover:not(:disabled)]:bg-opacity-90 [&amp;:hover:not(:disabled)]:border-opacity-90 [&amp;:not(button)]:text-center disabled:opacity-70 disabled:cursor-not-allowed bg-primary border-primary text-white dark:border-primary shadow-md" >
                 Export
-            </a>    
+            </a>
+
         </div>
     </div>
     
@@ -36,24 +37,6 @@ $arr_st = array(
         
         <div class="mx-auto hidden text-slate-500 md:block"></div>
         
-        <!-- <div class="mt-3 w-full sm:ml-auto sm:mt-0 sm:w-auto md:ml-0">
-            <div class="relative w-56 text-slate-500">
-                <select id="language" name="language" class="form-select py-3 px-4 box w-full lg:w-auto mt-3 lg:mt-0 ml-auto" >
-                    <option value="th" @if(request('language', 'th') == 'th') selected @endif>ท&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</option>
-                    <option value="th" @if(request('language', 'th') == 'th') selected @endif>อักษรไทย&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</option>
-                    <option value="en" @if(request('language') == 'en') selected @endif>อักษรอังกฤษ&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</option>
-                </select>
-            </div>
-        </div> -->
-        <!-- <div class="mt-3 w-full sm:ml-auto sm:mt-0 sm:w-auto md:ml-0 mr-5">
-            <div class="relative  text-slate-500">
-                <select id="combo" name="combo" class="form-select py-3 px-4 box w-full lg:w-auto mt-3 lg:mt-0 ml-auto" onchange="applySelects()" >
-                    <option value="all" @if(empty(request('combo')) || request('combo') == 'all') selected @endif>รายการทั้งหมด&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</option>
-                    <option value="yes" @if(request('combo') == 'yes') selected @endif>เฉพาะรายการที่เพิ่มนามสกุล&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</option>
-                    <option value="no" @if(request('combo') == 'no') selected @endif>เฉพาะรายการที่ไม่มีการเพิ่มนามสกุล&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</option>
-                </select>
-            </div>
-        </div> -->
         <div class="mt-3 w-full sm:ml-auto sm:mt-0 sm:w-auto md:ml-0">
             <div class="relative text-slate-500">
                 <select id="status" name="status" class="form-select py-3 px-4 box w-full lg:w-auto mt-3 lg:mt-0 ml-auto" onchange="applySelects()" >

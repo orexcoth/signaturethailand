@@ -36,39 +36,82 @@ use Illuminate\Support\Facades\Mail;
 // use PDF;
 // use Barryvdh\DomPDF\PDF;
 
-
+use App\Mail\OrderPaymentSuccess;
 
 
 class FrontendPageController extends Controller
 {
 
-    public function generateReceipt()
+    public function testSendEmail($type, $order_id)
     {
-        // Set font directory and font data
-        $fontDir = public_path('fonts/prompt');
-        $fontData = [
-            'prompt' => [
-                'R' => 'Prompt-Regular.ttf', // Regular font
-            ],
-        ];
+        $this->sendEmailOnPaymentSuccess($type, $order_id);
+        
+        return "Test email sent for order {$order_id} of type {$type}";
+    }
+    function sendEmailOnPaymentSuccess($type, $order_id)
+    {
+        $order = null;
+        $email = null;
+        $orderNumber = null;
 
-        // Set up mPDF with font configuration
-        $mpdf = new Mpdf([
-            'fontDir' => $fontDir,
-            'fontdata' => $fontData
-        ]);
+        if ($type === 'sells') {
+            $order = SellsModel::find($order_id);
+        } elseif ($type === 'preorders') {
+            $order = PreordersModel::find($order_id);
+        }
 
-        // HTML template for receipt
-        $html = view('receipt')->render();
+        if ($order) {
+            $email = $order->email;
+            $orderNumber = $order->number;
 
-        // Render HTML as PDF
-        $mpdf->WriteHTML($html);
-
-        // Output the PDF as a downloadable file (optional)
-        $mpdf->Output('receipt.pdf', 'I');
+            // Send email notification
+            Mail::to($email)->send(new OrderPaymentSuccess($orderNumber));
+        } else {
+            // Handle invalid order type or ID
+            // You can log an error, throw an exception, or handle it as appropriate for your application
+        }
     }
 
 
+    public function generateReceipt($type, $order_id)
+    {
+        // Fetch order data based on type and order_id
+        if ($type === 'sells') {
+            $order = sellsModel::with('customers')->find($order_id);
+        } elseif ($type === 'preorders') {
+            $order = preordersModel::with('customer')->find($order_id);
+        } else {
+            return response('Invalid type', 400);
+        }
+        
+        if (!$order) {
+            return response('Order not found', 404);
+        }
+
+        // Pass data to the view
+        $data = [
+            'type' => $type,
+            'order' => $order,
+        ];
+
+        // Render the HTML template with the order data
+        $html = view('receipt', $data)->render();
+
+        // Uncomment to generate PDF after verifying HTML
+        $fontDir = public_path('fonts/prompt');
+        $fontData = [
+            'prompt' => [
+                'R' => 'Prompt-Regular.ttf',
+            ],
+        ];
+        $mpdf = new \Mpdf\Mpdf([
+            'fontDir' => $fontDir,
+            'fontdata' => $fontData,
+        ]);
+        $mpdf->WriteHTML($html);
+        $filename = 'SIGNATURETHAILAND-'.$order->number . '.pdf';
+        $mpdf->Output($filename, 'D');
+    }
 
     public function sendEmail(Request $request)
     {
@@ -81,8 +124,6 @@ class FrontendPageController extends Controller
 
         return redirect()->back()->with('success', 'Email sent successfully!');
     }
-
-
 
     public function contactaction(Request $request)
     {

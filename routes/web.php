@@ -138,6 +138,9 @@ Route::get('preorder', [FrontendPageController::class, 'preorderPage'])->name('p
 Route::post('cart-preorder', [FrontendPageController::class, 'cartpreorderPage'])->name('cartpreorderPage');
 
 Route::get('payment/{type}/{order}', [PaymentController::class, 'paymentPage'])->name('paymentPage');
+Route::post('/send-email-on-payment-success', [PaymentController::class, 'sendEmailOnPaymentSuccess'])->name('sendEmailOnPaymentSuccess');
+Route::get('/test-send-email/{type}/{order_id}', [PaymentController::class, 'testSendEmail'])->name('test.send.email');
+
 // Route::post('payment-callback', [PaymentController::class, 'paymentcallbackPage'])->name('paymentcallbackPage');
 Route::get('payment-test', [PaymentController::class, 'paymenttestPage'])->name('paymenttestPage');
 
@@ -149,7 +152,10 @@ Route::get('payment-test', [PaymentController::class, 'paymenttestPage'])->name(
 
 Route::get('/send-email', [FrontendPageController::class, 'sendEmail'])->name('send.email');
 // Route::get('/receipt', [FrontendPageController::class, 'genreceipt'])->name('genreceipt');
-Route::get('/generate-receipt', [FrontendPageController::class, 'generateReceipt'])->name('generate-receipt');
+Route::get('/generate-receipt/{type}/{order_id}', [FrontendPageController::class, 'generateReceipt'])->name('generateReceipt');
+
+
+
 
 
 
@@ -251,11 +257,11 @@ Route::middleware('auth')->group(function() {
             Route::get('users/detail/download/{users_id}', [ReportsController::class, 'BN_reports_users_detail_download'])->name('BN_reports_users_detail_download');
             Route::get('users/detail/commission/{users_id}', [ReportsController::class, 'BN_reports_users_detail_commission'])->name('BN_reports_users_detail_commission');
 
+            Route::get('preorders', [ReportsController::class, 'BN_reports_preorders'])->name('BN_reports_preorders');
+            Route::get('preorders/export', [ReportsController::class, 'BN_reports_preorders_exportToExcel'])->name('BN_reports_preorders_exportToExcel');
             Route::get('sells', [ReportsController::class, 'BN_reports_sells'])->name('BN_reports_sells');
             Route::get('sells/export', [ReportsController::class, 'BN_reports_sells_exportToExcel'])->name('BN_reports_sells_exportToExcel');
             Route::get('sells/detail/{sells_id}', [ReportsController::class, 'BN_reports_sells_detail'])->name('BN_reports_sells_detail');
-            Route::get('preorders', [ReportsController::class, 'BN_reports_preorders'])->name('BN_reports_preorders');
-            Route::get('preorders/export', [ReportsController::class, 'BN_reports_preorders_exportToExcel'])->name('BN_reports_preorders_exportToExcel');
             Route::get('preorders/detail/{preorders_id}', [ReportsController::class, 'BN_reports_preorders_detail'])->name('BN_reports_preorders_detail');
         });
         Route::prefix('users')->group(function () {

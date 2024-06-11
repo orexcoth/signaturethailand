@@ -24,116 +24,330 @@ use App\Models\downloadsModel;
 
 use App\Exports\SellsExport;
 use App\Exports\preordersExport;
+use App\Exports\UsersDetailCommissionExport;
 use Maatwebsite\Excel\Facades\Excel;
 use Carbon\Carbon;
-// use App\Models\sells_combosModel;
-// use App\Models\sells_combosModel;
 use App\Models\User;
-// use App\Models\usersModel;
+
+
+
 
 class ReportsController extends Controller
 {
-    
+
+    // public function BN_reports_users_detail_commission(Request $request, $users_id)
+    // {
+    //     // Initialize variables for date range
+    //     $period = '';
+    //     $startDate = null;
+    //     $endDate = null;
+
+    //     // Check if 'period' is present in the request and parse the date range
+    //     if ($request->has('period')) {
+    //         $dateRange = explode(" - ", $request->period);
+    //         $startDate = Carbon::createFromFormat('j M, Y', trim($dateRange[0]))->startOfDay();
+    //         $endDate = Carbon::createFromFormat('j M, Y', trim($dateRange[1]))->endOfDay();
+    //     }
+
+    //     // Step 1: Retrieve the user
+    //     $user = User::findOrFail($users_id);
+
+    //     // Get all signs IDs for this user
+    //     $signsIds = $user->signs()->pluck('id')->toArray();
+
+    //     // Get all sellsModels where 'signs' field contains the user's signs IDs
+    //     $sells = sellsModel::where(function($query) use ($signsIds) {
+    //         foreach ($signsIds as $signId) {
+    //             $query->orWhereJsonContains('signs', $signId);
+    //         }
+    //     })
+    //     ->when($startDate && $endDate, function($query) use ($startDate, $endDate) {
+    //         // Add date range filter if period is provided
+    //         $query->whereBetween('created_at', [$startDate, $endDate]);
+    //     })
+    //     ->get();
+
+    //     // Filter sells with downloads
+    //     $sellsWithDownloads = $sells->filter(function($sell) use ($signsIds) {
+    //         $signs = json_decode($sell->signs, true); // Decode the JSON string to an array
+    //         foreach ($signs as $signId) {
+    //             if (in_array($signId, $signsIds)) {
+    //                 $sign = signsModel::find($signId);
+    //                 if ($sign) {
+    //                     // Check if there is at least one downloadsModel with matching sells_id
+    //                     $hasDownloads = downloadsModel::where('signs_id', $signId)
+    //                                                 ->where('sells_id', $sell->id)
+    //                                                 ->exists();
+    //                     if ($hasDownloads) {
+    //                         return true;
+    //                     }
+    //                 }
+    //             }
+    //         }
+    //         return false;
+    //     });
+
+    //     // Get all preordersTurnInModel entries for this user
+    //     $turnIns = preordersTurnInModel::where('users_id', $user->id)
+    //                 ->when($startDate && $endDate, function($query) use ($startDate, $endDate) {
+    //                     // Add date range filter if period is provided
+    //                     $query->whereBetween('created_at', [$startDate, $endDate]);
+    //                 })
+    //                 ->get();
+
+    //     // Get unique preorders_id from the turnIns
+    //     $preordersIds = $turnIns->pluck('preorders_id')->unique()->toArray();
+
+    //     // Retrieve preordersModel records that match the preordersIds
+    //     $preorders = preordersModel::whereIn('id', $preordersIds)
+    //                 ->get();
+
+    //     if ($request->has('export') && $request->export === 'excel') {
+    //         // Prepare data for export
+    //         $sellsWithDownloads->each->setAppends(['type' => 'Sell']);
+    //         $preorders->each->setAppends(['type' => 'Preorder']);
+
+    //         // Export the data to Excel
+    //         return Excel::download(new UsersDetailCommissionExport($sellsWithDownloads, $preorders, $user), 'users_detail_commission_' . date('YmdHis') . '.xlsx');
+    //     }
+
+    //     return view('backend/reports-users-detail-commission', [
+    //         'default_pagename' => 'รายละเอียด commission',
+    //         'period' => $period,
+    //         'sellsWithDownloads' => $sellsWithDownloads,
+    //         'preorders' => $preorders,
+    //         'user' => $user,
+    //     ]);
+    // }
+
+
+
+
     public function BN_reports_users_detail_commission(Request $request, $users_id)
-{
-    // Initialize variables for date range
-    $period = '';
-    $startDate = null;
-    $endDate = null;
+    {
+        // Initialize variables for date range
+        $period = '';
+        $startDate = null;
+        $endDate = null;
 
-    // Check if 'period' is present in the request and parse the date range
-    if ($request->has('period')) {
-        $dateRange = explode(" - ", $request->period);
-        $startDate = Carbon::createFromFormat('j M, Y', trim($dateRange[0]))->startOfDay();
-        $endDate = Carbon::createFromFormat('j M, Y', trim($dateRange[1]))->endOfDay();
-    }
-
-    // Step 1: Retrieve the user
-    $user = User::findOrFail($users_id);
-
-    // Get all signs IDs for this user
-    $signsIds = $user->signs()->pluck('id')->toArray();
-
-    // Get all sellsModels where 'signs' field contains the user's signs IDs
-    $sells = sellsModel::where(function($query) use ($signsIds) {
-        foreach ($signsIds as $signId) {
-            $query->orWhereJsonContains('signs', $signId);
+        // Check if 'period' is present in the request and parse the date range
+        if ($request->has('period')) {
+            $dateRange = explode(" - ", $request->period);
+            $startDate = Carbon::createFromFormat('j M, Y', trim($dateRange[0]))->startOfDay();
+            $endDate = Carbon::createFromFormat('j M, Y', trim($dateRange[1]))->endOfDay();
         }
-    })
-    ->when($startDate && $endDate, function($query) use ($startDate, $endDate) {
-        // Add date range filter if period is provided
-        $query->whereBetween('created_at', [$startDate, $endDate]);
-    })
-    ->get();
 
-    // Filter sells with downloads
-    $sellsWithDownloads = $sells->filter(function($sell) use ($signsIds) {
-        $signs = json_decode($sell->signs, true); // Decode the JSON string to an array
-        foreach ($signs as $signId) {
-            if (in_array($signId, $signsIds)) {
-                $sign = signsModel::find($signId);
-                if ($sign) {
-                    // Check if there is at least one downloadsModel with matching sells_id
-                    $hasDownloads = downloadsModel::where('signs_id', $signId)
-                                                ->where('sells_id', $sell->id)
-                                                ->exists();
-                    if ($hasDownloads) {
-                        return true;
+        // Step 1: Retrieve the user
+        $user = User::findOrFail($users_id);
+
+        // Get all signs IDs for this user
+        $signsIds = $user->signs()->pluck('id')->toArray();
+
+        // Get all sellsModels where 'signs' field contains the user's signs IDs
+        $sells = sellsModel::where(function($query) use ($signsIds) {
+            foreach ($signsIds as $signId) {
+                $query->orWhereJsonContains('signs', $signId);
+            }
+        })
+        ->when($startDate && $endDate, function($query) use ($startDate, $endDate) {
+            // Add date range filter if period is provided
+            $query->whereBetween('created_at', [$startDate, $endDate]);
+        })
+        ->get();
+
+        // Filter sells with downloads
+        $sellsWithDownloads = $sells->filter(function($sell) use ($signsIds) {
+            $signs = json_decode($sell->signs, true); // Decode the JSON string to an array
+            foreach ($signs as $signId) {
+                if (in_array($signId, $signsIds)) {
+                    $sign = signsModel::find($signId);
+                    if ($sign) {
+                        // Check if there is at least one downloadsModel with matching sells_id
+                        $hasDownloads = downloadsModel::where('signs_id', $signId)
+                                                    ->where('sells_id', $sell->id)
+                                                    ->exists();
+                        if ($hasDownloads) {
+                            return true;
+                        }
                     }
                 }
             }
+            return false;
+        });
+
+        // Get all preordersTurnInModel entries for this user
+        $turnIns = preordersTurnInModel::where('users_id', $user->id)
+                    ->when($startDate && $endDate, function($query) use ($startDate, $endDate) {
+                        // Add date range filter if period is provided
+                        $query->whereBetween('created_at', [$startDate, $endDate]);
+                    })
+                    ->get();
+
+        // Get unique preorders_id from the turnIns
+        $preordersIds = $turnIns->pluck('preorders_id')->unique()->toArray();
+
+        // Retrieve preordersModel records that match the preordersIds
+        $preorders = preordersModel::whereIn('id', $preordersIds)
+                    ->get();
+
+        // dd($preorders);
+        return view('backend/reports-users-detail-commission', [
+            'default_pagename' => 'รายละเอียด commission',
+            'period' => $period,
+            'sellsWithDownloads' => $sellsWithDownloads,
+            'preorders' => $preorders,
+            'user' => $user,
+        ]);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+    public function BN_reports_preorders_detail(Request $request, $preorders_id)
+    {
+        $query = preordersModel::with('customer')->find($preorders_id);
+        return view('backend/reports-preorders-detail', [
+            'default_pagename' => 'รายละเอียดรายการ',
+            'query' => $query,
+        ]);
+    }
+    public function BN_reports_preorders(Request $request)
+    {
+        $query = preordersModel::with('customer')->orderBy('created_at', 'desc');
+        if ($request->has('status') && $request->input('status') !== 'all') {
+            $status = $request->input('status');
+            $query->where('status', $status);
         }
-        return false;
-    });
+        if ($request->has('keyword')) {
+            $keyword = $request->input('keyword');
+            $query->where(function ($query) use ($keyword) {
+                $query->where('number', 'like', "%$keyword%")
+                      ->orWhere('email', 'like', "%$keyword%")
+                      ->orWhere('firstname', 'like', "%$keyword%")
+                      ->orWhere('lastname', 'like', "%$keyword%");
+            })->orWhereHas('customers', function ($query) use ($keyword) {
+                $query->where('email', 'like', "%$keyword%")
+                      ->orWhere('firstname', 'like', "%$keyword%")
+                      ->orWhere('lastname', 'like', "%$keyword%");
+            });
+        }
+        $results = $query->get();
 
-    // Get all preordersTurnInModel entries for this user
-    $turnIns = preordersTurnInModel::where('users_id', $user->id)
-                ->when($startDate && $endDate, function($query) use ($startDate, $endDate) {
-                    // Add date range filter if period is provided
-                    $query->whereBetween('created_at', [$startDate, $endDate]);
-                })
-                ->get();
+        // dd($results);
+        return view('backend/reports-preorders', [
+            'default_pagename' => 'การสั่งออกแบบทั้งหมด',
+            'query' => $results,
+        ]);
+    }
+    public function BN_reports_preorders_exportToExcel(Request $request)
+    {
+        $query = preordersModel::query();
 
-    // Get unique preorders_id from the turnIns
-    $preordersIds = $turnIns->pluck('preorders_id')->unique()->toArray();
+        $status = $request->input('status', 'all');
+        $keyword = $request->input('keyword', null);
 
-    // Retrieve preordersModel records that match the preordersIds
-    $preorders = preordersModel::whereIn('id', $preordersIds)
-                ->get();
+        if ($status !== 'all') {
+            $query->where('status', $status);
+        }
 
-    // dd($preorders);
-    return view('backend/reports-users-detail-commission', [
-        'default_pagename' => 'รายละเอียด commission',
-        'period' => $period,
-        'sellsWithDownloads' => $sellsWithDownloads,
-        'preorders' => $preorders,
-        'user' => $user,
-    ]);
-}
+        if ($keyword) {
+            $query->where(function ($query) use ($keyword) {
+                $query->where('number', 'like', '%' . $keyword . '%')
+                    ->orWhere('email', 'like', '%' . $keyword . '%')
+                    ->orWhere('firstname', 'like', '%' . $keyword . '%')
+                    ->orWhere('lastname', 'like', '%' . $keyword . '%');
+            })->orWhereHas('customer', function ($query) use ($keyword) {
+                $query->where('email', 'like', '%' . $keyword . '%')
+                    ->orWhere('firstname', 'like', '%' . $keyword . '%')
+                    ->orWhere('lastname', 'like', '%' . $keyword . '%');
+            });
+        }
 
-    
-    
+        $fileName = 'รายงานการสั่งออกแบบ-' . Carbon::now()->format('dmY-His') . '.xlsx';
+        return Excel::download(new PreordersExport($query->get()), $fileName);
+    }
+    public function BN_reports_sells_detail(Request $request, $sells_id)
+    {
+        $query = SellsModel::with('customers')->find($sells_id);
+        return view('backend/reports-sells-detaiil', [
+            'default_pagename' => 'รายละเอียดรายการ',
+            'query' => $query,
+        ]);
+    }
+    public function BN_reports_sells(Request $request)
+    {
+        $query = SellsModel::with('customers')->orderBy('created_at', 'desc');
+        // dd($query);
+        if ($request->has('status') && $request->input('status') !== 'all') {
+            $status = $request->input('status');
+            $query->where('status', $status);
+        }
+        if ($request->has('keyword')) {
+            $keyword = $request->input('keyword');
+            $query->where(function ($query) use ($keyword) {
+                $query->where('number', 'like', "%$keyword%")
+                      ->orWhere('name_th', 'like', "%$keyword%")
+                      ->orWhere('name_en', 'like', "%$keyword%")
+                      ->orWhere('email', 'like', "%$keyword%")
+                      ->orWhere('firstname', 'like', "%$keyword%")
+                      ->orWhere('lastname', 'like', "%$keyword%");
+            })->orWhereHas('customers', function ($query) use ($keyword) {
+                $query->where('email', 'like', "%$keyword%")
+                      ->orWhere('firstname', 'like', "%$keyword%")
+                      ->orWhere('lastname', 'like', "%$keyword%");
+            });
+        }
+        $results = $query->get();
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        // dd($results);
+        return view('backend/reports-sells', [
+            'default_pagename' => 'การขายทั้งหมด',
+            'query' => $results,
+        ]); 
+    }
+    public function BN_reports_sells_exportToExcel(Request $request)
+    {
+        // Get status and keyword from the request
+        $status = $request->input('status', 'all');
+        $keyword = $request->input('keyword', null);
+        
+        // Apply filters to the query
+        $query = SellsModel::with('customers')->orderBy('created_at', 'desc');
+        if ($status !== 'all') {
+            $query->where('status', $status);
+        }
+        if (!empty($keyword)) {
+            $query->where(function ($query) use ($keyword) {
+                $query->where('number', 'like', "%$keyword%")
+                    ->orWhere('name_th', 'like', "%$keyword%")
+                    ->orWhere('name_en', 'like', "%$keyword%")
+                    ->orWhere('email', 'like', "%$keyword%")
+                    ->orWhere('firstname', 'like', "%$keyword%")
+                    ->orWhere('lastname', 'like', "%$keyword%");
+            })->orWhereHas('customers', function ($query) use ($keyword) {
+                $query->where('email', 'like', "%$keyword%")
+                    ->orWhere('firstname', 'like', "%$keyword%")
+                    ->orWhere('lastname', 'like', "%$keyword%");
+            });
+        }
+        
+        // Fetch filtered data
+        $results = $query->get();
+        // dd($status);
+        
+        // Generate Excel file using the filtered data and status
+        $fileName = 'รายงานการดาวน์โหลด-' . Carbon::now()->format('dmY-His') . '.xlsx';
+        return Excel::download(new SellsExport($results, $status), $fileName);
+    }
 
 
     public function BN_reports_users_detail_download(Request $request, $users_id)
@@ -404,101 +618,15 @@ class ReportsController extends Controller
 
 
 
-    public function BN_reports_sells_detail(Request $request, $sells_id)
-    {
-        $query = SellsModel::with('customers')->find($sells_id);
-        return view('backend/reports-sells-detaiil', [
-            'default_pagename' => 'รายละเอียดรายการ',
-            'query' => $query,
-        ]);
-    }
-    public function BN_reports_sells_exportToExcel(Request $request)
-    {
-        $status = $request->input('status', 'all');
-        $keyword = $request->input('keyword', null);
-        $fileName = 'รายงานการดาวน์โหลด-' . Carbon::now()->format('dmY-His') . '.xlsx';
-        return Excel::download(new SellsExport($status, $keyword), $fileName);
-    }
-    public function BN_reports_sells(Request $request)
-    {
-        $query = SellsModel::with('customers')->orderBy('created_at', 'desc');
-        // dd($query);
-        if ($request->has('status') && $request->input('status') !== 'all') {
-            $status = $request->input('status');
-            $query->where('status', $status);
-        }
-        if ($request->has('keyword')) {
-            $keyword = $request->input('keyword');
-            $query->where(function ($query) use ($keyword) {
-                $query->where('number', 'like', "%$keyword%")
-                      ->orWhere('name_th', 'like', "%$keyword%")
-                      ->orWhere('name_en', 'like', "%$keyword%")
-                      ->orWhere('email', 'like', "%$keyword%")
-                      ->orWhere('firstname', 'like', "%$keyword%")
-                      ->orWhere('lastname', 'like', "%$keyword%");
-            })->orWhereHas('customers', function ($query) use ($keyword) {
-                $query->where('email', 'like', "%$keyword%")
-                      ->orWhere('firstname', 'like', "%$keyword%")
-                      ->orWhere('lastname', 'like', "%$keyword%");
-            });
-        }
-        $results = $query->get();
-
-        // dd($results);
-        return view('backend/reports-sells', [
-            'default_pagename' => 'การขายทั้งหมด',
-            'query' => $results,
-        ]); 
-    }
+    
+    
 
 
 
 
 
-
-    public function BN_reports_preorders_detail(Request $request, $preorders_id)
-    {
-        $query = preordersModel::with('customer')->find($preorders_id);
-        return view('backend/reports-preorders-detail', [
-            'default_pagename' => 'รายละเอียดรายการ',
-            'query' => $query,
-        ]);
-    }
-    public function BN_reports_preorders_exportToExcel(Request $request)
-    {
-        $status = $request->input('status', 'all');
-        $keyword = $request->input('keyword', null);
-        $fileName = 'รายงานการสั่งออกแบบ-' . Carbon::now()->format('dmY-His') . '.xlsx';
-        return Excel::download(new preordersExport($status, $keyword), $fileName);
-    }
-    public function BN_reports_preorders(Request $request)
-    {
-        $query = preordersModel::with('customer')->orderBy('created_at', 'desc');
-        if ($request->has('status') && $request->input('status') !== 'all') {
-            $status = $request->input('status');
-            $query->where('status', $status);
-        }
-        if ($request->has('keyword')) {
-            $keyword = $request->input('keyword');
-            $query->where(function ($query) use ($keyword) {
-                $query->where('number', 'like', "%$keyword%")
-                      ->orWhere('email', 'like', "%$keyword%")
-                      ->orWhere('firstname', 'like', "%$keyword%")
-                      ->orWhere('lastname', 'like', "%$keyword%");
-            })->orWhereHas('customers', function ($query) use ($keyword) {
-                $query->where('email', 'like', "%$keyword%")
-                      ->orWhere('firstname', 'like', "%$keyword%")
-                      ->orWhere('lastname', 'like', "%$keyword%");
-            });
-        }
-        $results = $query->get();
-
-        // dd($results);
-        return view('backend/reports-preorders', [
-            'default_pagename' => 'การสั่งออกแบบทั้งหมด',
-            'query' => $results,
-        ]);
-    }
+   
+    
 
 
 

@@ -1,49 +1,37 @@
 <?php
 
-
 namespace App\Exports;
 
 use Maatwebsite\Excel\Concerns\FromCollection;
+use Maatwebsite\Excel\Concerns\WithHeadings;
 
 use App\Models\sellsModel;
 use App\Models\preordersModel;
 use App\Models\preorders_signsModel;
 use App\Models\downloadsModel;
 
-class SellsExport implements FromCollection
+class SellsExport implements FromCollection, WithHeadings
 {
+    protected $results;
     protected $status;
-    protected $keyword;
 
-    public function __construct($status, $keyword)
+    public function __construct($results, $status)
     {
+        $this->results = $results;
         $this->status = $status;
-        $this->keyword = $keyword;
     }
 
     public function collection()
     {
-        $query = SellsModel::query();
+        return $this->results;
+    }
 
-        if ($this->status && $this->status !== 'all') {
-            $query->where('status', $this->status);
-        }
+    public function headings(): array
+    {
+        // Get the column names from the sellsModel
+        $columns = array_keys($this->results->first()->toArray());
 
-        if ($this->keyword) {
-            $query->where(function ($query) {
-                $query->where('number', 'like', '%' . $this->keyword . '%')
-                      ->orWhere('name_th', 'like', '%' . $this->keyword . '%')
-                      ->orWhere('name_en', 'like', '%' . $this->keyword . '%')
-                      ->orWhere('email', 'like', '%' . $this->keyword . '%')
-                      ->orWhere('firstname', 'like', '%' . $this->keyword . '%')
-                      ->orWhere('lastname', 'like', '%' . $this->keyword . '%');
-            })->orWhereHas('customers', function ($query) {
-                $query->where('email', 'like', '%' . $this->keyword . '%')
-                      ->orWhere('firstname', 'like', '%' . $this->keyword . '%')
-                      ->orWhere('lastname', 'like', '%' . $this->keyword . '%');
-            });
-        }
-
-        return $query->get();
+        // Use the column names as headers
+        return $columns;
     }
 }

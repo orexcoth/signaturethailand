@@ -314,6 +314,15 @@ $arr_ship = array(
             </div>
         </div>
     </form>
+    <div class="intro-y mt-5 flex flex-col items-center sm:flex-row">
+        <div class="mt-4 flex w-full sm:mt-0 sm:w-auto">
+            @if($query->status == 'paid')
+                <a href="{{ route('generateReceipt', ['type' => 'preorders', 'order_id' => $query->id]) }}" class="transition duration-200 border inline-flex items-center justify-center py-2 px-3 rounded-md font-medium cursor-pointer focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus-visible:outline-none dark:focus:ring-slate-700 dark:focus:ring-opacity-50 [&amp;:hover:not(:disabled)]:bg-opacity-90 [&amp;:hover:not(:disabled)]:border-opacity-90 [&amp;:not(button)]:text-center disabled:opacity-70 disabled:cursor-not-allowed bg-primary border-primary text-white dark:border-primary shadow-md">
+                    ใบเสร็จ
+                </a>
+            @endif
+        </div>
+    </div>
     
    
     
