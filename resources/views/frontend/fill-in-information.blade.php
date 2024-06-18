@@ -31,25 +31,25 @@
                         <label for="" class="me-3 Text-18 Text-W400 Text-Gray-Label">
                             ชื่อ
                         </label>
-                        <input name="firstname" type="text" class="w-100 DropdownBox-SelectPreorder">
+                        <input name="firstname" type="text" class="w-100 DropdownBox-SelectPreorder" required >
                     </div>
                     <div class="col-lg-6 col-md-6 col-12 Col-Margin-TopBottom">
                         <label for="" class="me-3 Text-18 Text-W400 Text-Gray-Label">
                             นามสกุล
                         </label>
-                        <input name="lastname" type="text" class="w-100 DropdownBox-SelectPreorder">
+                        <input name="lastname" type="text" class="w-100 DropdownBox-SelectPreorder" required >
                     </div>
                     <div class="col-lg-6 col-md-6 col-12 Col-Margin-TopBottom">
                         <label for="" class="me-3 Text-18 Text-W400 Text-Gray-Label">
                             อีเมล
                         </label>
-                        <input name="email" type="email" class="w-100 DropdownBox-SelectPreorder">
+                        <input name="email" type="email" class="w-100 DropdownBox-SelectPreorder" required >
                     </div>
                     <div class="col-lg-6 col-md-6 col-12 Col-Margin-TopBottom">
                         <label for="" class="me-3 Text-18 Text-W400 Text-Gray-Label">
                             เบอร์โทร
                         </label>
-                        <input name="phone" type="tel" class="w-100 DropdownBox-SelectPreorder">
+                        <input name="phone" type="tel" class="w-100 DropdownBox-SelectPreorder" required >
                     </div>
                     <!-- <div class="col-12 Col-Margin-TopBottom">
                         <label for="" class="me-3 Text-18 Text-W400 Text-Gray-Label">

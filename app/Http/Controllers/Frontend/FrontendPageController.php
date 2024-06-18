@@ -22,6 +22,7 @@ use App\Models\preorders_signs;
 use App\Models\sellsModel;
 use App\Models\sells_namesModel;
 use App\Models\downloadsModel;
+use App\Models\User;
 
 // use Dompdf\Dompdf;
 use Illuminate\Support\Facades\Storage;
@@ -164,7 +165,7 @@ class FrontendPageController extends Controller
             'phone' => 'required|string|max:20',
         ]);
         if ($validator->fails()) {
-            return redirect()->back()->with('error', 'Validation failed. Please check your inputs.')->withInput();
+            return redirect()->back()->with('error', 'กรุณาใส่ชื่ออย่างน้อย 1 ภาษา !')->withInput();
         }
         $suggest = new suggestsModel;
         $suggest->name_th = $request->name_th;
@@ -712,6 +713,7 @@ class FrontendPageController extends Controller
     }
     public function indexPage(Request $request)
     {
+        $staffs = User::get();
         $namefree = NamesModel::where('free', 1)
             ->whereHas('signs')
             ->get()
@@ -755,9 +757,11 @@ class FrontendPageController extends Controller
             });
 
         $about_index = OptionsModel::where('option_key', 'about_index')->first();
+        // dd($staffs);
         return view('frontend/index', [
             'default_pagename' => 'Signature Thailand',
             'layout' => 'side-menu',
+            'staffs' => $staffs,
             'namefree' => $namefree,
             'namesfreeen' => $namesen,
             'namesfreeth' => $namesth,

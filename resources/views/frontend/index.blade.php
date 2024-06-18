@@ -453,6 +453,25 @@
             </h1>
 
             <div class="SlideTeam team owl-carousel owl-theme ">
+
+                @foreach($staffs as $keystaffs => $staff)
+                <div class="items">
+                    <div class="BoxTeam">
+                        <img class="IMG-Team" src="{{asset($staff->photo)}}" alt="">
+                        <div class="BoxDetail-Team">
+                            <p class="Text-Gold-Gardien Text-24 Text-W600 text-center mb-2">
+                                {{$staff->name}}
+                            </p>
+                            <p class="Text-box-DetailTeam Text-18 Text-W400 text-center mb-2">
+                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's
+                            </p>
+                            <a class="btn Button-NoBG" href="detail-team.php">
+                                ดูเพิ่มเติม
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                @endforeach
                 <div class="items">
                     <div class="BoxTeam">
                         <img class="IMG-Team" src="{{asset('frontend/images/team/pfpd.png')}}" alt="">
@@ -517,6 +536,7 @@
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
 

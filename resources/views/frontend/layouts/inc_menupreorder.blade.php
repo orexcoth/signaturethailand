@@ -55,13 +55,13 @@
                                         <label for="dropdown" class="me-3 Text-18 Text-W400 Text-Gray-Label">
                                             อีเมล
                                         </label>
-                                        <input type="email" name="email" class="w-100 DropdownBox-SelectPreorder">
+                                        <input type="email" name="email" class="w-100 DropdownBox-SelectPreorder" required >
                                     </div>
                                     <div class="col-lg-6 col-md-6 col-12 Col-Margin-TopBottom d-none d-sm-none d-md-block d-lg-block d-xl-block">
                                         <label for="dropdown" class="me-3 Text-18 Text-W400 Text-Gray-Label">
                                             เบอร์โทรติดต่อ
                                         </label>
-                                        <input type="tel" name="phone" class="w-100 DropdownBox-SelectPreorder">
+                                        <input type="tel" name="phone" class="w-100 DropdownBox-SelectPreorder" required >
                                     </div>
                                 </div>
                                 <button type="submit" class="btn ButtonSeemore mt-5" >
