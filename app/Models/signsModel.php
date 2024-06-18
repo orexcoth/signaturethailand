@@ -7,8 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 
 use App\Models\sellsModel;
 use App\Models\User;
-use App\Models\NamesModel;
+// use App\Models\NamesModel;
 use App\Models\downloadsModel;
+use App\Models\namesModel;
 
 
 class signsModel extends Model
@@ -45,7 +46,7 @@ class signsModel extends Model
 
     public function name()
     {
-        return $this->belongsTo(NamesModel::class, 'names_id');
+        return $this->belongsTo(namesModel::class, 'names_id');
     }
 
     public function downloads()

@@ -363,7 +363,7 @@
                         <div class="WarpColInput-Preorder row">
                             <div class="col-12 Col-Margin-TopBottom">
                                 <label class="me-3 Text-18 Text-W500 Text-Gold-Gardien" for="TargetPreorder">เลือกเป้าหมายเปลี่ยนชีวิต</label>
-                                <textarea id="TargetPreorder" class="ColTargetPreorder" name="TargetPreorder" rows="4" cols="40" required ></textarea>
+                                <textarea id="TargetPreorder" class="ColTargetPreorder" name="TargetPreorder" rows="4" cols="40" ></textarea>
                             </div>
                         </div>
 
@@ -375,7 +375,7 @@
                         <div class="WarpColInput-Preorder row">
                             <div class="col-lg-4 col-md-4 col-12 Col-Margin-TopBottom">
                                 <label for="dropdown" class="me-3 Text-18 Text-W400 Text-Gray-Label">
-                                    ชื่อ - นามสกุล
+                                    <span style="color:red;">*</span> ชื่อ - นามสกุล
                                 </label>
                                 <input type="text" name="name" class="w-100 DropdownBox-SelectPreorder" required >
                             </div>
@@ -383,11 +383,11 @@
                                 <label for="dropdown" class="me-3 Text-18 Text-W400 Text-Gray-Label">
                                     วัน/เดือน/ปีเกิด
                                 </label>
-                                <input type="date" name="dob" class="w-100 DropdownBox-SelectPreorder" required >
+                                <input type="date" name="dob" class="w-100 DropdownBox-SelectPreorder" >
                             </div>
                             <div class="col-lg-4 col-md-4 col-12 Col-Margin-TopBottom d-none d-sm-none d-md-block d-lg-block d-xl-block">
                                 <label for="dropdown" class="me-3 Text-18 Text-W400 Text-Gray-Label">
-                                    เบอร์โทรติดต่อ
+                                    <span style="color:red;">*</span> เบอร์โทรติดต่อ
                                 </label>
                                 <input type="tel" name="telephone" class="w-100 DropdownBox-SelectPreorder" required >
                             </div>
@@ -403,7 +403,7 @@
                             </div>
                             <div class="col-lg-8 col-md-8 col-12 Col-Margin-TopBottom">
                                 <label for="dropdown" class="me-3 Text-18 Text-W400 Text-Gray-Label">
-                                    ธุรกิจ อาชีพ หรือการงานที่ทำในปัจจุบัน (ไม่มีให้ระบุ ไม่มี)
+                                    <span span style="color:red;">*</span> ธุรกิจ อาชีพ หรือการงานที่ทำในปัจจุบัน (ไม่มีให้ระบุ ไม่มี)
                                 </label>
                                 <input type="text" name="occupation" class="w-100 DropdownBox-SelectPreorder" required >
                             </div>
@@ -434,7 +434,7 @@
                         <div class="WarpColInput-Preorder row">
                             <div class="col-12 Col-Margin-TopBottom">
                                 <label class="me-3 Text-18 Text-W400 Text-Gray-Label" for="ProblemPreorder">เล่าถึงปัญหาที่พบเจอในปัจจุบัน ติดปัญหาด้านใดบ้าง(มาพอสังเขป) จะให้ข้อมูลหรือไม่ก็ได้</label>
-                                <textarea  id="ProblemPreorder" class="ColTargetPreorder" name="ProblemPreorder" rows="4" cols="40" required ></textarea>
+                                <textarea  id="ProblemPreorder" class="ColTargetPreorder" name="ProblemPreorder" rows="4" cols="40" ></textarea>
                             </div>
                         </div>
 

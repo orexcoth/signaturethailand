@@ -472,7 +472,7 @@
                     </div>
                 </div>
                 @endforeach
-                <div class="items">
+                <!-- <div class="items">
                     <div class="BoxTeam">
                         <img class="IMG-Team" src="{{asset('frontend/images/team/pfpd.png')}}" alt="">
                         <div class="BoxDetail-Team">
@@ -535,7 +535,7 @@
                             </a>
                         </div>
                     </div>
-                </div>
+                </div> -->
 
             </div>
         </div>
