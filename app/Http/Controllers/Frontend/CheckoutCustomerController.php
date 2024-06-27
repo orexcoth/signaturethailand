@@ -115,6 +115,7 @@ class CheckoutCustomerController extends Controller
         $newpreorders->mysignature = $request->mysignaturePath;
         $newpreorders->ProblemPreorder = $request->ProblemPreorder;
         $newpreorders->DeliverSignature = $request->DeliverSignature;
+        $newpreorders->agree = $request->agree;
         // Assuming you also need to store other fields from the request in SellsModel
         // Add them as necessary
         // dd($newpreorders);
@@ -142,9 +143,9 @@ class CheckoutCustomerController extends Controller
         // dd($newpreorders);
             
 
-
+        return redirect(route('paymentPage', ['type' => 'preorder', 'order' => $newpreorders->id]));
         // Optionally, return success response with sell ID
-        return redirect(route('thankPage', ['preorders_id' => $newpreorders->id]))->with('success', 'สร้างสำเร็จ !!!');
+        // return redirect(route('thankPage', ['preorders_id' => $newpreorders->id]))->with('success', 'สร้างสำเร็จ !!!');
 
     }
 

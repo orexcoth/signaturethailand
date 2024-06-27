@@ -59,6 +59,7 @@ class preordersModel extends Model
         'mysignature',
         'ProblemPreorder',
         'DeliverSignature',
+        'agree',
         'names_id',
     ];
 

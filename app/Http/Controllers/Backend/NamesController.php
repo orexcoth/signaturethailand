@@ -58,27 +58,27 @@ class NamesController extends Controller
 
 
 
+    
 
 
 
-
-    public function BN_names_sign_add_action(Request $request) {
-        // Validate sign and video uploads
+    public function BN_names_sign_add_action(Request $request) 
+    {
+        // Validate sign and optionally validate video uploads
         $request->validate([
             'sign' => 'required|image',
-            'video' => 'required|mimetypes:video/mp4,video/avi,video/quicktime,video/x-ms-wmv',
+            'video' => 'nullable|mimetypes:video/mp4,video/avi,video/quicktime,video/x-ms-wmv',
         ]);
-    
+
         $name = namesModel::findOrFail($request->names_id);
         $defaultName = ($request->lang == 'th') ? $name->name_th : $name->name_en;
-    
+
         $userId = $request->users_id;
         $currentDate = date('Ymd');
         $randomString = uniqid();
         $langFolder = ($request->lang == 'th') ? 'th' : 'en';
         $signExtension = $request->file('sign')->getClientOriginalExtension();
-        $videoExtension = $request->file('video')->getClientOriginalExtension();
-    
+        
         $signFile = $request->file('sign');
         $signNewFileName = $currentDate . '-' . $userId . '-' . $request->names_id . '-' . $defaultName . '-' . $randomString . '.' . $signExtension;
         $signDestinationPath = 'uploads/sign/' . $langFolder;
@@ -87,48 +87,52 @@ class NamesController extends Controller
             Log::error('Sign upload failed.');
             return redirect()->back()->with('error', 'Sign upload failed.');
         }
-    
-        $videoFile = $request->file('video');
-        $videoNewFileName = $currentDate . '-' . $userId . '-' . $request->names_id . '-' . $defaultName . '-' . $randomString . '.' . $videoExtension;
-        $videoDestinationPath = 'uploads/video/' . $langFolder;
-        $videoPath = $videoFile->move($videoDestinationPath, $videoNewFileName);
-    
-        if ($videoPath === false) {
-            Log::error('Video upload failed.');
-            return redirect()->back()->with('error', 'Video upload failed.');
+
+        $videoPath = null;
+        if ($request->hasFile('video')) {
+            $videoExtension = $request->file('video')->getClientOriginalExtension();
+            $videoFile = $request->file('video');
+            $videoNewFileName = $currentDate . '-' . $userId . '-' . $request->names_id . '-' . $defaultName . '-' . $randomString . '.' . $videoExtension;
+            $videoDestinationPath = 'uploads/video/' . $langFolder;
+            $videoPath = $videoFile->move($videoDestinationPath, $videoNewFileName);
+
+            if ($videoPath === false) {
+                Log::error('Video upload failed.');
+                return redirect()->back()->with('error', 'Video upload failed.');
+            }
         }
-    
+
         /** start gen feature */
         $imgpath = $signPath->getPathname();
         $imagesource = public_path($imgpath);
-    
+
         // Check if the source image exists
         if (!File::exists($imagesource)) {
             return redirect()->back()->with('error', 'Source image not found.');
         }
-    
+
         $image = Image::make($imagesource);
-    
+
         $x = 0;
         $y = 0;
         $width = $image->width();
         $height = $image->height();
         $blockSize = 27;
-    
+
         $croppedImage = $image->crop($width, $height, $x, $y);
         $mosaicImage = $croppedImage->resize($width / $blockSize, $height / $blockSize);
         $mosaicImage = $mosaicImage->resize($width, $height, function ($constraint) {
             $constraint->aspectRatio();
         });
         $image->insert($mosaicImage, 'top-left', $x, $y);
-    
+
         $name_mosaic = uniqid() . time() . '-result-mosaic.jpg';
         $filepath_mosaic = 'uploads/mosaic/' . $name_mosaic;
         $image->save(public_path($filepath_mosaic));
-    
+
         $mosaicImagePath = $filepath_mosaic;
         /** end gen feature */
-    
+
         $sign = new signsModel();
         $sign->status = 1;
         $sign->names_id = $request->names_id;
@@ -141,10 +145,10 @@ class NamesController extends Controller
         $sign->description = $request->description;
         $sign->lang = $request->lang;
         $sign->sign = $signPath->getPathname();
-        $sign->video = $videoPath->getPathname();
+        $sign->video = $videoPath ? $videoPath->getPathname() : null;
         $sign->feature = $mosaicImagePath;
         $sign->save();
-    
+
         Log::info('Sign added successfully.');
         return redirect(route('BN_names_detail', ['id' => $request->names_id]))->with('success', 'เพิ่มลายเซ็นต์เรียบร้อย !!!');
     }
@@ -167,10 +171,121 @@ class NamesController extends Controller
 
     
 
+    public function BN_names_sign_edit_action(Request $request) 
+    {
+        // Validate the request data
+        $request->validate([
+            'sign' => 'required|image',
+            'video' => 'nullable|mimetypes:video/mp4,video/avi,video/quicktime,video/x-ms-wmv',
+        ]);
+
+        $sign = signsModel::findOrFail($request->signs_id);
+
+        if ($request->hasFile('sign')) {
+            // Handle sign upload
+            $signExtension = $request->file('sign')->getClientOriginalExtension();
+            $currentDate = date('Ymd');
+            $randomString = uniqid();
+            $langFolder = ($request->field == 'name_th') ? 'th' : 'en';
+            $signNewFileName = $currentDate . '-' . $request->users_id . '-' . $request->names_id . '-' . $randomString . '.' . $signExtension;
+            $signDestinationPath = 'uploads/sign/' . $langFolder;
+            $signPath = $request->file('sign')->move($signDestinationPath, $signNewFileName);
+
+            if ($signPath === false) {
+                Log::error('Sign upload failed.');
+                return redirect()->back()->with('error', 'Sign upload failed.');
+            }
+
+            // Delete the old sign file
+            if (File::exists(public_path($sign->sign))) {
+                File::delete(public_path($sign->sign));
+            }
+
+            $sign->sign = $signPath->getPathname();
+
+            /** start gen feature */
+            $imgpath = $signPath->getPathname();
+            $imagesource = public_path($imgpath);
+
+            // Check if the source image exists
+            if (!File::exists($imagesource)) {
+                return redirect()->back()->with('error', 'Source image not found.');
+            }
+
+            $image = Image::make($imagesource);
+
+            $x = 0;
+            $y = 0;
+            $width = $image->width();
+            $height = $image->height();
+            $blockSize = 27;
+
+            $croppedImage = $image->crop($width, $height, $x, $y);
+            $mosaicImage = $croppedImage->resize($width / $blockSize, $height / $blockSize);
+            $mosaicImage = $mosaicImage->resize($width, $height, function ($constraint) {
+                $constraint->aspectRatio();
+            });
+            $image->insert($mosaicImage, 'top-left', $x, $y);
+
+            $name_mosaic = uniqid() . time() . '-result-mosaic.jpg';
+            $filepath_mosaic = 'uploads/mosaic/' . $name_mosaic;
+            $image->save(public_path($filepath_mosaic));
+
+            $mosaicImagePath = $filepath_mosaic;
+            $sign->feature = $mosaicImagePath;
+            /** end gen feature */
+        }
+
+        if ($request->hasFile('video')) {
+            // Handle video upload
+            $videoExtension = $request->file('video')->getClientOriginalExtension();
+            $currentDate = date('Ymd');
+            $randomString = uniqid();
+            $langFolder = ($request->field == 'name_th') ? 'th' : 'en';
+            $videoNewFileName = $currentDate . '-' . $request->users_id . '-' . $request->names_id . '-' . $randomString . '.' . $videoExtension;
+            $videoDestinationPath = 'uploads/video/' . $langFolder;
+            $videoPath = $request->file('video')->move($videoDestinationPath, $videoNewFileName);
+
+            if ($videoPath === false) {
+                Log::error('Video upload failed.');
+                return redirect()->back()->with('error', 'Video upload failed.');
+            }
+
+            // Delete the old video file
+            if (File::exists(public_path($sign->video))) {
+                File::delete(public_path($sign->video));
+            }
+
+            $sign->video = $videoPath->getPathname();
+        }
+
+        // Update the sign data
+        $sign->work = $request->work;
+        $sign->finance = $request->finance;
+        $sign->love = $request->love;
+        $sign->health = $request->health;
+        $sign->fortune = $request->fortune;
+        $sign->description = $request->description;
+        $sign->lang = ($request->field == 'name_th') ? 'th' : 'en';
+        $sign->save();
+
+        Log::info('Sign updated successfully.');
+        return redirect(route('BN_names_detail', ['id' => $sign->names_id]))->with('success', 'ลายเซ็นต์ถูกแก้ไขเรียบร้อยแล้ว!');
+    }
 
 
 
-
+    public function BN_names_sign_edit(Request $request, $lang, $sign)
+    {
+        $getsigns = signsModel::find($sign);
+        $name = namesModel::find($getsigns->names_id);
+        return view('backend/names-sign-edit', [
+            'default_pagename' => 'เพิ่มลายเซ็นต์',
+            'sign' => $getsigns,
+            'name' => $name,
+            'lang' => $lang,
+        ]);
+    }
 
 
     

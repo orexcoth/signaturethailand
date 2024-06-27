@@ -387,6 +387,7 @@ class FrontendPageController extends Controller
             'total_price' => $request->total_price,
             'shipping_price' => $request->shipping_price,
             'mysignaturePath' => $request->mysignaturePath,
+            'agree' => $request->agree,
         ]);
     }
 
@@ -435,6 +436,7 @@ class FrontendPageController extends Controller
             'EverSignature' => $request->EverSignature,
             'ProblemPreorder' => $request->ProblemPreorder,
             'DeliverSignature' => $request->DeliverSignature,
+            'agree' => $request->agree,
             'shipping' => $shipping,
             'mysignaturePath' => $myoldsign,
             'firstname_th_price' => $firstname_th ? $firstname_th->option_value : 0,
@@ -505,8 +507,8 @@ class FrontendPageController extends Controller
         if (!empty($keyword)) {
 
             $orderByColumn = $language == 'th' ? 'name_th' : 'name_en';
-            $names = NamesModel::where('name_th', 'like', '%' . $keyword . '%')
-                  ->orWhere('name_en', 'like', '%' . $keyword . '%')
+            $names = NamesModel::where('name_th', 'like', $keyword . '%')
+                  ->orWhere('name_en', 'like', $keyword . '%')
                   ->distinct()
                   ->orderBy($orderByColumn, 'asc')
                   ->paginate(24);

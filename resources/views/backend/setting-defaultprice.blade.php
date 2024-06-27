@@ -77,6 +77,20 @@
                         <div class="grid grid-cols-12 gap-x-5">
                             <div class="col-span-12 xl:col-span-6">
                                 <div class="mt-3">
+                                    <label for="" class="form-label">ชื่อไทย+นามสกุลไทย</label>
+                                    <input type="number" class="form-control w-full" name="firstname_lastname_th" value="{{$firstname_lastname_th}}" required />
+                                </div>
+                            </div>
+                            <div class="col-span-12 xl:col-span-6">
+                                <div class="mt-3">
+                                    <label for="" class="form-label">ชื่ออังกฤษ+นามสกุลอังกฤษ</label>
+                                    <input type="number" class="form-control w-full" name="firstname_lastname_en" value="{{$firstname_lastname_en}}" required />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-12 gap-x-5">
+                            <div class="col-span-12 xl:col-span-6">
+                                <div class="mt-3">
                                     <label for="" class="form-label">ค่าบริการส่งด่วน</label>
                                     <input type="number" class="form-control w-full" name="express" value="{{$express}}" required />
                                 </div>

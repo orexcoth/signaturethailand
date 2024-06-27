@@ -229,6 +229,9 @@ class BackendPageController extends Controller
         $firstname_en = OptionsModel::where('option_key', 'firstname_en')->first();
         $lastname_en = OptionsModel::where('option_key', 'lastname_en')->first();
 
+        $firstname_lastname_th = OptionsModel::where('option_key', 'firstname_lastname_th')->first();
+        $firstname_lastname_en = OptionsModel::where('option_key', 'firstname_lastname_en')->first();
+
         $express = OptionsModel::where('option_key', 'express')->first();
 
         return view('backend/setting-defaultprice', [
@@ -239,6 +242,8 @@ class BackendPageController extends Controller
             'lastname_th' => $lastname_th ? $lastname_th->option_value : 0,
             'firstname_en' => $firstname_en ? $firstname_en->option_value : 0,
             'lastname_en' => $lastname_en ? $lastname_en->option_value : 0,
+            'firstname_lastname_th' => $firstname_lastname_th ? $firstname_lastname_th->option_value : 0,
+            'firstname_lastname_en' => $firstname_lastname_en ? $firstname_lastname_en->option_value : 0,
             'express' => $express ? $express->option_value : 0,
         ]);
     }
@@ -257,9 +262,18 @@ class BackendPageController extends Controller
         if(isset($request->lastname_en)){
             OptionsModel::where('option_key', 'lastname_en')->update(['option_value' => $request->lastname_en]);
         }
+        if(isset($request->firstname_lastname_th)){
+            OptionsModel::where('option_key', 'firstname_lastname_th')->update(['option_value' => $request->firstname_lastname_th]);
+        }
+        if(isset($request->firstname_lastname_en)){
+            OptionsModel::where('option_key', 'firstname_lastname_en')->update(['option_value' => $request->firstname_lastname_en]);
+        }
+
+
         if(isset($request->express)){
             OptionsModel::where('option_key', 'express')->update(['option_value' => $request->express]);
         }
+        
         return redirect()->back()->with('success', 'อัพเดทสำเร็จ !');
     }
 

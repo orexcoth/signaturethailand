@@ -457,7 +457,18 @@
                                 </div>
                             </div>
                         </div>
-
+                        
+                        <div class="WarpColInput-Preorder row">
+                            <div class="col-lg-4 col-md-4 col-12 Col-Margin-TopBottom">
+                                <div class="ColSelect-Input">
+                                    <label class="me-3 Text-18 Text-W400 Text-Gray-Label" for="DeliverSignature">ยินยอมให้ลายเซ็นที่สั่งออกแบบ เข้าสู่ระบบ</label>
+                                    <select name="agree" id="agree" class="DropdownBox-SelectPreorder">
+                                        <option class="OptionSelect" value="yes" selected >ยินยอม</option>
+                                        <option class="OptionSelect" value="no">ไม่ยินยอม</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
 
 
 

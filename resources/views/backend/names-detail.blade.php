@@ -74,6 +74,12 @@
 
                                     <div class="mt-1 text-3xl font-medium leading-8">{{ $th->user->name }}</div>
 
+                                    <!-- <div class="mt-4 flex w-full sm:mt-0 sm:w-auto">
+                                        <a href="{{route('BN_names_edit', ['id' => $name->id])}}" class="transition duration-200 border inline-flex items-center justify-center py-2 px-3 rounded-md font-medium cursor-pointer focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus-visible:outline-none dark:focus:ring-slate-700 dark:focus:ring-opacity-50 [&amp;:hover:not(:disabled)]:bg-opacity-90 [&amp;:hover:not(:disabled)]:border-opacity-90 [&amp;:not(button)]:text-center disabled:opacity-70 disabled:cursor-not-allowed bg-primary border-primary text-white dark:border-primary mr-2 shadow-md" >
+                                        &emsp;&emsp;แก้ไข&emsp;&emsp;
+                                        </a> 
+                                    </div> -->
+
                                     <div class="mt-5 grid grid-cols-12 gap-6">
                         
                                         <div class="col-span-12 md:col-span-12 lg:col-span-4">
@@ -139,6 +145,12 @@
                                                         </div>
                                                     </div>
                                                 </div>
+                                                @if($th->users_id == auth()->user()->id)
+                                                <a href="{{ route('BN_names_sign_edit', ['lang' => 'th', 'sign' => $th->id]) }}" class="mt-8 transition duration-200 border inline-flex items-center justify-center py-2 px-3 rounded-md font-medium cursor-pointer focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus-visible:outline-none dark:focus:ring-slate-700 dark:focus:ring-opacity-50 [&amp;:hover:not(:disabled)]:bg-opacity-90 [&amp;:hover:not(:disabled)]:border-opacity-90 [&amp;:not(button)]:text-center disabled:opacity-70 disabled:cursor-not-allowed bg-primary border-primary text-white dark:border-primary mr-2 shadow-md" >
+                                                &emsp;&emsp;แก้ไข&emsp;&emsp;
+                                                </a> 
+                                                @endif()
+                                                
 
                                                 
                                                 
@@ -168,7 +180,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-
+                                            @if($th->video)
                                             <button 
                                                 data-href="{{ asset($th->video) }}" 
                                                 data-filename="video-{{$name->name_th}}-{{ $th->user->name }}-{{$th->id}}"
@@ -176,6 +188,8 @@
                                                 onclick="downloadVideo(this)">
                                                 Download Video
                                             </button>
+                                            @endif
+                                            
 
                                         </div>
 
@@ -307,7 +321,11 @@
                                                         </div>
                                                     </div>
                                                 </div>
-
+                                                @if($en->users_id == auth()->user()->id)
+                                                <a href="{{ route('BN_names_sign_edit', ['lang' => 'en', 'sign' => $en->id]) }}" class="mt-8 transition duration-200 border inline-flex items-center justify-center py-2 px-3 rounded-md font-medium cursor-pointer focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus-visible:outline-none dark:focus:ring-slate-700 dark:focus:ring-opacity-50 [&amp;:hover:not(:disabled)]:bg-opacity-90 [&amp;:hover:not(:disabled)]:border-opacity-90 [&amp;:not(button)]:text-center disabled:opacity-70 disabled:cursor-not-allowed bg-primary border-primary text-white dark:border-primary mr-2 shadow-md" >
+                                                &emsp;&emsp;แก้ไข&emsp;&emsp;
+                                                </a> 
+                                                @endif()
                                                 
                                                 
 

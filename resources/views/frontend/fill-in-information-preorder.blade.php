@@ -49,7 +49,7 @@
                         <label for="" class="me-3 Text-18 Text-W400 Text-Gray-Label">
                         <span style="color:red;">*</span> เบอร์โทร
                         </label>
-                        <input name="phone" type="tel" class="w-100 DropdownBox-SelectPreorder" required >
+                        <input name="phone" type="tel" class="w-100 DropdownBox-SelectPreorder" value="{{$telephone}}" required >
                     </div>
                     <!-- <div class="col-12 Col-Margin-TopBottom">
                         <label for="" class="me-3 Text-18 Text-W400 Text-Gray-Label">
@@ -78,6 +78,7 @@
                     <input type="hidden" name="EverSignature" value="{{$EverSignature}}" />
                     <input type="hidden" name="ProblemPreorder" value="{{$ProblemPreorder}}" />
                     <input type="hidden" name="DeliverSignature" value="{{$DeliverSignature}}" />
+                    <input type="hidden" name="agree" value="{{$agree}}" />
                     <input type="hidden" name="mysignaturePath" value="{{ $mysignaturePath }}">
 
                     <input type="hidden" name="preorder_price" value="{{$preorder_price}}" />

@@ -215,6 +215,8 @@ Route::middleware('auth')->group(function() {
 
             Route::get('sign/add/{lang}/{id}', [NamesController::class, 'BN_names_sign_add'])->name('BN_names_sign_add');
             Route::post('sign/add-action', [NamesController::class, 'BN_names_sign_add_action'])->name('BN_names_sign_add_action');
+            Route::get('sign/edit/{lang}/{sign}', [NamesController::class, 'BN_names_sign_edit'])->name('BN_names_sign_edit');
+            Route::post('sign/edit-action', [NamesController::class, 'BN_names_sign_edit_action'])->name('BN_names_sign_edit_action');
 
             
         });

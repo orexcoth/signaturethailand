@@ -226,6 +226,7 @@ $shipping_price = 0;
                             <input type="hidden" name="EverSignature" value="{{$EverSignature}}" />
                             <input type="hidden" name="ProblemPreorder" value="{{$ProblemPreorder}}" />
                             <input type="hidden" name="DeliverSignature" value="{{$DeliverSignature}}" />
+                            <input type="hidden" name="agree" value="{{$agree}}" />
 
                             <input type="hidden" name="preorder_price" value="{{$isprice}}" />
                             <input type="hidden" name="total_price" value="{{$total_price}}" />
