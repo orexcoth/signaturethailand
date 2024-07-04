@@ -4,6 +4,7 @@ namespace App\Http\Controllers\frontend;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 
 use App\Models\sellsModel;
 use App\Models\preordersModel;
@@ -16,6 +17,20 @@ use App\Mail\OrderPaymentSuccess;
 
 class PaymentController extends Controller
 {
+
+    
+
+
+
+    public function paymentcheckouttestPage(Request $request)
+    {
+        // dd($request);
+        return view('frontend/paymentcheckouttest', [
+            'default_pagename' => 'paymentcheckouttest',
+        ]);
+    }
+
+
 
     public function testSendEmail($type, $order_id)
     {

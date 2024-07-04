@@ -298,6 +298,7 @@ class ReportsController extends Controller
                       ->orWhere('name_th', 'like', "%$keyword%")
                       ->orWhere('name_en', 'like', "%$keyword%")
                       ->orWhere('email', 'like', "%$keyword%")
+                      ->orWhere('phone', 'like', "%$keyword%")
                       ->orWhere('firstname', 'like', "%$keyword%")
                       ->orWhere('lastname', 'like', "%$keyword%");
             })->orWhereHas('customers', function ($query) use ($keyword) {

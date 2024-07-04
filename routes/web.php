@@ -143,7 +143,8 @@ Route::get('/test-send-email/{type}/{order_id}', [PaymentController::class, 'tes
 
 // Route::post('payment-callback', [PaymentController::class, 'paymentcallbackPage'])->name('paymentcallbackPage');
 Route::get('payment-test', [PaymentController::class, 'paymenttestPage'])->name('paymenttestPage');
-
+Route::get('payment-checkout-test', [PaymentController::class, 'paymentcheckouttestPage'])->name('paymentcheckouttestPage');
+Route::get('/generate-paylink', [CheckoutCustomerController::class, 'generatePayLink']);
 
 
 

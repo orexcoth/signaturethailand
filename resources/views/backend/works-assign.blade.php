@@ -71,10 +71,14 @@
 
 @section('subcontent')
 <?php
+$workst = array(
+    'paid' => 'ชำระเงินแล้ว',
+    'pending' => 'รอชำระเงิน',
+);
 $defaultuser = asset('img/avatar.JPEG');
-echo "<pre>";
-print_r($defaultuser);
-echo "</pre>";
+// echo "<pre>";
+// print_r($defaultuser);
+// echo "</pre>";
 ?>
     <div class="intro-y mt-5 flex flex-col items-center sm:flex-row">
         <h2 class="mr-auto text-lg font-medium">{{$default_pagename}}</h2>
@@ -125,7 +129,37 @@ echo "</pre>";
                                     <label>รายการสั่งออกแบบ</label>
                                     <select name="preorders" data-placeholder="Select your favorite actors" class="tom-select w-full mt-3">
                                         @foreach($preorders as $key_preorders => $respreorders)
-                                        <option value="{{$respreorders->id}}">{{$respreorders->number}} - {{$respreorders->email}} - {{$respreorders->status}}</option>
+                                        <option value="{{$respreorders->id}}">{{$respreorders->number}}
+                                        -
+                                        @if($respreorders->package=='thai'  ||  $respreorders->package=='combo')
+                                            @if($respreorders->preorder_type=='firstname' ||  $respreorders->preorder_type=='duo')
+                                                
+                                                {{$respreorders->firstname_th}}
+                                                
+                                            @endif  
+                                            
+                                            @if($respreorders->preorder_type=='lastname' ||  $respreorders->preorder_type=='duo')
+                                                
+                                                {{$respreorders->lastname_th}}
+                                                
+                                            @endif      
+                                        @endif
+                                        
+                                        @if($respreorders->package=='english'  ||  $respreorders->package=='combo')
+                                            @if($respreorders->preorder_type=='firstname' ||  $respreorders->preorder_type=='duo')
+                                                
+                                                {{$respreorders->firstname_en}}
+
+                                            @endif  
+                                            
+                                            @if($respreorders->preorder_type=='lastname' ||  $respreorders->preorder_type=='duo')
+
+                                                {{$respreorders->lastname_en}}
+
+                                            @endif       
+                                        @endif 
+                                        || 
+                                        {{$respreorders->email}}</option>
                                         @endforeach
                                     </select>
                                 </div>

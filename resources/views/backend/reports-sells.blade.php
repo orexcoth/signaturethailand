@@ -57,6 +57,7 @@ $arr_st = array(
                     <th class="whitespace-nowrap">วันที่</th>
                     <th class="whitespace-nowrap">รายการ</th>
                     <th class="whitespace-nowrap">ลูกค้า</th>
+                    <th class="whitespace-nowrap">เบอร์</th>
                     <th class="whitespace-nowrap text-center">ชื่อที่สั่ง</th>
                     <th class="whitespace-nowrap text-right">ยอดชำระ</th>
                     <th class="whitespace-nowrap text-center">สถานะ</th>
@@ -75,7 +76,11 @@ $arr_st = array(
                         </td>
                         <td>
                             <div class="text-slate-500 text-sm whitespace-nowrap mt-0.5">{{$res->customers->firstname}} {{$res->customers->lastname}}</div>
+                            
                             <div class="text-slate-500 text-sm whitespace-nowrap mt-0.5">{{$res->email}}</div>
+                        </td>
+                        <td>
+                            <div class="text-slate-500 text-sm whitespace-nowrap mt-0.5">{{$res->phone}}</div>
                         </td>
                         <td>
                             <div class="text-slate-500 text-sm whitespace-nowrap mt-0.5 text-center">
