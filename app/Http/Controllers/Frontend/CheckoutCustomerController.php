@@ -36,11 +36,17 @@ class CheckoutCustomerController extends Controller
 
     public function generatePayLinkPayment($productName, $signs, $startDate, $expiredDate, $amount, $type, $number, $transaction)
     {
-        $url = 'https://sandbox-apipaylink.chillpay.co/api/v1/paylink/generate';
+        $urlsandbox = 'https://sandbox-apipaylink.chillpay.co/api/v1/paylink/generate';
+        $url = 'https://https://api-paylink.chillpay.co/api/v1/paylink/generate';
 
-        $headers = [
+        $headerssandbox = [
             'CHILLPAY-MerchantCode' => 'M035329',
             'CHILLPAY-ApiKey' => 'RJlFW2fmhMTOBWyTNffFhrBCTJPlfUuEL5IpsP7Z8kbucl4PQvPBsDTg5Hk3zlTY',
+            'Content-Type' => 'application/json',
+        ];
+        $headers = [
+            'CHILLPAY-MerchantCode' => 'M035329',
+            'CHILLPAY-ApiKey' => 'jpg2Cl3aWCsmatZ7rERFgJ0mt3sVG80bqtb62rtuBeW51B0ua2znrIEWzPdPzvs6',
             'Content-Type' => 'application/json',
         ];
 
@@ -55,7 +61,8 @@ class CheckoutCustomerController extends Controller
             "Amount" => $amount * 100,
         ];
 
-        $md5SecretKey = 'oWaW58hoYCXSoNQR23xm6on0BzfLNGettDKLccUb0OpTN5UWOiSt4E1hEuo7xk2SbJo4F3FBnNKN2RINgECSw9RXs6ygagCb2C7fu78M1mMdq1ch8DofTiuog9t62QtIOOlR7n1woJSnqnnkrJzp02G6mdCYGufON2Fl1';
+        $md5SecretKeysandbox = 'oWaW58hoYCXSoNQR23xm6on0BzfLNGettDKLccUb0OpTN5UWOiSt4E1hEuo7xk2SbJo4F3FBnNKN2RINgECSw9RXs6ygagCb2C7fu78M1mMdq1ch8DofTiuog9t62QtIOOlR7n1woJSnqnnkrJzp02G6mdCYGufON2Fl1';
+        $md5SecretKey = 'ThRTb2QrBcCzqC1TpbR5if2PMyX6RsCgz39OETfaNmhGtONiMwqDsNb7pWbmtoOMYRMeFMP86AlarNou3K8UL1ULCxQ5bY0GDkxtEyzA17M0h6vfD0YjAPnRVkP1njqH0cPrtqltpDHGiWUVZVmgadL9uJe3QwVy2e1oW';
 
         $checksumString = $body['ProductImage']
                         . $body['ProductName']
@@ -65,14 +72,14 @@ class CheckoutCustomerController extends Controller
                         . $body['ExpiredDate']
                         . $body['Currency']
                         . $body['Amount']
-                        . $md5SecretKey;
+                        . $md5SecretKeysandbox;
 
         $checksum = md5($checksumString);
 
         $body['Checksum'] = $checksum;
 
         try {
-            $response = Http::withHeaders($headers)->post($url, $body);
+            $response = Http::withHeaders($headerssandbox)->post($urlsandbox, $body);
 
             if ($response->successful()) {
                 $responseData = $response->json()['data'];
@@ -196,8 +203,8 @@ class CheckoutCustomerController extends Controller
             }
         }
 
-        $startDate = now()->format('d/m/Y H:i:s');
-        $expiredDate = now()->addDay()->format('d/m/Y H:i:s');
+        $startDate = now()->subDay()->format('d/m/Y H:i:s');
+        $expiredDate = now()->addMonths(6)->format('d/m/Y H:i:s');
         $amount = $newPreorder->total_price;
 
         $paymentResult = $this->generatePayLinkPayment($productName, '', $startDate, $expiredDate, $amount, 'preorders', $newPreorder->number, $newPreorder->id);
@@ -267,8 +274,8 @@ class CheckoutCustomerController extends Controller
             $productName = $newSell->name_th . ' / ' . $newSell->name_en;
         }
 
-        $startDate = now()->format('d/m/Y H:i:s');
-        $expiredDate = now()->addDay()->format('d/m/Y H:i:s');
+        $startDate = now()->subDay()->format('d/m/Y H:i:s');
+        $expiredDate = now()->addMonths(6)->format('d/m/Y H:i:s');
         $amount = $newSell->total;
 
         $paymentResult = $this->generatePayLinkPayment($productName, $newSell->signs, $startDate, $expiredDate, $amount, 'sells', $newSell->number, $newSell->id);
