@@ -37,7 +37,7 @@ class CheckoutCustomerController extends Controller
     public function generatePayLinkPayment($productName, $signs, $startDate, $expiredDate, $amount, $type, $number, $transaction)
     {
         $urlsandbox = 'https://sandbox-apipaylink.chillpay.co/api/v1/paylink/generate';
-        $url = 'https://https://api-paylink.chillpay.co/api/v1/paylink/generate';
+        $url = 'https://api-paylink.chillpay.co/api/v1/paylink/generate';
 
         $headerssandbox = [
             'CHILLPAY-MerchantCode' => 'M035329',
