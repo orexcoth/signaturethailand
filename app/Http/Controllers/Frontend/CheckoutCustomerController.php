@@ -72,14 +72,14 @@ class CheckoutCustomerController extends Controller
                         . $body['ExpiredDate']
                         . $body['Currency']
                         . $body['Amount']
-                        . $md5SecretKeysandbox;
+                        . $md5SecretKey;
 
         $checksum = md5($checksumString);
 
         $body['Checksum'] = $checksum;
 
         try {
-            $response = Http::withHeaders($headerssandbox)->post($urlsandbox, $body);
+            $response = Http::withHeaders($headers)->post($url, $body);
 
             if ($response->successful()) {
                 $responseData = $response->json()['data'];
