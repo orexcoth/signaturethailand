@@ -374,7 +374,7 @@ class FrontendPageController extends Controller
             return redirect()->route('historyPage');
         } else {
             // If customer not found, redirect back with error message
-            return redirect()->back()->with('error', 'Invalid credentials. Please try again.');
+            return redirect()->back()->with('error', 'ไม่พบประวัติการสั่งซื้อ!');
         }
     }
 
