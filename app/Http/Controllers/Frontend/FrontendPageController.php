@@ -43,6 +43,27 @@ use App\Mail\OrderPaymentSuccess;
 class FrontendPageController extends Controller
 {
 
+
+    public function teamPage(Request $request)
+    {
+        $getUsers = User::all();  // Use `all()` instead of `get()` when you want all records.
+        return view('frontend.team', [
+            'default_pagename' => 'team',
+            'getUsers' => $getUsers,
+        ]);
+    }
+
+    public function teamDetailPage(Request $request, $id)
+    {
+        $user = User::findOrFail($id);  // Use `findOrFail` to throw a 404 if the user is not found.
+        return view('frontend.team-detail', [
+            'default_pagename' => 'team detail',
+            'user' => $user,
+        ]);
+    }
+
+
+
     public function testSendEmail($type, $order_id)
     {
         $this->sendEmailOnPaymentSuccess($type, $order_id);
@@ -681,12 +702,7 @@ class FrontendPageController extends Controller
         ]);
     }
     
-    public function teamPage(Request $request)
-    {
-        return view('frontend/team', [
-            'default_pagename' => 'teamPage',
-        ]);
-    }
+    
     public function contactPage(Request $request)
     {
         return view('frontend/contact', [

@@ -49,7 +49,7 @@
     <nav class="navbar nav-main-md d-flex navbar-fixed-top">
         <div class="container">
             <a class="nav-link text-nav" aria-current="page" href="{{route('indexPage')}}">
-                <img class="LogoNav" src="{{asset('frontend/images/icon/Icon-Logo.svg')}}" alt="">
+                <img class="LogoNav" src="{{asset('frontend/images/navbar/ic-logo-update.svg')}}" alt="">
             </a>
             <button class="btn btn-menu-mobile" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight-menu" aria-controls="offcanvasRight">
                 <img class="ICMenu" src="{{asset('frontend/images/navbar/ic-menu.svg')}}" alt="">

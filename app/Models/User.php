@@ -2,15 +2,10 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
-
-use App\Models\signsModel;
-use App\Models\preordersTurnInModel;
-use App\Models\worksModel;
 
 class User extends Authenticatable
 {
@@ -25,12 +20,16 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'password',
         'role',
         'photo',
         'status',
         'rate_download',
         'rate_preorder',
+        'description',
+        'facebook',
+        'line',
+        'ig',
+        'twitter',
     ];
 
     /**
@@ -53,18 +52,19 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
+    // Relationships
     public function signs()
     {
         return $this->hasMany(SignsModel::class, 'users_id');
     }
+
     public function preordersTurnIns()
     {
         return $this->hasMany(PreordersTurnInModel::class, 'users_id');
     }
+
     public function works()
     {
         return $this->hasMany(worksModel::class, 'users_id');
     }
-
-
 }
