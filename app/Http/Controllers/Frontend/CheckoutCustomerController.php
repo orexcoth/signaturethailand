@@ -52,8 +52,8 @@ class CheckoutCustomerController extends Controller
 
         $body = [
             "ProductImage" => "https://signaturethailand.orexcoth.com/uploads/sign/th/20240418-4-2839-%E0%B8%81%E0%B8%81%E0%B8%9A-6620ddf0165e7.jpg",
-            "ProductName" => $productName,
-            "ProductDescription" => "Product description here",
+            "ProductName" => $number,
+            "ProductDescription" => $transaction,
             "PaymentLimit" => "",
             "StartDate" => $startDate,
             "ExpiredDate" => $expiredDate,
@@ -77,12 +77,14 @@ class CheckoutCustomerController extends Controller
         $checksum = md5($checksumString);
 
         $body['Checksum'] = $checksum;
-
+        // dd($url, $headers, $body);
         try {
             $response = Http::withHeaders($headers)->post($url, $body);
 
             if ($response->successful()) {
                 $responseData = $response->json()['data'];
+
+                // dd($responseData);
                 $paymentUrl = $responseData['paymentUrl'];
                 $payLinkId = $responseData['payLinkId'];
 
