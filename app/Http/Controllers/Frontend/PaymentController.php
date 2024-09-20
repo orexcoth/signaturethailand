@@ -198,7 +198,7 @@ class PaymentController extends Controller
         // $data->apikey = env('CHILLPAY_API_KEY');
 
         $api_sandbox = 'RJlFW2fmhMTOBWyTNffFhrBCTJPlfUuEL5IpsP7Z8kbucl4PQvPBsDTg5Hk3zlTY';
-        $api_product = 'jpg2Cl3aWCsmatZ7rERFgJ0mt3sVG80bqtb62rtuBeW51B0ua2znrIEWzPdPzvs6';
+        $api_product = '3ajxKe4eWRILoYcw2IJI8x7w0uaZ4S6zE1w8qlvnBlRl677zqT6yi418vyEzfBke';
 
         $data->apikey = $api_product;
         $data->merchantid = 'M035329';
