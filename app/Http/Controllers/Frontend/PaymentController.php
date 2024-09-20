@@ -117,46 +117,7 @@ class PaymentController extends Controller
 
 
 
-    public function paymentPage(Request $request, $type, $order)
-    {
-        // $rr = 'test';
 
-        $orderdata = '';
-        if($type=='sell'){
-            $orderdata = sellsModel::find($order); 
-            $lasttotal = $orderdata->total;
-        }elseif($type=='preorder'){
-            $orderdata = preordersModel::find($order);
-            $lasttotal = $orderdata->total_price;
-        }
-
-        if($orderdata['customers_id']){
-            $customer = customersModel::find($orderdata['customers_id']);
-        }
-        // dd($customer);
-        $data = new \stdClass(); // Create an empty object
-        // $data->apikey = env('CHILLPAY_API_KEY');
-
-        $api_sandbox = 'RJlFW2fmhMTOBWyTNffFhrBCTJPlfUuEL5IpsP7Z8kbucl4PQvPBsDTg5Hk3zlTY';
-        $api_product = 'jpg2Cl3aWCsmatZ7rERFgJ0mt3sVG80bqtb62rtuBeW51B0ua2znrIEWzPdPzvs6';
-
-        $data->apikey = $api_sandbox;
-        $data->merchantid = 'M035329';
-        $data->orderno = $orderdata['number'];
-        $data->customerid = $orderdata['customers_id'];
-        $data->mobileno = $customer->phone;
-        $data->clientip = '182.53.98.30';
-        $data->routeno = 1;
-        $data->currency = "764";
-        $data->description = 'Signature Thailand Customer Payments!';
-        $data->amount = $lasttotal;
-
-        return view('frontend/payment', [
-            'default_pagename' => 'ชำระเงิน',
-            'data' => $data,
-            // 'qrCodeUrl' => $qrCodeUrl,
-        ]);
-    }
 
 
     public function paymentcallbackPageget(Request $request)
@@ -209,11 +170,57 @@ class PaymentController extends Controller
             }
         }
     }
+
+
+
+    
     public function paymenttestPage(Request $request)
     {
         // dd($request);
         return view('frontend/paymenttest', [
             'default_pagename' => 'paymenttest',
+        ]);
+    }
+
+
+    public function paymentPage(Request $request, $type, $order)
+    {
+        // $rr = 'test';
+
+        $orderdata = '';
+        if($type=='sell'){
+            $orderdata = sellsModel::find($order); 
+            $lasttotal = $orderdata->total;
+        }elseif($type=='preorder'){
+            $orderdata = preordersModel::find($order);
+            $lasttotal = $orderdata->total_price;
+        }
+
+        if($orderdata['customers_id']){
+            $customer = customersModel::find($orderdata['customers_id']);
+        }
+        // dd($customer);
+        $data = new \stdClass(); // Create an empty object
+        // $data->apikey = env('CHILLPAY_API_KEY');
+
+        $api_sandbox = 'RJlFW2fmhMTOBWyTNffFhrBCTJPlfUuEL5IpsP7Z8kbucl4PQvPBsDTg5Hk3zlTY';
+        $api_product = 'jpg2Cl3aWCsmatZ7rERFgJ0mt3sVG80bqtb62rtuBeW51B0ua2znrIEWzPdPzvs6';
+
+        $data->apikey = $api_sandbox;
+        $data->merchantid = 'M035329';
+        $data->orderno = $orderdata['number'];
+        $data->customerid = $orderdata['customers_id'];
+        $data->mobileno = $customer->phone;
+        $data->clientip = '182.53.98.30';
+        $data->routeno = 1;
+        $data->currency = "764";
+        $data->description = 'Signature Thailand Customer Payments!';
+        $data->amount = $lasttotal;
+
+        return view('frontend/payment', [
+            'default_pagename' => 'ชำระเงิน',
+            'data' => $data,
+            // 'qrCodeUrl' => $qrCodeUrl,
         ]);
     }
 }
