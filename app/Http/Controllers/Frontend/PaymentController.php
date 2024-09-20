@@ -136,7 +136,11 @@ class PaymentController extends Controller
         // dd($customer);
         $data = new \stdClass(); // Create an empty object
         // $data->apikey = env('CHILLPAY_API_KEY');
-        $data->apikey = 'RJlFW2fmhMTOBWyTNffFhrBCTJPlfUuEL5IpsP7Z8kbucl4PQvPBsDTg5Hk3zlTY';
+
+        $api_sandbox = 'RJlFW2fmhMTOBWyTNffFhrBCTJPlfUuEL5IpsP7Z8kbucl4PQvPBsDTg5Hk3zlTY';
+        $api_product = 'jpg2Cl3aWCsmatZ7rERFgJ0mt3sVG80bqtb62rtuBeW51B0ua2znrIEWzPdPzvs6';
+
+        $data->apikey = $api_sandbox;
         $data->merchantid = 'M035329';
         $data->orderno = $orderdata['number'];
         $data->customerid = $orderdata['customers_id'];
@@ -144,7 +148,7 @@ class PaymentController extends Controller
         $data->clientip = '182.53.98.30';
         $data->routeno = 1;
         $data->currency = "764";
-        $data->description = 'test';
+        $data->description = 'Signature Thailand Customer Payments!';
         $data->amount = $lasttotal;
 
         return view('frontend/payment', [

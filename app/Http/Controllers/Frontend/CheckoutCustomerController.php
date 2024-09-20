@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Validator;
+
 
 
 use App\Models\namesModel;
@@ -209,27 +211,57 @@ class CheckoutCustomerController extends Controller
         $expiredDate = now()->addMonths(6)->format('d/m/Y H:i:s');
         $amount = $newPreorder->total_price;
 
-        $paymentResult = $this->generatePayLinkPayment($productName, '', $startDate, $expiredDate, $amount, 'preorders', $newPreorder->number, $newPreorder->id);
+        return redirect()->route('paymentPage', ['type' => 'preorder', 'order' => $newSell->id]);
 
-        if ($paymentResult['success']) {
-            return redirect()->away($paymentResult['paymentUrl']);
-        } else {
-            Log::error('Failed to generate payment link', ['response' => $paymentResult]);
+        // $paymentResult = $this->generatePayLinkPayment($productName, '', $startDate, $expiredDate, $amount, 'preorders', $newPreorder->number, $newPreorder->id);
 
-            return response()->json([
-                'error' => 'Failed to generate payment link.',
-                'details' => $paymentResult,
-            ], 500);
-        }
+        // if ($paymentResult['success']) {
+        //     return redirect()->away($paymentResult['paymentUrl']);
+        // } else {
+        //     Log::error('Failed to generate payment link', ['response' => $paymentResult]);
+
+        //     return response()->json([
+        //         'error' => 'Failed to generate payment link.',
+        //         'details' => $paymentResult,
+        //     ], 500);
+        // }
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
     public function sell_checkout(Request $request)
     {
-        $requiredFields = ['firstname', 'email', 'phone', 'name_id', 'signs', 'type', 'package'];
-        foreach ($requiredFields as $field) {
-            if (!$request->has($field)) {
-                return response()->json(['error' => 'Missing required field: ' . $field], 400);
-            }
+        // $requiredFields = ['firstname', 'email', 'phone', 'name_id', 'signs', 'type', 'package'];
+        // foreach ($requiredFields as $field) {
+        //     if (!$request->has($field)) {
+        //         return response()->json(['error' => 'Missing required field: ' . $field], 400);
+        //     }
+        // }
+        $validator = Validator::make($request->all(), [
+            'firstname' => 'required|string|max:255',
+            'email' => 'required|email',
+            'phone' => 'required|string|max:15',
+            'name_id' => 'required|string',
+            'signs' => 'required|string',
+            'type' => 'required|string',
+            'package' => 'required|string',
+        ]);
+        // Return validation errors if validation fails
+        if ($validator->fails()) {
+            return response()->json(['error' => $validator->errors()], 400);
         }
+        
 
         $customer = customersModel::where('email', $request->email)->orWhere('phone', $request->phone)->first();
         if (!$customer) {
@@ -267,31 +299,26 @@ class CheckoutCustomerController extends Controller
         $newSell->payment_status = 'pending';
         $newSell->save();
 
-        $productName = '';
-        if ($newSell->package === 'th') {
-            $productName = $newSell->name_th;
-        } elseif ($newSell->package === 'en') {
-            $productName = $newSell->name_en;
-        } else {
-            $productName = $newSell->name_th . ' / ' . $newSell->name_en;
-        }
+        // Determine the product name based on the package (either Thai, English, or both)
+        $productName = ($newSell->package === 'th') ? $newSell->name_th : (($newSell->package === 'en') ? $newSell->name_en : $newSell->name_th . ' / ' . $newSell->name_en);
+
 
         $startDate = now()->subDay()->format('d/m/Y H:i:s');
         $expiredDate = now()->addMonths(6)->format('d/m/Y H:i:s');
         $amount = $newSell->total;
 
-        $paymentResult = $this->generatePayLinkPayment($productName, $newSell->signs, $startDate, $expiredDate, $amount, 'sells', $newSell->number, $newSell->id);
+        return redirect()->route('paymentPage', ['type' => 'sell', 'order' => $newSell->id]);
 
-        if ($paymentResult['success']) {
-            return redirect()->away($paymentResult['paymentUrl']);
-        } else {
-            Log::error('Failed to generate payment link', ['response' => $paymentResult]);
-
-            return response()->json([
-                'error' => 'Failed to generate payment link.',
-                'details' => $paymentResult,
-            ], 500);
-        }
+        // $paymentResult = $this->generatePayLinkPayment($productName, $newSell->signs, $startDate, $expiredDate, $amount, 'sells', $newSell->number, $newSell->id);
+        // if ($paymentResult['success']) {
+        //     return redirect()->away($paymentResult['paymentUrl']);
+        // } else {
+        //     Log::error('Failed to generate payment link', ['response' => $paymentResult]);
+        //     return response()->json([
+        //         'error' => 'Failed to generate payment link.',
+        //         'details' => $paymentResult,
+        //     ], 500);
+        // }
     }
 
 

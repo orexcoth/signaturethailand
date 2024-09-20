@@ -12,7 +12,7 @@
 
 ?>
 
-    <h1>testest</h1>
+    <!-- <h1>testest</h1> -->
     <form id="payment-form" action="https://sandbox-cdnv3.chillpay.co/Payment/" method="post" role="form" class="form-horizontal">
         <modernpay:widget id="modernpay-widget-container" 
             data-merchantid="{{$data->merchantid}}" 
