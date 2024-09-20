@@ -29,15 +29,16 @@ class PaymentController extends Controller
             'default_pagename' => 'paymentcheckouttest',
         ]);
     }
-
-
-
     public function testSendEmail($type, $order_id)
     {
         $this->sendEmailOnPaymentSuccess($type, $order_id);
-        
         return "Test email sent for order {$order_id} of type {$type}";
     }
+
+
+
+
+
     function sendEmailOnPaymentSuccess($type, $order_id)
     {
         $order = null;
@@ -113,13 +114,6 @@ class PaymentController extends Controller
         }
     }
 
-
-
-
-
-
-
-
     public function paymentcallbackPageget(Request $request)
     {
         $orderNo = $request->orderNo;
@@ -173,7 +167,7 @@ class PaymentController extends Controller
 
 
 
-    
+
     public function paymenttestPage(Request $request)
     {
         // dd($request);
@@ -206,7 +200,7 @@ class PaymentController extends Controller
         $api_sandbox = 'RJlFW2fmhMTOBWyTNffFhrBCTJPlfUuEL5IpsP7Z8kbucl4PQvPBsDTg5Hk3zlTY';
         $api_product = 'jpg2Cl3aWCsmatZ7rERFgJ0mt3sVG80bqtb62rtuBeW51B0ua2znrIEWzPdPzvs6';
 
-        $data->apikey = $api_sandbox;
+        $data->apikey = $api_product;
         $data->merchantid = 'M035329';
         $data->orderno = $orderdata['number'];
         $data->customerid = $orderdata['customers_id'];
