@@ -10,7 +10,7 @@ use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Validator;
 
 use App\Models\suggestsModel;
-use App\Models\contactsModel;
+use App\Models\ContactsModel;
 use App\Models\OptionsModel;
 use App\Models\namesModel;
 use App\Models\signsModel;

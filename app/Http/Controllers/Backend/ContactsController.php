@@ -13,14 +13,14 @@ use Illuminate\Http\Request;
 // use Illuminate\Auth\Events\Registered;
 // use Illuminate\Validation\Rules;
 
-use App\Models\contactsModel;
+use App\Models\ContactsModel;
 
 class ContactsController extends Controller
 {
     public function BN_contacts(Request $request)
     {
 
-        $query = contactsModel::query()
+        $query = ContactsModel::query()
             ->orderBy('id', 'desc');
 
         if ($request->filled('keyword')) {
@@ -45,7 +45,7 @@ class ContactsController extends Controller
     }
     public function BN_contacts_detail(Request $request, $id)
     {
-        $query = contactsModel::find($id);
+        $query = ContactsModel::find($id);
 
         // dd($query);
         return view('backend/contacts-detail', [ 
