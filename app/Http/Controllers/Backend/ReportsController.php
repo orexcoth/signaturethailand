@@ -23,7 +23,7 @@ use App\Models\preordersTurnInModel;
 use App\Models\downloadsModel;
 
 use App\Exports\SellsExport;
-use App\Exports\preordersExport;
+use App\Exports\PreordersExport;
 use App\Exports\UsersDetailCommissionExport;
 use Maatwebsite\Excel\Facades\Excel;
 use Carbon\Carbon;
